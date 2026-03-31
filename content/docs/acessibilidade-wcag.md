@@ -1,11 +1,12 @@
 ---
-title: "Acessibilidade no E-commerce: Impacto em Conversão e SEO — The Lab Store"
-seo_title: "Acessibilidade no E-commerce: Impacto em Conversão e SEO — The Lab Store — The Store Lab"
-description: "Mais que inclusão é lucro. Lojas aprovadas nas checagens ARIA e tabulação alcançam pontuações orgânicas que penalizam concorrentes lentos."
-date: 2024-03-31T20:00:00Z
-category: "Design & Performance"
-tag: "Design & Performance"
-read_time: "5 min leitura"
+title: "Acessibilidade no E-commerce: Impacto em Conversão e SEO | The Store Lab"
+seo_title: "Acessibilidade no E-commerce: Impacto em Conversão e SEO | The Store Lab"
+description: Mais que inclusão é lucro. Lojas aprovadas nas checagens ARIA e
+  tabulação alcançam pontuações orgânicas que penalizam concorrentes lentos.
+date: 2024-03-31T20:00:00.000Z
+category: Design & Performance
+tag: Design & Performance
+read_time: 5 min leitura
 ---
 
 <p>A arquitetura moderna de temas não perdoa falhas visuais. Um "Botão de Desconto" de cor cinza pode ser estético, mas será sumariamente defenestrado pelos bots das plataformas devido ao baixo nível de acessibilidade.</p>
