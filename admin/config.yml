@@ -1,0 +1,41 @@
+backend:
+  name: github
+  repo: renato-seos/the-store-lab
+  branch: main
+  base_url: https://www.thestorelab.com.br
+  auth_endpoint: api/auth
+
+# Configurações de Mídia
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+# Locale
+locale: 'pt'
+
+collections:
+  - name: "docs"
+    label: "Documentações (Artigos)"
+    folder: "content/docs"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título da Página", name: "title", widget: "string" }
+      - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+      - { label: "Meta Description", name: "description", widget: "text" }
+      - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Categoria", name: "category", widget: "select", options: ["Growth Tech", "Design & Performance", "Infra & Plataforma", "Operação & Checkout"] }
+      - { label: "Tag do Artigo", name: "tag", widget: "string", hint: "Ex: Build Base, SEO, Analytics" }
+      - { label: "Tempo de Leitura", name: "read_time", widget: "string", hint: "Ex: 5 min leitura" }
+      - { label: "Corpo do Artigo", name: "body", widget: "markdown" }
+      - { label: "Imagem OG", name: "og_image", widget: "image", required: false }
+
+  - name: "config"
+    label: "Configurações Globais"
+    files:
+      - label: "Informações de Contato"
+        name: "contact"
+        file: "content/config/contact.json"
+        fields:
+          - { label: "WhatsApp Link", name: "whatsapp", widget: "string" }
+          - { label: "E-mail de Contato", name: "email", widget: "string" }
+          - { label: "Instagram Link", name: "instagram", widget: "string" }

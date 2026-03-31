@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "collection_landing": {
+      "type": "collection-landing",
+      "blocks": {},
+      "block_order": []
+    }
+  },
+  "order": ["collection_landing"]
+}

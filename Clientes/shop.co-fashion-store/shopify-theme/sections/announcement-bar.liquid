@@ -1,0 +1,69 @@
+{% if section.settings.sticky %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      position: sticky;
+      top: 0;
+      z-index: 110;
+    }
+  </style>
+{% endif %}
+
+<section id="announcement-bar-{{ section.id }}" class="bg-black text-white text-center py-2 text-xs sm:text-sm relative">
+  <p>
+    {{ section.settings.text }}
+    {% if section.settings.link_text != blank %}
+      <a href="{{ section.settings.link_url }}" class="underline font-bold ml-1">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </p>
+</section>
+
+<script>
+  function updateAnnouncementHeight() {
+    const bar = document.getElementById('announcement-bar-{{ section.id }}');
+    const isSticky = {% if section.settings.sticky %}true{% else %}false{% endif %};
+    if (bar && isSticky) {
+      document.documentElement.style.setProperty('--announcement-height', bar.offsetHeight + 'px');
+    } else {
+      document.documentElement.style.setProperty('--announcement-height', '0px');
+    }
+  }
+  window.addEventListener('resize', updateAnnouncementHeight);
+  window.addEventListener('load', updateAnnouncementHeight);
+  // Also watch for DOM changes in the editor
+  if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:load', updateAnnouncementHeight);
+    document.addEventListener('shopify:section:unload', updateAnnouncementHeight);
+  }
+  updateAnnouncementHeight();
+</script>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Sticky Announcement Bar",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Sign up and get 20% off to your first order."
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text",
+      "default": "Sign Up Now"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    }
+  ]
+}
+{% endschema %}

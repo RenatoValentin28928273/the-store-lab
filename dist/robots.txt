@@ -1,0 +1,30 @@
+# Standard Crawlers
+User-agent: *
+Allow: /
+
+# AI Search & Generative Engine Optimization (GEO)
+# Permissão explícita para agentes que impulsionam tráfego via IA Search (GPT, Perplexity, Claude, etc)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Treinamento da Google AI (Gemini) e recursos estendidos
+User-agent: Google-Extended
+Allow: /
+
+# Bloqueio de crawlers massivos para economia de recursos (opcional)
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://thestorelab.com.br/sitemap.xml

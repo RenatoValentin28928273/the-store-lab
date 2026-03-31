@@ -1,0 +1,29 @@
+# The Lab Store
+> Agência de alta performance especializada em Shopify, Growth Tech e SEO Generativo (AEO/GEO).
+
+A The Lab Store une design premium à engenharia de dados para escalar e-commerces. Focamos em performance técnica, infraestrutura robusta e visibilidade em motores de busca de nova geração.
+
+## Documentação Técnica (Docs)
+- [Growth Tech (Hub)](https://thestorelab.com.br/docs/categorias/growth-tech.html): Engenharia aplicada ao crescimento orgânico.
+- [Como Planejar E-commerce do Zero](https://thestorelab.com.br/docs/como-planejar-e-commerce-do-zero.html): Planejamento estratégico, nicho e custos.
+- [Como Criar Loja Shopify (Setup)](https://thestorelab.com.br/docs/como-criar-loja-online-shopify.html): Guia passo a passo de setup técnico e eficiente.
+- [Tracking Server-Side](https://thestorelab.com.br/docs/tracking-server-side-shopify.html): Implementação técnica de GTM Server-Side.
+- [SEO para IAs (AEO/GEO)](https://thestorelab.com.br/docs/seo-semantico-para-ias.html): Otimização para ChatGPT, Perplexity e Google AI Overviews.
+- [Schema Markup JSON-LD](https://thestorelab.com.br/docs/schema-markup-json-ld.html): Dados estruturados avançados para Rich Snippets.
+- [BI & Dashboards](https://thestorelab.com.br/docs/bi-dashboards.html): Inteligência de dados e performance real.
+
+## Serviços Especializados
+- [Design Premium](https://thestorelab.com.br/servicos/design-premium.html): Interface focada em conversão (UI/UX).
+- [Desenvolvimento Shopify](https://thestorelab.com.br/servicos/desenvolvimento-shopify.html): Código limpo, Liquid e headless.
+- [Estratégia & Growth](https://thestorelab.com.br/servicos/estrategia-growth.html): Retenção, escala e lucro.
+- [SEO para E-commerce](https://thestorelab.com.br/servicos/seo-ecommerce.html): Rankings orgânicos e autoridade.
+
+## Core Web Vitals & Performance
+- Mantemos 95+ de pontuação média em Mobile/Desktop.
+- Priorizamos INP (Interaction to Next Paint) e LCP (Largest Contentful Paint).
+- Todos os artigos seguem padrões de citabilidade AI (passagens de 134-167 palavras).
+
+## Contato & Suporte
+- **Email**: contato@thestorelab.com.br
+- **WhatsApp**: https://wa.me/5542999655157
+- **Site Oficial**: https://thestorelab.com.br

@@ -1,0 +1,300 @@
+{%- liquid
+  assign button_font = section.settings.button_font
+  assign heading_font = section.settings.heading_font
+  assign product_title_font = section.settings.product_title_font
+  assign product_price_font = section.settings.product_price_font
+-%}
+
+<style>
+  {{ button_font | font_face: font_display: 'swap' }}
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ product_title_font | font_face: font_display: 'swap' }}
+  {{ product_price_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} h2 {
+    font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }} !important;
+    font-weight: {{ heading_font.weight }} !important;
+    font-style: {{ heading_font.style }} !important;
+    color: {{ section.settings.heading_color }} !important;
+    font-size: {{ section.settings.heading_size_mobile }}px !important;
+  }
+
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} h2 {
+      font-size: {{ section.settings.heading_size }}px !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .product-title {
+    font-family: {{ product_title_font.family }}, {{ product_title_font.fallback_families }} !important;
+    font-weight: {{ product_title_font.weight }} !important;
+    font-style: {{ product_title_font.style }} !important;
+    color: {{ section.settings.product_title_color }} !important;
+    font-size: {{ section.settings.product_title_size_mobile }}px !important;
+  }
+
+  #shopify-section-{{ section.id }} .product-price {
+    font-family: {{ product_price_font.family }}, {{ product_price_font.fallback_families }} !important;
+    font-weight: {{ product_price_font.weight }} !important;
+    font-style: {{ product_price_font.style }} !important;
+    color: {{ section.settings.product_price_color }} !important;
+    font-size: {{ section.settings.product_price_size_mobile }}px !important;
+  }
+
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .product-title {
+      font-size: {{ section.settings.product_title_size }}px !important;
+    }
+    #shopify-section-{{ section.id }} .product-price {
+      font-size: {{ section.settings.product_price_size }}px !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .view-all-btn {
+    background-color: {{ section.settings.button_bg_color }} !important;
+    color: {{ section.settings.button_text_color }} !important;
+    border-color: {{ section.settings.button_border_color }} !important;
+    font-family: {{ button_font.family }}, {{ button_font.fallback_families }} !important;
+    font-weight: {{ button_font.weight }} !important;
+    font-style: {{ button_font.style }} !important;
+  }
+  
+  #shopify-section-{{ section.id }} .view-all-btn:hover {
+    opacity: 0.9;
+  }
+</style>
+
+<section class="max-w-7xl mx-auto px-4 py-16 sm:py-24">
+  <h2 class="font-black text-center mb-12 tracking-tighter uppercase">
+    {{ section.settings.title }}
+  </h2>
+  
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-12">
+    {% assign collection = collections[section.settings.collection] %}
+    {% for product in collection.products limit: section.settings.products_to_show %}
+      <div class="group cursor-pointer">
+        <a href="{{ product.url }}">
+          <div class="bg-[#F0EEED] rounded-[20px] aspect-square overflow-hidden mb-4">
+            <img 
+              src="{{ product.featured_image | image_url: width: 500 }}" 
+              alt="{{ product.title | escape }}" 
+              width="{{ product.featured_image.width | default: 500 }}"
+              height="{{ product.featured_image.height | default: 500 }}"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            >
+          </div>
+          <h4 class="product-title font-bold text-base sm:text-lg mb-1">{{ product.title }}</h4>
+          
+          <div class="flex items-center gap-2 mb-2">
+            <div class="flex text-yellow-400">
+              {% for i in (1..5) %}
+                <svg class="w-4 h-4" fill="{% if i <= 4 %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+              {% endfor %}
+            </div>
+            <span class="text-sm text-gray-500">4.5/5</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="product-price text-xl sm:text-2xl font-bold">{{ product.price | money }}</span>
+            {% if product.compare_at_price > product.price %}
+              <span class="text-xl sm:text-2xl font-bold text-gray-400 line-through">{{ product.compare_at_price | money }}</span>
+              <span class="bg-red-100 text-red-500 text-xs px-2 py-1 rounded-full">
+                -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+              </span>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.settings.show_view_all %}
+    <div class="text-center">
+      <a href="{{ collection.url }}" class="view-all-btn inline-block border px-12 py-3 rounded-full transition-colors">
+        View All
+      </a>
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_divider %}
+    <hr class="mt-16 sm:mt-24 border-gray-100">
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show bottom divider line",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading Text",
+      "default": "NEW ARRIVALS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Product Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "product_title_font",
+      "label": "Product Title Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Title Size (Desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "product_title_size_mobile",
+      "min": 10,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Title Size (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "font_picker",
+      "id": "product_price_font",
+      "label": "Product Price Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Product Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Price Size (Desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "product_price_size_mobile",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Price Size (Mobile)",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Button Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Button Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#e5e7eb"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

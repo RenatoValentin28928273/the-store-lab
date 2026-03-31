@@ -1,0 +1,192 @@
+{% style %}
+  .dress-style-grid-{{ section.id }} {
+    {{ section.settings.title_font | font_face }}
+  }
+
+  .dress-style-grid-{{ section.id }} .main-heading {
+    font-family: {{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }};
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_size_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .dress-style-grid-{{ section.id }} .main-heading {
+      font-size: {{ section.settings.title_size_desktop }}px;
+    }
+  }
+
+  {% for block in section.blocks %}
+    {{ block.settings.card_font | font_face }}
+    .card-{{ block.id }} .card-label {
+      font-family: {{ block.settings.card_font.family }}, {{ block.settings.card_font.fallback_families }};
+      color: {{ block.settings.card_color }};
+      font-size: {{ block.settings.card_size }}px;
+    }
+  {% endfor %}
+{% endstyle %}
+
+<section class="max-w-7xl mx-auto px-4 py-16 dress-style-grid-{{ section.id }}">
+  <div class="bg-[#F0F0F0] rounded-[40px] p-6 sm:p-16">
+    <h2 class="main-heading font-black text-center mb-12 tracking-tighter uppercase leading-tight">
+      {{ section.settings.title }}
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {% for block in section.blocks %}
+        <div 
+          class="card-{{ block.id }} {% if block.settings.wide %}md:col-span-2{% else %}md:col-span-1{% endif %} rounded-[20px] h-[289px] relative overflow-hidden group cursor-pointer" 
+          {{ block.shopify_attributes }}
+          style="background-color: {{ block.settings.bg_color }};"
+        >
+          <a href="{{ block.settings.link }}" class="block h-full">
+            {% if block.settings.video != blank %}
+              {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' }}
+            {% elsif block.settings.image != blank %}
+              <img 
+                src="{{ block.settings.image | image_url: width: 800 }}" 
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+                width="800"
+                height="289"
+              >
+            {% endif %}
+            <div class="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
+            <h3 class="card-label absolute top-6 left-6 font-bold">{{ block.settings.label }}</h3>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dress Style Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main Heading Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "BROWSE BY DRESS STYLE"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Heading Font",
+      "default": "inter_n9"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 18,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "style_card",
+      "name": "Style Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Casual"
+        },
+        {
+          "type": "header",
+          "content": "Card Typography"
+        },
+        {
+          "type": "font_picker",
+          "id": "card_font",
+          "label": "Font",
+          "default": "inter_n7"
+        },
+        {
+          "type": "color",
+          "id": "card_color",
+          "label": "Font Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "card_size",
+          "min": 14,
+          "max": 48,
+          "step": 2,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 32
+        },
+        {
+          "type": "header",
+          "content": "Media & Background"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video (Alternative to Image)"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "wide",
+          "label": "Wide Card",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dress Style Grid",
+      "blocks": [
+        { "type": "style_card", "settings": { "label": "Casual", "wide": false } },
+        { "type": "style_card", "settings": { "label": "Formal", "wide": true } },
+        { "type": "style_card", "settings": { "label": "Party", "wide": true } },
+        { "type": "style_card", "settings": { "label": "Gym", "wide": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}

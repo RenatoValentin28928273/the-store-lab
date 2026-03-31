@@ -1,0 +1,256 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+@theme {
+  --font-headline: "Druk Wide Trial Medium", "Druk Wide Trial Medium Placeholder", sans-serif;
+  --font-display: "Druk Wide Trial Medium", "Druk Wide Trial Medium Placeholder", sans-serif;
+  --font-body: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-label: "Druk Wide Trial Medium", "Druk Wide Trial Medium Placeholder", sans-serif;
+  
+  --color-primary: #ffffff;
+  --color-on-primary: #000000;
+  --color-surface: #0a0a0a;
+  --color-surface-container: #121212;
+  --color-surface-container-low: #0f0f0f;
+  --color-surface-container-lowest: #050505;
+  --color-on-surface: #ffffff;
+  --color-on-surface-variant: #a0a0a0;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
+  --cursor-size: 40px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    cursor: none; /* Hide default cursor to use custom lens */
+  }
+  
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-body);
+    position: relative;
+  }
+}
+
+/* Custom Cursor & Thunder Animation */
+#custom-cursor {
+  width: 40px;
+  height: 40px;
+  background-color: #E30613;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px rgba(227, 6, 19, 0.4);
+}
+
+#custom-cursor::after {
+  content: '⚡';
+  font-size: 22px;
+  color: white;
+  animation: thunder-bolt 2s infinite;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.9));
+}
+
+#custom-cursor.active {
+  transform: translate(-50%, -50%) scale(2);
+  background-color: #E30613;
+  box-shadow: 0 0 40px rgba(227, 6, 19, 0.6);
+}
+
+#custom-cursor.active::after {
+  animation: thunder-bolt 0.5s infinite;
+  opacity: 1;
+  font-size: 26px;
+}
+
+@keyframes thunder-bolt {
+  0%, 100% { opacity: 0.4; transform: scale(1) rotate(0deg); filter: brightness(1) blur(0px); }
+  20% { opacity: 1; transform: scale(1.2) rotate(-5deg); filter: brightness(2) blur(0.5px); }
+  40% { opacity: 0.8; transform: scale(1) rotate(5deg); filter: brightness(1.5) blur(0px); }
+  60% { opacity: 1; transform: scale(1.3) rotate(-3deg); filter: brightness(3) blur(1px); }
+  80% { opacity: 0.6; transform: scale(1.1) rotate(2deg); filter: brightness(1.2) blur(0px); }
+}
+
+/* Mega Menu Marquee Animations */
+.animate-marquee-fast {
+  animation: marquee-fast 10s linear infinite;
+}
+
+.animate-marquee-reverse-fast {
+  animation: marquee-reverse-fast 8s linear infinite;
+}
+
+@keyframes marquee-fast {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse-fast {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Noise Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: overlay;
+}
+
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #131313;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+}
+
+
+/* Lightning & Glow Animations */
+@keyframes rotate-lightning {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes lightning-glow {
+  0%, 100% { opacity: 0.3; filter: blur(15px); }
+  50% { opacity: 0.6; filter: blur(25px); }
+}
+
+.lightning-button-container {
+  display: inline-block;
+  padding: 1px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.lightning-border {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    transparent,
+    transparent,
+    transparent,
+    #ffffff,
+    transparent
+  );
+  animation: rotate-lightning 4s linear infinite;
+}
+
+.lightning-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: lightning-glow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+
+.scroll-lightning-line {
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, #E30613, transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-lightning-line::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: white;
+  animation: scroll-thunder 2s infinite;
+  box-shadow: 0 0 15px white;
+}
+
+@keyframes scroll-thunder {
+  0% { top: -100px; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: 100px; opacity: 0; }
+}
+
+.lightning-button-container:hover .lightning-glow {
+  opacity: 1;
+  filter: blur(35px);
+  transform: scale(1.2);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+}
+
+.lightning-button-container:hover .lightning-border {
+  animation-duration: 1s;
+}
+
+/* Floating Card Animation */
+@keyframes float-card {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-card {
+  animation: float-card 3s ease-in-out infinite;
+}
+
+.animate-float-card:hover {
+  animation-play-state: paused;
+}

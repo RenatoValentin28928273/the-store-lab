@@ -1,0 +1,1006 @@
+{%- liquid
+  assign heading_font = section.settings.heading_font
+  assign price_font = section.settings.price_font
+  assign body_font = section.settings.body_font
+  assign related_heading_font = section.settings.related_heading_font
+  assign related_product_title_font = section.settings.related_product_title_font
+  assign related_product_price_font = section.settings.related_product_price_font
+  assign first_variant = product.selected_or_first_available_variant
+-%}
+
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ price_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+  {{ related_heading_font | font_face: font_display: 'swap' }}
+  {{ related_product_title_font | font_face: font_display: 'swap' }}
+  {{ related_product_price_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .pdp-heading {
+    font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    font-weight: {{ heading_font.weight }};
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size_mobile }}px;
+    line-height: 1.1;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .pdp-heading {
+      font-size: {{ section.settings.heading_size }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .pdp-price {
+    font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
+    font-weight: {{ price_font.weight }};
+    color: {{ section.settings.price_color }};
+    font-size: {{ section.settings.price_size_mobile }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .pdp-price {
+      font-size: {{ section.settings.price_size }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .pdp-compare-price {
+    color: {{ section.settings.compare_price_color }};
+    text-decoration: line-through;
+  }
+
+  #shopify-section-{{ section.id }} .pdp-discount-badge {
+    background-color: {{ section.settings.discount_badge_bg }};
+    color: {{ section.settings.discount_badge_color }};
+  }
+
+  #shopify-section-{{ section.id }} .pdp-body {
+    font-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+    font-weight: {{ body_font.weight }};
+    color: {{ section.settings.body_color }};
+    font-size: {{ section.settings.body_size }}px;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .pdp-add-to-cart {
+    background-color: {{ section.settings.add_to_cart_bg }};
+    color: {{ section.settings.add_to_cart_color }};
+  }
+
+  #shopify-section-{{ section.id }} .related-heading {
+    font-family: {{ related_heading_font.family }}, {{ related_heading_font.fallback_families }};
+    font-weight: {{ related_heading_font.weight }};
+    color: {{ section.settings.related_heading_color }};
+    font-size: {{ section.settings.related_heading_size_mobile }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .related-heading {
+      font-size: {{ section.settings.related_heading_size }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .related-product-title {
+    font-family: {{ related_product_title_font.family }}, {{ related_product_title_font.fallback_families }};
+    font-weight: {{ related_product_title_font.weight }};
+    color: {{ section.settings.related_product_title_color }};
+    font-size: {{ section.settings.related_product_title_size_mobile }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .related-product-title {
+      font-size: {{ section.settings.related_product_title_size }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .related-product-price {
+    font-family: {{ related_product_price_font.family }}, {{ related_product_price_font.fallback_families }};
+    font-weight: {{ related_product_price_font.weight }};
+    color: {{ section.settings.related_product_price_color }};
+    font-size: {{ section.settings.related_product_price_size_mobile }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .related-product-price {
+      font-size: {{ section.settings.related_product_price_size }}px;
+    }
+  }
+
+  /* Thumbnail strip */
+  .pdp-thumb {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .pdp-thumb.active,
+  .pdp-thumb:hover {
+    border-color: #000;
+  }
+
+  /* Size pills */
+  .pdp-size-btn {
+    border: 1px solid #e5e7eb;
+    border-radius: 62px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    background: #f0eeed;
+    color: #374151;
+  }
+  .pdp-size-btn.selected,
+  .pdp-size-btn:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+  .pdp-size-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  /* Color swatches */
+  .pdp-color-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition: outline-color 0.15s;
+    flex-shrink: 0;
+  }
+  .pdp-color-btn.selected,
+  .pdp-color-btn:hover {
+    outline-color: #000;
+  }
+
+  /* Quantity stepper */
+  .pdp-qty {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 62px;
+    overflow: hidden;
+    background: #f0eeed;
+    height: 52px;
+    padding: 0 4px;
+  }
+  .pdp-qty button {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #374151;
+    border-radius: 50%;
+    transition: background 0.12s;
+  }
+  .pdp-qty button:hover { background: #e5e7eb; }
+  .pdp-qty input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+  .pdp-qty input::-webkit-inner-spin-button,
+  .pdp-qty input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  /* Tabs */
+  .pdp-tab-btn {
+    padding: 16px 8px;
+    font-size: 15px;
+    color: #9ca3af;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .pdp-tab-btn.active {
+    color: #111;
+    border-bottom-color: #111;
+  }
+
+  /* Review card */
+  .pdp-review-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  /* Star SVG helpers */
+  .star-full { fill: #fbbf24; stroke: #fbbf24; }
+  .star-empty { fill: none; stroke: #d1d5db; }
+</style>
+
+{%- comment -%} ── BREADCRUMB ── {%- endcomment -%}
+<div class="max-w-7xl mx-auto px-4 pt-6 pb-2">
+  <nav class="text-sm text-gray-400 flex items-center gap-1 flex-wrap">
+    <a href="{{ routes.root_url }}" class="hover:text-black transition-colors">Home</a>
+    <span>/</span>
+    {% if product.collections.first %}
+      <a href="{{ product.collections.first.url }}" class="hover:text-black transition-colors">{{ product.collections.first.title }}</a>
+      <span>/</span>
+    {% endif %}
+    <span class="text-black font-medium truncate max-w-[200px]">{{ product.title }}</span>
+  </nav>
+</div>
+
+{%- comment -%} ── PRODUCT MAIN ── {%- endcomment -%}
+<section class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+
+    {%- comment -%} ── LEFT: Images ── {%- endcomment -%}
+    <div class="flex flex-col-reverse lg:flex-row gap-4">
+
+      {%- comment -%} Thumbnail strip {%- endcomment -%}
+      <div class="flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden lg:max-h-[540px] flex-shrink-0" id="pdp-thumbs-{{ section.id }}">
+        {% for media in product.media limit: 8 %}
+          <button
+            class="pdp-thumb flex-shrink-0 w-[80px] h-[80px] lg:w-[90px] lg:h-[90px] bg-[#F0EEED]{% if forloop.first %} active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            onclick="pdpSetImage{{ section.id | replace: '-', '_' }}({{ forloop.index0 }})"
+            aria-label="View image {{ forloop.index }}"
+          >
+            <img
+              src="{{ media | image_url: width: 200 }}"
+              alt="{{ product.title | escape }}"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            >
+          </button>
+        {% endfor %}
+      </div>
+
+      {%- comment -%} Main image {%- endcomment -%}
+      <div class="flex-1 bg-[#F0EEED] rounded-[20px] overflow-hidden aspect-square relative" id="pdp-main-img-{{ section.id }}">
+        {% for media in product.media limit: 8 %}
+          <img
+            src="{{ media | image_url: width: 900 }}"
+            alt="{{ product.title | escape }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300{% unless forloop.first %} opacity-0{% endunless %}"
+            id="pdp-img-{{ section.id }}-{{ forloop.index0 }}"
+            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+          >
+        {% endfor %}
+        {% if product.media.size == 0 %}
+          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+        {% endif %}
+      </div>
+
+    </div>
+
+    {%- comment -%} ── RIGHT: Info ── {%- endcomment -%}
+    <div class="flex flex-col gap-5" x-data>
+
+      {%- comment -%} Title {%- endcomment -%}
+      <h1 class="pdp-heading tracking-tight uppercase">{{ product.title }}</h1>
+
+      {%- comment -%} Stars + review count {%- endcomment -%}
+      <div class="flex items-center gap-2">
+        {%- assign rating_value = product.metafields.reviews.rating.value | default: 4.5 -%}
+        {%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+        <div class="flex items-center gap-0.5">
+          {% for i in (1..5) %}
+            {% if i <= rating_value %}
+              <svg width="18" height="18" viewBox="0 0 24 24"><path class="star-full" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {% else %}
+              <svg width="18" height="18" viewBox="0 0 24 24"><path class="star-empty" stroke-width="1.5" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <span class="text-sm text-gray-500">{{ rating_value }}/5{% if rating_count > 0 %} ({{ rating_count }}){% endif %}</span>
+      </div>
+
+      {%- comment -%} Price {%- endcomment -%}
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="pdp-price font-bold" id="pdp-price-{{ section.id }}">
+          {{ first_variant.price | money }}
+        </span>
+        {% if first_variant.compare_at_price > first_variant.price %}
+          <span class="pdp-price pdp-compare-price" id="pdp-compare-price-{{ section.id }}">
+            {{ first_variant.compare_at_price | money }}
+          </span>
+          {%- assign discount_pct = first_variant.compare_at_price | minus: first_variant.price | times: 100 | divided_by: first_variant.compare_at_price -%}
+          <span class="pdp-discount-badge text-xs font-bold px-2.5 py-1 rounded-full" id="pdp-badge-{{ section.id }}">
+            -{{ discount_pct }}%
+          </span>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Description {%- endcomment -%}
+      {% if product.description != blank %}
+        <div class="pdp-body border-t border-gray-100 pt-4">
+          {{ product.description | truncatewords: 40 }}
+        </div>
+      {% endif %}
+
+      <form action="{{ routes.cart_add_url }}" method="post" id="pdp-form-{{ section.id }}">
+        <input type="hidden" name="id" id="pdp-variant-id-{{ section.id }}" value="{{ first_variant.id }}">
+        <input type="hidden" name="quantity" id="pdp-quantity-hidden-{{ section.id }}" value="1">
+
+        {%- comment -%} Color option {%- endcomment -%}
+        {%- for option in product.options_with_values -%}
+          {%- if option.name == 'Color' or option.name == 'Cor' -%}
+            <div class="border-t border-gray-100 pt-4">
+              <p class="text-sm font-semibold text-gray-500 mb-3">
+                Select Colors
+              </p>
+              <div class="flex items-center gap-2 flex-wrap" id="pdp-colors-{{ section.id }}" data-option-index="{{ forloop.index0 }}">
+                {%- assign color_option_index = forloop.index0 -%}
+                {%- for value in option.values -%}
+                  {%- assign color_hex = value | downcase | replace: ' ', '' -%}
+                  {%- assign is_first_color = forloop.first -%}
+                  <button
+                    type="button"
+                    class="pdp-color-btn{% if is_first_color %} selected{% endif %}"
+                    data-value="{{ value }}"
+                    style="background-color: {{ color_hex }};"
+                    title="{{ value }}"
+                    onclick="pdpSelectColor{{ section.id | replace: '-', '_' }}(this)"
+                  ></button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%} Size option {%- endcomment -%}
+        {%- for option in product.options_with_values -%}
+          {%- if option.name == 'Size' or option.name == 'Tamanho' -%}
+            <div class="border-t border-gray-100 pt-4">
+              <div class="flex items-center justify-between mb-3">
+                <p class="text-sm font-semibold text-gray-500">Choose Size</p>
+                <button type="button" class="text-sm underline text-gray-400 hover:text-black transition-colors">Size Guide</button>
+              </div>
+              <div class="flex flex-wrap gap-2" id="pdp-sizes-{{ section.id }}" data-option-index="{{ forloop.index0 }}">
+                {%- assign size_option_index = forloop.index0 -%}
+                {%- for value in option.values -%}
+                  <button
+                    type="button"
+                    class="pdp-size-btn{% if forloop.first %} selected{% endif %}"
+                    data-value="{{ value }}"
+                    onclick="pdpSelectSize{{ section.id | replace: '-', '_' }}(this)"
+                  >{{ value }}</button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%} Quantity + Add to Cart {%- endcomment -%}
+        <div class="flex gap-3 pt-4 border-t border-gray-100">
+          <div class="pdp-qty">
+            <button type="button" onclick="pdpChangeQty{{ section.id | replace: '-', '_' }}(-1)" aria-label="Decrease">−</button>
+            <input
+              type="number"
+              id="pdp-qty-input-{{ section.id }}"
+              value="1"
+              min="1"
+              max="99"
+              readonly
+              aria-label="Quantity"
+            >
+            <button type="button" onclick="pdpChangeQty{{ section.id | replace: '-', '_' }}(1)" aria-label="Increase">+</button>
+          </div>
+          <button
+            type="submit"
+            class="pdp-add-to-cart flex-1 rounded-full font-bold text-base py-3 px-6 transition-opacity hover:opacity-90"
+            id="pdp-atc-btn-{{ section.id }}"
+          >
+            Add to Cart
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── TABS ── {%- endcomment -%}
+<section class="max-w-7xl mx-auto px-4 pb-16">
+  <div class="border-b border-gray-200 flex gap-6 sm:gap-10 overflow-x-auto">
+    <button class="pdp-tab-btn active" data-tab="details" onclick="pdpSwitchTab{{ section.id | replace: '-', '_' }}(this, 'details')">
+      {{ section.settings.tab_details_label }}
+    </button>
+    <button class="pdp-tab-btn" data-tab="reviews" onclick="pdpSwitchTab{{ section.id | replace: '-', '_' }}(this, 'reviews')">
+      {{ section.settings.tab_reviews_label }}
+    </button>
+    <button class="pdp-tab-btn" data-tab="faqs" onclick="pdpSwitchTab{{ section.id | replace: '-', '_' }}(this, 'faqs')">
+      {{ section.settings.tab_faqs_label }}
+    </button>
+  </div>
+
+  {%- comment -%} Product Details Tab {%- endcomment -%}
+  <div id="pdp-tab-details-{{ section.id }}" class="pdp-tab-panel pt-8">
+    <div class="pdp-body max-w-3xl">
+      {{ product.description }}
+    </div>
+  </div>
+
+  {%- comment -%} Reviews Tab {%- endcomment -%}
+  <div id="pdp-tab-reviews-{{ section.id }}" class="pdp-tab-panel pt-8 hidden">
+    <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+      <div class="flex items-center gap-3">
+        <h2 class="font-black text-xl tracking-tight">{{ section.settings.reviews_title }}</h2>
+        <span class="text-gray-400 text-base font-normal" id="pdp-review-count-display-{{ section.id }}"></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-gray-500">Latest</span>
+        <a
+          href="#"
+          class="inline-block bg-black text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-80 transition-opacity"
+          onclick="return false;"
+        >
+          Write a Review
+        </a>
+      </div>
+    </div>
+
+    {%- comment -%} Shopify product reviews app renders here — fallback placeholder {%- endcomment -%}
+    <div id="shopify-product-reviews" data-id="{{ product.id }}">
+      {{ product.metafields.spr.reviews }}
+    </div>
+
+    {%- comment -%} Fallback review cards (shown when no reviews app) {%- endcomment -%}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="pdp-reviews-grid-{{ section.id }}">
+      {%- comment -%} Static demo cards — replace with your reviews app output {%- endcomment -%}
+    </div>
+
+    <div class="flex justify-center mt-8">
+      <button class="border border-gray-200 rounded-full px-8 py-3 text-sm font-medium hover:border-black transition-colors">
+        Load More Reviews
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%} FAQs Tab {%- endcomment -%}
+  <div id="pdp-tab-faqs-{{ section.id }}" class="pdp-tab-panel pt-8 hidden">
+    <div class="max-w-3xl space-y-3">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <details class="border border-gray-200 rounded-2xl overflow-hidden group" {{ block.shopify_attributes }}>
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-semibold text-base list-none">
+              {{ block.settings.question }}
+              <svg class="flex-shrink-0 ml-4 transition-transform duration-200 group-open:rotate-180" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </summary>
+            <div class="px-6 pb-5 pdp-body text-sm">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        {% endif %}
+      {% endfor %}
+
+      {% if section.blocks.size == 0 %}
+        <p class="text-gray-400 text-sm">No FAQs configured yet. Add FAQ blocks in the theme editor.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ── RELATED PRODUCTS ── {%- endcomment -%}
+{% if section.settings.show_related %}
+  <section class="max-w-7xl mx-auto px-4 pb-20 border-t border-gray-100 pt-16">
+    <h2 class="related-heading font-black text-center mb-10 tracking-tighter uppercase">
+      {{ section.settings.related_title }}
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+      {%- assign related_collection = product.collections.first -%}
+      {%- assign shown = 0 -%}
+      {% if related_collection %}
+        {% for p in related_collection.products %}
+          {% unless p.id == product.id %}
+            {% if shown < section.settings.related_products_count %}
+              {%- assign shown = shown | plus: 1 -%}
+              <div class="group cursor-pointer">
+                <a href="{{ p.url }}">
+                  <div class="bg-[#F0EEED] rounded-[20px] aspect-square overflow-hidden mb-4">
+                    <img
+                      src="{{ p.featured_image | image_url: width: 500 }}"
+                      alt="{{ p.title | escape }}"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    >
+                  </div>
+                  <div class="related-product-title font-semibold mb-1 truncate">{{ p.title }}</div>
+                  <div class="flex items-center gap-0.5 mb-2">
+                    {% for i in (1..5) %}
+                      <svg width="14" height="14" viewBox="0 0 24 24"><path class="star-full" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    {% endfor %}
+                    <span class="text-xs text-gray-400 ml-1">5/5</span>
+                  </div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="related-product-price font-bold">{{ p.price | money }}</span>
+                    {% if p.compare_at_price > p.price %}
+                      <span class="related-product-price line-through text-gray-400">{{ p.compare_at_price | money }}</span>
+                      {%- assign rp_discount = p.compare_at_price | minus: p.price | times: 100 | divided_by: p.compare_at_price -%}
+                      <span class="pdp-discount-badge text-[11px] font-bold px-2 py-0.5 rounded-full">-{{ rp_discount }}%</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+<script>
+(function() {
+  var sid = '{{ section.id }}';
+  var safeId = sid.replace(/-/g, '_');
+
+  // ── Image gallery ──
+  var totalImages = {{ product.media.size | default: 0 }};
+  window['pdpSetImage' + safeId] = function(idx) {
+    for (var i = 0; i < totalImages; i++) {
+      var img = document.getElementById('pdp-img-' + sid + '-' + i);
+      if (img) img.classList.toggle('opacity-0', i !== idx);
+    }
+    var thumbs = document.querySelectorAll('#pdp-thumbs-' + sid + ' .pdp-thumb');
+    thumbs.forEach(function(t) { t.classList.toggle('active', parseInt(t.dataset.index) === idx); });
+  };
+
+  // ── Quantity stepper ──
+  window['pdpChangeQty' + safeId] = function(delta) {
+    var input = document.getElementById('pdp-qty-input-' + sid);
+    var hidden = document.getElementById('pdp-quantity-hidden-' + sid);
+    if (!input) return;
+    var val = parseInt(input.value) + delta;
+    if (val < 1) val = 1;
+    if (val > 99) val = 99;
+    input.value = val;
+    if (hidden) hidden.value = val;
+  };
+
+  // ── Variant selection ──
+  var variants = {{ product.variants | json }};
+  var selectedOptions = [
+    '{{ first_variant.option1 | default: '' }}',
+    '{{ first_variant.option2 | default: '' }}',
+    '{{ first_variant.option3 | default: '' }}'
+  ];
+
+  function findVariant() {
+    return variants.find(function(v) {
+      return (v.option1 === selectedOptions[0] || !selectedOptions[0]) &&
+             (v.option2 === selectedOptions[1] || !selectedOptions[1]) &&
+             (v.option3 === selectedOptions[2] || !selectedOptions[2]);
+    }) || variants[0];
+  }
+
+  function updateVariantUI() {
+    var v = findVariant();
+    if (!v) return;
+    var vidInput = document.getElementById('pdp-variant-id-' + sid);
+    if (vidInput) vidInput.value = v.id;
+
+    var priceEl = document.getElementById('pdp-price-' + sid);
+    if (priceEl) priceEl.textContent = formatMoney(v.price);
+
+    var compareEl = document.getElementById('pdp-compare-price-' + sid);
+    var badgeEl = document.getElementById('pdp-badge-' + sid);
+    if (compareEl) {
+      if (v.compare_at_price && v.compare_at_price > v.price) {
+        compareEl.textContent = formatMoney(v.compare_at_price);
+        compareEl.style.display = '';
+        if (badgeEl) {
+          var pct = Math.round((v.compare_at_price - v.price) * 100 / v.compare_at_price);
+          badgeEl.textContent = '-' + pct + '%';
+          badgeEl.style.display = '';
+        }
+      } else {
+        compareEl.style.display = 'none';
+        if (badgeEl) badgeEl.style.display = 'none';
+      }
+    }
+
+    var atcBtn = document.getElementById('pdp-atc-btn-' + sid);
+    if (atcBtn) {
+      atcBtn.disabled = !v.available;
+      atcBtn.textContent = v.available ? 'Add to Cart' : 'Sold Out';
+    }
+  }
+
+  function formatMoney(cents) {
+    var symbol = {{ shop.money_format | json }};
+    // Simple fallback: show with shop currency
+    return symbol.replace('{{amount}}', (cents / 100).toFixed(2))
+                 .replace('{{amount_no_decimals}}', Math.round(cents / 100))
+                 .replace('{{amount_with_comma_separator}}', (cents / 100).toFixed(2).replace('.', ','));
+  }
+
+  window['pdpSelectColor' + safeId] = function(btn) {
+    var container = btn.closest('[id^="pdp-colors-"]');
+    if (!container) return;
+    container.querySelectorAll('.pdp-color-btn').forEach(function(b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    var optIdx = parseInt(container.dataset.optionIndex);
+    selectedOptions[optIdx] = btn.dataset.value;
+    updateVariantUI();
+  };
+
+  window['pdpSelectSize' + safeId] = function(btn) {
+    var container = btn.closest('[id^="pdp-sizes-"]');
+    if (!container) return;
+    container.querySelectorAll('.pdp-size-btn').forEach(function(b) { b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    var optIdx = parseInt(container.dataset.optionIndex);
+    selectedOptions[optIdx] = btn.dataset.value;
+    updateVariantUI();
+  };
+
+  // ── Tabs ──
+  window['pdpSwitchTab' + safeId] = function(btn, tabName) {
+    // Update button states
+    document.querySelectorAll('#shopify-section-' + sid + ' .pdp-tab-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tab === tabName);
+    });
+    // Show/hide panels
+    document.querySelectorAll('#shopify-section-' + sid + ' .pdp-tab-panel').forEach(function(panel) {
+      panel.classList.add('hidden');
+    });
+    var target = document.getElementById('pdp-tab-' + tabName + '-' + sid);
+    if (target) target.classList.remove('hidden');
+  };
+
+  // ── Cart form AJAX (optional enhancement) ──
+  var form = document.getElementById('pdp-form-' + sid);
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('pdp-atc-btn-' + sid);
+      if (btn) { btn.textContent = 'Adding...'; btn.disabled = true; }
+      var data = new FormData(form);
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: data
+      })
+      .then(function(r) { return r.json(); })
+      .then(function() {
+        if (btn) { btn.textContent = 'Added!'; }
+        setTimeout(function() {
+          if (btn) { btn.textContent = 'Add to Cart'; btn.disabled = false; }
+        }, 1500);
+        // Update cart count in header if badge exists
+        fetch('/cart.js')
+          .then(function(r) { return r.json(); })
+          .then(function(cart) {
+            var badges = document.querySelectorAll('[data-cart-count]');
+            badges.forEach(function(b) { b.textContent = cart.item_count; });
+          });
+      })
+      .catch(function() {
+        if (btn) { btn.textContent = 'Error — try again'; btn.disabled = false; }
+      });
+    });
+  }
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Product Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "inter_n9"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size (Desktop)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading Size (Mobile)",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Price"
+    },
+    {
+      "type": "font_picker",
+      "id": "price_font",
+      "label": "Price Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price Size (Desktop)",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "price_size_mobile",
+      "label": "Price Size (Mobile)",
+      "min": 14,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "compare_price_color",
+      "label": "Compare Price Color",
+      "default": "#9ca3af"
+    },
+    {
+      "type": "color",
+      "id": "discount_badge_bg",
+      "label": "Discount Badge Background",
+      "default": "#ff3333"
+    },
+    {
+      "type": "color",
+      "id": "discount_badge_color",
+      "label": "Discount Badge Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Body Text"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body Text Color",
+      "default": "#374151"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body Text Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Add to Cart Button"
+    },
+    {
+      "type": "color",
+      "id": "add_to_cart_bg",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "add_to_cart_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_details_label",
+      "label": "Product Details Tab Label",
+      "default": "Product Details"
+    },
+    {
+      "type": "text",
+      "id": "tab_reviews_label",
+      "label": "Reviews Tab Label",
+      "default": "Rating & Reviews"
+    },
+    {
+      "type": "text",
+      "id": "tab_faqs_label",
+      "label": "FAQs Tab Label",
+      "default": "FAQs"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "text",
+      "id": "reviews_title",
+      "label": "Reviews Section Title",
+      "default": "All Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Related Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show Related Products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_title",
+      "label": "Related Products Title",
+      "default": "YOU MIGHT ALSO LIKE"
+    },
+    {
+      "type": "range",
+      "id": "related_products_count",
+      "label": "Number of Related Products",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "font_picker",
+      "id": "related_heading_font",
+      "label": "Related Title Font",
+      "default": "inter_n9"
+    },
+    {
+      "type": "color",
+      "id": "related_heading_color",
+      "label": "Related Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "related_heading_size",
+      "label": "Related Title Size (Desktop)",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "related_heading_size_mobile",
+      "label": "Related Title Size (Mobile)",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "font_picker",
+      "id": "related_product_title_font",
+      "label": "Related Product Title Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "related_product_title_color",
+      "label": "Related Product Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "related_product_title_size",
+      "label": "Related Product Title Size (Desktop)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "related_product_title_size_mobile",
+      "label": "Related Product Title Size (Mobile)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "font_picker",
+      "id": "related_product_price_font",
+      "label": "Related Product Price Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "related_product_price_color",
+      "label": "Related Product Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "related_product_price_size",
+      "label": "Related Product Price Size (Desktop)",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "related_product_price_size_mobile",
+      "label": "Related Product Price Size (Mobile)",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>We accept returns within 30 days of purchase.</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

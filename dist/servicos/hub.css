@@ -1,0 +1,488 @@
+/* ============================
+   HUB DE SERVIÇOS — hub.css
+   ============================ */
+
+/* ── HERO ── */
+.hub-hero {
+  position: relative;
+  padding: 160px 0 80px;
+  background: var(--black);
+  overflow: hidden;
+}
+
+.hub-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 80%, black 20%, transparent 70%);
+}
+
+.hub-hero-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, var(--blue-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hub-hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: 60vh; /* Ajustado para não ser forçado a 100vh se não necessário */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.hub-hero-inner .serv-breadcrumb {
+  justify-content: center;
+  margin-bottom: 12px; /* Reduzido de 24/40px */
+}
+
+.hub-hero-inner .hero-line--thin {
+  white-space: nowrap;
+}
+
+.hub-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15; /* Aumentado de 1.08 para respirar melhor */
+  color: var(--gray-100);
+  margin: 0 0 24px; /* Removido margin-top 20px */
+}
+
+.hub-hero-desc {
+  font-size: 1.1rem;
+  color: var(--gray-400);
+  line-height: 1.8;
+  max-width: 660px;
+  margin: 0 auto 56px;
+}
+
+.hub-hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.hub-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hub-stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.hub-stat-label {
+  font-size: 0.76rem;
+  color: var(--gray-500);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hub-stat-div {
+  width: 1px;
+  height: 40px;
+  background: var(--gray-800);
+}
+
+/* ── FILTERS BAR ── */
+.hub-filters-bar {
+  background: var(--black);
+  border-top: 1px solid var(--gray-800);
+  border-bottom: 1px solid var(--gray-800);
+  padding: 0;
+  position: sticky;
+  top: 72px;
+  z-index: 90;
+  backdrop-filter: blur(12px);
+}
+
+.hub-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-padding: 20px;
+}
+
+.hub-filters::-webkit-scrollbar { display: none; }
+
+.hub-filter {
+  padding: 18px 28px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  font-family: var(--font-display);
+}
+
+.hub-filter:hover {
+  color: var(--gray-300);
+}
+
+.hub-filter.active {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+
+/* ── SERVICES GRID ── */
+.hub-services {
+  padding: 80px 0 100px;
+  background: var(--black);
+}
+
+.hub-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ── HUB CARD ── */
+.hub-card {
+  display: flex !important;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  background: #090909;
+  padding: 48px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  height: 100%;
+}
+
+.hub-card:hover {
+  border-color: rgba(52, 97, 255, 0.4);
+  transform: translateY(-8px);
+  background: #0d0d0d;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+}
+
+.hub-card.hub-hidden {
+  display: none !important;
+}
+
+.hub-card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0; /* Padding agora está no hub-card */
+}
+
+.hub-card-icon {
+  margin-bottom: 32px;
+  color: var(--white);
+  display: flex;
+}
+
+.hub-card-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--white);
+  stroke-width: 1.8;
+}
+
+.hub-card-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+
+.hub-card-desc {
+  font-size: 1.05rem;
+  color: #888888;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  flex-grow: 1;
+}
+
+.hub-card-tag {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-top: auto;
+}
+.hub-guide {
+  padding: 100px 0;
+  background: var(--black);
+}
+
+.hub-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.hub-guide-card {
+  padding: 40px 36px;
+  border: 1px solid var(--gray-800);
+  border-radius: var(--radius-xl);
+  background: rgba(255,255,255,0.02);
+  transition: var(--transition);
+}
+
+.hub-guide-card--highlight {
+  border-color: rgba(52, 97, 255, 0.3);
+  background: rgba(52, 97, 255, 0.04);
+}
+
+.hub-guide-card:hover {
+  border-color: rgba(52, 97, 255, 0.25);
+  transform: translateY(-4px);
+}
+
+.hub-guide-icon {
+  font-size: 2.2rem;
+  margin-bottom: 18px;
+}
+
+.hub-guide-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.hub-guide-card p {
+  font-size: 0.87rem;
+  color: var(--gray-400);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.hub-guide-services {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hub-guide-link {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--blue);
+  transition: var(--transition);
+  letter-spacing: 0.02em;
+}
+
+.hub-guide-link:hover {
+  color: var(--blue-light);
+  padding-left: 4px;
+}
+
+/* ── TABELA COMPARATIVA ── */
+.hub-compare {
+  padding: 100px 0;
+  background: var(--black);
+}
+
+.hub-table-wrap {
+  margin-top: 60px;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-800);
+}
+
+.hub-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.hub-table thead tr {
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--gray-800);
+}
+
+.hub-table th {
+  padding: 18px 24px;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.hub-table td {
+  padding: 20px 24px;
+  color: var(--gray-300);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: middle;
+}
+
+.hub-table tbody tr {
+  transition: var(--transition);
+}
+
+.hub-table tbody tr:hover {
+  background: rgba(255,255,255,0.025);
+}
+
+.hub-table tbody tr:last-child td { border-bottom: none; }
+
+.hub-table-row--highlight td {
+  background: rgba(52, 97, 255, 0.04);
+}
+
+.hub-table-result {
+  color: var(--blue) !important;
+  font-weight: 600;
+}
+
+.hub-table-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gray-400);
+  border: 1px solid var(--gray-800);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  transition: var(--transition);
+}
+
+.hub-table-link:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-subtle);
+}
+
+/* ── POR QUE NÓS ── */
+.hub-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 60px;
+}
+
+.hub-why-item {
+  padding: 32px 0;
+  border-top: 1px solid var(--gray-800);
+}
+
+.hub-why-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: var(--blue-subtle);
+  border-radius: 12px;
+  border: 1px solid rgba(52, 97, 255, 0.2);
+}
+
+.hub-why-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--blue-light);
+}
+
+.hub-why-item h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.hub-why-item p {
+  font-size: 0.87rem;
+  color: var(--gray-400);
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.hub-cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* ── RESPONSIVO ── */
+@media (max-width: 1100px) {
+  .hub-services-grid { grid-template-columns: repeat(2, 1fr); }
+  .hub-guide-grid { grid-template-columns: 1fr; gap: 20px; }
+  .hub-why-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .hub-hero { padding: 130px 0 60px; }
+  .hub-hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .hub-hero-desc { font-size: 0.95rem; margin-bottom: 40px; }
+  .hub-stat-div { display: none; }
+  .hub-hero-stats { gap: 24px; }
+
+  .hub-filters-bar { top: 64px; }
+  .hub-filters { justify-content: flex-start; padding: 0 12px; }
+  .hub-filter { padding: 14px 20px; font-size: 0.75rem; }
+
+  .hub-services { padding: 60px 0 80px; }
+  .hub-services-grid { grid-template-columns: 1fr; gap: 16px; }
+  .hub-card-inner { padding: 28px 24px 32px; }
+  .hub-card-title { font-size: 1.1rem; }
+  .hub-card:hover { transform: none; }
+
+  .hub-guide { padding: 72px 0; }
+  .hub-guide-card { padding: 32px 28px; }
+
+  .hub-compare { padding: 72px 0; }
+  .hub-table th, .hub-table td { padding: 16px 16px; }
+
+  .hub-why-grid { grid-template-columns: 1fr; gap: 0; }
+  .hub-why-item { padding: 24px 0; }
+
+  .hub-cta-actions { flex-direction: column; }
+  .hub-cta-actions .btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .hub-hero { padding: 110px 0 48px; }
+  .hub-hero-title { font-size: clamp(1.9rem, 9vw, 2.5rem); }
+  .hub-stat-num { font-size: 1.6rem; }
+  .hub-card-meta { grid-template-columns: 1fr; gap: 16px; }
+  .hub-guide-grid { gap: 16px; }
+  .hub-table { font-size: 0.8rem; }
+  .hub-table th, .hub-table td { padding: 14px 12px; }
+}

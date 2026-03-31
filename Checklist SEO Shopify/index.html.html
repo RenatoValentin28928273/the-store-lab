@@ -1,0 +1,3445 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify SEO Audit — 47 Pontos | The Store Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #000;
+    --white: #fff;
+    --gray-50:  #f9f9f9;
+    --gray-100: #f0f0f0;
+    --gray-200: #e0e0e0;
+    --gray-400: #999;
+    --gray-600: #555;
+    --gray-800: #222;
+    --font: 'Inter', sans-serif;
+    --sidebar-w: 260px;
+    --header-h: 64px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--gray-50);
+    color: var(--black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── TOP HEADER ─── */
+  .top-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    z-index: 100;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 32px; height: 32px;
+    border: 1.5px solid #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: #fff; letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .brand-name {
+    font-size: 10px; font-weight: 500; color: #666; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .brand-sep {
+    width: 1px; height: 20px; background: #2a2a2a;
+  }
+  .brand-doc {
+    font-size: 11px; font-weight: 400; color: #444; letter-spacing: 1px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Overall progress in header */
+  .header-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-progress-label {
+    font-size: 10px; color: #555; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .header-progress-bar {
+    width: 120px; height: 3px;
+    background: #222;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .header-progress-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .header-progress-pct {
+    font-size: 12px; font-weight: 700; color: #fff; min-width: 32px; text-align: right;
+  }
+
+  .btn-reset {
+    font-family: var(--font);
+    font-size: 10px; font-weight: 600;
+    color: #444; letter-spacing: 1.5px; text-transform: uppercase;
+    background: none; border: 1px solid #2a2a2a;
+    padding: 6px 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-reset:hover { color: #fff; border-color: #555; }
+
+  /* ─── LAYOUT ─── */
+  .layout {
+    display: flex;
+    margin-top: var(--header-h);
+    min-height: calc(100vh - var(--header-h));
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    width: var(--sidebar-w);
+    height: calc(100vh - var(--header-h));
+    background: var(--black);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 28px 0 40px;
+    border-right: 1px solid #111;
+    scrollbar-width: thin;
+    scrollbar-color: #222 #000;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: #000; }
+  .sidebar::-webkit-scrollbar-thumb { background: #222; }
+
+  .sidebar-section-label {
+    font-size: 9px; font-weight: 700; color: #333;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 0 24px 12px;
+    margin-top: 8px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+  .sidebar-item:hover { background: var(--black); }
+  .sidebar-item.active {
+    background: #111;
+    border-left-color: #fff;
+  }
+
+  .sidebar-item-num {
+    font-size: 9px; font-weight: 700; color: #333; letter-spacing: 1px;
+    min-width: 20px;
+  }
+  .sidebar-item-name {
+    font-size: 11px; font-weight: 400; color: #666; line-height: 1.3;
+    flex: 1;
+  }
+  .sidebar-item.active .sidebar-item-name { color: #ccc; }
+
+  .sidebar-item-count {
+    font-size: 9px; color: #333;
+  }
+  .sidebar-item-count.done { color: #888; }
+
+  .sidebar-divider {
+    height: 1px; background: #111;
+    margin: 12px 0;
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    padding: 48px 56px 80px;
+    max-width: 900px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    margin-bottom: 64px;
+    scroll-margin-top: calc(var(--header-h) + 32px);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .section-num {
+    font-size: 72px; font-weight: 900; color: #f0f0f0;
+    line-height: 1; letter-spacing: -3px;
+    flex-shrink: 0;
+    margin-bottom: -4px;
+  }
+
+  .section-meta { flex: 1; }
+  .section-label {
+    font-size: 9px; font-weight: 700; color: #aaa;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-size: 28px; font-weight: 800; color: var(--black);
+    letter-spacing: -0.5px; line-height: 1.1;
+  }
+  .section-desc {
+    font-size: 13px; font-weight: 300; color: #888;
+    margin-top: 6px; line-height: 1.5;
+  }
+
+  .section-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .section-progress-text {
+    font-size: 11px; font-weight: 600; color: var(--black);
+    letter-spacing: 1px;
+  }
+  .section-progress-bar {
+    width: 80px; height: 3px;
+    background: var(--gray-200);
+    border-radius: 2px;
+  }
+  .section-progress-fill {
+    height: 100%;
+    background: var(--black);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* ─── CHECK ITEM ─── */
+  .check-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--gray-100);
+    transition: background 0.15s;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { background: var(--gray-50); margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
+  .check-item.checked { opacity: 0.45; }
+  .check-item.checked .check-title { text-decoration: line-through; }
+
+  .check-box-wrap {
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 20px; height: 20px;
+    position: relative;
+  }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 1.5px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .check-box::after {
+    content: '';
+    position: absolute;
+    left: 5px; top: 2px;
+    width: 6px; height: 11px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(38deg) scale(0);
+    transition: transform 0.15s ease;
+  }
+  .check-item.checked .check-box {
+    background: var(--black);
+    border-color: var(--black);
+  }
+  .check-item.checked .check-box::after {
+    transform: rotate(38deg) scale(1);
+  }
+
+  .check-body { flex: 1; min-width: 0; }
+
+  .check-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 5px;
+  }
+
+  .check-title {
+    font-size: 14px; font-weight: 700; color: var(--black);
+    line-height: 1.35; flex: 1;
+  }
+
+  .badge {
+    flex-shrink: 0;
+    font-size: 8px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 3px 8px;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 1px;
+  }
+  .badge-critical { background: var(--black); color: #fff; }
+  .badge-important { border: 1px solid var(--black); color: var(--black); }
+  .badge-bonus { border: 1px solid #ccc; color: #888; }
+
+  .check-desc {
+    font-size: 12px; font-weight: 300; color: #888;
+    line-height: 1.6; margin-bottom: 0;
+  }
+
+  .check-code {
+    display: inline-block;
+    margin-top: 7px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px; color: var(--black);
+    background: var(--gray-100);
+    border-left: 2px solid var(--black);
+    padding: 4px 10px;
+    letter-spacing: 0.3px;
+  }
+
+  .check-tip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 7px;
+    font-size: 10px; font-weight: 600; color: #555;
+    letter-spacing: 0.5px;
+  }
+  .check-tip::before { content: '→'; color: #888; }
+
+  /* ─── SCORE CARD (top summary) ─── */
+  .score-card {
+    background: var(--black);
+    color: #fff;
+    padding: 36px 40px;
+    margin-bottom: 52px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .score-cell {
+    padding: 0 28px;
+    border-right: 1px solid #1a1a1a;
+  }
+  .score-cell:first-child { padding-left: 0; }
+  .score-cell:last-child { border-right: none; }
+
+  .score-label {
+    font-size: 9px; font-weight: 600; color: #444;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .score-val {
+    font-size: 40px; font-weight: 900; color: #fff;
+    letter-spacing: -2px; line-height: 1;
+    transition: all 0.3s;
+  }
+  .score-val.animating { transform: scale(1.05); }
+  .score-sub {
+    font-size: 10px; font-weight: 300; color: #555;
+    margin-top: 4px;
+  }
+
+  .score-bar-wrap {
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ─── FILTER BAR ─── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: var(--font);
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--gray-200);
+    background: #fff;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: #000; color: #000; }
+  .filter-btn.active { background: #000; color: #fff; border-color: #000; }
+
+  /* ─── COMPLETION BANNER ─── */
+  .completion-banner {
+    display: none;
+    background: var(--black);
+    color: #fff;
+    padding: 24px 32px;
+    margin-bottom: 40px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .completion-banner.visible { display: flex; }
+  .completion-text { font-size: 15px; font-weight: 300; }
+  .completion-text strong { font-weight: 800; }
+  .completion-action {
+    font-size: 10px; font-weight: 700; color: #555;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; background: none; border: 1px solid #333;
+    padding: 8px 16px; font-family: var(--font);
+    transition: all 0.2s;
+  }
+  .completion-action:hover { color: #fff; border-color: #666; }
+
+  /* ─── PRINT ─── */
+  @media print {
+    .top-header, .sidebar, .filter-bar { display: none !important; }
+    .main { margin-left: 0; padding: 20px; }
+    .check-item.checked { opacity: 1; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section { animation: fadeIn 0.4s ease both; }
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+
+  @keyframes checkPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+  .check-item.just-checked .check-box {
+    animation: checkPop 0.25s ease;
+  }
+
+  /* ─── TEMPLATES ─── */
+  .tpl-section {
+    margin-bottom: 64px;
+    scroll-margin-top: calc(var(--header-h) + 32px);
+  }
+  .tpl-section-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .tpl-section-num {
+    font-size: 72px; font-weight: 900; color: #f0f0f0;
+    line-height: 1; letter-spacing: -3px; flex-shrink: 0; margin-bottom: -4px;
+  }
+  .tpl-section-meta { flex: 1; }
+
+  .tpl-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 28px;
+  }
+  .tpl-tab {
+    font-family: var(--font);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 10px 20px;
+    background: none; border: none;
+    color: #aaa; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+  }
+  .tpl-tab:hover { color: #555; }
+  .tpl-tab.active { color: #000; border-bottom-color: #000; }
+
+  .tpl-panel { display: none; }
+  .tpl-panel.active { display: block; }
+
+  .tpl-card {
+    border: 1px solid var(--gray-200);
+    margin-bottom: 16px;
+    background: #fff;
+    transition: border-color 0.15s;
+  }
+  .tpl-card:hover { border-color: #000; }
+
+  .tpl-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px 0;
+  }
+  .tpl-card-type {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #aaa;
+  }
+  .tpl-card-type.type-produto { color: #000; }
+  .tpl-card-type.type-colecao { color: #555; }
+  .tpl-card-type.type-home    { color: #888; }
+  .tpl-card-type.type-blog    { color: #999; }
+
+  .tpl-card-actions {
+    display: flex; gap: 8px;
+  }
+  .tpl-copy-btn {
+    font-family: var(--font);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 12px;
+    background: none; border: 1px solid var(--gray-200);
+    color: #888; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tpl-copy-btn:hover { border-color: #000; color: #000; }
+  .tpl-copy-btn.copied { background: #000; color: #fff; border-color: #000; }
+
+  .tpl-formula {
+    font-family: 'Courier New', monospace;
+    font-size: 13px; color: #000;
+    padding: 12px 20px 4px;
+    line-height: 1.5;
+  }
+  .tpl-var {
+    display: inline-block;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    color: #000;
+    padding: 1px 6px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.3px;
+    border-radius: 2px;
+  }
+  .tpl-lit {
+    color: #555;
+  }
+  .tpl-sep {
+    color: #aaa;
+    padding: 0 2px;
+  }
+
+  .tpl-card-body {
+    padding: 4px 20px 16px;
+  }
+  .tpl-example-label {
+    font-size: 9px; font-weight: 700; color: #aaa;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 4px; margin-top: 10px;
+  }
+  .tpl-example {
+    font-size: 12px; font-weight: 400; color: #555;
+    line-height: 1.5; font-style: italic;
+    border-left: 2px solid var(--gray-200);
+    padding-left: 12px;
+  }
+  .tpl-rules {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 12px;
+  }
+  .tpl-rule {
+    font-size: 10px; font-weight: 500; color: #888;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-100);
+    padding: 3px 10px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .tpl-rule::before { content: '·'; color: #ccc; }
+
+  /* char counter */
+  .tpl-counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 20px;
+    border-top: 1px solid var(--gray-100);
+    background: var(--gray-50);
+    margin-top: 4px;
+  }
+  .tpl-counter-label {
+    font-size: 9px; color: #aaa; letter-spacing: 1px; text-transform: uppercase;
+    flex: 1;
+  }
+  .tpl-char-bar {
+    width: 160px; height: 4px;
+    background: var(--gray-200); border-radius: 2px; overflow: hidden;
+  }
+  .tpl-char-fill {
+    height: 100%; background: #000; border-radius: 2px;
+    transition: width 0.3s;
+  }
+  .tpl-char-num {
+    font-size: 11px; font-weight: 700; color: #000;
+    min-width: 60px; text-align: right;
+  }
+
+  /* live generator */
+  .tpl-generator {
+    background: var(--black);
+    padding: 28px 32px;
+    margin-top: 40px;
+  }
+  .tpl-gen-label {
+    font-size: 9px; font-weight: 700; color: #444;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .tpl-gen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .tpl-gen-field {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .tpl-gen-field label {
+    font-size: 9px; font-weight: 600; color: #555;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .tpl-gen-field input, .tpl-gen-field select {
+    font-family: var(--font);
+    font-size: 12px; font-weight: 400;
+    background: var(--black); border: 1px solid #222;
+    color: #ccc; padding: 9px 12px;
+    outline: none; transition: border-color 0.15s;
+    appearance: none;
+  }
+  .tpl-gen-field input:focus, .tpl-gen-field select:focus { border-color: #555; }
+  .tpl-gen-field input::placeholder { color: #333; }
+
+  .tpl-output-block {
+    margin-top: 4px;
+  }
+  .tpl-output-label {
+    font-size: 9px; font-weight: 700; color: #444;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tpl-output-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .tpl-output-text {
+    flex: 1;
+    font-size: 13px; color: #ccc; line-height: 1.4;
+    background: var(--black); border: 1px solid #1a1a1a;
+    padding: 10px 14px; min-height: 42px;
+    font-family: var(--font);
+  }
+  .tpl-output-meta {
+    display: flex; gap: 16px; margin-top: 6px;
+  }
+  .tpl-output-stat {
+    font-size: 10px;
+  }
+  .tpl-output-stat .stat-val {
+    font-weight: 700; color: #fff;
+  }
+  .tpl-output-stat .stat-ok { color: #888; }
+  .tpl-output-stat .stat-warn { color: #ff9900; }
+  .tpl-output-stat .stat-bad { color: #ff4444; }
+
+  .tpl-gen-copy {
+    font-family: var(--font);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 18px; cursor: pointer;
+    background: none; border: 1px solid #333;
+    color: #666; transition: all 0.2s; flex-shrink: 0;
+  }
+  .tpl-gen-copy:hover { border-color: #fff; color: #fff; }
+  .tpl-gen-copy.copied { background: #fff; color: #000; border-color: #fff; }
+
+  /* ─── CRONOGRAMA 90 DIAS ─── */
+  .crono-wrapper {
+    margin-left: var(--sidebar-w);
+    padding: 0 56px 100px;
+    max-width: 900px;
+  }
+  .crono-hero {
+    background: #000;
+    padding: 40px 44px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .crono-hero-cell {
+    padding: 0 32px;
+    border-right: 1px solid #1a1a1a;
+  }
+  .crono-hero-cell:first-child { padding-left: 0; }
+  .crono-hero-cell:last-child  { border-right: none; }
+  .crono-hero-label {
+    font-size: 9px; font-weight: 700; color: #444;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .crono-hero-val {
+    font-size: 44px; font-weight: 900; color: #fff;
+    letter-spacing: -2px; line-height: 1;
+  }
+  .crono-hero-sub {
+    font-size: 11px; font-weight: 300; color: #555; margin-top: 5px;
+  }
+
+  /* Phase header */
+  .crono-phase {
+    margin-bottom: 52px;
+    scroll-margin-top: calc(var(--header-h) + 32px);
+  }
+  .crono-phase-header {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 28px;
+    border: 1px solid #000;
+  }
+  .crono-phase-badge {
+    background: #000; color: #fff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 20px 28px;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+  .crono-phase-badge-days {
+    font-size: 28px; font-weight: 900; letter-spacing: -1px; line-height: 1;
+  }
+  .crono-phase-badge-label {
+    font-size: 9px; font-weight: 600; color: #666;
+    letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;
+  }
+  .crono-phase-info {
+    flex: 1; padding: 20px 24px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .crono-phase-name {
+    font-size: 20px; font-weight: 800; color: #000; letter-spacing: -0.3px;
+  }
+  .crono-phase-tagline {
+    font-size: 12px; font-weight: 300; color: #888; margin-top: 4px; line-height: 1.5;
+  }
+  .crono-phase-kpis {
+    display: flex; gap: 20px; padding: 20px 24px;
+    border-left: 1px solid #eee;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .crono-kpi {
+    text-align: center;
+  }
+  .crono-kpi-val {
+    font-size: 22px; font-weight: 900; color: #000; letter-spacing: -1px;
+  }
+  .crono-kpi-label {
+    font-size: 9px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px;
+  }
+
+  /* Week rows */
+  .crono-week {
+    margin-bottom: 8px;
+    border: 1px solid var(--gray-200);
+    background: #fff;
+  }
+  .crono-week-header {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    cursor: pointer;
+    user-select: none;
+    padding: 14px 20px;
+    transition: background 0.15s;
+  }
+  .crono-week-header:hover { background: var(--gray-50); }
+  .crono-week-num {
+    font-size: 10px; font-weight: 700; color: #ccc;
+    letter-spacing: 2px; text-transform: uppercase;
+    min-width: 72px;
+  }
+  .crono-week-title {
+    flex: 1;
+    font-size: 14px; font-weight: 700; color: #000;
+  }
+  .crono-week-focus {
+    font-size: 10px; font-weight: 500; color: #888;
+    background: var(--gray-100);
+    padding: 3px 10px; letter-spacing: 0.5px;
+    margin-right: 12px;
+  }
+  .crono-week-toggle {
+    font-size: 14px; color: #ccc;
+    transition: transform 0.2s;
+    width: 20px; text-align: center;
+  }
+  .crono-week.open .crono-week-toggle { transform: rotate(180deg); }
+
+  .crono-week-body {
+    display: none;
+    border-top: 1px solid var(--gray-100);
+    padding: 0 20px 16px;
+  }
+  .crono-week.open .crono-week-body { display: block; }
+
+  .crono-task-group {
+    margin-top: 16px;
+  }
+  .crono-task-group-label {
+    font-size: 9px; font-weight: 700; color: #bbb;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .crono-task-group-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--gray-100);
+  }
+
+  .crono-task {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--gray-100);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .crono-task:last-child { border-bottom: none; }
+  .crono-task.done { opacity: 0.4; }
+  .crono-task.done .crono-task-text { text-decoration: line-through; }
+
+  .crono-task-box {
+    width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px;
+    border: 1.5px solid #ccc; background: #fff;
+    transition: all 0.2s; position: relative;
+  }
+  .crono-task-box::after {
+    content: '';
+    position: absolute;
+    left: 3px; top: 0px;
+    width: 5px; height: 9px;
+    border-right: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(38deg) scale(0);
+    transition: transform 0.15s;
+  }
+  .crono-task.done .crono-task-box { background: #000; border-color: #000; }
+  .crono-task.done .crono-task-box::after { transform: rotate(38deg) scale(1); }
+
+  .crono-task-text {
+    font-size: 13px; font-weight: 400; color: #000; flex: 1; line-height: 1.4;
+  }
+  .crono-task-hint {
+    font-size: 11px; font-weight: 300; color: #aaa; margin-top: 2px;
+  }
+  .crono-task-badge {
+    font-size: 8px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 2px 7px; flex-shrink: 0;
+    align-self: flex-start; margin-top: 2px;
+  }
+  .crono-task-badge.quick  { background: #000; color: #fff; }
+  .crono-task-badge.setup  { border: 1px solid #000; color: #000; }
+  .crono-task-badge.ongoing{ border: 1px solid #ccc; color: #888; }
+
+  /* Milestone row */
+  .crono-milestone {
+    margin: 24px 0 8px;
+    padding: 14px 20px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .crono-milestone-icon {
+    font-size: 16px;
+  }
+  .crono-milestone-text {
+    font-size: 13px; font-weight: 700; color: #fff; flex: 1;
+  }
+  .crono-milestone-week {
+    font-size: 9px; color: #555; letter-spacing: 2px; text-transform: uppercase;
+  }
+
+  /* Progress per phase */
+  .crono-phase-progress {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .crono-pp-label { font-size: 10px; color: #aaa; letter-spacing: 1px; min-width: 100px; }
+  .crono-pp-bar {
+    flex: 1; height: 3px; background: var(--gray-200);
+  }
+  .crono-pp-fill {
+    height: 100%; background: #000; transition: width 0.4s;
+  }
+  .crono-pp-count {
+    font-size: 11px; font-weight: 700; color: #000; min-width: 48px; text-align: right;
+  }
+</style>
+
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header class="top-header">
+  <div class="brand">
+    <div class="brand-mark">TSL</div>
+    <div class="brand-name">The Store Lab</div>
+    <div class="brand-sep"></div>
+    <div class="brand-doc">Shopify SEO Audit · 47 Pontos</div>
+  </div>
+  <div class="header-right">
+    <div class="header-progress">
+      <span class="header-progress-label">Progresso</span>
+      <div class="header-progress-bar">
+        <div class="header-progress-fill" id="headerFill"></div>
+      </div>
+      <span class="header-progress-pct" id="headerPct">0%</span>
+    </div>
+    <button class="btn-reset" onclick="resetAll()">↺ Reiniciar</button>
+  </div>
+</header>
+
+<!-- ════ LAYOUT ════ -->
+<div class="layout">
+
+  <!-- ════ SIDEBAR ════ -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-section-label">Categorias</div>
+
+    <a class="sidebar-item active" href="#s1" onclick="setActive(this)">
+      <span class="sidebar-item-num">01</span>
+      <span class="sidebar-item-name">Arquitetura de URLs</span>
+      <span class="sidebar-item-count" id="cnt-1">0/6</span>
+    </a>
+    <a class="sidebar-item" href="#s2" onclick="setActive(this)">
+      <span class="sidebar-item-num">02</span>
+      <span class="sidebar-item-name">On-Page Essentials</span>
+      <span class="sidebar-item-count" id="cnt-2">0/7</span>
+    </a>
+    <a class="sidebar-item" href="#s3" onclick="setActive(this)">
+      <span class="sidebar-item-num">03</span>
+      <span class="sidebar-item-name">Schema Markup</span>
+      <span class="sidebar-item-count" id="cnt-3">0/6</span>
+    </a>
+    <a class="sidebar-item" href="#s4" onclick="setActive(this)">
+      <span class="sidebar-item-num">04</span>
+      <span class="sidebar-item-name">Core Web Vitals</span>
+      <span class="sidebar-item-count" id="cnt-4">0/7</span>
+    </a>
+    <a class="sidebar-item" href="#s5" onclick="setActive(this)">
+      <span class="sidebar-item-num">05</span>
+      <span class="sidebar-item-name">Conteúdo de Produto</span>
+      <span class="sidebar-item-count" id="cnt-5">0/7</span>
+    </a>
+    <a class="sidebar-item" href="#s6" onclick="setActive(this)">
+      <span class="sidebar-item-num">06</span>
+      <span class="sidebar-item-name">Links Internos</span>
+      <span class="sidebar-item-count" id="cnt-6">0/7</span>
+    </a>
+    <a class="sidebar-item" href="#s7" onclick="setActive(this)">
+      <span class="sidebar-item-num">07</span>
+      <span class="sidebar-item-name">SEO Técnico</span>
+      <span class="sidebar-item-count" id="cnt-7">0/7</span>
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Filtros rápidos</div>
+    <a class="sidebar-item" href="#" onclick="filterItems('critical'); return false;">
+      <span class="sidebar-item-num">—</span>
+      <span class="sidebar-item-name">Apenas Críticos</span>
+    </a>
+    <a class="sidebar-item" href="#" onclick="filterItems('pending'); return false;">
+      <span class="sidebar-item-num">—</span>
+      <span class="sidebar-item-name">Pendentes</span>
+    </a>
+    <a class="sidebar-item" href="#" onclick="filterItems('all'); return false;">
+      <span class="sidebar-item-num">—</span>
+      <span class="sidebar-item-name">Todos os itens</span>
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Templates</div>
+    <a class="sidebar-item" href="#tpl-title" onclick="setActive(this)">
+      <span class="sidebar-item-num">T1</span>
+      <span class="sidebar-item-name">Title Tags</span>
+    </a>
+    <a class="sidebar-item" href="#tpl-meta" onclick="setActive(this)">
+      <span class="sidebar-item-num">T2</span>
+      <span class="sidebar-item-name">Meta Descriptions</span>
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cronograma</div>
+    <a class="sidebar-item" href="#crono" onclick="setActive(this)">
+      <span class="sidebar-item-num">90d</span>
+      <span class="sidebar-item-name">Plano de 90 Dias</span>
+    </a>
+    <a class="sidebar-item" href="#crono-d1" onclick="setActive(this)">
+      <span class="sidebar-item-num">D1</span>
+      <span class="sidebar-item-name">Dias 1–30</span>
+    </a>
+    <a class="sidebar-item" href="#crono-d2" onclick="setActive(this)">
+      <span class="sidebar-item-num">D2</span>
+      <span class="sidebar-item-name">Dias 31–60</span>
+    </a>
+    <a class="sidebar-item" href="#crono-d3" onclick="setActive(this)">
+      <span class="sidebar-item-num">D3</span>
+      <span class="sidebar-item-name">Dias 61–90</span>
+    </a>
+  </nav>
+
+  <!-- ════ MAIN ════ -->
+  <main class="main">
+
+    <!-- Score card -->
+    <div class="score-card">
+      <div class="score-cell">
+        <div class="score-label">Total concluído</div>
+        <div class="score-val" id="sc-done">0</div>
+        <div class="score-sub">de 47 pontos</div>
+      </div>
+      <div class="score-cell">
+        <div class="score-label">Críticos OK</div>
+        <div class="score-val" id="sc-crit">0</div>
+        <div class="score-sub">de 21 críticos</div>
+      </div>
+      <div class="score-cell">
+        <div class="score-label">Importantes OK</div>
+        <div class="score-val" id="sc-imp">0</div>
+        <div class="score-sub">de 19 importantes</div>
+      </div>
+      <div class="score-cell">
+        <div class="score-label">Score geral</div>
+        <div class="score-val" id="sc-pct">0%</div>
+        <div class="score-sub">progresso total</div>
+      </div>
+    </div>
+
+    <!-- Completion banner -->
+    <div class="completion-banner" id="completionBanner">
+      <div class="completion-text">
+        <strong>Auditoria completa.</strong> Sua loja está otimizada nos 47 pontos.
+      </div>
+      <button class="completion-action" onclick="window.print()">↓ Exportar PDF</button>
+    </div>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterItems('all', this)">Todos (47)</button>
+      <button class="filter-btn" onclick="filterItems('critical', this)">Críticos (21)</button>
+      <button class="filter-btn" onclick="filterItems('important', this)">Importantes (19)</button>
+      <button class="filter-btn" onclick="filterItems('bonus', this)">Bônus (7)</button>
+      <button class="filter-btn" onclick="filterItems('pending', this)">Pendentes</button>
+      <button class="filter-btn" onclick="filterItems('done', this)">Concluídos</button>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 1 — ARQUITETURA DE URLs
+    ══════════════════════════════════════ -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 01 de 07</div>
+          <div class="section-title">Arquitetura de URLs</div>
+          <div class="section-desc">A base de tudo. URLs mal configuradas desperdiçam potencial desde o início.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-1">0 / 6</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-1"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="1" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Slug do produto contém keyword principal</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">O handle do produto deve conter a keyword de maior volume, sem stopwords ou IDs automáticos gerados pelo Shopify.</p>
+          <code class="check-code">/products/tenis-corrida-masculino-nike</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="1" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Canonical tag configurada em todas as páginas de produto</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">O Shopify cria dois caminhos para o mesmo produto: /products/ e /collections/.../products/. A canonical tag deve apontar para /products/ como URL primária em todos os temas.</p>
+          <code class="check-code">&lt;link rel="canonical" href="https://loja.com/products/slug"/&gt;</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="1" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Redirects 301 configurados para URLs renomeadas</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Toda vez que um handle de produto ou coleção é alterado, um redirect 301 deve ser criado para preservar link equity acumulado.</p>
+          <code class="check-code">Admin → Navigation → URL Redirects</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="1" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Estrutura de coleções em nível único</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Evite hierarquias aninhadas de coleções (/collections/roupas/camisetas). Prefira coleções planas com filtros por tags para evitar duplicação de conteúdo.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="1" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Parâmetros de URL de filtro bloqueados do crawl</div>
+            <span class="badge badge-importante">Importante</span>
+          </div>
+          <p class="check-desc">URLs com ?sort_by=, ?page=, ?filter.p.m= e similares geram conteúdo duplicado e desperdiçam crawl budget. Adicione noindex ou bloqueie via robots.txt.</p>
+          <div class="check-tip">Verifique via Google Search Console → Cobertura → Excluídos</div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="1" data-badge="bonus" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">URL da homepage sem subfolder desnecessário</div>
+            <span class="badge badge-bonus">Bônus</span>
+          </div>
+          <p class="check-desc">Confirme que a homepage está em domínio raiz (loja.com.br) e não em loja.com.br/home ou loja.myshopify.com redirecionando corretamente para o domínio customizado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 2 — ON-PAGE ESSENTIALS
+    ══════════════════════════════════════ -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 02 de 07</div>
+          <div class="section-title">On-Page Essentials</div>
+          <div class="section-desc">Os sinais on-page que o Google lê primeiro. Erros aqui são deixar dinheiro na mesa.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-2">0 / 7</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-2"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Title tag único em cada página de produto e coleção</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Cada página deve ter um title tag único, com keyword principal no início e máximo de 60 caracteres. Nunca use o template padrão do Shopify sem personalização.</p>
+          <code class="check-code">Keyword Principal – Nome da Marca | Diferencial</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">H1 único por página contendo keyword exata</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Cada página deve ter exatamente um H1. No Shopify, o H1 geralmente é o título do produto — edite para conter a keyword principal sem variação.</p>
+          <div class="check-tip">Audite com Screaming Frog: H1 ausente, duplicado ou genérico</div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Meta description com proposta de valor e CTA</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Máximo 155 caracteres. Inclua a keyword, um diferencial competitivo (frete, prazo, garantia) e um CTA que incentive o clique. Meta descriptions influenciam CTR, não ranking.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Alt text preenchido em todas as imagens de produto</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">O Shopify usa o título do produto como alt text padrão — o que é genérico. Personalize o alt de cada imagem com descrição contextual incluindo keyword natural.</p>
+          <code class="check-code">Admin → Produto → clique na imagem → Alt text</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">H2 e H3 usados corretamente na descrição</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Estruture descrições de produto com H2 para seções principais (benefícios, especificações, FAQ) e H3 para subtópicos. Melhora UX e ajuda o Google a entender a hierarquia.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">SEO title personalizado no admin (não automático)</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">No Shopify, o title tag padrão é "Nome do Produto – Loja". Acesse Admin → Produto → Seção SEO e preencha o campo "Page title" manualmente para cada produto estratégico.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="2" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Nome das imagens com keyword antes do upload</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Renomeie os arquivos antes de fazer upload. "IMG_2045.jpg" não rankeia no Google Images. Use "tenis-corrida-masculino-nike-air-zoom.webp" como padrão.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 3 — SCHEMA MARKUP
+    ══════════════════════════════════════ -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 03 de 07</div>
+          <div class="section-title">Schema Markup</div>
+          <div class="section-desc">Rich snippets que aumentam CTR sem mover ranking. Estrelas, preço e estoque direto na SERP.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-3">0 / 6</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-3"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="3" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Schema Product validado no Rich Results Test</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Temas Shopify 2.0 incluem JSON-LD de produto nativamente. Verifique se está implementado corretamente e sem erros usando a ferramenta oficial do Google.</p>
+          <code class="check-code">search.google.com/test/rich-results</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="3" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Schema Review / AggregateRating ativo</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Instale um app de avaliações compatível com schema (Loox, Judge.me, Yotpo). Avaliações na SERP aumentam CTR em até 34%. Verifique se o JSON-LD está sendo injetado.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="3" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Schema Organization na homepage</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Adicione JSON-LD de Organization com nome, logo, URL, sameAs (redes sociais) e contactPoint. Essencial para o Knowledge Panel e associação da marca no Google.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="3" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Schema BreadcrumbList nas páginas de coleção</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Breadcrumbs no schema melhoram a navegação na SERP e distribuem PageRank entre coleções e produtos. Adicione via metafields ou editando o theme.liquid.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="3" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Schema FAQPage nos produtos com perguntas frequentes</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">FAQ schema expande o snippet na SERP com perguntas e respostas diretamente no resultado. Ocupa mais espaço visual e reduz bounce pré-clique.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="3" data-badge="bonus" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Schema WebSite com SearchAction para busca interna</div>
+            <span class="badge badge-bonus">Bônus</span>
+          </div>
+          <p class="check-desc">Permite que o Google exiba a busca interna da sua loja diretamente nos resultados. Adicione via JSON-LD na homepage com a URL da busca do Shopify.</p>
+          <code class="check-code">https://loja.com/search?q={'{search_term_string}'}</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 4 — CORE WEB VITALS
+    ══════════════════════════════════════ -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 04 de 07</div>
+          <div class="section-title">Core Web Vitals</div>
+          <div class="section-desc">Fator de ranking oficial desde 2021. LCP alto derruba posição e taxa de conversão juntos.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-4">0 / 7</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-4"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">LCP abaixo de 2.5s no mobile (PageSpeed Insights)</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Largest Contentful Paint é o principal sinal de performance. Meça com PageSpeed Insights em URL mobile. Score abaixo de 60 exige ação antes de qualquer SEO de conteúdo.</p>
+          <div class="check-tip">pagespeed.web.dev — use URL do produto mais vendido</div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Todas as imagens convertidas para WebP</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">WebP reduz 30–60% do peso sem perda visual perceptível. Use TinyIMG, Crush.pics ou o conversor nativo do Shopify 2.0. Meta: nenhuma imagem acima de 150kb.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Apps instalados auditados — remover sem ROI</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Cada app Shopify instala scripts que impactam o tempo de carregamento. Use Admin → Online Store → Speed para ver o impacto de cada app. Remova os que não convertem diretamente.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Lazy load em imagens fora do viewport inicial</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Atributo loading="lazy" nas imagens de galeria e produtos relacionados. Temas Shopify 2.0 (Dawn) já implementam isso — confirme no código-fonte que está ativo.</p>
+          <code class="check-code">&lt;img loading="lazy" src="..." alt="..."&gt;</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Preload da imagem hero (LCP element)</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Adicione &lt;link rel="preload"&gt; no head para a primeira imagem visível do produto. Reduz LCP em 0.3–0.8s de forma mensurável. Implemente via theme.liquid.</p>
+          <code class="check-code">&lt;link rel="preload" as="image" href="{{ product.featured_image | img_url }}"&gt;</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Vídeos hospedados no YouTube, não diretamente</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Vídeos nativos pesam 10–50x mais que um embed de YouTube. Use iframe com loading="lazy" e parâmetro ?rel=0 para evitar sugestões de concorrentes após o vídeo.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="4" data-badge="bonus" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">CLS abaixo de 0.1 (sem layout shift no carregamento)</div>
+            <span class="badge badge-bonus">Bônus</span>
+          </div>
+          <p class="check-desc">Cumulative Layout Shift. Causado por imagens sem dimensões definidas, banners injetados por apps e fontes com flash. Defina width/height explícitos em todas as imagens.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 5 — CONTEÚDO DE PRODUTO
+    ══════════════════════════════════════ -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 05 de 07</div>
+          <div class="section-title">Conteúdo de Produto</div>
+          <div class="section-desc">Descrições copiadas do fornecedor são conteúdo duplicado. Google não ranqueia o genérico.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-5">0 / 7</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-5"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Descrições únicas com mínimo 300 palavras</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Inclua keyword principal, variações semânticas (LSI) e linguagem que corresponda à intenção de compra. Nunca copie do fornecedor sem reescrever completamente.</p>
+          <div class="check-tip">Use GSC para identificar produtos com impressões altas e CTR baixo</div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Seção de FAQ por produto com perguntas long-tail</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Adicione 3–5 perguntas que correspondam a buscas reais de compradores. Capture tráfego de cauda longa, melhore tempo de página e ative FAQ schema simultaneamente.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Conteúdo checado contra duplicação via Copyscape</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Antes de publicar, verifique se o conteúdo não está duplicado em outros sites. O Google pode desindexar páginas com alto nível de conteúdo idêntico a outras fontes.</p>
+          <code class="check-code">copyscape.com — verifique os top 20 produtos</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Blog com conteúdo informacional linkando para coleções</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Crie posts que respondam perguntas do topo de funil e linkem para suas coleções comerciais. Ex.: "Como escolher tênis de corrida" → /collections/tenis-corrida.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Tabela de especificações técnicas em produtos</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Dimensões, materiais, peso, composição, país de origem. Usuários com intenção de compra buscam specs específicas. Melhora conversão e reduz taxa de devolução.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Avaliações de clientes visíveis nas páginas de produto</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Avaliações adicionam conteúdo único e atualizado que o Google valoriza como sinal de E-E-A-T (experiência real). Incentive avaliações pós-compra com automação de email.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="5" data-badge="bonus" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Conteúdo gerado por usuário (fotos de clientes)</div>
+            <span class="badge badge-bonus">Bônus</span>
+          </div>
+          <p class="check-desc">UGC (User Generated Content) adiciona imagens únicas indexáveis, aumenta confiança e reduz necessidade de produção de conteúdo. Incentive com hashtag da marca ou concurso.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 6 — LINKS INTERNOS
+    ══════════════════════════════════════ -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 06 de 07</div>
+          <div class="section-title">Links Internos</div>
+          <div class="section-desc">Distribui autoridade para as páginas mais valiosas. Anchor text correto é sinal de relevância.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-6">0 / 7</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-6"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Anchor text de links internos com keyword alvo</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">O texto do link interno é sinal de relevância para a página destino. Nunca use "clique aqui", "veja mais" ou "acesse". Use a keyword alvo da página que receberá o link.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Nenhuma página estratégica é órfã (sem links internos)</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Páginas sem nenhum link interno apontando para elas não recebem autoridade. Audite com Screaming Frog e vincule todas as páginas de produto a pelo menos uma coleção e um post de blog.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Produtos relacionados linkando tematicamente</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">A seção "produtos relacionados" deve listar itens da mesma categoria temática, não os mais vendidos aleatoriamente. Configure por coleção ou use tags para controlar a sugestão.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Posts de blog linkando para coleções comerciais</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Cada post informacional deve ter pelo menos um link contextual apontando para uma coleção ou produto relevante. Não crie conteúdo de blog que não distribua autoridade para páginas de conversão.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Breadcrumbs visíveis e clicáveis no layout</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Breadcrumbs melhoram navegação do usuário, reduzem bounce e criam links internos automáticos de volta às coleções. Todos os temas Shopify 2.0 incluem breadcrumbs — ative-os.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Menu principal linkando para todas as coleções-chave</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Links no menu principal recebem o maior peso de link equity da homepage. Certifique-se que suas coleções mais importantes estão no menu (não apenas escondidas em submenus).</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="6" data-badge="bonus" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Footer com links para páginas institucionais e políticas</div>
+            <span class="badge badge-bonus">Bônus</span>
+          </div>
+          <p class="check-desc">Links no footer para Sobre, Política de Privacidade, Trocas e Devoluções, Contato e Rastreamento são sinais de confiança (E-E-A-T) e distribuem PageRank para essas páginas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         SEÇÃO 7 — SEO TÉCNICO
+    ══════════════════════════════════════ -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <div class="section-num">07</div>
+        <div class="section-meta">
+          <div class="section-label">Pilar 07 de 07</div>
+          <div class="section-title">SEO Técnico</div>
+          <div class="section-desc">A fundação invisível. Erros técnicos bloqueiam tudo que foi otimizado nas camadas acima.</div>
+        </div>
+        <div class="section-progress">
+          <span class="section-progress-text" id="sp-7">0 / 7</span>
+          <div class="section-progress-bar"><div class="section-progress-fill" id="spf-7"></div></div>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Sitemap XML enviado ao Google Search Console</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">O Shopify gera automaticamente em /sitemap.xml. Envie via GSC → Sitemaps e monitore erros de indexação mensalmente. Certifique-se que não há URLs bloqueadas no sitemap.</p>
+          <code class="check-code">sualoja.com.br/sitemap.xml</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Loja verificada no Google Search Console</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Sem GSC não há visibilidade de erros de indexação, queries de busca, problemas de cobertura ou Core Web Vitals reais. Verifique propriedade via DNS ou tag HTML no tema.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Erros 404 identificados e corrigidos com 301</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Audite com Screaming Frog ou Ahrefs. Cada página 404 com backlinks perde link equity permanentemente até o redirect ser configurado. Monitore mensalmente via GSC → Cobertura.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="critical" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">HTTPS ativo e sem conteúdo misto (mixed content)</div>
+            <span class="badge badge-critical">Crítico</span>
+          </div>
+          <p class="check-desc">Shopify fornece SSL automaticamente. Verifique se há recursos (imagens, scripts) sendo carregados via HTTP dentro do HTTPS. Isso gera alerta de segurança no browser e penaliza confiança.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">robots.txt sem bloqueio acidental de conteúdo indexável</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">O Shopify gera robots.txt automaticamente bloqueando /admin, /cart, /checkout. Verifique se nenhuma coleção ou produto estratégico foi acidentalmente adicionado ao Disallow.</p>
+          <code class="check-code">sualoja.com.br/robots.txt</code>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="important" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Hreflang configurado para lojas multilíngue</div>
+            <span class="badge badge-important">Importante</span>
+          </div>
+          <p class="check-desc">Se a loja opera em múltiplos idiomas (ex.: PT-BR e EN), configure hreflang para indicar ao Google qual versão exibir para cada país. O app Shopify Markets faz isso automaticamente.</p>
+        </div>
+      </div>
+
+      <div class="check-item" data-section="7" data-badge="bonus" onclick="toggle(this)">
+        <div class="check-box-wrap"><div class="check-box"></div></div>
+        <div class="check-body">
+          <div class="check-top">
+            <div class="check-title">Google Analytics 4 e conversões configurados</div>
+            <span class="badge badge-bonus">Bônus</span>
+          </div>
+          <p class="check-desc">GA4 com eventos de compra, add-to-cart e checkout permite medir o impacto real do SEO em receita. Conecte via Google & YouTube channel do Shopify para configuração simplificada.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     TEMPLATES — full-width below the main layout
+══════════════════════════════════════════════════════════ -->
+<div style="margin-left:var(--sidebar-w); padding: 0 56px 80px; max-width: 900px;">
+
+  <!-- TITLE TAG TEMPLATES -->
+  <section class="tpl-section" id="tpl-title">
+    <div class="tpl-section-header">
+      <div class="tpl-section-num">T1</div>
+      <div class="tpl-section-meta">
+        <div class="section-label">Templates</div>
+        <div class="section-title">Title Tags</div>
+        <div class="section-desc">Fórmulas por tipo de página. Substitua as variáveis entre colchetes pelo conteúdo real da sua loja.</div>
+      </div>
+    </div>
+
+    <div class="tpl-tabs">
+      <button class="tpl-tab active" onclick="switchTab('title','produto',this)">Produto</button>
+      <button class="tpl-tab" onclick="switchTab('title','colecao',this)">Coleção</button>
+      <button class="tpl-tab" onclick="switchTab('title','home',this)">Homepage</button>
+      <button class="tpl-tab" onclick="switchTab('title','blog',this)">Blog / Post</button>
+    </div>
+
+    <!-- PRODUTO -->
+    <div class="tpl-panel active" id="title-produto">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-produto">Produto — Padrão</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Keyword Principal] – [Marca] | [Diferencial]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[Keyword Principal]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-var">[Marca]</span>
+          <span class="tpl-sep"> | </span>
+          <span class="tpl-var">[Diferencial]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Tênis de Corrida Masculino – Nike | Frete Grátis</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Máx. 60 caracteres</span>
+            <span class="tpl-rule">Keyword no início</span>
+            <span class="tpl-rule">Nunca repita keyword</span>
+            <span class="tpl-rule">Pipe ( | ) separa marca</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:55%"></div></div>
+          <span class="tpl-char-num">~35 / 60</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-produto">Produto — Com preço</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Keyword] a partir de R$[Preço] – [Marca]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[Keyword]</span>
+          <span class="tpl-lit"> a partir de R$</span>
+          <span class="tpl-var">[Preço]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-var">[Marca]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Cadeira Gamer Ergonômica a partir de R$899 – DXRacer</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Preço é CTR bait</span>
+            <span class="tpl-rule">Use preço mais baixo da linha</span>
+            <span class="tpl-rule">Atualize ao mudar preço</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:48%"></div></div>
+          <span class="tpl-char-num">~30 / 60</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-produto">Produto — Com variante</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Produto] [Variante] – [Marca] | [Benefício]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[Produto]</span>
+          <span class="tpl-sep"> </span>
+          <span class="tpl-var">[Variante/Cor/Tamanho]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-var">[Marca]</span>
+          <span class="tpl-sep"> | </span>
+          <span class="tpl-var">[Benefício]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Camiseta Dry-Fit Masculina Preta – Penalty | Tecnologia UV</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Variante melhora especificidade</span>
+            <span class="tpl-rule">Diferencia do produto base</span>
+            <span class="tpl-rule">Captura long-tail</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:63%"></div></div>
+          <span class="tpl-char-num">~38 / 60</span>
+        </div>
+      </div>
+
+    </div><!-- /title-produto -->
+
+    <!-- COLEÇÃO -->
+    <div class="tpl-panel" id="title-colecao">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-colecao">Coleção — Padrão</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Categoria] – Compre [Categoria] Online | [Marca]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-lit">Compre </span>
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-lit"> Online | </span>
+          <span class="tpl-var">[Marca]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Tênis Masculino – Compre Tênis Masculino Online | SportShop</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Repete categoria intencionalmente</span>
+            <span class="tpl-rule">"Online" sinaliza e-commerce</span>
+            <span class="tpl-rule">Máx. 60 chars</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:72%"></div></div>
+          <span class="tpl-char-num">~43 / 60</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-colecao">Coleção — Com volume</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[N]+ [Categoria] com [Benefício] – [Marca]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[N]</span>
+          <span class="tpl-lit">+ </span>
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-lit"> com </span>
+          <span class="tpl-var">[Benefício]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-var">[Marca]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">200+ Camisetas Polo com Frete Grátis – Polo Ralph Lauren</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Número aumenta CTR</span>
+            <span class="tpl-rule">Use volume real arredondado</span>
+            <span class="tpl-rule">Benefício = frete, prazo, desconto</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:58%"></div></div>
+          <span class="tpl-char-num">~35 / 60</span>
+        </div>
+      </div>
+
+    </div><!-- /title-colecao -->
+
+    <!-- HOMEPAGE -->
+    <div class="tpl-panel" id="title-home">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-home">Homepage — Loja especializada</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Marca] – [Categoria Principal] Online | [Diferencial]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[Marca]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-var">[Categoria Principal]</span>
+          <span class="tpl-lit"> Online | </span>
+          <span class="tpl-var">[Diferencial]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">NutriShop – Suplementos Online | Entrega em 24h</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Marca em primeiro lugar na home</span>
+            <span class="tpl-rule">Categoria = nicho da loja</span>
+            <span class="tpl-rule">Diferencial operacional</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:50%"></div></div>
+          <span class="tpl-char-num">~30 / 60</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-home">Homepage — Loja multi-categoria</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Marca] | [Cat1], [Cat2] e [Cat3] com [Diferencial]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[Marca]</span>
+          <span class="tpl-sep"> | </span>
+          <span class="tpl-var">[Cat1]</span>
+          <span class="tpl-lit">, </span>
+          <span class="tpl-var">[Cat2]</span>
+          <span class="tpl-lit"> e </span>
+          <span class="tpl-var">[Cat3]</span>
+          <span class="tpl-lit"> com </span>
+          <span class="tpl-var">[Diferencial]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Loja XYZ | Moda, Casa e Eletrônicos com Frete Grátis</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Máx. 3 categorias</span>
+            <span class="tpl-rule">Diferencial no final</span>
+            <span class="tpl-rule">Máx. 60 chars — conte!</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:55%"></div></div>
+          <span class="tpl-char-num">~33 / 60</span>
+        </div>
+      </div>
+
+    </div><!-- /title-home -->
+
+    <!-- BLOG -->
+    <div class="tpl-panel" id="title-blog">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-blog">Post de Blog — Informacional</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'Como [Verbo + Resultado] – Guia Completo | [Marca]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-lit">Como </span>
+          <span class="tpl-var">[Verbo + Resultado]</span>
+          <span class="tpl-sep"> – </span>
+          <span class="tpl-lit">Guia Completo | </span>
+          <span class="tpl-var">[Marca]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Como Escolher Tênis de Corrida – Guia Completo | SportShop</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">"Como" captura intenção informacional</span>
+            <span class="tpl-rule">"Guia Completo" aumenta CTR</span>
+            <span class="tpl-rule">Keyword dentro do verbo</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:65%"></div></div>
+          <span class="tpl-char-num">~39 / 60</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-blog">Post de Blog — Listicle</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[N] [Categoria]: Os Melhores de [Ano] | [Marca]')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula">
+          <span class="tpl-var">[N]</span>
+          <span class="tpl-sep"> </span>
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-lit">: Os Melhores de </span>
+          <span class="tpl-var">[Ano]</span>
+          <span class="tpl-lit"> | </span>
+          <span class="tpl-var">[Marca]</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">10 Tênis para Academia: Os Melhores de 2025 | SportShop</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Número + ano = CTR alto</span>
+            <span class="tpl-rule">Atualize o ano anualmente</span>
+            <span class="tpl-rule">Listicles ranqueiam bem</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento desta fórmula base</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:58%"></div></div>
+          <span class="tpl-char-num">~35 / 60</span>
+        </div>
+      </div>
+
+    </div><!-- /title-blog -->
+
+    <!-- GENERATOR -->
+    <div class="tpl-generator">
+      <div class="tpl-gen-label">Gerador ao vivo — Title Tag</div>
+      <div class="tpl-gen-grid">
+        <div class="tpl-gen-field">
+          <label>Keyword principal</label>
+          <input type="text" id="gen-kw" placeholder="ex: tênis corrida masculino" oninput="generateTitle()">
+        </div>
+        <div class="tpl-gen-field">
+          <label>Nome da marca</label>
+          <input type="text" id="gen-brand" placeholder="ex: Nike" oninput="generateTitle()">
+        </div>
+        <div class="tpl-gen-field">
+          <label>Diferencial</label>
+          <input type="text" id="gen-diff" placeholder="ex: Frete Grátis" oninput="generateTitle()">
+        </div>
+        <div class="tpl-gen-field">
+          <label>Tipo de página</label>
+          <select id="gen-type" onchange="generateTitle()">
+            <option value="produto">Produto</option>
+            <option value="colecao">Coleção</option>
+            <option value="home">Homepage</option>
+            <option value="blog">Blog</option>
+          </select>
+        </div>
+      </div>
+      <div class="tpl-output-block">
+        <div class="tpl-output-label">Title tag gerado</div>
+        <div class="tpl-output-row">
+          <div class="tpl-output-text" id="gen-title-out">Preencha os campos acima →</div>
+          <button class="tpl-gen-copy" onclick="copyGenerated('gen-title-out',this)">Copiar</button>
+        </div>
+        <div class="tpl-output-meta">
+          <div class="tpl-output-stat">
+            Caracteres: <span id="gen-title-chars" class="stat-val stat-ok">—</span>
+          </div>
+          <div class="tpl-output-stat">
+            Status: <span id="gen-title-status" class="stat-val stat-ok">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- META DESCRIPTION TEMPLATES -->
+  <section class="tpl-section" id="tpl-meta">
+    <div class="tpl-section-header">
+      <div class="tpl-section-num">T2</div>
+      <div class="tpl-section-meta">
+        <div class="section-label">Templates</div>
+        <div class="section-title">Meta Descriptions</div>
+        <div class="section-desc">Meta descriptions não influenciam ranking — mas controlam CTR. Uma boa meta vale mais que uma posição a mais.</div>
+      </div>
+    </div>
+
+    <div class="tpl-tabs">
+      <button class="tpl-tab active" onclick="switchTab('meta','produto',this)">Produto</button>
+      <button class="tpl-tab" onclick="switchTab('meta','colecao',this)">Coleção</button>
+      <button class="tpl-tab" onclick="switchTab('meta','home',this)">Homepage</button>
+      <button class="tpl-tab" onclick="switchTab('meta','blog',this)">Blog / Post</button>
+    </div>
+
+    <!-- META PRODUTO -->
+    <div class="tpl-panel active" id="meta-produto">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-produto">Produto — Benefício + Prova + CTA</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Keyword]: [Benefício principal]. [Prova social / Garantia]. [CTA com urgência].')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-var">[Keyword]</span>
+          <span class="tpl-lit">: </span>
+          <span class="tpl-var">[Benefício principal]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[Prova social ou Garantia]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[CTA com urgência]</span>
+          <span class="tpl-lit">.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Tênis de Corrida Masculino: amortecimento premium para até 800km. Mais de 2.400 avaliações 5 estrelas. Compre agora e receba amanhã.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Máx. 155 caracteres</span>
+            <span class="tpl-rule">Keyword no início</span>
+            <span class="tpl-rule">3 blocos: benefício, prova, ação</span>
+            <span class="tpl-rule">Não termine com reticências</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:90%"></div></div>
+          <span class="tpl-char-num">140 / 155</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-produto">Produto — Especificação + Oferta</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Produto] com [Especificação técnica]. [Oferta / Preço / Condição]. [CTA direto].')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-var">[Produto]</span>
+          <span class="tpl-lit"> com </span>
+          <span class="tpl-var">[Especificação técnica]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[Oferta / Preço / Condição]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[CTA direto]</span>
+          <span class="tpl-lit">.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Fone Bluetooth com 40h de bateria e cancelamento de ruído ativo. A partir de R$299 em até 12x sem juros. Adicione ao carrinho.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Spec técnica qualifica o clique</span>
+            <span class="tpl-rule">Preço filtra intenção de compra</span>
+            <span class="tpl-rule">CTA ativo, não passivo</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:85%"></div></div>
+          <span class="tpl-char-num">132 / 155</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-produto">Produto — Problema + Solução</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'Cansado de [Problema]? [Produto] resolve com [Mecanismo único]. [Garantia]. Peça já.')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-lit">Cansado de </span>
+          <span class="tpl-var">[Problema]</span>
+          <span class="tpl-lit">? </span>
+          <span class="tpl-var">[Produto]</span>
+          <span class="tpl-lit"> resolve com </span>
+          <span class="tpl-var">[Mecanismo único]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[Garantia]</span>
+          <span class="tpl-lit">. Peça já.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Cansado de dor nas costas? Cadeira ergonômica resolve com suporte lombar ajustável em 5 posições. Garantia de 2 anos. Peça já.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Gancho emocional</span>
+            <span class="tpl-rule">Mecanismo único = diferencial</span>
+            <span class="tpl-rule">Garantia reduz objeção</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:80%"></div></div>
+          <span class="tpl-char-num">124 / 155</span>
+        </div>
+      </div>
+
+    </div><!-- /meta-produto -->
+
+    <!-- META COLEÇÃO -->
+    <div class="tpl-panel" id="meta-colecao">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-colecao">Coleção — Volume + Filtro + CTA</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'Explore [N]+ [Categoria] com [Filtro/Benefício]. [Diferencial logístico]. [CTA de navegação].')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-lit">Explore </span>
+          <span class="tpl-var">[N]+</span>
+          <span class="tpl-sep"> </span>
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-lit"> com </span>
+          <span class="tpl-var">[Filtro ou Benefício]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[Diferencial logístico]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[CTA de navegação]</span>
+          <span class="tpl-lit">.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Explore 300+ tênis masculinos com filtros por marca, tamanho e cor. Frete grátis acima de R$199. Encontre o seu agora.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Volume = amplitude da coleção</span>
+            <span class="tpl-rule">Filtros = facilidade de navegação</span>
+            <span class="tpl-rule">CTA de descoberta, não compra</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:78%"></div></div>
+          <span class="tpl-char-num">121 / 155</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-colecao">Coleção — Sazonalidade / Promoção</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Ocasião]: [Categoria] com até [%] OFF. [Condição da oferta]. Aproveite enquanto durar.')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-var">[Ocasião]</span>
+          <span class="tpl-lit">: </span>
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-lit"> com até </span>
+          <span class="tpl-var">[%] OFF</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[Condição da oferta]</span>
+          <span class="tpl-lit">. Aproveite enquanto durar.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Black Friday: Tênis e Calçados com até 50% OFF. Frete grátis em compras acima de R$149. Aproveite enquanto durar.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Urgência aumenta CTR</span>
+            <span class="tpl-rule">Atualize após o período</span>
+            <span class="tpl-rule">Meta sazonal — troque depois</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:73%"></div></div>
+          <span class="tpl-char-num">113 / 155</span>
+        </div>
+      </div>
+
+    </div><!-- /meta-colecao -->
+
+    <!-- META HOME -->
+    <div class="tpl-panel" id="meta-home">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-home">Homepage — Posicionamento de marca</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'[Marca] é a loja online de [Nicho] com [Proposta de valor]. [Prova de confiança]. [CTA de entrada].')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-var">[Marca]</span>
+          <span class="tpl-lit"> é a loja online de </span>
+          <span class="tpl-var">[Nicho]</span>
+          <span class="tpl-lit"> com </span>
+          <span class="tpl-var">[Proposta de valor]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[Prova de confiança]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[CTA de entrada]</span>
+          <span class="tpl-lit">.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">NutriShop é a loja online de suplementos com entrega em 24h para todo o Brasil. Mais de 50.000 clientes satisfeitos. Comece agora.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">Marca + nicho = relevância imediata</span>
+            <span class="tpl-rule">Prova = número real</span>
+            <span class="tpl-rule">CTA de entrada, não compra</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:83%"></div></div>
+          <span class="tpl-char-num">128 / 155</span>
+        </div>
+      </div>
+
+    </div><!-- /meta-home -->
+
+    <!-- META BLOG -->
+    <div class="tpl-panel" id="meta-blog">
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-blog">Blog — Guia informacional</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'Descubra [O que você aprende] neste guia completo sobre [Tema]. [Número] dicas práticas para [Resultado esperado].')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-lit">Descubra </span>
+          <span class="tpl-var">[O que você aprende]</span>
+          <span class="tpl-lit"> neste guia sobre </span>
+          <span class="tpl-var">[Tema]</span>
+          <span class="tpl-lit">. </span>
+          <span class="tpl-var">[N]</span>
+          <span class="tpl-lit"> dicas práticas para </span>
+          <span class="tpl-var">[Resultado esperado]</span>
+          <span class="tpl-lit">.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Descubra como escolher o tênis ideal para corrida neste guia completo. 8 dicas práticas para correr mais longe sem lesões.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">"Descubra" = curiosity gap</span>
+            <span class="tpl-rule">Resultado esperado motiva clique</span>
+            <span class="tpl-rule">Número específico = credibilidade</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:79%"></div></div>
+          <span class="tpl-char-num">122 / 155</span>
+        </div>
+      </div>
+
+      <div class="tpl-card">
+        <div class="tpl-card-header">
+          <span class="tpl-card-type type-blog">Blog — Listicle / Ranking</span>
+          <div class="tpl-card-actions">
+            <button class="tpl-copy-btn" onclick="copyTpl(this,'Os [N] melhores [Categoria] de [Ano] testados e avaliados. [Critério de seleção]. Veja qual vale o investimento.')">Copiar fórmula</button>
+          </div>
+        </div>
+        <div class="tpl-formula" style="font-size:12px; line-height:1.7">
+          <span class="tpl-lit">Os </span>
+          <span class="tpl-var">[N]</span>
+          <span class="tpl-lit"> melhores </span>
+          <span class="tpl-var">[Categoria]</span>
+          <span class="tpl-lit"> de </span>
+          <span class="tpl-var">[Ano]</span>
+          <span class="tpl-lit"> testados. </span>
+          <span class="tpl-var">[Critério de seleção]</span>
+          <span class="tpl-lit">. Veja qual vale.</span>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-example-label">Exemplo preenchido</div>
+          <div class="tpl-example">Os 10 melhores tênis de academia de 2025 testados. Avaliados por conforto, durabilidade e custo-benefício. Veja qual vale o investimento.</div>
+          <div class="tpl-rules">
+            <span class="tpl-rule">"Testados" = autoridade E-E-A-T</span>
+            <span class="tpl-rule">Critério = qualifica o leitor</span>
+            <span class="tpl-rule">Ano no title + meta = freshness</span>
+          </div>
+        </div>
+        <div class="tpl-counter">
+          <span class="tpl-counter-label">Comprimento do exemplo acima</span>
+          <div class="tpl-char-bar"><div class="tpl-char-fill" style="width:88%"></div></div>
+          <span class="tpl-char-num">137 / 155</span>
+        </div>
+      </div>
+
+    </div><!-- /meta-blog -->
+
+    <!-- META GENERATOR -->
+    <div class="tpl-generator">
+      <div class="tpl-gen-label">Gerador ao vivo — Meta Description</div>
+      <div class="tpl-gen-grid">
+        <div class="tpl-gen-field">
+          <label>Keyword / Produto</label>
+          <input type="text" id="meta-kw" placeholder="ex: tênis corrida masculino" oninput="generateMeta()">
+        </div>
+        <div class="tpl-gen-field">
+          <label>Benefício principal</label>
+          <input type="text" id="meta-benefit" placeholder="ex: amortecimento premium" oninput="generateMeta()">
+        </div>
+        <div class="tpl-gen-field">
+          <label>Prova / Garantia</label>
+          <input type="text" id="meta-proof" placeholder="ex: +2.400 avaliações 5★" oninput="generateMeta()">
+        </div>
+        <div class="tpl-gen-field">
+          <label>CTA</label>
+          <input type="text" id="meta-cta" placeholder="ex: Compre e receba amanhã" oninput="generateMeta()">
+        </div>
+      </div>
+      <div class="tpl-output-block">
+        <div class="tpl-output-label">Meta description gerada</div>
+        <div class="tpl-output-row">
+          <div class="tpl-output-text" id="gen-meta-out">Preencha os campos acima →</div>
+          <button class="tpl-gen-copy" onclick="copyGenerated('gen-meta-out',this)">Copiar</button>
+        </div>
+        <div class="tpl-output-meta">
+          <div class="tpl-output-stat">
+            Caracteres: <span id="gen-meta-chars" class="stat-val stat-ok">—</span>
+          </div>
+          <div class="tpl-output-stat">
+            Status: <span id="gen-meta-status" class="stat-val stat-ok">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<script>
+  const STORAGE_KEY = 'tsl-shopify-audit-v1';
+
+  // Load state
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch { return {}; }
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  // Toggle item
+  function toggle(el) {
+    el.classList.toggle('checked');
+    el.classList.add('just-checked');
+    setTimeout(() => el.classList.remove('just-checked'), 300);
+    persistAndUpdate();
+  }
+
+  function persistAndUpdate() {
+    const state = {};
+    document.querySelectorAll('.check-item').forEach((el, i) => {
+      state[i] = el.classList.contains('checked');
+    });
+    saveState(state);
+    updateScores();
+  }
+
+  function updateScores() {
+    const all = document.querySelectorAll('.check-item');
+    const total = all.length;
+    let done = 0, critDone = 0, impDone = 0;
+    const critTotal = document.querySelectorAll('[data-badge="critical"]').length;
+    const impTotal = document.querySelectorAll('[data-badge="important"]').length;
+
+    // Section counts
+    const secDone = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+    const secTotal = {1:0,2:0,3:0,4:0,5:0,6:0,7:0};
+
+    all.forEach(el => {
+      const sec = parseInt(el.dataset.section);
+      const badge = el.dataset.badge;
+      const checked = el.classList.contains('checked');
+      secTotal[sec]++;
+      if (checked) {
+        done++;
+        secDone[sec]++;
+        if (badge === 'critical') critDone++;
+        if (badge === 'important') impDone++;
+      }
+    });
+
+    const pct = Math.round((done / total) * 100);
+
+    // Header
+    document.getElementById('headerFill').style.width = pct + '%';
+    document.getElementById('headerPct').textContent = pct + '%';
+
+    // Score cards
+    animVal('sc-done', done);
+    animVal('sc-crit', critDone);
+    animVal('sc-imp', impDone);
+    animVal('sc-pct', pct + '%');
+
+    // Section progress
+    for (let s = 1; s <= 7; s++) {
+      const d = secDone[s], t = secTotal[s];
+      const cnt = document.getElementById('cnt-' + s);
+      const sp = document.getElementById('sp-' + s);
+      const spf = document.getElementById('spf-' + s);
+      if (cnt) { cnt.textContent = d + '/' + t; cnt.className = 'sidebar-item-count' + (d === t && t > 0 ? ' done' : ''); }
+      if (sp) sp.textContent = d + ' / ' + t;
+      if (spf) spf.style.width = (t > 0 ? (d/t*100) : 0) + '%';
+    }
+
+    // Completion banner
+    const banner = document.getElementById('completionBanner');
+    banner.classList.toggle('visible', done === total);
+  }
+
+  function animVal(id, newVal) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.textContent !== String(newVal)) {
+      el.textContent = newVal;
+      el.classList.add('animating');
+      setTimeout(() => el.classList.remove('animating'), 200);
+    }
+  }
+
+  // Filter
+  let currentFilter = 'all';
+  function filterItems(type, btn) {
+    currentFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    document.querySelectorAll('.check-item').forEach(el => {
+      let show = true;
+      if (type === 'critical')  show = el.dataset.badge === 'critical';
+      if (type === 'important') show = el.dataset.badge === 'important';
+      if (type === 'bonus')     show = el.dataset.badge === 'bonus';
+      if (type === 'pending')   show = !el.classList.contains('checked');
+      if (type === 'done')      show = el.classList.contains('checked');
+      el.style.display = show ? '' : 'none';
+    });
+
+    // Show/hide sections based on visible items
+    document.querySelectorAll('.section').forEach(sec => {
+      const visible = Array.from(sec.querySelectorAll('.check-item'))
+        .some(el => el.style.display !== 'none');
+      sec.style.display = visible ? '' : 'none';
+    });
+  }
+
+  // Reset
+  function resetAll() {
+    if (!confirm('Reiniciar todos os 47 pontos?')) return;
+    document.querySelectorAll('.check-item').forEach(el => el.classList.remove('checked'));
+    saveState({});
+    updateScores();
+  }
+
+  // Sidebar active
+  function setActive(el) {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Scroll spy
+  const sections = document.querySelectorAll('.section[id]');
+  const sidebarLinks = document.querySelectorAll('.sidebar-item[href^="#s"]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        sidebarLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-64px 0px 0px 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Init: restore state
+  const saved = loadState();
+  document.querySelectorAll('.check-item').forEach((el, i) => {
+    if (saved[i]) el.classList.add('checked');
+  });
+  updateScores();
+
+  // ── TEMPLATES ────────────────────────────────────────────
+  function switchTab(group, type, btn) {
+    // deactivate all tabs in this group
+    btn.closest('.tpl-tabs').querySelectorAll('.tpl-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    // hide all panels in this group
+    const panels = btn.closest('.tpl-section').querySelectorAll('.tpl-panel');
+    panels.forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(group + '-' + type);
+    if (target) target.classList.add('active');
+  }
+
+  function copyTpl(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar fórmula'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function copyGenerated(id, btn) {
+    const text = document.getElementById(id).textContent.trim();
+    if (!text || text.includes('Preencha')) return;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function charStatus(len, max, warnAt) {
+    if (len === 0) return { cls: 'stat-ok', label: '—' };
+    if (len <= warnAt) return { cls: 'stat-ok', label: '✓ Ideal' };
+    if (len <= max) return { cls: 'stat-warn', label: '⚠ Próximo do limite' };
+    return { cls: 'stat-bad', label: '✗ Muito longo (' + (len - max) + ' a mais)' };
+  }
+
+  function generateTitle() {
+    const kw    = document.getElementById('gen-kw').value.trim();
+    const brand = document.getElementById('gen-brand').value.trim();
+    const diff  = document.getElementById('gen-diff').value.trim();
+    const type  = document.getElementById('gen-type').value;
+
+    let out = '';
+    if (type === 'produto') {
+      out = [kw, brand ? '– ' + brand : '', diff ? '| ' + diff : ''].filter(Boolean).join(' ');
+    } else if (type === 'colecao') {
+      out = [kw, brand ? '| ' + brand : '', diff ? '| ' + diff : ''].filter(Boolean).join(' ');
+    } else if (type === 'home') {
+      out = [brand, kw ? '– ' + kw + ' Online' : '', diff ? '| ' + diff : ''].filter(Boolean).join(' ');
+    } else if (type === 'blog') {
+      out = [kw ? 'Como ' + kw + ' – Guia Completo' : '', brand ? '| ' + brand : ''].filter(Boolean).join(' ');
+    }
+
+    const el = document.getElementById('gen-title-out');
+    el.textContent = out || 'Preencha os campos acima →';
+    const len = out.length;
+    const s = charStatus(len, 60, 50);
+    document.getElementById('gen-title-chars').textContent = len || '—';
+    document.getElementById('gen-title-chars').className = 'stat-val ' + s.cls;
+    document.getElementById('gen-title-status').textContent = s.label;
+    document.getElementById('gen-title-status').className = 'stat-val ' + s.cls;
+  }
+
+  // ── CRONOGRAMA ────────────────────────────────────────────
+  function toggleWeek(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleTask(el) {
+    el.classList.toggle('done');
+    saveCrono();
+    updateCrono();
+  }
+
+  const CRONO_KEY = 'tsl-crono-v1';
+  function saveCrono() {
+    const state = {};
+    document.querySelectorAll('.crono-task').forEach((el, i) => {
+      state[i] = el.classList.contains('done');
+    });
+    localStorage.setItem(CRONO_KEY, JSON.stringify(state));
+  }
+  function loadCrono() {
+    try { return JSON.parse(localStorage.getItem(CRONO_KEY)) || {}; } catch { return {}; }
+  }
+
+  function updateCrono() {
+    const all = document.querySelectorAll('.crono-task');
+    const total = all.length;
+    let done = 0;
+    const phaseDone = {1:0,2:0,3:0};
+    const phaseTotal = {1:0,2:0,3:0};
+
+    all.forEach(el => {
+      const p = parseInt(el.dataset.phase);
+      phaseTotal[p]++;
+      if (el.classList.contains('done')) { done++; phaseDone[p]++; }
+    });
+
+    // Hero
+    document.getElementById('crono-total-tasks').textContent = total;
+    document.getElementById('crono-done-tasks').textContent  = done;
+    document.getElementById('crono-done-pct').textContent    = total ? Math.round(done/total*100)+'%' : '0%';
+
+    // Per phase
+    [1,2,3].forEach(p => {
+      const d = phaseDone[p], t = phaseTotal[p];
+      const pct = t ? Math.round(d/t*100) : 0;
+      const countEl = document.getElementById('crono-p'+p+'-count');
+      const barEl   = document.getElementById('crono-p'+p+'-bar');
+      const pctEl   = document.getElementById('crono-p'+p+'-pct');
+      if (countEl) countEl.textContent = d+'/'+t;
+      if (barEl)   barEl.style.width   = pct+'%';
+      if (pctEl)   pctEl.textContent   = pct+'%';
+    });
+  }
+
+  // Init crono
+  const savedCrono = loadCrono();
+  document.querySelectorAll('.crono-task').forEach((el, i) => {
+    if (savedCrono[i]) el.classList.add('done');
+  });
+  updateCrono();
+</script>
+<!-- ══════════════════════════════════════════════════════════
+     CRONOGRAMA 90 DIAS
+══════════════════════════════════════════════════════════ -->
+<div class="crono-wrapper" id="crono">
+
+  <!-- Hero metrics -->
+  <div style="margin-bottom:32px; scroll-margin-top:calc(var(--header-h) + 32px)">
+    <div style="margin-bottom:20px">
+      <div class="section-label">Cronograma</div>
+      <div class="section-title">Plano de Implementação — 90 Dias</div>
+      <div class="section-desc">Do zero à loja otimizada. Prioridades estratégicas por semana, com tarefas prontas para executar.</div>
+    </div>
+  </div>
+
+  <div class="crono-hero">
+    <div class="crono-hero-cell">
+      <div class="crono-hero-label">Duração total</div>
+      <div class="crono-hero-val">90</div>
+      <div class="crono-hero-sub">dias de execução</div>
+    </div>
+    <div class="crono-hero-cell">
+      <div class="crono-hero-label">Tarefas no plano</div>
+      <div class="crono-hero-val" id="crono-total-tasks">0</div>
+      <div class="crono-hero-sub">ações concretas</div>
+    </div>
+    <div class="crono-hero-cell">
+      <div class="crono-hero-label">Concluídas</div>
+      <div class="crono-hero-val" id="crono-done-tasks">0</div>
+      <div class="crono-hero-sub"><span id="crono-done-pct">0%</span> do cronograma</div>
+    </div>
+  </div>
+
+  <!-- ── FASE 1: DIAS 1-30 ── -->
+  <div class="crono-phase" id="crono-d1">
+    <div class="crono-phase-header">
+      <div class="crono-phase-badge">
+        <div class="crono-phase-badge-days">1–30</div>
+        <div class="crono-phase-badge-label">Dias</div>
+      </div>
+      <div class="crono-phase-info">
+        <div class="crono-phase-name">Fundação Técnica</div>
+        <div class="crono-phase-tagline">Corrija o que bloqueia o Google de indexar e entender sua loja. Sem isso, o resto não funciona.</div>
+      </div>
+      <div class="crono-phase-kpis">
+        <div class="crono-kpi">
+          <div class="crono-kpi-val">4</div>
+          <div class="crono-kpi-label">Semanas</div>
+        </div>
+        <div class="crono-kpi">
+          <div class="crono-kpi-val" id="crono-p1-count">0/0</div>
+          <div class="crono-kpi-label">Tarefas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crono-phase-progress">
+      <span class="crono-pp-label">Progresso fase 1</span>
+      <div class="crono-pp-bar"><div class="crono-pp-fill" id="crono-p1-bar"></div></div>
+      <span class="crono-pp-count" id="crono-p1-pct">0%</span>
+    </div>
+
+    <!-- Semana 1 -->
+    <div class="crono-week open" id="cw1">
+      <div class="crono-week-header" onclick="toggleWeek('cw1')">
+        <span class="crono-week-num">Semana 1</span>
+        <span class="crono-week-title">Diagnóstico e Setup de Ferramentas</span>
+        <span class="crono-week-focus">Dias 1–7</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Setup obrigatório</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Verificar loja no Google Search Console</div>
+              <div class="crono-task-hint">Propriedade de domínio via DNS ou tag HTML no theme.liquid</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Instalar Google Analytics 4 + configurar evento de compra</div>
+              <div class="crono-task-hint">Via Google & YouTube channel do Shopify</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Enviar sitemap XML ao Google Search Console</div>
+              <div class="crono-task-hint">sualoja.com.br/sitemap.xml — monitore erros de cobertura</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Rodar Screaming Frog na loja completa</div>
+              <div class="crono-task-hint">Exportar lista de: 404s, titles duplicados, H1 ausentes, imagens sem alt</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Medir PageSpeed Insights nos 5 produtos mais vendidos</div>
+              <div class="crono-task-hint">Registre LCP, FID e CLS atual como baseline. URL mobile, não desktop.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 2 -->
+    <div class="crono-week" id="cw2">
+      <div class="crono-week-header" onclick="toggleWeek('cw2')">
+        <span class="crono-week-num">Semana 2</span>
+        <span class="crono-week-title">Correção de Erros Técnicos Críticos</span>
+        <span class="crono-week-focus">Dias 8–14</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Técnico urgente</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Configurar canonical tag em todos os produtos</div>
+              <div class="crono-task-hint">Eliminar duplicação /collections/…/products/ vs /products/</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Criar redirects 301 para todos os erros 404 encontrados</div>
+              <div class="crono-task-hint">Admin → Navigation → URL Redirects. Priorize páginas com backlinks.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Adicionar noindex em páginas de busca e filtros</div>
+              <div class="crono-task-hint">Bloquear /search?q=, /collections?sort_by=, /collections?filter.*</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Verificar e corrigir robots.txt</div>
+              <div class="crono-task-hint">Confirmar que nenhuma coleção ou produto está bloqueado acidentalmente</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Validar schema Product no Rich Results Test</div>
+              <div class="crono-task-hint">Todos os produtos devem ter JSON-LD válido sem erros ou avisos críticos</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 3 -->
+    <div class="crono-week" id="cw3">
+      <div class="crono-week-header" onclick="toggleWeek('cw3')">
+        <span class="crono-week-num">Semana 3</span>
+        <span class="crono-week-title">Performance e Core Web Vitals</span>
+        <span class="crono-week-focus">Dias 15–21</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Velocidade</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Converter todas as imagens para WebP</div>
+              <div class="crono-task-hint">TinyIMG ou Crush.pics. Meta: nenhuma imagem acima de 150kb.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Auditar apps instalados — remover os sem ROI</div>
+              <div class="crono-task-hint">Admin → Online Store → Speed. Cada app remove tempo de carregamento.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Implementar preload da LCP image nos produtos</div>
+              <div class="crono-task-hint">Adicionar &lt;link rel="preload"&gt; no theme.liquid para imagem hero do produto</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Confirmar lazy load em imagens de galeria e relacionados</div>
+              <div class="crono-task-hint">Verificar loading="lazy" no código-fonte do tema</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 4 -->
+    <div class="crono-week" id="cw4">
+      <div class="crono-week-header" onclick="toggleWeek('cw4')">
+        <span class="crono-week-num">Semana 4</span>
+        <span class="crono-week-title">Arquitetura de URLs e Estrutura</span>
+        <span class="crono-week-focus">Dias 22–30</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Estrutura</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Renomear handles dos top 20 produtos com keyword principal</div>
+              <div class="crono-task-hint">Identificar via GSC quais têm mais impressões. Criar 301 após renomear.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Revisar e simplificar estrutura de coleções</div>
+              <div class="crono-task-hint">Eliminar hierarquias aninhadas. Coleções planas com filtros por tags.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="1">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Ativar breadcrumbs no tema</div>
+              <div class="crono-task-hint">Todos os temas Shopify 2.0 suportam breadcrumbs. Ative nas configurações do tema.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crono-milestone">
+      <span class="crono-milestone-icon">◆</span>
+      <span class="crono-milestone-text">Marco 30 dias — Fundação técnica completa. Google consegue indexar e rastrear a loja sem bloqueios.</span>
+      <span class="crono-milestone-week">Dia 30</span>
+    </div>
+  </div>
+
+  <!-- ── FASE 2: DIAS 31-60 ── -->
+  <div class="crono-phase" id="crono-d2">
+    <div class="crono-phase-header">
+      <div class="crono-phase-badge">
+        <div class="crono-phase-badge-days">31–60</div>
+        <div class="crono-phase-badge-label">Dias</div>
+      </div>
+      <div class="crono-phase-info">
+        <div class="crono-phase-name">Otimização On-Page</div>
+        <div class="crono-phase-tagline">Com a fundação no lugar, otimize os sinais que o Google lê para entender e ranquear cada página.</div>
+      </div>
+      <div class="crono-phase-kpis">
+        <div class="crono-kpi">
+          <div class="crono-kpi-val">4</div>
+          <div class="crono-kpi-label">Semanas</div>
+        </div>
+        <div class="crono-kpi">
+          <div class="crono-kpi-val" id="crono-p2-count">0/0</div>
+          <div class="crono-kpi-label">Tarefas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crono-phase-progress">
+      <span class="crono-pp-label">Progresso fase 2</span>
+      <div class="crono-pp-bar"><div class="crono-pp-fill" id="crono-p2-bar"></div></div>
+      <span class="crono-pp-count" id="crono-p2-pct">0%</span>
+    </div>
+
+    <!-- Semana 5 -->
+    <div class="crono-week" id="cw5">
+      <div class="crono-week-header" onclick="toggleWeek('cw5')">
+        <span class="crono-week-num">Semana 5</span>
+        <span class="crono-week-title">Title Tags e Meta Descriptions</span>
+        <span class="crono-week-focus">Dias 31–37</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">On-page</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Reescrever title tags dos top 30 produtos via admin</div>
+              <div class="crono-task-hint">Use os templates T1 desta ferramenta. Keyword no início, máx 60 chars.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Reescrever title tags de todas as coleções principais</div>
+              <div class="crono-task-hint">Fórmula: [Categoria] – Compre Online | [Marca]</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Escrever meta descriptions para os top 30 produtos</div>
+              <div class="crono-task-hint">Use os templates T2. Keyword + benefício + prova + CTA. Máx 155 chars.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Personalizar H1 de todos os produtos com keyword exata</div>
+              <div class="crono-task-hint">O H1 é o título do produto no Shopify. Edite para conter a keyword principal sem variação.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 6 -->
+    <div class="crono-week" id="cw6">
+      <div class="crono-week-header" onclick="toggleWeek('cw6')">
+        <span class="crono-week-num">Semana 6</span>
+        <span class="crono-week-title">Imagens e Alt Text</span>
+        <span class="crono-week-focus">Dias 38–44</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Imagens</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Preencher alt text de todas as imagens dos top 50 produtos</div>
+              <div class="crono-task-hint">Admin → Produto → clique na imagem → Alt text. Inclua keyword contextual.</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Renomear arquivos de imagem com keywords antes de novos uploads</div>
+              <div class="crono-task-hint">Padrão: produto-variante-marca-detalhe.webp. Nunca IMG_2045.jpg.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Adicionar schema Organization na homepage</div>
+              <div class="crono-task-hint">JSON-LD com nome, logo, URL, sameAs (redes sociais) e contactPoint</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 7 -->
+    <div class="crono-week" id="cw7">
+      <div class="crono-week-header" onclick="toggleWeek('cw7')">
+        <span class="crono-week-num">Semana 7</span>
+        <span class="crono-week-title">Schema Markup Avançado</span>
+        <span class="crono-week-focus">Dias 45–51</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Schema</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Instalar app de avaliações com suporte a schema (Loox, Judge.me)</div>
+              <div class="crono-task-hint">Verificar no Rich Results Test se Review schema está sendo injetado corretamente</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Implementar schema BreadcrumbList nas coleções</div>
+              <div class="crono-task-hint">Via metafields ou theme.liquid. Distribui PageRank e melhora snippet.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Adicionar FAQ schema nos top 10 produtos com mais tráfego</div>
+              <div class="crono-task-hint">3–5 perguntas com respostas reais. Expande o snippet na SERP.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 8 -->
+    <div class="crono-week" id="cw8">
+      <div class="crono-week-header" onclick="toggleWeek('cw8')">
+        <span class="crono-week-num">Semana 8</span>
+        <span class="crono-week-title">Links Internos e Navegação</span>
+        <span class="crono-week-focus">Dias 52–60</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Link building interno</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Auditar anchor text de todos os links internos</div>
+              <div class="crono-task-hint">Substituir âncoras genéricas por keywords alvo das páginas destino</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Configurar produtos relacionados por coleção temática</div>
+              <div class="crono-task-hint">Não por "mais vendidos". Vinculação temática distribui relevância.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Revisar menu principal — todas as coleções-chave acessíveis</div>
+              <div class="crono-task-hint">Links no menu principal têm maior peso de link equity da homepage</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="2">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Identificar e linkar páginas órfãs</div>
+              <div class="crono-task-hint">Screaming Frog: filtrar páginas sem links internos apontando para elas</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crono-milestone">
+      <span class="crono-milestone-icon">◆</span>
+      <span class="crono-milestone-text">Marco 60 dias — On-page otimizado. Espere primeiros movimentos de ranking nos dias 45–75.</span>
+      <span class="crono-milestone-week">Dia 60</span>
+    </div>
+  </div>
+
+  <!-- ── FASE 3: DIAS 61-90 ── -->
+  <div class="crono-phase" id="crono-d3">
+    <div class="crono-phase-header">
+      <div class="crono-phase-badge">
+        <div class="crono-phase-badge-days">61–90</div>
+        <div class="crono-phase-badge-label">Dias</div>
+      </div>
+      <div class="crono-phase-info">
+        <div class="crono-phase-name">Conteúdo e Autoridade</div>
+        <div class="crono-phase-tagline">Construa profundidade temática e autoridade real. O Google rankeia lojas que provam expertise no nicho.</div>
+      </div>
+      <div class="crono-phase-kpis">
+        <div class="crono-kpi">
+          <div class="crono-kpi-val">4</div>
+          <div class="crono-kpi-label">Semanas</div>
+        </div>
+        <div class="crono-kpi">
+          <div class="crono-kpi-val" id="crono-p3-count">0/0</div>
+          <div class="crono-kpi-label">Tarefas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crono-phase-progress">
+      <span class="crono-pp-label">Progresso fase 3</span>
+      <div class="crono-pp-bar"><div class="crono-pp-fill" id="crono-p3-bar"></div></div>
+      <span class="crono-pp-count" id="crono-p3-pct">0%</span>
+    </div>
+
+    <!-- Semana 9 -->
+    <div class="crono-week" id="cw9">
+      <div class="crono-week-header" onclick="toggleWeek('cw9')">
+        <span class="crono-week-num">Semana 9</span>
+        <span class="crono-week-title">Reescrita de Descrições Prioritárias</span>
+        <span class="crono-week-focus">Dias 61–67</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Conteúdo de produto</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Identificar top 20 produtos com impressões altas e CTR baixo no GSC</div>
+              <div class="crono-task-hint">GSC → Desempenho → Páginas → ordenar por Impressões ↓. Filtrar CTR &lt; 2%.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Reescrever descrições dos top 10 produtos prioritários</div>
+              <div class="crono-task-hint">Mínimo 300 palavras. Keyword + variações LSI + intenção de compra + specs.</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Adicionar seção FAQ em cada produto reescrito</div>
+              <div class="crono-task-hint">3–5 perguntas baseadas em buscas reais (use "People Also Ask" no Google)</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Verificar conteúdo contra duplicação via Copyscape</div>
+              <div class="crono-task-hint">Antes de publicar. Conteúdo idêntico a outros sites pode ser desindexado.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 10 -->
+    <div class="crono-week" id="cw10">
+      <div class="crono-week-header" onclick="toggleWeek('cw10')">
+        <span class="crono-week-num">Semana 10</span>
+        <span class="crono-week-title">Conteúdo de Coleções e Blog</span>
+        <span class="crono-week-focus">Dias 68–74</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Autoridade temática</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Escrever descrições únicas para as 10 principais coleções</div>
+              <div class="crono-task-hint">150–300 palavras por coleção. A maioria das lojas deixa isso em branco — vantagem competitiva.</div>
+            </div>
+            <span class="crono-task-badge quick">Quick win</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Publicar 2 posts de blog informativos linkando para coleções</div>
+              <div class="crono-task-hint">Tópicos: "Como escolher X" ou "Os melhores X de [ano]". Link contextual para coleção.</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Implementar tabela de especificações técnicas nos produtos</div>
+              <div class="crono-task-hint">Dimensões, materiais, peso, composição. Reduz devolução e melhora conversão.</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 11 -->
+    <div class="crono-week" id="cw11">
+      <div class="crono-week-header" onclick="toggleWeek('cw11')">
+        <span class="crono-week-num">Semana 11</span>
+        <span class="crono-week-title">Avaliações e E-E-A-T</span>
+        <span class="crono-week-focus">Dias 75–81</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Confiança e prova social</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Ativar coleta automática de avaliações pós-compra</div>
+              <div class="crono-task-hint">Email automatizado 7–14 dias após entrega. Loox e Judge.me têm isso nativo.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Criar página "Sobre a Loja" com história e credenciais reais</div>
+              <div class="crono-task-hint">E-E-A-T: experiência, expertise, autoridade, confiança. Google considera isso para nicho YMYL.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Adicionar links para redes sociais no footer + schema sameAs</div>
+              <div class="crono-task-hint">Associa a marca a perfis verificáveis. Fortalece Knowledge Graph.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Semana 12 -->
+    <div class="crono-week" id="cw12">
+      <div class="crono-week-header" onclick="toggleWeek('cw12')">
+        <span class="crono-week-num">Semana 12</span>
+        <span class="crono-week-title">Análise, Ajustes e Próximos 90 Dias</span>
+        <span class="crono-week-focus">Dias 82–90</span>
+        <span class="crono-week-toggle">▾</span>
+      </div>
+      <div class="crono-week-body">
+        <div class="crono-task-group">
+          <div class="crono-task-group-label">Revisão e planejamento</div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Comparar métricas do GSC: impressões, cliques e CTR vs dia 1</div>
+              <div class="crono-task-hint">Filtro: últimos 28 dias vs período anterior. Identifique quais páginas mais cresceram.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Rodar Screaming Frog novamente — comparar com auditoria do dia 1</div>
+              <div class="crono-task-hint">Verificar se todos os erros críticos foram corrigidos. Identificar novos problemas.</div>
+            </div>
+            <span class="crono-task-badge setup">Setup</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Documentar keywords em posição 8–20 no GSC para próxima fase</div>
+              <div class="crono-task-hint">Essas são as maiores oportunidades de quick win nos próximos 90 dias.</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+          <div class="crono-task" onclick="toggleTask(this)" data-phase="3">
+            <div class="crono-task-box"></div>
+            <div style="flex:1">
+              <div class="crono-task-text">Continuar produção de conteúdo de blog: 2 posts/mês mínimo</div>
+              <div class="crono-task-hint">Autoridade temática é construída ao longo do tempo. Consistência supera volume.</div>
+            </div>
+            <span class="crono-task-badge ongoing">Contínuo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="crono-milestone">
+      <span class="crono-milestone-icon">◆</span>
+      <span class="crono-milestone-text">Marco 90 dias — Loja otimizada nos 7 pilares. Rankings em movimento, tráfego crescendo. Hora do próximo ciclo.</span>
+      <span class="crono-milestone-week">Dia 90</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
+
+
+
+
+

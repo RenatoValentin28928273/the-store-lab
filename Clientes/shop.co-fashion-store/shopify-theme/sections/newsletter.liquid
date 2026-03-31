@@ -1,0 +1,88 @@
+<section class="max-w-7xl mx-auto px-4 relative z-10" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
+  <div class="bg-black rounded-[20px] p-8 sm:p-12 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tighter leading-tight max-w-lg uppercase">
+      {{ section.settings.title }}
+    </h2>
+    <div class="w-full max-w-md space-y-4">
+      {% form 'customer' %}
+        <div class="relative mb-4">
+          <input 
+            type="email" 
+            name="contact[email]"
+            placeholder="{{ section.settings.placeholder }}" 
+            class="w-full bg-white rounded-full py-3 pl-6 pr-4 text-sm focus:outline-none"
+            required
+          >
+        </div>
+        <button type="submit" class="w-full bg-white text-black rounded-full py-3 font-bold text-sm hover:bg-gray-100 transition-colors">
+          {{ section.settings.button_label }}
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Espaçamento da Seção"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": -160,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Margem inferior (negativo = sobe o rodapé)",
+      "default": -96
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "STAY UPTO DATE ABOUT OUR LATEST OFFERS"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe to Newsletter"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

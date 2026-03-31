@@ -1,0 +1,674 @@
+{%- liquid
+  comment
+    Collection Landing Page Section
+    Supports blocks: hero, category_row, subcollection_grid, brand_story
+  endcomment
+-%}
+
+{%- style -%}
+  {%- for block in section.blocks -%}
+
+    {%- if block.type == 'hero' -%}
+      #shopify-section-{{ section.id }} .cl-hero-{{ block.id }} {
+        min-height: {{ block.settings.min_height_mobile }}px;
+        color: {{ block.settings.text_color }};
+      }
+      @media (min-width: 768px) {
+        #shopify-section-{{ section.id }} .cl-hero-{{ block.id }} {
+          min-height: {{ block.settings.min_height }}px;
+        }
+      }
+    {%- endif -%}
+
+    {%- if block.type == 'category_row' -%}
+      {%- assign row_font = block.settings.title_font -%}
+      {{ row_font | font_face: font_display: 'swap' }}
+      #shopify-section-{{ section.id }} .cl-row-title-{{ block.id }} {
+        font-family: {{ row_font.family }}, {{ row_font.fallback_families }} !important;
+        font-weight: {{ row_font.weight }} !important;
+        font-style: {{ row_font.style }} !important;
+        color: {{ block.settings.title_color }} !important;
+        font-size: {{ block.settings.title_size_mobile }}px !important;
+      }
+      @media (min-width: 768px) {
+        #shopify-section-{{ section.id }} .cl-row-title-{{ block.id }} {
+          font-size: {{ block.settings.title_size }}px !important;
+        }
+      }
+    {%- endif -%}
+
+    {%- if block.type == 'subcollection_grid' -%}
+      {%- assign grid_font = block.settings.title_font -%}
+      {{ grid_font | font_face: font_display: 'swap' }}
+      #shopify-section-{{ section.id }} .cl-grid-title-{{ block.id }} {
+        font-family: {{ grid_font.family }}, {{ grid_font.fallback_families }} !important;
+        font-weight: {{ grid_font.weight }} !important;
+        font-style: {{ grid_font.style }} !important;
+        color: {{ block.settings.title_color }} !important;
+        font-size: {{ block.settings.title_size_mobile }}px !important;
+      }
+      @media (min-width: 768px) {
+        #shopify-section-{{ section.id }} .cl-grid-title-{{ block.id }} {
+          font-size: {{ block.settings.title_size }}px !important;
+        }
+      }
+    {%- endif -%}
+
+    {%- if block.type == 'brand_story' -%}
+      {%- assign story_font = block.settings.title_font -%}
+      {{ story_font | font_face: font_display: 'swap' }}
+      #shopify-section-{{ section.id }} .cl-story-wrap-{{ block.id }} {
+        background-color: {{ block.settings.bg_color }};
+      }
+      #shopify-section-{{ section.id }} .cl-story-title-{{ block.id }} {
+        font-family: {{ story_font.family }}, {{ story_font.fallback_families }} !important;
+        font-weight: {{ story_font.weight }} !important;
+        font-style: {{ story_font.style }} !important;
+        color: {{ block.settings.title_color }} !important;
+      }
+      #shopify-section-{{ section.id }} .cl-story-text-{{ block.id }} {
+        color: {{ block.settings.text_color }} !important;
+      }
+    {%- endif -%}
+
+  {%- endfor -%}
+{%- endstyle -%}
+
+{%- for block in section.blocks -%}
+
+  {%- comment -%}===== HERO BLOCK ====={%- endcomment -%}
+  {%- if block.type == 'hero' -%}
+    <div
+      class="cl-hero-{{ block.id }} relative w-full flex items-center justify-center overflow-hidden"
+      {{ block.shopify_attributes }}
+    >
+      {%- if block.settings.image != blank -%}
+        <img
+          src="{{ block.settings.image | image_url: width: 2000 }}"
+          alt="{{ block.settings.title | escape }}"
+          width="{{ block.settings.image.width | default: 2000 }}"
+          height="{{ block.settings.image.height | default: 800 }}"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+        >
+      {%- else -%}
+        <div class="absolute inset-0 w-full h-full bg-gray-200"></div>
+      {%- endif -%}
+
+      {%- assign overlay_decimal = block.settings.overlay_opacity | divided_by: 100.0 -%}
+      <div
+        class="absolute inset-0"
+        style="background-color: rgba(0,0,0,{{ overlay_decimal }});"
+      ></div>
+
+      <div class="relative z-10 text-center px-6 py-16 max-w-3xl mx-auto">
+        {%- if block.settings.title != blank -%}
+          <h1 class="font-black tracking-tighter uppercase text-4xl sm:text-6xl mb-4 leading-none">
+            {{ block.settings.title }}
+          </h1>
+        {%- endif -%}
+        {%- if block.settings.subtitle != blank -%}
+          <p class="text-base sm:text-xl mb-8 opacity-90 max-w-xl mx-auto">
+            {{ block.settings.subtitle }}
+          </p>
+        {%- endif -%}
+        {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+          <a
+            href="{{ block.settings.button_link }}"
+            class="inline-block border px-12 py-3 rounded-full transition-colors font-semibold"
+            style="border-color: {{ block.settings.text_color }}; color: {{ block.settings.text_color }}; background-color: transparent;"
+            onmouseover="this.style.backgroundColor='{{ block.settings.text_color }}'; this.style.color='#000';"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='{{ block.settings.text_color }}';"
+          >
+            {{ block.settings.button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+  {%- comment -%}===== CATEGORY ROW BLOCK ====={%- endcomment -%}
+  {%- elsif block.type == 'category_row' -%}
+    {%- assign row_collection = collections[block.settings.collection] -%}
+    <section class="max-w-7xl mx-auto px-4 py-12" {{ block.shopify_attributes }}>
+
+      {%- comment -%} Row header: title left, view-all link right {%- endcomment -%}
+      <div class="flex items-baseline justify-between mb-6 gap-4">
+        {%- if block.settings.title != blank -%}
+          <h2 class="cl-row-title-{{ block.id }} font-black tracking-tighter uppercase leading-none">
+            {{ block.settings.title }}
+          </h2>
+        {%- endif -%}
+        {%- if row_collection != blank -%}
+          <a
+            href="{{ row_collection.url }}"
+            class="text-sm font-semibold underline underline-offset-2 whitespace-nowrap hover:opacity-70 transition-opacity"
+          >
+            {{ block.settings.view_all_label | default: 'Ver Todos' }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Product grid — 2 cols mobile, 4 cols desktop {%- endcomment -%}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-10">
+        {%- if row_collection != blank -%}
+          {%- for product in row_collection.products limit: block.settings.products_to_show -%}
+            <div class="group cursor-pointer">
+              <a href="{{ product.url }}">
+                <div class="bg-[#F0EEED] rounded-[20px] aspect-square overflow-hidden mb-4">
+                  <img
+                    src="{{ product.featured_image | image_url: width: 500 }}"
+                    alt="{{ product.title | escape }}"
+                    width="{{ product.featured_image.width | default: 500 }}"
+                    height="{{ product.featured_image.height | default: 500 }}"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  >
+                </div>
+                <h4 class="product-title font-bold text-base sm:text-lg mb-1">{{ product.title }}</h4>
+
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="flex text-yellow-400">
+                    {%- for i in (1..5) -%}
+                      <svg class="w-4 h-4" fill="{% if i <= 4 %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                    {%- endfor -%}
+                  </div>
+                  <span class="text-sm text-gray-500">4/5</span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <span class="product-price text-xl sm:text-2xl font-bold">{{ product.price | money }}</span>
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="text-xl sm:text-2xl font-bold text-gray-400 line-through">{{ product.compare_at_price | money }}</span>
+                    <span class="bg-red-100 text-red-500 text-xs px-2 py-1 rounded-full">
+                      -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+                    </span>
+                  {%- endif -%}
+                </div>
+              </a>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Placeholder cards in theme editor when no collection is selected {%- endcomment -%}
+          {%- for i in (1..4) -%}
+            <div class="group cursor-pointer">
+              <div class="bg-[#F0EEED] rounded-[20px] aspect-square overflow-hidden mb-4 flex items-center justify-center">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'w-full h-full object-cover opacity-30' }}
+              </div>
+              <h4 class="product-title font-bold text-base sm:text-lg mb-1">Product Title</h4>
+              <div class="flex items-center gap-2 mb-2">
+                <div class="flex text-yellow-400">
+                  {%- for j in (1..5) -%}
+                    <svg class="w-4 h-4" fill="{% if j <= 4 %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                  {%- endfor -%}
+                </div>
+                <span class="text-sm text-gray-500">4/5</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="product-price text-xl sm:text-2xl font-bold">$99.00</span>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Centered "Ver Todos" button below the grid {%- endcomment -%}
+      {%- if row_collection != blank -%}
+        <div class="text-center">
+          <a
+            href="{{ row_collection.url }}"
+            class="view-all-btn inline-block border border-gray-200 px-12 py-3 rounded-full transition-colors hover:bg-black hover:text-white hover:border-black"
+          >
+            {{ block.settings.view_all_label | default: 'Ver Todos' }}
+          </a>
+        </div>
+      {%- endif -%}
+
+    </section>
+
+  {%- comment -%}===== SUBCOLLECTION GRID BLOCK ====={%- endcomment -%}
+  {%- elsif block.type == 'subcollection_grid' -%}
+    {%- liquid
+      case block.settings.columns_desktop
+        when '2'
+          assign desktop_cols = 'md:grid-cols-2'
+        when '4'
+          assign desktop_cols = 'md:grid-cols-4'
+        else
+          assign desktop_cols = 'md:grid-cols-3'
+      endcase
+
+      case block.settings.columns_mobile
+        when '1'
+          assign mobile_cols = 'grid-cols-1'
+        else
+          assign mobile_cols = 'grid-cols-2'
+      endcase
+    -%}
+    <section class="max-w-7xl mx-auto px-4 py-12" {{ block.shopify_attributes }}>
+
+      {%- if block.settings.title != blank -%}
+        <h2 class="cl-grid-title-{{ block.id }} font-black tracking-tighter uppercase text-center mb-10 leading-none">
+          {{ block.settings.title }}
+        </h2>
+      {%- endif -%}
+
+      {%- comment -%} Collect only subcollection_card sub-blocks belonging to this block {%- endcomment -%}
+      {%- assign card_blocks = section.blocks | where: 'type', 'subcollection_card' -%}
+
+      <div class="grid {{ mobile_cols }} {{ desktop_cols }} gap-4 sm:gap-6">
+        {%- for card in card_blocks -%}
+          {%- comment -%}
+            Each subcollection_card block is a top-level section block.
+            We render all of them inside the first subcollection_grid we encounter.
+            If you need multiple grids, use separate sections.
+          {%- endcomment -%}
+          <a
+            href="{{ card.settings.link | default: '#' }}"
+            class="group relative rounded-[20px] overflow-hidden aspect-[4/3] block bg-[#F0EEED]"
+            {{ card.shopify_attributes }}
+          >
+            {%- if card.settings.image != blank -%}
+              <img
+                src="{{ card.settings.image | image_url: width: 800 }}"
+                alt="{{ card.settings.title | escape }}"
+                width="{{ card.settings.image.width | default: 800 }}"
+                height="{{ card.settings.image.height | default: 600 }}"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full object-cover opacity-30' }}
+            {%- endif -%}
+
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+
+            {%- if card.settings.title != blank -%}
+              <span class="absolute bottom-4 left-4 text-white font-bold text-lg sm:text-xl leading-tight">
+                {{ card.settings.title }}
+              </span>
+            {%- endif -%}
+          </a>
+        {%- else -%}
+          {%- comment -%} Placeholder cards when no subcollection_card blocks exist {%- endcomment -%}
+          {%- for i in (1..3) -%}
+            <div class="relative rounded-[20px] overflow-hidden aspect-[4/3] bg-[#F0EEED] flex items-center justify-center">
+              {{ 'collection-' | append: i | placeholder_svg_tag: 'w-full h-full object-cover opacity-30' }}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+              <span class="absolute bottom-4 left-4 text-white font-bold text-lg sm:text-xl">Category Name</span>
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+
+    </section>
+
+  {%- comment -%}===== BRAND STORY BLOCK ====={%- endcomment -%}
+  {%- elsif block.type == 'brand_story' -%}
+    <section
+      class="cl-story-wrap-{{ block.id }} w-full py-16 sm:py-24"
+      {{ block.shopify_attributes }}
+    >
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col {% if block.settings.image_position == 'right' %}md:flex-row-reverse{% else %}md:flex-row{% endif %} gap-10 md:gap-16 items-center">
+
+          {%- comment -%} Image column {%- endcomment -%}
+          {%- if block.settings.image != blank -%}
+            <div class="w-full md:w-1/2 flex-shrink-0">
+              <div class="rounded-[20px] overflow-hidden aspect-[4/3]">
+                <img
+                  src="{{ block.settings.image | image_url: width: 900 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  width="{{ block.settings.image.width | default: 900 }}"
+                  height="{{ block.settings.image.height | default: 675 }}"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                >
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Text column {%- endcomment -%}
+          <div class="w-full {% if block.settings.image != blank %}md:w-1/2{% endif %}">
+            {%- if block.settings.title != blank -%}
+              <h2 class="cl-story-title-{{ block.id }} font-black tracking-tighter uppercase text-3xl sm:text-5xl mb-6 leading-none">
+                {{ block.settings.title }}
+              </h2>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="cl-story-text-{{ block.id }} prose prose-lg max-w-none leading-relaxed">
+                {{ block.settings.text }}
+              </div>
+            {%- endif -%}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  {%- endif -%}
+
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "Collection Landing",
+  "tag": "div",
+  "class": "collection-landing-section",
+  "max_blocks": 25,
+  "blocks": [
+    {
+      "type": "hero",
+      "name": "Hero Banner",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Women's Clothing"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Explore our latest styles, from everyday essentials to statement pieces."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay Opacity",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "default": 30,
+          "unit": "%"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "min_height",
+          "label": "Min Height (Desktop)",
+          "min": 300,
+          "max": 800,
+          "step": 20,
+          "default": 500,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "min_height_mobile",
+          "label": "Min Height (Mobile)",
+          "min": 200,
+          "max": 600,
+          "step": 20,
+          "default": 360,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "type": "category_row",
+      "name": "Category Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Row Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_to_show",
+          "label": "Products to Show",
+          "min": 4,
+          "max": 12,
+          "step": 2,
+          "default": 4
+        },
+        {
+          "type": "text",
+          "id": "view_all_label",
+          "label": "View All Label",
+          "default": "Ver Todos"
+        },
+        {
+          "type": "header",
+          "content": "Title Style"
+        },
+        {
+          "type": "font_picker",
+          "id": "title_font",
+          "label": "Title Font",
+          "default": "inter_n6"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Title Size (Desktop)",
+          "min": 24,
+          "max": 64,
+          "step": 2,
+          "default": 36,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "label": "Title Size (Mobile)",
+          "min": 20,
+          "max": 48,
+          "step": 2,
+          "default": 28,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "type": "subcollection_grid",
+      "name": "Subcollection Grid",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section Title",
+          "default": "More to Explore"
+        },
+        {
+          "type": "header",
+          "content": "Title Style"
+        },
+        {
+          "type": "font_picker",
+          "id": "title_font",
+          "label": "Title Font",
+          "default": "inter_n9"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "label": "Title Size (Desktop)",
+          "min": 24,
+          "max": 64,
+          "step": 2,
+          "default": 36,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "label": "Title Size (Mobile)",
+          "min": 20,
+          "max": 48,
+          "step": 2,
+          "default": 28,
+          "unit": "px"
+        },
+        {
+          "type": "header",
+          "content": "Grid Layout"
+        },
+        {
+          "type": "select",
+          "id": "columns_desktop",
+          "label": "Columns (Desktop)",
+          "options": [
+            { "value": "2", "label": "2 columns" },
+            { "value": "3", "label": "3 columns" },
+            { "value": "4", "label": "4 columns" }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "columns_mobile",
+          "label": "Columns (Mobile)",
+          "options": [
+            { "value": "1", "label": "1 column" },
+            { "value": "2", "label": "2 columns" }
+          ],
+          "default": "2"
+        }
+      ]
+    },
+    {
+      "type": "subcollection_card",
+      "name": "Subcollection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card Link"
+        }
+      ]
+    },
+    {
+      "type": "brand_story",
+      "name": "Brand Story",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Our Story"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share your brand values and story here. Tell customers what makes your clothing line unique and what you stand for.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image Position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#f9f7f4"
+        },
+        {
+          "type": "header",
+          "content": "Text Style"
+        },
+        {
+          "type": "font_picker",
+          "id": "title_font",
+          "label": "Title Font",
+          "default": "inter_n6"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Body Text Color",
+          "default": "#374151"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Landing",
+      "blocks": [
+        {
+          "type": "hero"
+        },
+        {
+          "type": "category_row"
+        },
+        {
+          "type": "subcollection_grid"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

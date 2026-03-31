@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(vercel --version)",
+      "Bash(vercel --prod)",
+      "Bash(python3 fix_encoding.py)",
+      "Bash(python3 fix2.py)",
+      "Bash(python3 check_encoding.py)",
+      "Bash(python3 -c \":*)"
+    ]
+  }
+}

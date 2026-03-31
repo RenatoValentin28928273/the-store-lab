@@ -1,0 +1,407 @@
+{%- liquid
+  assign title_font = section.settings.title_font
+  assign question_font = section.settings.question_font
+  assign answer_font = section.settings.answer_font
+-%}
+
+<style>
+  {{ title_font | font_face: font_display: 'swap' }}
+  {{ question_font | font_face: font_display: 'swap' }}
+  {{ answer_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .faq-title {
+    font-family: {{ title_font.family }}, {{ title_font.fallback_families }} !important;
+    font-weight: {{ title_font.weight }} !important;
+    font-style: {{ title_font.style }} !important;
+    color: {{ section.settings.title_color }} !important;
+    font-size: {{ section.settings.title_size_mobile }}px !important;
+  }
+
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .faq-title {
+      font-size: {{ section.settings.title_size }}px !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .faq-question {
+    font-family: {{ question_font.family }}, {{ question_font.fallback_families }} !important;
+    font-weight: {{ question_font.weight }} !important;
+    font-style: {{ question_font.style }} !important;
+    color: {{ section.settings.question_color }} !important;
+    font-size: {{ section.settings.question_size_mobile }}px !important;
+  }
+
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .faq-question {
+      font-size: {{ section.settings.question_size }}px !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .faq-answer {
+    font-family: {{ answer_font.family }}, {{ answer_font.fallback_families }} !important;
+    font-weight: {{ answer_font.weight }} !important;
+    font-style: {{ answer_font.style }} !important;
+    color: {{ section.settings.answer_color }} !important;
+    font-size: {{ section.settings.answer_size_mobile }}px !important;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .faq-answer {
+      font-size: {{ section.settings.answer_size }}px !important;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .faq-item {
+    border: 1px solid {{ section.settings.card_border_color }};
+    background-color: {{ section.settings.card_bg_color }};
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Resposta sempre no DOM — visível para bots de busca, animada via max-height */
+  #shopify-section-{{ section.id }} .faq-answer-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .faq-item.is-open .faq-answer-wrapper {
+    max-height: 600px;
+  }
+
+  #shopify-section-{{ section.id }} .faq-icon {
+    flex-shrink: 0;
+    transition: transform 0.35s ease;
+    color: {{ section.settings.icon_color }};
+  }
+
+  #shopify-section-{{ section.id }} .faq-item.is-open .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  #shopify-section-{{ section.id }} .faq-trigger {
+    background: none;
+    border: none;
+    padding: {{ section.settings.card_padding_y }}px {{ section.settings.card_padding_x }}px;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .faq-answer {
+    padding: 0 {{ section.settings.card_padding_x }}px {{ section.settings.card_padding_y }}px;
+  }
+
+  #shopify-section-{{ section.id }} .faq-trigger:focus-visible {
+    outline: 2px solid {{ section.settings.icon_color }};
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+</style>
+
+<section class="max-w-3xl mx-auto px-4" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  {%- if section.settings.title != blank -%}
+    <h2 class="faq-title font-black text-center mb-12 tracking-tighter uppercase">
+      {{ section.settings.title }}
+    </h2>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="space-y-3" itemscope itemtype="https://schema.org/FAQPage">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'faq_item' and block.settings.question != blank -%}
+          <div
+            class="faq-item"
+            itemscope
+            itemprop="mainEntity"
+            itemtype="https://schema.org/Question"
+            {{ block.shopify_attributes }}
+          >
+            <button
+              class="faq-trigger flex items-center justify-between gap-4 w-full text-left"
+              aria-expanded="false"
+              aria-controls="faq-answer-{{ block.id }}"
+              onclick="faqToggle(this)"
+            >
+              <span class="faq-question font-semibold" itemprop="name">{{ block.settings.question }}</span>
+              <svg class="faq-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+
+            {{- '<!-- Conteúdo sempre no HTML para indexação pelos buscadores -->' -}}
+            <div
+              id="faq-answer-{{ block.id }}"
+              class="faq-answer-wrapper"
+              role="region"
+              aria-labelledby="faq-answer-{{ block.id }}"
+              itemscope
+              itemprop="acceptedAnswer"
+              itemtype="https://schema.org/Answer"
+            >
+              <div class="faq-answer" itemprop="text">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+
+<script>
+  function faqToggle(button) {
+    var item = button.closest('.faq-item');
+    var isOpen = item.classList.contains('is-open');
+    var section = button.closest('[id^="shopify-section-"]');
+
+    // Fecha todos os itens abertos nesta seção
+    section.querySelectorAll('.faq-item.is-open').forEach(function(openItem) {
+      openItem.classList.remove('is-open');
+      openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+    });
+
+    // Abre o item clicado (se estava fechado)
+    if (!isOpen) {
+      item.classList.add('is-open');
+      button.setAttribute('aria-expanded', 'true');
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Espaçamento da Seção"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Título da Seção"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Fonte do Título",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Texto do Título",
+      "default": "PERGUNTAS FREQUENTES"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do Título",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do Título (Desktop)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do Título (Mobile)",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Estilo da Pergunta"
+    },
+    {
+      "type": "font_picker",
+      "id": "question_font",
+      "label": "Fonte da Pergunta",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Cor da Pergunta",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Pergunta (Desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "question_size_mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Pergunta (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Estilo da Resposta"
+    },
+    {
+      "type": "font_picker",
+      "id": "answer_font",
+      "label": "Fonte da Resposta",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Cor da Resposta",
+      "default": "#374151"
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Resposta (Desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Resposta (Mobile)",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Estilo do Card"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento Horizontal (respiro lateral)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento Vertical (respiro topo/base)",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Cor de Fundo do Card",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Cor da Borda do Card",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Cor do Ícone (+)",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Pergunta & Resposta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Pergunta",
+          "default": "Qual é a política de trocas e devoluções?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Resposta",
+          "default": "<p>Aceitamos trocas e devoluções em até 30 dias após a compra. Os itens devem estar em perfeito estado, com etiquetas originais.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Qual é a política de trocas e devoluções?",
+            "answer": "<p>Aceitamos trocas e devoluções em até 30 dias após a compra. Os itens devem estar em perfeito estado, com etiquetas originais.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Qual o prazo de entrega?",
+            "answer": "<p>O prazo padrão é de 5 a 7 dias úteis. Opções de entrega expressa estão disponíveis no checkout.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Vocês entregam para todo o Brasil?",
+            "answer": "<p>Sim, entregamos para todos os estados do Brasil. O frete é calculado automaticamente no checkout com base no seu CEP.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

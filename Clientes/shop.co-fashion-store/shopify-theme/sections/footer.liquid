@@ -1,0 +1,84 @@
+<footer class="bg-[#F0F0F0] pt-40 pb-12">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-12 mb-12">
+      <div class="col-span-2 md:col-span-1">
+        <h2 class="text-3xl font-black tracking-tighter mb-6">{{ section.settings.logo_text }}</h2>
+        <p class="text-gray-500 text-sm mb-8">
+          {{ section.settings.description }}
+        </p>
+        <div class="flex gap-4">
+          {% if settings.social_twitter_link != blank %}<a href="{{ settings.social_twitter_link }}" class="p-2 bg-white rounded-full border border-gray-200 hover:bg-black hover:text-white transition-all">Twitter</a>{% endif %}
+          {% if settings.social_facebook_link != blank %}<a href="{{ settings.social_facebook_link }}" class="p-2 bg-white rounded-full border border-gray-200 hover:bg-black hover:text-white transition-all">Facebook</a>{% endif %}
+          {% if settings.social_instagram_link != blank %}<a href="{{ settings.social_instagram_link }}" class="p-2 bg-white rounded-full border border-gray-200 hover:bg-black hover:text-white transition-all">Instagram</a>{% endif %}
+        </div>
+      </div>
+      
+      {% for block in section.blocks %}
+        <div>
+          <h4 class="font-bold uppercase tracking-widest text-sm mb-6">{{ block.settings.title }}</h4>
+          <ul class="space-y-4 text-gray-500 text-sm">
+            {% for link in block.settings.menu.links %}
+              <li><a href="{{ link.url }}" class="hover:text-black transition-colors">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="border-t border-gray-200 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-sm">{{ section.settings.copyright }}</p>
+      <div class="flex gap-4 grayscale opacity-60">
+        <!-- Ícones de pagamento -->
+        {% for type in shop.enabled_payment_types %}
+          {{ type | payment_type_svg_tag: class: 'h-6' }}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "SHOP.CO"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We have clothes that suits your style and which you're proud to wear. From women to men."
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright Text",
+      "default": "Shop.co © 2000-2023, All Rights Reserved"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu Column",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column Title",
+          "default": "COMPANY"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

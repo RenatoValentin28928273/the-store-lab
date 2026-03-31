@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="lenis">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Como Criar uma Loja Online Rápido com Shopify — The Store Lab — The Store Lab</title>
+  <meta name="description" content="Guia completo e direto: como criar uma loja online rapidamente usando Shopify. Passo a passo técnico, comparativo de plataformas, custos reais e erros a evitar." />
+  <link rel="canonical" href="https://thestorelab.com.br/docs/como-criar-loja-online-shopify.html" />
+
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://thestorelab.com.br/docs/como-criar-loja-online-shopify.html" />
+  <meta property="og:title" content="Como Criar uma Loja Online Rápido com Shopify — The Store Lab" />
+  <meta property="og:description" content="Guia completo e direto: como criar uma loja online rapidamente usando Shopify. Passo a passo técnico, comparativo de plataformas, custos reais e erros a evitar." />
+  <meta property="og:image" content="https://thestorelab.com.br/og-image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --tech-blue: #3461FF;
+      --tech-bg-alt: #f0f2f5;
+      --border-soft: rgba(0, 0, 0, 0.08);
+      --nav-height: 80px;
+      --text-main: #111111;
+      --text-muted: #555555;
+    }
+
+    body { background-color: #ffffff; color: var(--text-main); }
+
+    .navbar { padding: 12px 0 !important; background: transparent !important; }
+    .navbar .nav-inner {
+      background: #000000 !important;
+      backdrop-filter: blur(15px) !important;
+      -webkit-backdrop-filter: blur(15px) !important;
+      width: 100% !important;
+      max-width: 1080px !important;
+      padding: 8px 12px 8px 24px !important;
+      border-radius: 100px !important;
+      border: 1px solid rgba(255,255,255,0.18) !important;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8) !important;
+      margin: 0 auto !important;
+    }
+    .navbar .logo-text { font-size: 0.92rem !important; color: #ffffff !important; margin-left: 10px !important; }
+    .navbar .logo-box { background: transparent !important; color: #ffffff !important; box-shadow: none !important; }
+    .navbar .nav-links { gap: 12px !important; }
+    .navbar .nav-links a {
+      padding: 8px 16px !important;
+      font-size: 0.65rem !important;
+      color: rgba(255,255,255,0.7) !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .navbar .nav-links a::before { display: none !important; }
+    .navbar .nav-links a:hover { color: #ffffff !important; background: rgba(255,255,255,0.1) !important; }
+    .navbar .nav-links a.active { background: #ffffff !important; color: #000000 !important; border-radius: 999px !important; }
+    .navbar .nav-cta { display: flex !important; margin-left: 14px !important; background: #ffffff !important; color: #000000 !important; }
+
+    #progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: var(--tech-blue); z-index: 10001; transition: width 0.1s ease; }
+
+    .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
+    .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
+    .hero-highlight { color: var(--tech-blue) !important; }
+    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+
+    .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
+    .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
+    
+    .article-body { color: #333; line-height: 1.8; font-size: 1.05rem; }
+    .article-body h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; margin: 40px 0 20px; color: var(--text-main); }
+    .tech-list { margin-bottom: 20px; padding-left: 20px; border-left: 2px solid var(--tech-blue); list-style: square; }
+    .tech-pro-tip { background: rgba(52, 97, 255, 0.04); border-left: 3px solid var(--tech-blue); padding: 24px; margin: 30px 0; border-radius: 0 8px 8px 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.9rem; }
+    .comparison-table th { background: #f0f2f5; padding: 12px; text-align: left; border-bottom: 2px solid var(--border-soft); }
+    .comparison-table td { padding: 12px; border-bottom: 1px solid var(--border-soft); }
+    
+    .post-cta { margin-top: 60px; padding: 40px; background: #ffffff; border: 1px solid var(--border-soft); border-radius: 16px; text-align: center; }
+    .btn-solid-blue { display: inline-flex; align-items: center; gap: 10px; background: var(--tech-blue); color: white; padding: 12px 24px; border-radius: 99px; font-weight: 600; text-decoration: none; }
+
+    @media (max-width: 1024px) { .doc-container { grid-template-columns: 1fr; padding: 40px 20px; } .doc-sidebar { display: none; } }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="logo" id="logo-link" title="Ir para o topo">
+        <div class="logo-box">
+          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" role="img" aria-label="Logo Lab Store">
+            <path d="M15 9V4H16C16.6 4 17 3.6 17 3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3C7 3.6 7.4 4 8 4H9V9L4.5 18.5C4.2 19.2 4.7 20 5.5 20H18.5C19.3 20 19.8 19.2 19.5 18.5L15 9Z" stroke="#3461FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.3 16C8.5 15 10.5 17 13 16C15.5 15 17.5 16.5 17.7 17L18.5 18.5C18.7 19 18.3 19.5 17.8 19.5L6.2 19.5C5.7 19.5 5.3 19 5.5 18.5L6.3 16Z" fill="#3461FF"/>
+          </svg>
+        </div>
+        <span class="logo-text">The Lab Store</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <div class="nav-item">
+          <a href="/servicos/">Serviços<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="/servicos/design-premium.html">Design Premium</a>
+            <a href="/servicos/desenvolvimento-shopify.html">Desenvolvimento Shopify</a>
+            <a href="/servicos/estrategia-growth.html">Estratégia &amp; Growth</a>
+            <a href="/servicos/gestao-suporte.html">Gestão &amp; Suporte</a>
+            <a href="/servicos/seo-ecommerce.html">SEO E-commerce</a>
+            <a href="/servicos/pagamentos-logistica.html">Pagamentos &amp; Logística</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="/temas-shopify.html">Temas<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="/temas-shopify.html">Temas Shopify Customizados</a>
+          </div>
+        </div>
+        <a href="/index.html#resultados">Resultados</a>
+        <a href="/#depoimentos">Cases</a>
+        <a href="/docs.html" class="active">FAQ</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="nav-cta">Começar agora</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-nav">
+      <a href="/servicos/" class="mobile-link">Serviços</a>
+      <div class="mobile-sublinks-group">
+      <a href="/servicos/design-premium.html" class="mobile-link mobile-link-sub">Design Premium</a>
+      <a href="/servicos/desenvolvimento-shopify.html" class="mobile-link mobile-link-sub">Desenvolvimento Shopify</a>
+      <a href="/servicos/estrategia-growth.html" class="mobile-link mobile-link-sub">Estratégia &amp; Growth</a>
+      <a href="/servicos/gestao-suporte.html" class="mobile-link mobile-link-sub">Gestão &amp; Suporte</a>
+      <a href="/servicos/seo-ecommerce.html" class="mobile-link mobile-link-sub">SEO E-commerce</a>
+      <a href="/servicos/pagamentos-logistica.html" class="mobile-link mobile-link-sub">Pagamentos &amp; Logística</a>
+    </div><a href="/temas-shopify.html" class="mobile-link">Temas</a>
+      <a href="/#resultados" class="mobile-link">Resultados</a>
+      <a href="/#depoimentos" class="mobile-link">Cases</a>
+      <a href="/docs.html" class="mobile-link">FAQ</a>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="btn btn-primary mobile-btn">Começar agora</a>
+    </nav>
+  </div>
+
+  <section class="docs-hero">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="/">Home</a> <span class="sep">/</span> 
+        <a href="/docs.html">Docs</a> <span class="sep">/</span> 
+        <a href="/docs/categorias/growth-tech.html">Growth Tech</a> <span class="sep">/</span> 
+        <span>Como Criar uma Loja Online Rápido com Shopify — The Store Lab</span>
+      </div>
+      <h1 class="hub-title-tech">Como Criar uma Loja Online Rapidamente com Shopify</h1>
+      <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px;">Guia completo e direto: como criar uma loja online rapidamente usando Shopify. Passo a passo técnico, comparativo de plataformas, custos reais e erros a evitar.</p>
+    </div>
+  </section>
+
+  <main class="container doc-container">
+    <div class="doc-content">
+      <div class="article-body">
+        <p>Criar uma loja online em 2026 é tecnicamente simples. O que separa uma loja que gera receita de uma que fica parada na vitrine digital são as decisões certas nos primeiros sete dias: plataforma, pagamento, frete e estrutura mínima para vender. Se você ainda está na fase de decisão de nicho ou formalização, recomendamos ler primeiro nosso <a href="./como-planejar-e-commerce-do-zero.html">Guia de Planejamento de E-commerce do Zero</a>.</p>
+<h2 id="1-qual-plataforma-escolher">1. Qual plataforma escolher</h2>
+<p>A resposta mais direta: <strong>Shopify para a maioria dos negócios</strong>. É a plataforma com maior ecossistema, performance técnica comprovada, suporte nativo a pagamentos brasileiros e menor curva de manutenção. Mas o cenário completo exige comparação:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Plataforma</th>
+<th style="text-align:left">Melhor para</th>
+<th style="text-align:left">Custo mensal (2026)</th>
+<th style="text-align:left">Ponto fraco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Shopify</strong></td>
+<td style="text-align:left">Maioria dos negócios; escala com a loja</td>
+<td style="text-align:left">R$99 a R$399</td>
+<td style="text-align:left">Custo cresce com apps</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Nuvemshop</strong></td>
+<td style="text-align:left">Iniciantes; ticket médio baixo</td>
+<td style="text-align:left">R$89 a R$259</td>
+<td style="text-align:left">Limitações técnicas no plano básico</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>WooCommerce</strong></td>
+<td style="text-align:left">Quem já usa WordPress</td>
+<td style="text-align:left">Hospedagem + plugins: R$60 a R$300</td>
+<td style="text-align:left">Manutenção técnica constante</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>VTEX</strong></td>
+<td style="text-align:left">Grandes operações (acima de R$5M/ano)</td>
+<td style="text-align:left">Sob contrato</td>
+<td style="text-align:left">Complexidade e custo de entrada</td>
+</tr>
+</tbody>
+</table>
+<p>Para quem está abrindo a primeira loja ou migrando de uma plataforma legada, o Shopify elimina toda a camada de infraestrutura (hospedagem, CDN, SSL, atualizações de segurança) e entrega isso como serviço. Você foca em vender, não em servidor.</p>
+<h2 id="2-passo-a-passo-loja-no-ar-em-7-dias">2. Passo a passo: loja no ar em 7 dias</h2>
+<p>O processo completo para criar uma loja Shopify funcional — com produtos, pagamento e frete configurados — pode ser dividido em 7 etapas sequenciais:</p>
+<ol>
+<li>
+<p><strong>Criar conta (Dia 1)</strong>
+Acesse <code>shopify.com</code> e inicie o trial de 3 dias — sem cartão de crédito. Defina o nome da loja, país (Brasil) e categoria do negócio. O trial dá acesso completo a todos os recursos para você estruturar tudo antes de pagar.</p>
+</li>
+<li>
+<p><strong>Escolher e personalizar o tema (Dia 1–2)</strong>
+Em <code>Online Store › Themes</code>, escolha um tema. O <strong>Dawn</strong> (gratuito) é rápido, semântico e bem otimizado para Core Web Vitals. Para lojas de moda, lifestyle ou produtos premium, temas pagos como Impulse, Prestige ou temas customizados oferecem mais controle visual. Personalize no <strong>Theme Editor</strong>: logo, paleta de cores, tipografia e seções da homepage.</p>
+</li>
+<li>
+<p><strong>Cadastrar produtos (Dia 2–3)</strong>
+Em <code>Products › Add Product</code>: título com a palavra-chave principal, descrição em listas estruturadas (não parágrafos genéricos), preço, SKU, peso (para cálculo de frete) e fotos com fundo limpo em alta resolução. Organize em <strong>Coleções</strong> por categoria. Produtos bem estruturados convertem melhor e são indexados por IAs de busca.</p>
+</li>
+<li>
+<p><strong>Configurar pagamentos (Dia 3–4)</strong>
+Em <code>Settings › Payments</code>: ative o <strong>Shopify Payments</strong> (para CNPJ brasileiro) para aceitar cartões sem taxa adicional da Shopify. Adicione <strong>Mercado Pago</strong> ou <strong>PagSeguro</strong> via apps para cobrir Pix e boleto. Configure parcelamento em até 12x para aumentar o ticket médio.</p>
+</li>
+<li>
+<p><strong>Configurar frete (Dia 4–5)</strong>
+Em <code>Settings › Shipping and Delivery</code>: instale o app <strong>Melhor Envio</strong> (integração nativa, gratuita) para calcular frete em tempo real com Correios, Jadlog, Loggi e outras transportadoras. Configure frete grátis acima de um valor mínimo para aumentar o valor médio de pedido.</p>
+</li>
+<li>
+<p><strong>Conectar domínio próprio (Dia 5–6)</strong>
+Em <code>Settings › Domains</code>: adicione um domínio existente ou compre um novo. O SSL é configurado automaticamente pelo Shopify. Domínios <code>.com.br</code> custam R$40/ano no Registro.br; domínios <code>.com</code> custam $14/ano via Shopify ou GoDaddy. Domínio próprio é obrigatório para credibilidade e SEO.</p>
+</li>
+<li>
+<p><strong>Publicar (Dia 6–7)</strong>
+Em <code>Online Store › Preferences</code>: remova a senha da loja. A partir desse momento, a loja está pública e o plano pago é ativado. Antes de publicar, faça um pedido de teste com o <strong>Bogus Gateway</strong> (modo de teste) para validar o fluxo completo.</p>
+</li>
+</ol>
+<h2 id="3-configura-es-essenciais">3. Configurações essenciais</h2>
+<p>Após publicar, existe um conjunto de configurações que impactam diretamente em conversão, SEO e conformidade legal:</p>
+<ul>
+<li><strong>Política de devolução e troca:</strong> O CDC obriga lojas a informar claramente as condições de devolução em 7 dias.</li>
+<li><strong>E-mails transacionais:</strong> Personalize os e-mails de confirmação de pedido, envio e cancelamento com a identidade visual da loja.</li>
+<li><strong>Recuperação de carrinho abandonado:</strong> Envie e-mail automático para quem abandonou o checkout.</li>
+<li><strong>Google Analytics 4 e Meta Pixel:</strong> Instale via <code>Online Store › Preferences</code>.</li>
+<li><strong>Robots.txt e sitemap:</strong> Submeta no Google Search Console e no Bing Webmaster Tools.</li>
+</ul>
+<blockquote>
+<h3>Dica técnica: Performance no dia 1</h3>
+<p>O tema Dawn do Shopify tem Core Web Vitals sólidos por padrão. Mas cada app instalado adiciona scripts no front-end. Antes de instalar qualquer app, avalie se a funcionalidade pode ser resolvida nativamente.</p>
+</blockquote>
+<h2 id="4-custos-reais-para-2026">4. Custos reais para 2026</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Item</th>
+<th style="text-align:left">Custo estimado</th>
+<th style="text-align:left">Observação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Plano Basic Shopify</td>
+<td style="text-align:left">R$99/mês</td>
+<td style="text-align:left">Suficiente para começar</td>
+</tr>
+<tr>
+<td style="text-align:left">Domínio .com.br</td>
+<td style="text-align:left">R$40/ano</td>
+<td style="text-align:left">Registro.br</td>
+</tr>
+<tr>
+<td style="text-align:left">Tema gratuito (Dawn)</td>
+<td style="text-align:left">R$0</td>
+<td style="text-align:left">Bom ponto de partida</td>
+</tr>
+<tr>
+<td style="text-align:left">Tema premium customizado</td>
+<td style="text-align:left">R$800 a R$5.000</td>
+<td style="text-align:left">Pagamento único; diferencial</td>
+</tr>
+<tr>
+<td style="text-align:left">Apps (média)</td>
+<td style="text-align:left">R$0 a R$200/mês</td>
+<td style="text-align:left">Depende das funcionalidades</td>
+</tr>
+<tr>
+<td style="text-align:left">Taxa de transação (Basic)</td>
+<td style="text-align:left">2% por venda</td>
+<td style="text-align:left">Zerando ao usar Shopify Payments</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Total mínimo (Ano 1)</strong></td>
+<td style="text-align:left"><strong>~R$1.230</strong></td>
+<td style="text-align:left">Plano Basic + domínio</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-erros-que-atrasam-o-lan-amento">5. Erros que atrasam o lançamento</h2>
+<ul>
+<li><strong>Perfeccionismo no design:</strong> Valide o produto antes de gastar semanas em design.</li>
+<li><strong>Fotos ruins:</strong> O cliente não toca o produto; a foto é o seu vendedor.</li>
+<li><strong>Não testar o checkout:</strong> Carrinhos abandonados matam o lucro se houver erro técnico.</li>
+<li><strong>Lançar sem rastreamento:</strong> Sem dados, você não escala.</li>
+<li><strong>Ignorar SEO:</strong> Use títulos descritivos e densidade de palavras-chave.</li>
+</ul>
+<h2 id="6-depois-do-lan-amento">6. Depois do lançamento</h2>
+<ul>
+<li><strong>Semana 1–2:</strong> Gere tráfego pago para validar o produto.</li>
+<li><strong>Mês 1:</strong> Otimize o funil com base nos dados.</li>
+<li><strong>Mês 2–3:</strong> Invista em conteúdo semântico para buscas orgânicas e IAs.</li>
+<li><strong>Mês 3+:</strong> Escale o que está funcionando.</li>
+</ul>
+<h2 id="perguntas-frequentes">Perguntas Frequentes</h2>
+<h3>Como criar uma loja online rapidamente?</h3>
+<p>Use o Shopify: crie a conta, configure tema, cadastre produtos, ative pagamentos e frete, conecte um domínio e publique. Pode estar no ar em 1 a 3 dias com foco total.</p>
+<h3>Qual a melhor plataforma para criar loja virtual?</h3>
+<p>Shopify é a recomendação para 90% dos casos devido ao ecossistema, performance e facilidade de escala. No Brasil, Nuvemshop é uma alternativa de entrada viável.</p>
+<h3>Quanto custa criar uma loja no Shopify?</h3>
+<p>Aproximadamente R$140 no primeiro mês (Plano Basic + domínio). Depois, custos variam conforme apps e taxas de gateway.</p>
+<h3>Shopify Payments funciona no Brasil?</h3>
+<h2 id="sim-aceita-cnpj-brasileiro-e-permite-cart-es-sem-taxas-extras-da-shopify-pix-e-boleto-funcionam-via-apps-como-mercado-pago-">Sim. Aceita CNPJ brasileiro e permite cartões sem taxas extras da Shopify. Pix e boleto funcionam via apps como Mercado Pago.</h2>
+
+      </div>
+
+      <div class="post-cta">
+        <h3>Quer uma loja no ar em menos de 7 dias?</h3>
+        <p>Montamos a estrutura completa — tema, produtos, pagamento, frete e SEO — para que você comece a vender sem precisar entender cada detalhe técnico.</p>
+        <a href="https://wa.me/5542999655157" class="btn-solid-blue">
+          Falar com um especialista
+          <i data-lucide="arrow-right" style="width:16px;"></i>
+        </a>
+      </div>
+    </div>
+
+    <aside class="doc-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i data-lucide="list"></i> ÍNDICE
+        </div>
+        <ul class="sidebar-nav" id="toc">
+          <li class="sidebar-nav-item active"><a href="#1-qual-plataforma-escolher">1. Qual plataforma escolher</a></li>
+          <li class="sidebar-nav-item "><a href="#2-passo-a-passo-loja-no-ar-em-7-dias">2. Passo a passo: loja no ar em 7 dias</a></li>
+          <li class="sidebar-nav-item "><a href="#3-configura-es-essenciais">3. Configurações essenciais</a></li>
+          <li class="sidebar-nav-item "><a href="#4-custos-reais-para-2026">4. Custos reais para 2026</a></li>
+          <li class="sidebar-nav-item "><a href="#5-erros-que-atrasam-o-lan-amento">5. Erros que atrasam o lançamento</a></li>
+          <li class="sidebar-nav-item "><a href="#6-depois-do-lan-amento">6. Depois do lançamento</a></li>
+          <li class="sidebar-nav-item "><a href="#perguntas-frequentes">Perguntas Frequentes</a></li>
+          <li class="sidebar-nav-item "><a href="#sim-aceita-cnpj-brasileiro-e-permite-cart-es-sem-taxas-extras-da-shopify-pix-e-boleto-funcionam-via-apps-como-mercado-pago-">Sim. Aceita CNPJ brasileiro e permite cartões sem taxas extras da Shopify. Pix e boleto funcionam via apps como Mercado Pago.</a></li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo" id="logo-link-footer" title="Ir para o topo">
+            <div class="logo-box">
+              <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+                <path d="M15 9V4H16C16.6 4 17 3.6 17 3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3C7 3.6 7.4 4 8 4H9V9L4.5 18.5C4.2 19.2 4.7 20 5.5 20H18.5C19.3 20 19.8 19.2 19.5 18.5L15 9Z" stroke="#3461FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.3 16C8.5 15 10.5 17 13 16C15.5 15 17.5 16.5 17.7 17L18.5 18.5C18.7 19 18.3 19.5 17.8 19.5L6.2 19.5C5.7 19.5 5.3 19 5.5 18.5L6.3 16Z" fill="#3461FF"/>
+              </svg>
+            </div>
+            <span class="logo-text">THE LAB <span class="logo-accent">STORE</span></span>
+          </a>
+          <p>Agência especializada em criação e otimização de lojas Shopify de alta performance.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/thestorelab/" target="_blank" class="social-link" id="footer-instagram" aria-label="Siga-nos no Instagram" title="Instagram">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/thestorelab/" target="_blank" class="social-link" id="footer-linkedin" aria-label="Siga-nos no LinkedIn" title="LinkedIn">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </a>
+            <a href="https://wa.me/5542999655157" target="_blank" class="social-link" id="footer-whatsapp" aria-label="Fale conosco no WhatsApp" title="WhatsApp">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52z" fill="currentColor" opacity=".15"/><path d="M17.5 14.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.41-1.5-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51H7.5c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.1 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="/servicos/design-premium.html">Design Premium</a></li>
+            <li><a href="/servicos/desenvolvimento-shopify.html">Desenvolvimento</a></li>
+            <li><a href="/servicos/estrategia-growth.html">Estratégia & Growth</a></li>
+            <li><a href="/servicos/gestao-suporte.html">Gestão & Suporte</a></li>
+            <li><a href="/servicos/seo-ecommerce.html">SEO E-commerce</a></li>
+            <li><a href="/servicos/pagamentos-logistica.html">Pagamentos & Logística</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="/index.html#resultados">Resultados</a></li>
+            <li><a href="/index.html#processo">Processo</a></li>
+            <li><a href="/index.html#depoimentos">Cases</a></li>
+            <li><a href="/docs.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="mailto:contato@thestorelab.com.br">contato@thestorelab.com.br</a></li>
+            <li><a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/thestorelab/">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 The Lab Store. Todos os direitos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/privacidade.html">Política de Privacidade</a>
+          <a href="/termos.html">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script>
+    lucide.createIcons();
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+  </script>
+</body>
+</html>

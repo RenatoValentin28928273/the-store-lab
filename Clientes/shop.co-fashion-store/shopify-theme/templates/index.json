@@ -1,0 +1,298 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "full_background": true,
+        "video": "shopify://files/videos/6009576_4k_Video_Attractive_3840x2160.mp4",
+        "show_content": true,
+        "min_height_desktop": 600,
+        "min_height_mobile": 500,
+        "content_v_align": "flex-start",
+        "content_h_align": "flex-start",
+        "content_block_width": 50,
+        "content_v_align_mobile": "flex-start",
+        "content_h_align_mobile": "center",
+        "offset_x": 0,
+        "offset_y": 150,
+        "offset_x_mobile": 0,
+        "offset_y_mobile": 115,
+        "heading_font": "inter_n6",
+        "heading_color": "#ffffff",
+        "heading_size": 58,
+        "heading_size_mobile": 36,
+        "heading_line_height": 105,
+        "heading_max_width": 100,
+        "heading_max_width_mobile": 100,
+        "subtext_font": "sans_serif_n4",
+        "subtext_color": "#f3f4f6",
+        "subtext_size": 16,
+        "subtext_size_mobile": 14,
+        "subtext_max_width": 100,
+        "subtext_max_width_mobile": 100,
+        "button_font": "sans_serif_n4",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_font_size": 16,
+        "button_padding_x": 48,
+        "button_padding_y": 16,
+        "button_radius": 98,
+        "button_margin_top": 32,
+        "stat_number_color": "#000000",
+        "stat_number_size": 40,
+        "stat_label_color": "#6b7280",
+        "stat_label_size": 14,
+        "title": "FIND CLOTHES THAT MATCHES YOUR STYLE",
+        "subtext": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
+        "button_label": "Shop Now",
+        "button_link": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "brands_bar": {
+      "type": "brands-bar",
+      "blocks": {
+        "brand_Mxt8Bh": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "BRAND",
+            "image": "shopify://shop_images/versace-logo.png",
+            "logo_height": 70
+          }
+        },
+        "brand_nhFEGc": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "BRAND",
+            "image": "shopify://shop_images/versace-logo.png",
+            "logo_height": 70
+          }
+        }
+      },
+      "block_order": [
+        "brand_Mxt8Bh",
+        "brand_nhFEGc"
+      ],
+      "settings": {
+        "padding_vertical": 10,
+        "speed": 10,
+        "gap": 40,
+        "pause_on_hover": true
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "show_divider": true,
+        "heading_font": "inter_n6",
+        "title": "NEW ARRIVALS",
+        "collection": "new-arrivals",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "heading_color": "#000000",
+        "heading_size": 48,
+        "heading_size_mobile": 32,
+        "product_title_font": "inter_n4",
+        "product_title_color": "#000000",
+        "product_title_size": 18,
+        "product_title_size_mobile": 16,
+        "product_price_font": "sans_serif_n4",
+        "product_price_color": "#000000",
+        "product_price_size": 24,
+        "product_price_size_mobile": 20,
+        "button_font": "sans_serif_n4",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#e5e7eb"
+      }
+    },
+    "top_selling": {
+      "type": "featured-collection",
+      "settings": {
+        "show_divider": false,
+        "heading_font": "inter_n6",
+        "title": "TOP SELLING",
+        "collection": "",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "heading_color": "#000000",
+        "heading_size": 48,
+        "heading_size_mobile": 32,
+        "product_title_font": "inter_n4",
+        "product_title_color": "#000000",
+        "product_title_size": 18,
+        "product_title_size_mobile": 16,
+        "product_price_font": "sans_serif_n4",
+        "product_price_color": "#000000",
+        "product_price_size": 24,
+        "product_price_size_mobile": 20,
+        "button_font": "sans_serif_n4",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#e5e7eb"
+      }
+    },
+    "dress_style_grid": {
+      "type": "dress-style-grid",
+      "blocks": {
+        "casual": {
+          "type": "style_card",
+          "settings": {
+            "label": "Casual",
+            "card_font": "inter_n7",
+            "card_color": "#ffffff",
+            "card_size": 32,
+            "bg_color": "#000000",
+            "link": "",
+            "wide": false
+          }
+        },
+        "formal": {
+          "type": "style_card",
+          "settings": {
+            "label": "Formal",
+            "card_font": "inter_n7",
+            "card_color": "#ffffff",
+            "card_size": 32,
+            "bg_color": "#000000",
+            "link": "",
+            "wide": true
+          }
+        },
+        "party": {
+          "type": "style_card",
+          "settings": {
+            "label": "Party",
+            "card_font": "inter_n7",
+            "card_color": "#ffffff",
+            "card_size": 32,
+            "bg_color": "#000000",
+            "link": "",
+            "wide": true
+          }
+        },
+        "gym": {
+          "type": "style_card",
+          "settings": {
+            "label": "Gym",
+            "card_font": "inter_n7",
+            "card_color": "#ffffff",
+            "card_size": 32,
+            "bg_color": "#000000",
+            "link": "",
+            "wide": false
+          }
+        }
+      },
+      "block_order": [
+        "casual",
+        "formal",
+        "party",
+        "gym"
+      ],
+      "settings": {
+        "title": "BROWSE BY DRESS STYLE",
+        "title_font": "inter_n9",
+        "title_color": "#000000",
+        "title_size_desktop": 48,
+        "title_size_mobile": 32
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_8iW3Wj": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sarah M.",
+            "text": "I'm blown away by the quality and style of the clothes I received from Shop.co."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_8iW3Wj"
+      ],
+      "settings": {
+        "title": "OUR HAPPY CUSTOMERS"
+      }
+    },
+    "faq_nCY6Cp": {
+      "type": "faq",
+      "blocks": {
+        "faq_item_HUCVW7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Qual é a política de trocas e devoluções?",
+            "answer": "<p>Aceitamos trocas e devoluções em até 30 dias após a compra. Os itens devem estar em perfeito estado, com etiquetas originais.</p>"
+          }
+        },
+        "faq_item_3iG9Tf": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Qual o prazo de entrega?",
+            "answer": "<p>O prazo padrão é de 5 a 7 dias úteis. Opções de entrega expressa estão disponíveis no checkout.</p>"
+          }
+        },
+        "faq_item_L6ReKd": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Vocês entregam para todo o Brasil?",
+            "answer": "<p>Sim, entregamos para todos os estados do Brasil. O frete é calculado automaticamente no checkout com base no seu CEP.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_HUCVW7",
+        "faq_item_3iG9Tf",
+        "faq_item_L6ReKd"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 96,
+        "title_font": "inter_n6",
+        "title": "PERGUNTAS FREQUENTES",
+        "title_color": "#000000",
+        "title_size": 48,
+        "title_size_mobile": 32,
+        "question_font": "inter_n4",
+        "question_color": "#000000",
+        "question_size": 18,
+        "question_size_mobile": 16,
+        "answer_font": "inter_n4",
+        "answer_color": "#374151",
+        "answer_size": 16,
+        "answer_size_mobile": 14,
+        "card_padding_x": 24,
+        "card_padding_y": 20,
+        "card_bg_color": "#ffffff",
+        "card_border_color": "#e5e7eb",
+        "icon_color": "#000000"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "margin_bottom": -96,
+        "title": "STAY UPTO DATE ABOUT OUR LATEST OFFERS",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe to Newsletter"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "brands_bar",
+    "featured_collection",
+    "top_selling",
+    "dress_style_grid",
+    "testimonials",
+    "faq_nCY6Cp",
+    "newsletter"
+  ]
+}

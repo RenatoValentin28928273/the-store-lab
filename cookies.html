@@ -1,0 +1,564 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Cookies — The Lab Store</title>
+  <meta name="description" content="Política de Cookies da The Lab Store. Saiba como utilizamos cookies e tecnologias similares em nosso site." />
+  <link rel="canonical" href="https://thestorelab.com.br/cookies.html" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thestorelab.com.br/cookies.html" />
+  <meta property="og:title" content="Política de Cookies — The Lab Store" />
+  <meta property="og:description" content="Saiba como utilizamos cookies e tecnologias similares." />
+  <meta property="og:image" content="https://thestorelab.com.br/og-image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="servicos/servico.css" />
+
+  <style>
+    .legal-hero {
+      padding: 140px 0 60px;
+      background: var(--black);
+      border-bottom: 1px solid var(--gray-800);
+    }
+    .legal-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+    .legal-breadcrumb a:hover { color: var(--white); }
+    .legal-breadcrumb .sep { color: var(--gray-600); }
+    .legal-breadcrumb .current { color: var(--white); }
+
+    .legal-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+    }
+
+    .legal-content {
+      padding: 60px 0 100px;
+      background: var(--black);
+    }
+
+    .legal-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .legal-toc {
+      position: sticky;
+      top: 100px;
+      padding: 24px;
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-md);
+    }
+
+    .legal-toc h3 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .legal-toc ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .legal-toc a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .legal-toc a:hover,
+    .legal-toc a.active {
+      background: var(--blue-subtle);
+      color: var(--blue);
+    }
+
+    .legal-text {
+      color: var(--gray-300);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .legal-text section {
+      margin-bottom: 48px;
+      scroll-margin-top: 100px;
+    }
+
+    .legal-text h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .legal-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin: 24px 0 12px;
+    }
+
+    .legal-text p {
+      margin-bottom: 16px;
+    }
+
+    .legal-text ul {
+      margin: 16px 0;
+      padding-left: 24px;
+      list-style: disc;
+    }
+
+    .legal-text li {
+      margin-bottom: 8px;
+    }
+
+    .legal-text a {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    .legal-text a:hover {
+      color: var(--blue-light);
+    }
+
+    .legal-update {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      margin-bottom: 32px;
+    }
+
+    .legal-highlight {
+      background: var(--blue-subtle);
+      border-left: 3px solid var(--blue);
+      padding: 20px 24px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 24px 0;
+    }
+
+    .legal-highlight p {
+      margin: 0;
+      color: var(--white);
+    }
+
+    .cookie-type {
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .cookie-type h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cookie-type p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .cookie-badge {
+      display: inline-flex;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cookie-badge.essential {
+      background: var(--blue-subtle);
+      color: var(--blue);
+    }
+
+    .cookie-badge.optional {
+      background: var(--gray-700);
+      color: var(--gray-400);
+    }
+
+    @media (max-width: 900px) {
+      .legal-grid {
+        grid-template-columns: 1fr;
+      }
+      .legal-toc {
+        position: static;
+        margin-bottom: 40px;
+      }
+      .legal-toc ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .legal-toc a {
+        white-space: nowrap;
+      }
+    }
+  </style>
+
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+
+  <!-- ====== NAVBAR ====== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="logo" id="logo-link" title="Ir para o topo">
+        <div class="logo-box">
+          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" role="img" aria-label="Logo Lab Store">
+            <path d="M15 9V4H16C16.6 4 17 3.6 17 3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3C7 3.6 7.4 4 8 4H9V9L4.5 18.5C4.2 19.2 4.7 20 5.5 20H18.5C19.3 20 19.8 19.2 19.5 18.5L15 9Z" stroke="#3461FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.3 16C8.5 15 10.5 17 13 16C15.5 15 17.5 16.5 17.7 17L18.5 18.5C18.7 19 18.3 19.5 17.8 19.5L6.2 19.5C5.7 19.5 5.3 19 5.5 18.5L6.3 16Z" fill="#3461FF"/>
+          </svg>
+        </div>
+        <span class="logo-text">The Lab Store</span>
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <div class="nav-item">
+          <a href="/servicos/">Serviços<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="/servicos/design-premium.html">Design Premium</a>
+            <a href="/servicos/desenvolvimento-shopify.html">Desenvolvimento Shopify</a>
+            <a href="/servicos/estrategia-growth.html">Estratégia &amp; Growth</a>
+            <a href="/servicos/gestao-suporte.html">Gestão &amp; Suporte</a>
+            <a href="/servicos/seo-ecommerce.html">SEO E-commerce</a>
+            <a href="/servicos/pagamentos-logistica.html">Pagamentos &amp; Logística</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="/temas-shopify.html">Temas<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-dropdown">
+            <a href="/temas-shopify.html">Temas Shopify Customizados</a>
+          </div>
+        </div>
+        <a href="/#resultados">Resultados</a>
+        <a href="/#depoimentos">Cases</a>
+        <a href="/docs.html">FAQ</a>
+        <a href="/#contato">Contato</a>
+      </nav>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="nav-cta">Começar agora</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-nav">
+      <a href="/servicos/" class="mobile-link">Serviços</a>
+      <div class="mobile-sublinks-group">
+      <a href="/servicos/design-premium.html" class="mobile-link mobile-link-sub">Design Premium</a>
+      <a href="/servicos/desenvolvimento-shopify.html" class="mobile-link mobile-link-sub">Desenvolvimento Shopify</a>
+      <a href="/servicos/estrategia-growth.html" class="mobile-link mobile-link-sub">Estratégia &amp; Growth</a>
+      <a href="/servicos/gestao-suporte.html" class="mobile-link mobile-link-sub">Gestão &amp; Suporte</a>
+      <a href="/servicos/seo-ecommerce.html" class="mobile-link mobile-link-sub">SEO E-commerce</a>
+      <a href="/servicos/pagamentos-logistica.html" class="mobile-link mobile-link-sub">Pagamentos &amp; Logística</a>
+    </div><a href="/temas-shopify.html" class="mobile-link">Temas</a>
+      <a href="/#resultados" class="mobile-link">Resultados</a>
+      <a href="/#depoimentos" class="mobile-link">Cases</a>
+      <a href="/docs.html" class="mobile-link">FAQ</a>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="btn btn-primary mobile-btn">Começar agora</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <section class="legal-hero">
+    <div class="container">
+      <div class="legal-breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="current">Política de Cookies</span>
+      </div>
+      <h1 class="legal-title">Política de Cookies</h1>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="legal-content">
+    <div class="container">
+      <div class="legal-grid">
+
+        <!-- Table of Contents -->
+        <aside class="legal-toc">
+          <h3><i data-lucide="list" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 8px;"></i> Ãndice</h3>
+          <ul>
+            <li><a href="#o-que-sao">1. O que são Cookies</a></li>
+            <li><a href="#como-usamos">2. Como Usamos</a></li>
+            <li><a href="#tipos">3. Tipos de Cookies</a></li>
+            <li><a href="#terceiros">4. Cookies de Terceiros</a></li>
+            <li><a href="#gerenciamento">5. Gerenciamento</a></li>
+            <li><a href="#contato">6. Contato</a></li>
+          </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <article class="legal-text">
+
+          <div class="legal-update">
+            <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+            Última atualização: 27 de março de 2026
+          </div>
+
+          <section id="o-que-sao">
+            <h2>1. O que são Cookies</h2>
+            <p>Cookies são pequenos arquivos de texto que são armazenados no seu navegador ou dispositivo quando você visita um site. Eles servem para lembrar informações sobre você, suas preferências e sua interação com o site, tornando sua próxima visita mais rápida e conveniente.</p>
+            <p>Além dos cookies tradicionais, também podemos utilizar outras tecnologias similares, como:</p>
+            <ul>
+              <li><strong>LocalStorage e SessionStorage:</strong> para armazenar preferências localmente</li>
+              <li><strong>Web beacons/pixels:</strong> para análise de desempenho</li>
+              <li><strong>Cache do navegador:</strong> para melhorar velocidade de carregamento</li>
+            </ul>
+          </section>
+
+          <section id="como-usamos">
+            <h2>2. Como Usamos os Cookies</h2>
+            <p>A The Lab Store utiliza cookies para diversas finalidades que melhoram sua experiência em nosso site:</p>
+            <ul>
+              <li><strong>Funcionamento do site:</strong> garantir que todas as funcionalidades operem corretamente</li>
+              <li><strong>Lembrar preferências:</strong> idioma, configurações de exibição, etc.</li>
+              <li><strong>Análise de uso:</strong> entender como visitantes interagem com nosso site</li>
+              <li><strong>Melhorias contínuas:</strong> identificar problemas e otimizar a experiência</li>
+              <li><strong>Segurança:</strong> proteger contra atividades fraudulentas</li>
+            </ul>
+            <div class="legal-highlight">
+              <p><strong>Sua privacidade é importante:</strong> Nunca utilizamos cookies para coletar informações sensíveis sem consentimento, e não vendemos dados de navegação a terceiros.</p>
+            </div>
+          </section>
+
+          <section id="tipos">
+            <h2>3. Tipos de Cookies que Utilizamos</h2>
+            <div class="cookie-type">
+              <h4>
+                <span class="cookie-badge essential">Obrigatório</span>
+                Cookies Essenciais
+              </h4>
+              <p>Necessários para o funcionamento básico do site. Não podem ser desativados em nossos sistemas. Geralmente são configurados apenas em resposta a ações suas (como solicitação de serviços), equivalentes a preferências de privacidade ou preenchimento de formulários.</p>
+            </div>
+
+            <div class="cookie-type">
+              <h4>
+                <span class="cookie-badge optional">Opcional</span>
+                Cookies de Desempenho
+              </h4>
+              <p>Nos ajudam a entender como os visitantes interagem com o site, detectando erros e medindo a eficácia de nosso conteúdo. Utilizamos Google Analytics para coletar dados agregados e anônimos sobre navegação.</p>
+            </div>
+
+            <div class="cookie-type">
+              <h4>
+                <span class="cookie-badge optional">Opcional</span>
+                Cookies de Funcionalidade
+              </h4>
+              <p>Permitem que o site lembre escolhas que você faz (como nome de usuário, idioma ou região) e forneça recursos aprimorados e mais pessoais.</p>
+            </div>
+          </section>
+
+          <section id="terceiros">
+            <h2>4. Cookies de Terceiros</h2>
+            <p>Alguns de nossos parceiros de confiança também podem configurar cookies em seu dispositivo quando você visita nosso site:</p>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--gray-700);">
+                  <th style="text-align: left; padding: 12px; color: var(--white);">Serviço</th>
+                  <th style="text-align: left; padding: 12px; color: var(--white);">Finalidade</th>
+                  <th style="text-align: left; padding: 12px; color: var(--white);">Política</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--gray-800);">
+                  <td style="padding: 12px;">Google Analytics</td>
+                  <td style="padding: 12px;">Análise de tráfego e comportamento</td>
+                  <td style="padding: 12px;"><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Ver política →</a></td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px;">Lucide Icons</td>
+                  <td style="padding: 12px;">Carregamento de ícones</td>
+                  <td style="padding: 12px;"><a href="https://lucide.dev/license" target="_blank" rel="noopener">Ver licença →</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Recomendamos que você consulte as políticas de privacidade desses serviços para entender melhor como tratam seus dados.</p>
+          </section>
+
+          <section id="gerenciamento">
+            <h2>5. Como Gerenciar Cookies</h2>
+            <p>Você tem controle sobre os cookies em seu dispositivo. Veja como gerenciá-los:</p>
+
+            <h3>5.1 Configurações do Navegador</h3>
+            <p>Todos os navegadores modernos permitem que você visualize, gerencie e exclua cookies. Aqui estão os links para instruções dos principais navegadores:</p>
+            <ul>
+              <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+              <li><a href="https://support.mozilla.org/pt-BR/kb/limpe-cookies-e-dados-de-sites" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+              <li><a href="https://support.apple.com/pt-br/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+              <li><a href="https://support.microsoft.com/pt-br/microsoft-edge/excluir-cookies-no-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener">Microsoft Edge</a></li>
+            </ul>
+
+            <h3>5.2 Impacto da Desativação</h3>
+            <p>Se você decidir desativar ou excluir cookies, observe que:</p>
+            <ul>
+              <li>Algumas funcionalidades do site podem não funcionar corretamente</li>
+              <li>Suas preferências não serão salvas entre visitas</li>
+              <li>Você pode precisar fazer login repetidamente</li>
+              <li>A experiência de navegação pode ser menos personalizada</li>
+            </ul>
+
+            <h3>5.3 Ferramentas de Opt-out</h3>
+            <p>Para cookies de análise, você também pode usar:</p>
+            <ul>
+              <li><a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a></li>
+              <li><a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener">Network Advertising Initiative Opt-out</a></li>
+            </ul>
+          </section>
+
+          <section id="contato">
+            <h2>6. Contato</h2>
+            <p>Se tiver dúvidas sobre nossa Política de Cookies ou quiser exercer seus direitos relacionados aos dados coletados por cookies, entre em contato:</p>
+            <p><strong>The Lab Store</strong><br />
+            E-mail: <a href="mailto:privacidade@thestorelab.com.br">privacidade@thestorelab.com.br</a><br />
+            Endereço: [Seu endereço comercial]</p>
+          </section>
+
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+      <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo" id="logo-link-footer" title="Ir para o topo">
+            <div class="logo-box">
+              <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
+                <path d="M15 9V4H16C16.6 4 17 3.6 17 3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3C7 3.6 7.4 4 8 4H9V9L4.5 18.5C4.2 19.2 4.7 20 5.5 20H18.5C19.3 20 19.8 19.2 19.5 18.5L15 9Z" stroke="#3461FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.3 16C8.5 15 10.5 17 13 16C15.5 15 17.5 16.5 17.7 17L18.5 18.5C18.7 19 18.3 19.5 17.8 19.5L6.2 19.5C5.7 19.5 5.3 19 5.5 18.5L6.3 16Z" fill="#3461FF"/>
+              </svg>
+            </div>
+            <span class="logo-text">THE LAB <span class="logo-accent">STORE</span></span>
+          </a>
+          <p>Agência especializada em criação e otimização de lojas Shopify de alta performance.</p>
+          <div class="footer-socials">
+            <a href="https://www.instagram.com/thestorelab/" target="_blank" class="social-link" id="footer-instagram" aria-label="Siga-nos no Instagram" title="Instagram">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/thestorelab/" target="_blank" class="social-link" id="footer-linkedin" aria-label="Siga-nos no LinkedIn" title="LinkedIn">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </a>
+            <a href="https://wa.me/5542999655157" target="_blank" class="social-link" id="footer-whatsapp" aria-label="Fale conosco no WhatsApp" title="WhatsApp">
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52z" fill="currentColor" opacity=".15"/><path d="M17.5 14.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.41-1.5-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51H7.5c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.1 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="/servicos/design-premium.html">Design Premium</a></li>
+            <li><a href="/servicos/desenvolvimento-shopify.html">Desenvolvimento</a></li>
+            <li><a href="/servicos/estrategia-growth.html">Estratégia & Growth</a></li>
+            <li><a href="/servicos/gestao-suporte.html">Gestão & Suporte</a></li>
+            <li><a href="/servicos/seo-ecommerce.html">SEO E-commerce</a></li>
+            <li><a href="/servicos/pagamentos-logistica.html">Pagamentos & Logística</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="/index.html#resultados">Resultados</a></li>
+            <li><a href="/index.html#processo">Processo</a></li>
+            <li><a href="/index.html#depoimentos">Cases</a></li>
+            <li><a href="/docs.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="mailto:contato@thestorelab.com.br">contato@thestorelab.com.br</a></li>
+            <li><a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20">WhatsApp</a></li>
+            <li><a href="https://www.instagram.com/thestorelab/">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 The Lab Store. Todos os direitos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/privacidade.html">Política de Privacidade</a>
+          <a href="/termos.html">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script>
+    // Smooth scroll para links do índice
+    document.querySelectorAll('.legal-toc a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+

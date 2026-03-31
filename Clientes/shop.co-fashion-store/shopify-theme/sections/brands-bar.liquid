@@ -1,0 +1,162 @@
+{% style %}
+  .brands-marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    display: flex;
+  }
+
+  .brands-marquee-inner {
+    display: flex;
+    width: max-content;
+    animation: brands-scroll var(--marquee-duration) linear infinite;
+    will-change: transform;
+  }
+
+  :root {
+    --marquee-duration: {{ section.settings.speed }}s;
+  }
+
+  @keyframes brands-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% / 3)); }
+  }
+
+  .brand-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 {{ section.settings.gap }}px;
+    flex-shrink: 0;
+  }
+
+  .brands-marquee-container:hover .brands-marquee-inner {
+    {% if section.settings.pause_on_hover %}
+      animation-play-state: paused;
+    {% endif %}
+  }
+
+  /* Pull onto same GPU compositing layer as hero to eliminate the inter-layer gap on iOS */
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 1;
+    background-color: #000000; /* ensures gap area shows black, not white body background */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+{% endstyle %}
+
+<div class="bg-black" style="padding-top: {{ section.settings.padding_vertical }}px; padding-bottom: {{ section.settings.padding_vertical }}px; overflow: hidden;">
+  <div class="brands-marquee-container grayscale invert opacity-80">
+    <div class="brands-marquee-inner" style="--marquee-duration: {{ section.settings.speed }}s;">
+      {% comment %} Render blocks multiple times to ensure full width coverage even with few brands {% endcomment %}
+      {% for i in (1..6) %}
+        {% for block in section.blocks %}
+          <div class="brand-item" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              <img 
+                src="{{ block.settings.image | image_url: height: 200 }}" 
+                alt="{{ block.settings.brand_name | escape }}" 
+                width="{{ block.settings.image.width | default: 200 }}"
+                height="{{ block.settings.logo_height | default: 200 }}"
+                style="height: {{ block.settings.logo_height }}px;"
+                class="object-contain w-auto"
+                loading="lazy"
+              >
+            {% else %}
+              <span class="font-bold tracking-tighter text-white uppercase whitespace-nowrap" style="font-size: {{ block.settings.logo_height | divided_by: 1.5 }}px;">
+                {{ block.settings.brand_name }}
+              </span>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brands Bar",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 2,
+      "max": 40,
+      "step": 1,
+      "unit": "s",
+      "label": "Scroll Speed (lower is faster)",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Gap between logos",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand Name",
+          "default": "BRAND"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Brand Logo (Optional)"
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "min": 20,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "Logo Height",
+          "default": 32
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brands Bar",
+      "blocks": [
+        { "type": "brand", "settings": { "brand_name": "VERSACE" } },
+        { "type": "brand", "settings": { "brand_name": "ZARA" } },
+        { "type": "brand", "settings": { "brand_name": "GUCCI" } },
+        { "type": "brand", "settings": { "brand_name": "PRADA" } },
+        { "type": "brand", "settings": { "brand_name": "Calvin Klein" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

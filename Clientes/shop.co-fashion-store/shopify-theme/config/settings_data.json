@@ -1,0 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "sticky": true,
+          "text": "Sign up and get 20% off to your first order.",
+          "link_text": "Sign Up Now",
+          "link_url": ""
+        }
+      },
+      "hero": {
+        "type": "hero",
+        "settings": {
+          "title": "FIND CLOTHES THAT MATCHES YOUR STYLE"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "sticky": true,
+          "logo_height": 24,
+          "menu": "main-menu",
+          "font": "inter_n4",
+          "font_size": 14,
+          "font_color": "#000000"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo_text": "SHOP.CO",
+          "description": "We have clothes that suits your style and which you're proud to wear. From women to men.",
+          "copyright": "Shop.co © 2000-2023, All Rights Reserved"
+        }
+      }
+    },
+    "content_for_index": [
+      "announcement-bar",
+      "hero"
+    ]
+  },
+  "presets": {
+    "default": {
+      "sections": {
+        "announcement-bar": {
+          "type": "announcement-bar",
+          "settings": {
+            "text": "Sign up and get 20% off to your first order.",
+            "link_text": "Sign Up Now"
+          }
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "title": "FIND CLOTHES THAT MATCHES YOUR STYLE"
+          }
+        }
+      },
+      "content_for_index": [
+        "announcement-bar",
+        "hero"
+      ]
+    }
+  }
+}

@@ -1,0 +1,741 @@
+{%- liquid
+  assign heading_font       = section.settings.heading_font
+  assign product_title_font = section.settings.product_title_font
+  assign product_price_font = section.settings.product_price_font
+  assign button_font        = section.settings.button_font
+  assign sort_by            = collection.sort_by | default: collection.default_sort_by
+-%}
+
+<style>
+  {{ heading_font       | font_face: font_display: 'swap' }}
+  {{ product_title_font | font_face: font_display: 'swap' }}
+  {{ product_price_font | font_face: font_display: 'swap' }}
+  {{ button_font        | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} .coll-heading {
+    font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    font-weight: {{ heading_font.weight }};
+    font-style:  {{ heading_font.style }};
+    color:       {{ section.settings.heading_color }};
+    font-size:   {{ section.settings.heading_size_mobile }}px;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-{{ section.id }} .coll-heading {
+      font-size: {{ section.settings.heading_size }}px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .product-title {
+    font-family: {{ product_title_font.family }}, {{ product_title_font.fallback_families }};
+    font-weight: {{ product_title_font.weight }};
+    color:       {{ section.settings.product_title_color }};
+    font-size:   {{ section.settings.product_title_size_mobile }}px;
+  }
+  #shopify-section-{{ section.id }} .product-price {
+    font-family: {{ product_price_font.family }}, {{ product_price_font.fallback_families }};
+    font-weight: {{ product_price_font.weight }};
+    color:       {{ section.settings.product_price_color }};
+    font-size:   {{ section.settings.product_price_size_mobile }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .product-title { font-size: {{ section.settings.product_title_size }}px; }
+    #shopify-section-{{ section.id }} .product-price { font-size: {{ section.settings.product_price_size }}px; }
+  }
+
+  /* Price range slider */
+  .price-range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: #e5e7eb;
+    outline: none;
+  }
+  .price-range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #000;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #000;
+  }
+  .price-range-slider::-moz-range-thumb {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #000;
+    cursor: pointer;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #000;
+  }
+
+  /* Mobile drawer */
+  .filter-drawer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+  }
+  .filter-drawer-overlay.open { display: block; }
+  .filter-drawer {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100%;
+    width: 320px;
+    max-width: 90vw;
+    background: #fff;
+    z-index: 201;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+    overflow-y: auto;
+  }
+  .filter-drawer.open { transform: translateX(0); }
+
+  /* Filter accordion */
+  .filter-group-content {
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .filter-toggle-icon { transition: transform 0.22s ease; }
+  .filter-group.collapsed .filter-toggle-icon { transform: rotate(-90deg); }
+  .filter-group.collapsed .filter-group-content { max-height: 0 !important; }
+
+  /* Sort select */
+  .sort-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 32px;
+  }
+
+  /* Pagination */
+  .pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+  }
+  .pagination-btn:hover { background: #f3f4f6; }
+  .pagination-btn.active { background: #000; color: #fff; border-color: #000; }
+  .pagination-btn.disabled { opacity: 0.4; pointer-events: none; }
+</style>
+
+{%- comment -%} ─── CAPTURE FILTER HTML (rendered once, used in both sidebar & drawer) ─── {%- endcomment -%}
+{%- capture filter_html -%}
+  {%- assign all_tags = collection.all_tags -%}
+
+  {%- comment -%} Category {%- endcomment -%}
+  <div class="filter-group">
+    <button type="button" class="filter-group-header w-full flex items-center justify-between py-3 text-sm font-semibold tracking-tight">
+      <span>Category</span>
+      <svg class="filter-toggle-icon w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="filter-group-content">
+      {% if all_tags.size > 0 %}
+        {% for tag in all_tags %}
+          <label class="flex items-center justify-between py-1.5 cursor-pointer text-sm text-gray-600 hover:text-black">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" name="tag[]" value="{{ tag | handleize }}" {% if current_tags contains tag %}checked{% endif %} class="w-4 h-4 rounded border-gray-300 accent-black">
+              <span>{{ tag }}</span>
+            </div>
+          </label>
+        {% endfor %}
+      {% else %}
+        <p class="text-xs text-gray-400 pb-3">No categories available</p>
+      {% endif %}
+      <div class="pb-2"></div>
+    </div>
+  </div>
+
+  <hr class="border-gray-100">
+
+  {%- comment -%} Price {%- endcomment -%}
+  <div class="filter-group">
+    <button type="button" class="filter-group-header w-full flex items-center justify-between py-3 text-sm font-semibold tracking-tight">
+      <span>Price</span>
+      <svg class="filter-toggle-icon w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="filter-group-content">
+      <div class="price-range-group pb-4 pt-1">
+        <input type="range" class="price-range-slider mb-4" min="0" max="1000" value="{{ request.params['filter.v.price.lte'] | default: 1000 }}" aria-label="Max price">
+        <div class="flex items-center gap-2">
+          <div class="flex-1 border border-gray-200 rounded-xl px-3 py-2">
+            <span class="text-gray-400 text-[10px] uppercase tracking-wide block mb-0.5">Min</span>
+            <input type="number" name="filter.v.price.gte" class="price-min-input w-full border-none outline-none text-sm font-semibold p-0 bg-transparent" value="{{ request.params['filter.v.price.gte'] | default: 0 }}" min="0" max="1000" placeholder="0">
+          </div>
+          <span class="text-gray-300 font-light">—</span>
+          <div class="flex-1 border border-gray-200 rounded-xl px-3 py-2">
+            <span class="text-gray-400 text-[10px] uppercase tracking-wide block mb-0.5">Max</span>
+            <input type="number" name="filter.v.price.lte" class="price-max-input w-full border-none outline-none text-sm font-semibold p-0 bg-transparent" value="{{ request.params['filter.v.price.lte'] | default: 1000 }}" min="0" max="1000" placeholder="1000">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-gray-100">
+
+  {%- comment -%} Colors {%- endcomment -%}
+  <div class="filter-group">
+    <button type="button" class="filter-group-header w-full flex items-center justify-between py-3 text-sm font-semibold tracking-tight">
+      <span>Colors</span>
+      <svg class="filter-toggle-icon w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="filter-group-content">
+      <div class="flex flex-wrap gap-2.5 pb-4 pt-1">
+        {%- assign colors = 'green|#22c55e,red|#ef4444,yellow|#facc15,orange|#f97316,teal|#14b8a6,blue|#3b82f6,purple|#a855f7,pink|#ec4899,black|#111111' | split: ',' -%}
+        {%- for color_entry in colors -%}
+          {%- assign cp = color_entry | split: '|' -%}
+          {%- assign cname = cp[0] -%}
+          {%- assign chex  = cp[1] -%}
+          {%- assign cactive = false -%}
+          {%- if current_tags contains cname -%}{%- assign cactive = true -%}{%- endif -%}
+          <button
+            type="button"
+            title="{{ cname | capitalize }}"
+            data-color-tag="{{ cname }}"
+            class="color-swatch-btn w-8 h-8 rounded-full border border-gray-200 flex-shrink-0 transition-all {% if cactive %}ring-2 ring-black ring-offset-2{% endif %}"
+            style="background-color:{{ chex }};"
+            aria-label="{{ cname | capitalize }}"
+          ></button>
+          <input type="hidden" name="tag[]" value="{{ cname }}" data-color-input="{{ cname }}" {% unless cactive %}disabled{% endunless %}>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-gray-100">
+
+  {%- comment -%} Size {%- endcomment -%}
+  <div class="filter-group">
+    <button type="button" class="filter-group-header w-full flex items-center justify-between py-3 text-sm font-semibold tracking-tight">
+      <span>Size</span>
+      <svg class="filter-toggle-icon w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="filter-group-content">
+      <div class="flex flex-wrap gap-2 pb-4 pt-1">
+        {%- assign sizes = 'XX-Small,X-Small,Small,Medium,Large,X-Large,XX-Large,3X-Large' | split: ',' -%}
+        {%- for size in sizes -%}
+          {%- assign size_tag = size | handleize -%}
+          {%- assign size_active = false -%}
+          {%- if current_tags contains size_tag -%}{%- assign size_active = true -%}{%- endif -%}
+          <button
+            type="button"
+            data-size-tag="{{ size_tag }}"
+            class="size-pill-btn border rounded-full px-3 py-1 text-xs font-medium transition-all
+              {% if size_active %}bg-black text-white border-black{% else %}bg-white text-gray-600 border-gray-200 hover:border-gray-400{% endif %}"
+          >{{ size }}</button>
+          <input type="hidden" name="tag[]" value="{{ size_tag }}" data-size-input="{{ size_tag }}" {% unless size_active %}disabled{% endunless %}>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-gray-100">
+
+  {%- comment -%} Dress Style {%- endcomment -%}
+  <div class="filter-group">
+    <button type="button" class="filter-group-header w-full flex items-center justify-between py-3 text-sm font-semibold tracking-tight">
+      <span>Dress Style</span>
+      <svg class="filter-toggle-icon w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="filter-group-content">
+      {%- assign dress_styles = 'Casual,Formal,Party,Suit' | split: ',' -%}
+      {%- for ds in dress_styles -%}
+        {%- assign ds_tag = ds | handleize -%}
+        <label class="flex items-center justify-between py-1.5 cursor-pointer text-sm text-gray-600 hover:text-black group">
+          <div class="flex items-center gap-2.5">
+            <input type="checkbox" name="tag[]" value="{{ ds_tag }}" {% if current_tags contains ds_tag %}checked{% endif %} class="w-4 h-4 rounded border-gray-300 accent-black">
+            <span>{{ ds }}</span>
+          </div>
+          <svg class="w-4 h-4 text-gray-200 group-hover:text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </label>
+      {%- endfor -%}
+      <div class="pb-2"></div>
+    </div>
+  </div>
+
+  <hr class="border-gray-100 mb-4">
+
+  {%- comment -%} Apply button {%- endcomment -%}
+  <button type="submit" class="w-full py-3 rounded-full text-sm font-semibold tracking-wide transition-opacity hover:opacity-90 bg-black text-white" style="background-color:{{ section.settings.button_bg_color }};color:{{ section.settings.button_text_color }};">
+    {{ section.settings.apply_filter_label }}
+  </button>
+{%- endcapture -%}
+
+{%- comment -%} ─── MOBILE DRAWER ─── {%- endcomment -%}
+<div class="filter-drawer-overlay" id="filterOverlay-{{ section.id }}" onclick="closeFilterDrawer_{{ section.id | replace: '-', '_' }}()"></div>
+<div class="filter-drawer" id="filterDrawer-{{ section.id }}">
+  <div class="p-5">
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-base font-bold tracking-tight">{{ section.settings.sidebar_title }}</span>
+      <button onclick="closeFilterDrawer_{{ section.id | replace: '-', '_' }}()" class="text-gray-400 hover:text-black transition-colors p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <form method="GET" action="{{ collection.url }}" id="filter-form-drawer-{{ section.id }}">
+      {% if sort_by != blank %}<input type="hidden" name="sort_by" value="{{ sort_by }}">{% endif %}
+      {{ filter_html }}
+    </form>
+  </div>
+</div>
+
+{%- comment -%} ─── MAIN LAYOUT ─── {%- endcomment -%}
+{% paginate collection.products by section.settings.products_per_page %}
+
+<div class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
+
+  {% if section.settings.show_breadcrumb %}
+    <nav class="text-sm text-gray-400 mb-5 flex items-center gap-1.5">
+      <a href="{{ routes.root_url }}" class="hover:text-black transition-colors">Home</a>
+      <span class="text-gray-300">›</span>
+      <span class="text-black font-medium">{{ collection.title }}</span>
+    </nav>
+  {% endif %}
+
+  <div class="flex gap-6 lg:gap-8 items-start">
+
+    {%- comment -%} ─── DESKTOP SIDEBAR ─── {%- endcomment -%}
+    <aside class="hidden lg:block w-60 xl:w-64 flex-shrink-0">
+      <div class="sticky top-24 border border-gray-200 rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-1">
+          <span class="font-bold text-base tracking-tight">{{ section.settings.sidebar_title }}</span>
+          <button type="button" class="text-gray-300 hover:text-black transition-colors p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+        </div>
+        <form method="GET" action="{{ collection.url }}" id="filter-form-desktop-{{ section.id }}">
+          {% if sort_by != blank %}<input type="hidden" name="sort_by" value="{{ sort_by }}">{% endif %}
+          {{ filter_html }}
+        </form>
+      </div>
+    </aside>
+
+    {%- comment -%} ─── MAIN CONTENT ─── {%- endcomment -%}
+    <div class="flex-1 min-w-0">
+
+      {%- comment -%} Top bar {%- endcomment -%}
+      <div class="flex items-center justify-between mb-6 gap-3 flex-wrap">
+        <div class="flex items-center gap-3 flex-wrap">
+          <button
+            type="button"
+            onclick="openFilterDrawer_{{ section.id | replace: '-', '_' }}()"
+            class="lg:hidden flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2 text-sm font-medium hover:border-black transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filters
+          </button>
+          <h1 class="coll-heading font-black tracking-tighter uppercase">{{ collection.title }}</h1>
+          <span class="text-sm text-gray-400">
+            Showing {{ paginate.current_offset | plus: 1 }}–{{ paginate.current_offset | plus: paginate.page_size | at_most: collection.products_count }} of {{ collection.products_count }} Products
+          </span>
+        </div>
+        {% if section.settings.show_sort %}
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-gray-500 hidden sm:block whitespace-nowrap">Sort by:</span>
+            <select
+              class="sort-select text-sm border border-gray-200 rounded-full px-4 py-2 bg-white focus:outline-none focus:border-black cursor-pointer"
+              onchange="
+                var url = '{{ collection.url }}?sort_by=' + encodeURIComponent(this.value);
+                {%- for tag in current_tags -%}url += '&tag[]={{ tag | handleize }}';{%- endfor -%}
+                window.location = url;
+              "
+            >
+              <option value="manual"             {% if sort_by == 'manual' %}selected{% endif %}>Most Popular</option>
+              <option value="best-selling"        {% if sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+              <option value="created-descending"  {% if sort_by == 'created-descending' %}selected{% endif %}>Newest</option>
+              <option value="price-ascending"     {% if sort_by == 'price-ascending' %}selected{% endif %}>Price: Low → High</option>
+              <option value="price-descending"    {% if sort_by == 'price-descending' %}selected{% endif %}>Price: High → Low</option>
+              <option value="title-ascending"     {% if sort_by == 'title-ascending' %}selected{% endif %}>A – Z</option>
+            </select>
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Product grid {%- endcomment -%}
+      {% if collection.products.size > 0 %}
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 mb-10">
+          {% for product in collection.products %}
+            <div class="group cursor-pointer">
+              <a href="{{ product.url }}">
+                <div class="bg-[#F0EEED] rounded-[20px] aspect-square overflow-hidden mb-3">
+                  {% if product.featured_image %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.title | escape }}"
+                      width="{{ product.featured_image.width | default: 600 }}"
+                      height="{{ product.featured_image.height | default: 600 }}"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                  {% endif %}
+                </div>
+                <h4 class="product-title font-semibold mb-1 leading-snug">{{ product.title }}</h4>
+                <div class="flex items-center gap-1.5 mb-2">
+                  <div class="flex text-yellow-400">
+                    {% for i in (1..5) %}
+                      <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="{% if i <= 4 %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    {% endfor %}
+                  </div>
+                  <span class="text-xs text-gray-500">4.5/5</span>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="product-price font-bold">{{ product.price | money }}</span>
+                  {% if product.compare_at_price > product.price %}
+                    <span class="text-sm font-bold text-gray-400 line-through">{{ product.compare_at_price | money }}</span>
+                    <span class="bg-red-100 text-red-500 text-xs px-2 py-0.5 rounded-full font-medium">
+                      -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+                    </span>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="py-24 text-center">
+          <p class="text-gray-400 text-base">No products found.</p>
+          <a href="{{ routes.root_url }}" class="mt-4 inline-block text-sm text-black underline underline-offset-2">Back to home</a>
+        </div>
+      {% endif %}
+
+      {%- comment -%} Pagination {%- endcomment -%}
+      {% if paginate.pages > 1 %}
+        <div class="flex items-center justify-center gap-2 flex-wrap mt-2 mb-4">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="pagination-btn gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              Previous
+            </a>
+          {% else %}
+            <span class="pagination-btn disabled gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              Previous
+            </span>
+          {% endif %}
+
+          {% for part in paginate.parts %}
+            {% if part.is_link %}
+              <a href="{{ part.url }}" class="pagination-btn {% if part.title == paginate.current_page %}active{% endif %}">{{ part.title }}</a>
+            {% else %}
+              {% if part.title == paginate.current_page %}
+                <span class="pagination-btn active">{{ part.title }}</span>
+              {% else %}
+                <span class="pagination-btn" style="border:0;background:transparent;cursor:default;min-width:auto;padding:0 4px;">{{ part.title }}</span>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="pagination-btn gap-1">
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          {% else %}
+            <span class="pagination-btn disabled gap-1">
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% endpaginate %}
+
+<script>
+(function() {
+  var sid = '{{ section.id }}';
+  var fnSuffix = sid.replace(/-/g, '_');
+
+  // ── Drawer ────────────────────────────────────────────────────────────────
+  window['openFilterDrawer_' + fnSuffix] = function() {
+    document.getElementById('filterOverlay-' + sid).classList.add('open');
+    document.getElementById('filterDrawer-' + sid).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window['closeFilterDrawer_' + fnSuffix] = function() {
+    document.getElementById('filterOverlay-' + sid).classList.remove('open');
+    document.getElementById('filterDrawer-' + sid).classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  // ── Init interactive filter behaviours on a given form root ───────────────
+  function initFilterForm(form) {
+    if (!form) return;
+
+    // Accordion
+    form.querySelectorAll('.filter-group-header').forEach(function(btn) {
+      var content = btn.nextElementSibling;
+      if (content) content.style.maxHeight = content.scrollHeight + 'px';
+      btn.addEventListener('click', function() {
+        var group = btn.closest('.filter-group');
+        var c = btn.nextElementSibling;
+        if (group.classList.contains('collapsed')) {
+          group.classList.remove('collapsed');
+          c.style.maxHeight = c.scrollHeight + 'px';
+        } else {
+          group.classList.add('collapsed');
+          c.style.maxHeight = '0';
+        }
+      });
+    });
+
+    // Price range slider ↔ max input
+    form.querySelectorAll('.price-range-group').forEach(function(g) {
+      var slider   = g.querySelector('.price-range-slider');
+      var minInput = g.querySelector('.price-min-input');
+      var maxInput = g.querySelector('.price-max-input');
+      if (!slider) return;
+      slider.addEventListener('input', function() {
+        if (maxInput) maxInput.value = slider.value;
+      });
+      if (maxInput) {
+        maxInput.addEventListener('input', function() {
+          var v = Math.min(Math.max(parseInt(maxInput.value) || 0, parseInt(slider.min)), parseInt(slider.max));
+          slider.value = v;
+        });
+      }
+    });
+
+    // Color swatches
+    form.querySelectorAll('.color-swatch-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var on = btn.classList.contains('ring-2');
+        btn.classList.toggle('ring-2', !on);
+        btn.classList.toggle('ring-black', !on);
+        btn.classList.toggle('ring-offset-2', !on);
+        var tag = btn.dataset.colorTag;
+        var inp = form.querySelector('[data-color-input="' + tag + '"]');
+        if (inp) inp.disabled = on;
+      });
+    });
+
+    // Size pills
+    form.querySelectorAll('.size-pill-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var on = btn.classList.contains('bg-black');
+        btn.classList.toggle('bg-black', !on);
+        btn.classList.toggle('text-white', !on);
+        btn.classList.toggle('border-black', !on);
+        btn.classList.toggle('bg-white', on);
+        btn.classList.toggle('text-gray-600', on);
+        btn.classList.toggle('border-gray-200', on);
+        var tag = btn.dataset.sizeTag;
+        var inp = form.querySelector('[data-size-input="' + tag + '"]');
+        if (inp) inp.disabled = on;
+      });
+    });
+  }
+
+  // Init both forms
+  initFilterForm(document.getElementById('filter-form-desktop-' + sid));
+  initFilterForm(document.getElementById('filter-form-drawer-' + sid));
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show Breadcrumb",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Show Sort Dropdown",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 9,
+      "max": 24,
+      "step": 3,
+      "label": "Products Per Page",
+      "default": 9
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "Sidebar Title",
+      "default": "Filters"
+    },
+    {
+      "type": "text",
+      "id": "apply_filter_label",
+      "label": "Apply Filter Button Label",
+      "default": "Apply Filter"
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "inter_n9"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Product Card Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "product_title_font",
+      "label": "Product Title Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "product_title_size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Title Size (Desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "product_title_size_mobile",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Title Size (Mobile)",
+      "default": 14
+    },
+    {
+      "type": "font_picker",
+      "id": "product_price_font",
+      "label": "Product Price Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Product Price Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "product_price_size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Price Size (Desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "product_price_size_mobile",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Product Price Size (Mobile)",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Apply Filter Button"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Button Font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Page"
+    }
+  ]
+}
+{% endschema %}

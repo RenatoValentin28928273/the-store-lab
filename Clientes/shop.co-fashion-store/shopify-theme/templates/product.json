@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "product_page": {
+      "type": "product-page",
+      "settings": {
+        "heading_font": "inter_n9",
+        "heading_color": "#000000",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "price_font": "inter_n4",
+        "price_color": "#000000",
+        "price_size": 28,
+        "price_size_mobile": 22,
+        "compare_price_color": "#9ca3af",
+        "discount_badge_bg": "#ff3333",
+        "discount_badge_color": "#ffffff",
+        "body_font": "inter_n4",
+        "body_color": "#374151",
+        "body_size": 15,
+        "add_to_cart_bg": "#000000",
+        "add_to_cart_color": "#ffffff",
+        "show_related": true,
+        "related_title": "YOU MIGHT ALSO LIKE",
+        "related_products_count": 4,
+        "related_heading_font": "inter_n9",
+        "related_heading_color": "#000000",
+        "related_heading_size": 40,
+        "related_heading_size_mobile": 28,
+        "related_product_title_font": "inter_n4",
+        "related_product_title_color": "#000000",
+        "related_product_title_size": 16,
+        "related_product_title_size_mobile": 14,
+        "related_product_price_font": "inter_n4",
+        "related_product_price_color": "#000000",
+        "related_product_price_size": 20,
+        "related_product_price_size_mobile": 16,
+        "tab_details_label": "Product Details",
+        "tab_reviews_label": "Rating & Reviews",
+        "tab_faqs_label": "FAQs",
+        "reviews_title": "All Reviews"
+      }
+    }
+  },
+  "order": ["product_page"]
+}

@@ -1,0 +1,666 @@
+{%- liquid
+  assign heading_font = section.settings.heading_font
+  assign subtext_font = section.settings.subtext_font
+  assign button_font = section.settings.button_font
+-%}
+
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ subtext_font | font_face: font_display: 'swap' }}
+  {{ button_font | font_face: font_display: 'swap' }}
+
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mobile }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px !important;
+    background-color: #000000;
+    margin-bottom: -20px; /* overlap brands-bar to eliminate compositing-layer gap on iOS */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  #shopify-section-{{ section.id }} .hero-container {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: {{ section.settings.content_v_align_mobile }} !important;
+    align-items: {{ section.settings.content_h_align_mobile }} !important;
+    min-height: {{ section.settings.min_height_mobile }}px !important;
+  }
+  #shopify-section-{{ section.id }} .hero-content-wrapper {
+    text-align: {{ section.settings.content_alignment }};
+    display: flex !important;
+    flex-direction: column;
+    align-items: {% if section.settings.content_alignment == 'center' %}center{% elsif section.settings.content_alignment == 'right' %}flex-end{% else %}flex-start{% endif %};
+    transform: translate({{ section.settings.offset_x_mobile }}px, {{ section.settings.offset_y_mobile }}px) !important;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} h2 {
+    font-size: {{ section.settings.heading_size_mobile }}px !important;
+    max-width: {{ section.settings.heading_max_width_mobile }}% !important;
+    margin-left: {% if section.settings.content_alignment == 'center' %}auto{% elsif section.settings.content_alignment == 'right' %}auto{% else %}0{% endif %};
+    margin-right: {% if section.settings.content_alignment == 'center' %}auto{% elsif section.settings.content_alignment == 'left' %}auto{% else %}0{% endif %};
+    line-height: {{ section.settings.heading_line_height | divided_by: 100.0 }};
+    font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    font-weight: {{ heading_font.weight }};
+    font-style: {{ heading_font.style }};
+    color: {{ section.settings.heading_color }} !important;
+  }
+  #shopify-section-{{ section.id }} p {
+    font-size: {{ section.settings.subtext_size_mobile }}px !important;
+    max-width: {{ section.settings.subtext_max_width_mobile }}% !important;
+    margin-left: {% if section.settings.content_alignment == 'center' %}auto{% elsif section.settings.content_alignment == 'right' %}auto{% else %}0{% endif %};
+    margin-right: {% if section.settings.content_alignment == 'center' %}auto{% elsif section.settings.content_alignment == 'left' %}auto{% else %}0{% endif %};
+    font-family: {{ subtext_font.family }}, {{ subtext_font.fallback_families }};
+    font-weight: {{ subtext_font.weight }};
+    font-style: {{ subtext_font.style }};
+    color: {{ section.settings.subtext_color }} !important;
+  }
+  #shopify-section-{{ section.id }} .hero-btn {
+    margin-top: {{ section.settings.button_margin_top }}px !important;
+    background-color: {{ section.settings.button_bg_color }} !important;
+    color: {{ section.settings.button_text_color }} !important;
+    font-family: {{ button_font.family }}, {{ button_font.fallback_families }};
+    font-weight: {{ button_font.weight }};
+    font-style: {{ button_font.style }};
+    font-size: {{ section.settings.button_font_size }}px !important;
+    padding: {{ section.settings.button_padding_y }}px {{ section.settings.button_padding_x }}px !important;
+    border-radius: {{ section.settings.button_radius }}px !important;
+  }
+  #shopify-section-{{ section.id }} .stat-number {
+    color: {{ section.settings.stat_number_color }} !important;
+    font-size: {{ section.settings.stat_number_size }}px !important;
+  }
+  #shopify-section-{{ section.id }} .stat-label {
+    color: {{ section.settings.stat_label_color }} !important;
+    font-size: {{ section.settings.stat_label_size }}px !important;
+  }
+
+  /* Fix gap between hero and next section on iOS Safari (WebKit overflow+absolute rendering bug) */
+  #shopify-section-{{ section.id }} > section {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  /* Fix inline descender gap below video element */
+  #shopify-section-{{ section.id }} video {
+    display: block;
+  }
+
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px !important;
+      padding-bottom: {{ section.settings.padding_bottom }}px !important;
+      margin-bottom: 0;
+    }
+    #shopify-section-{{ section.id }} .hero-container {
+      flex-direction: row;
+      justify-content: {{ section.settings.content_h_align }} !important;
+      align-items: {{ section.settings.content_v_align }} !important;
+      min-height: {{ section.settings.min_height_desktop }}px !important;
+    }
+    #shopify-section-{{ section.id }} .hero-content-wrapper {
+      transform: translate({{ section.settings.offset_x }}px, {{ section.settings.offset_y }}px) !important;
+      width: {{ section.settings.content_block_width }}% !important;
+    }
+    #shopify-section-{{ section.id }} h2 {
+      font-size: {{ section.settings.heading_size }}px !important;
+      max-width: {{ section.settings.heading_max_width }}% !important;
+    }
+    #shopify-section-{{ section.id }} p {
+      font-size: {{ section.settings.subtext_size }}px !important;
+      max-width: {{ section.settings.subtext_max_width }}% !important;
+    }
+  }
+</style>
+
+<section class="relative {% if section.settings.full_background %}bg-black{% else %}bg-[#F2F0F1]{% endif %} overflow-hidden group">
+  {% comment %} Background Media {% endcomment %}
+  {% if section.settings.full_background %}
+    <div class="absolute inset-0 z-0">
+      {% if section.settings.video != blank %}
+        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'w-full h-full object-cover' }}
+      {% elsif section.settings.image != blank %}
+        <img src="{{ section.settings.image | image_url: width: 2000 }}" class="w-full h-full object-cover" loading="eager" width="2000" height="800">
+      {% endif %}
+      <div class="absolute inset-0 bg-black/20"></div> {% comment %} Overlay to help text readability {% endcomment %}
+    </div>
+  {% endif %}
+
+  <div class="hero-container max-w-7xl mx-auto px-4 relative z-10">
+    {% if section.settings.show_content %}
+      <div class="hero-content-wrapper z-10">
+        <h2 class="font-black tracking-tighter leading-[1.1] mb-6 uppercase">
+          {{ section.settings.title }}
+        </h2>
+        <p class="{% if section.settings.full_background %}text-gray-100{% else %}text-gray-500{% endif %} mb-8">
+          {{ section.settings.subtext }}
+        </p>
+        <div>
+          <a href="{{ section.settings.button_link }}" class="hero-btn inline-block bg-black text-white px-12 py-4 rounded-full font-medium mb-12 hover:bg-gray-800 transition-colors">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+
+        <div class="flex flex-wrap gap-8 sm:gap-12 mb-12">
+          {% for block in section.blocks %}
+            <div class="{% unless forloop.first %}border-l {% if section.settings.full_background %}border-gray-500{% else %}border-gray-300{% endif %} pl-8 sm:pl-12{% endunless %}" {{ block.shopify_attributes }}>
+              <h3 class="stat-number font-bold">{{ block.settings.number }}</h3>
+              <p class="stat-label text-xs sm:text-sm">{{ block.settings.label }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    {% unless section.settings.full_background %}
+      <div class="{% if section.settings.show_content %}lg:w-1/2{% else %}w-full{% endif %} relative">
+        {% if section.settings.video != blank %}
+          {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'w-full h-auto object-cover rounded-2xl' }}
+        {% elsif section.settings.image != blank %}
+          <img 
+            src="{{ section.settings.image | image_url: width: 2000 }}" 
+            alt="{{ section.settings.title }}" 
+            class="w-full h-auto object-cover"
+            loading="lazy"
+            width="2000"
+            height="800"
+          >
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-auto bg-gray-200' }}
+        {% endif %}
+        
+        <!-- Decorative Stars -->
+        <div class="absolute top-10 right-10 sm:top-20 sm:right-20">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28 0L31.3908 24.6092L56 28L31.3908 31.3908L28 56L24.6092 31.3908L0 28L24.6092 24.6092L28 0Z" fill="black"/>
+          </svg>
+        </div>
+      </div>
+    {% endunless %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media (Background/Side)"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_background",
+      "label": "Full Background Mode",
+      "default": false,
+      "info": "If active, media will cover the entire section behind the text."
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Hero Video",
+      "info": "Selection for background or side video."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image",
+      "info": "Selection for background or side image (Fallback if no video)."
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content",
+      "label": "Show Text Content",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "min": 400,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Hero Min Height (Desktop)",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Hero Min Height (Mobile)",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Content Box Position"
+    },
+    {
+      "type": "select",
+      "id": "content_v_align",
+      "label": "Vertical Position (Desktop)",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_h_align",
+      "label": "Horizontal Position (Desktop)",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "range",
+      "id": "content_block_width",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Content Block Max Width (Desktop)",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "content_v_align_mobile",
+      "label": "Vertical Position (Mobile)",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "select",
+      "id": "content_h_align_mobile",
+      "label": "Horizontal Position (Mobile)",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "offset_x",
+      "min": -400,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Fine-tune X Offset (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "offset_y",
+      "min": -400,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Fine-tune Y Offset (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "offset_x_mobile",
+      "min": -200,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Fine-tune X Offset (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "offset_y_mobile",
+      "min": -200,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Fine-tune Y Offset (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Fonts & Colors"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "min": 80,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "Heading Line Height",
+      "default": 110
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Heading Max Width (Desktop)",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Heading Max Width (Mobile)",
+      "default": 100
+    },
+    {
+      "type": "font_picker",
+      "id": "subtext_font",
+      "label": "Subtext Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#f3f4f6"
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext Size (Desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subtext_size_mobile",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext Size (Mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "subtext_max_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Subtext Max Width (Desktop)",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "subtext_max_width_mobile",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Subtext Max Width (Mobile)",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Button Style"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Button Font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Horizontal Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Vertical Padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 98
+    },
+    {
+      "type": "range",
+      "id": "button_margin_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Button Margin Top",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Stats Style"
+    },
+    {
+      "type": "color",
+      "id": "stat_number_color",
+      "label": "Stat Number Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "stat_number_size",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Stat Number Size",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "stat_label_color",
+      "label": "Stat Label Color",
+      "default": "#6b7280"
+    },
+    {
+      "type": "range",
+      "id": "stat_label_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Stat Label Size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "FIND CLOTHES THAT MATCHES YOUR STYLE"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Sizing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top (Desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom (Desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom (Mobile)",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "200+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "International Brands"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "200+", "label": "International Brands" } },
+        { "type": "stat", "settings": { "number": "2,000+", "label": "High-Quality Products" } },
+        { "type": "stat", "settings": { "number": "30,000+", "label": "Happy Customers" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
