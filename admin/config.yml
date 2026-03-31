@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: renato-seos/the-store-lab
+  repo: RenatoValentin28928273/the-store-lab
   branch: main
   base_url: https://www.thestorelab.com.br
   auth_endpoint: api/auth
