@@ -8,6 +8,109 @@
   assign first_variant = product.selected_or_first_available_variant
 -%}
 
+{%- comment -%} ===== PRODUCT SCHEMA (JSON-LD) ===== {%- endcomment -%}
+{%- if section.settings.schema_enabled -%}
+{%- liquid
+  assign schema_brand    = product.metafields.seo.brand      | default: section.settings.schema_default_brand | default: shop.name
+  assign schema_desc     = product.metafields.seo.description | default: product.description | strip_html | strip_newlines | escape
+  assign schema_gtin     = product.metafields.seo.gtin
+  assign schema_mpn      = product.metafields.seo.mpn
+  assign schema_sku      = first_variant.sku
+  assign schema_price    = first_variant.price | divided_by: 100.0
+  assign schema_currency = shop.currency
+  assign schema_avail    = 'https://schema.org/OutOfStock'
+  if first_variant.available
+    assign schema_avail  = 'https://schema.org/InStock'
+  endif
+  assign schema_image    = product.featured_image | image_url: width: 1200
+  assign schema_url      = shop.url | append: product.url
+
+  comment
+    Reviews: read from metafield custom.reviews to build AggregateRating server-side.
+    If the metafield is empty, AggregateRating block is omitted (avoids invalid schema).
+  endcomment
+  assign reviews_raw = product.metafields.custom.reviews.value
+  assign review_count = 0
+  assign rating_total = 0
+  if reviews_raw != blank
+    for r in reviews_raw
+      assign review_count = review_count | plus: 1
+      assign r_rating_num = r.rating | plus: 0
+      assign rating_total = rating_total | plus: r_rating_num
+    endfor
+  endif
+  if review_count > 0
+    assign avg_rating = rating_total | divided_by: review_count | round: 1
+  endif
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ schema_url | json }},
+  "image": {{ schema_image | json }},
+  "description": {{ schema_desc | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ schema_brand | json }}
+  }
+  {%- if schema_sku != blank -%}
+  ,"sku": {{ schema_sku | json }}
+  {%- endif -%}
+  {%- if schema_gtin != blank -%}
+  ,"gtin": {{ schema_gtin | json }}
+  {%- endif -%}
+  {%- if schema_mpn != blank -%}
+  ,"mpn": {{ schema_mpn | json }}
+  {%- endif -%}
+  {%- if review_count > 0 -%}
+  ,"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ avg_rating }},
+    "reviewCount": {{ review_count }},
+    "bestRating": 5,
+    "worstRating": 1
+  }
+  ,"review": [
+    {%- for r in reviews_raw limit: 5 -%}
+    {%- unless forloop.first -%},{%- endunless -%}
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": {{ r.rating | plus: 0 }},
+        "bestRating": 5,
+        "worstRating": 1
+      },
+      "author": { "@type": "Person", "name": {{ r.author | json }} },
+      "reviewBody": {{ r.body | json }}
+      {%- if r.title != blank -%}
+      ,"name": {{ r.title | json }}
+      {%- endif -%}
+      {%- if r.date != blank -%}
+      ,"datePublished": {{ r.date | slice: 0, 10 | json }}
+      {%- endif -%}
+    }
+    {%- endfor -%}
+  ]
+  {%- endif -%}
+  ,"offers": {
+    "@type": "Offer",
+    "url": {{ schema_url | json }},
+    "priceCurrency": {{ schema_currency | json }},
+    "price": {{ schema_price }},
+    "availability": {{ schema_avail | json }},
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    }
+  }
+}
+</script>
+{%- endif -%}
+
 <style>
   {{ heading_font | font_face: font_display: 'swap' }}
   {{ price_font | font_face: font_display: 'swap' }}
@@ -100,7 +203,7 @@
     }
   }
 
-  /* Thumbnail strip */
+  /* -- Thumbnail strip -- */
   .pdp-thumb {
     cursor: pointer;
     border: 2px solid transparent;
@@ -113,7 +216,24 @@
     border-color: #000;
   }
 
-  /* Size pills */
+  /* -- Gallery arrow buttons -- */
+  .pdp-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .pdp-arrow:hover { background: #f3f4f6; }
+
+  /* -- Size pills -- */
   .pdp-size-btn {
     border: 1px solid #e5e7eb;
     border-radius: 62px;
@@ -135,7 +255,7 @@
     cursor: not-allowed;
   }
 
-  /* Color swatches */
+  /* -- Color swatches -- */
   .pdp-color-btn {
     width: 32px;
     height: 32px;
@@ -152,7 +272,7 @@
     outline-color: #000;
   }
 
-  /* Quantity stepper */
+  /* -- Quantity stepper -- */
   .pdp-qty {
     display: flex;
     align-items: center;
@@ -192,7 +312,7 @@
   .pdp-qty input::-webkit-inner-spin-button,
   .pdp-qty input::-webkit-outer-spin-button { -webkit-appearance: none; }
 
-  /* Tabs */
+  /* -- Tabs -- */
   .pdp-tab-btn {
     padding: 16px 8px;
     font-size: 15px;
@@ -211,19 +331,83 @@
     border-bottom-color: #111;
   }
 
-  /* Review card */
+  /* -- Review card -- */
   .pdp-review-card {
     border: 1px solid #e5e7eb;
     border-radius: 16px;
     padding: 24px;
   }
 
-  /* Star SVG helpers */
+  /* -- Star SVG helpers -- */
   .star-full { fill: #fbbf24; stroke: #fbbf24; }
   .star-empty { fill: none; stroke: #d1d5db; }
+
+  /* -- Checkout Now button -- */
+  .pdp-checkout-now {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+  }
+  .pdp-checkout-now:hover {
+    background-color: #f9f9f9;
+  }
+
+  /* -- Reviews standalone section -- */
+  .reviews-section-wrap {
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+  }
+  .reviews-rating-bar-track {
+    flex: 1;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .reviews-rating-bar-fill {
+    height: 100%;
+    background: #000;
+    border-radius: 999px;
+  }
+  .reviews-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    background: #fff;
+    color: #374151;
+    white-space: nowrap;
+  }
+  .reviews-filter-chip.active,
+  .reviews-filter-chip:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+  .review-helpful-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    padding: 4px 12px;
+    background: none;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .review-helpful-btn:hover {
+    border-color: #000;
+    color: #000;
+  }
 </style>
 
-{%- comment -%} ── BREADCRUMB ── {%- endcomment -%}
+{%- comment -%} BREADCRUMB {%- endcomment -%}
 <div class="max-w-7xl mx-auto px-4 pt-6 pb-2">
   <nav class="text-sm text-gray-400 flex items-center gap-1 flex-wrap">
     <a href="{{ routes.root_url }}" class="hover:text-black transition-colors">Home</a>
@@ -236,18 +420,63 @@
   </nav>
 </div>
 
-{%- comment -%} ── PRODUCT MAIN ── {%- endcomment -%}
+{%- comment -%} PRODUCT MAIN {%- endcomment -%}
 <section class="max-w-7xl mx-auto px-4 py-8 lg:py-12">
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
 
-    {%- comment -%} ── LEFT: Images ── {%- endcomment -%}
-    <div class="flex flex-col-reverse lg:flex-row gap-4">
+    {%- comment -%} LEFT: Images {%- endcomment -%}
+    <div class="flex flex-col gap-4">
 
-      {%- comment -%} Thumbnail strip {%- endcomment -%}
-      <div class="flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden lg:max-h-[540px] flex-shrink-0" id="pdp-thumbs-{{ section.id }}">
+      {%- comment -%} Main image with side arrows {%- endcomment -%}
+      <div class="flex items-center gap-3">
+
+        {%- comment -%} Main image container {%- endcomment -%}
+        <div class="flex-1 bg-[#F0EEED] rounded-[20px] overflow-hidden aspect-square relative" id="pdp-main-img-{{ section.id }}">
+          {% for media in product.media limit: 8 %}
+            <img
+              src="{{ media | image_url: width: 900 }}"
+              alt="{{ product.title | escape }}"
+              class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300{% unless forloop.first %} opacity-0{% endunless %}"
+              id="pdp-img-{{ section.id }}-{{ forloop.index0 }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            >
+          {% endfor %}
+          {% if product.media.size == 0 %}
+            {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+          {% endif %}
+        </div>
+
+        {%- comment -%} Arrow buttons (stacked vertically) {%- endcomment -%}
+        {% if product.media.size > 1 %}
+        <div class="flex flex-col gap-3">
+          <button
+            class="pdp-arrow"
+            onclick="pdpPrev{{ section.id | replace: '-', '_' }}()"
+            aria-label="Previous image"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button
+            class="pdp-arrow"
+            onclick="pdpNext{{ section.id | replace: '-', '_' }}()"
+            aria-label="Next image"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+        {% endif %}
+
+      </div>
+
+      {%- comment -%} Thumbnail strip (below main image) {%- endcomment -%}
+      <div class="flex flex-row gap-3 overflow-x-auto" id="pdp-thumbs-{{ section.id }}">
         {% for media in product.media limit: 8 %}
           <button
-            class="pdp-thumb flex-shrink-0 w-[80px] h-[80px] lg:w-[90px] lg:h-[90px] bg-[#F0EEED]{% if forloop.first %} active{% endif %}"
+            class="pdp-thumb flex-shrink-0 w-[80px] h-[80px] lg:w-[105px] lg:h-[105px] bg-[#F0EEED]{% if forloop.first %} active{% endif %}"
             data-index="{{ forloop.index0 }}"
             onclick="pdpSetImage{{ section.id | replace: '-', '_' }}({{ forloop.index0 }})"
             aria-label="View image {{ forloop.index }}"
@@ -262,25 +491,9 @@
         {% endfor %}
       </div>
 
-      {%- comment -%} Main image {%- endcomment -%}
-      <div class="flex-1 bg-[#F0EEED] rounded-[20px] overflow-hidden aspect-square relative" id="pdp-main-img-{{ section.id }}">
-        {% for media in product.media limit: 8 %}
-          <img
-            src="{{ media | image_url: width: 900 }}"
-            alt="{{ product.title | escape }}"
-            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300{% unless forloop.first %} opacity-0{% endunless %}"
-            id="pdp-img-{{ section.id }}-{{ forloop.index0 }}"
-            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-          >
-        {% endfor %}
-        {% if product.media.size == 0 %}
-          {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
-        {% endif %}
-      </div>
-
     </div>
 
-    {%- comment -%} ── RIGHT: Info ── {%- endcomment -%}
+    {%- comment -%} RIGHT: Info {%- endcomment -%}
     <div class="flex flex-col gap-5" x-data>
 
       {%- comment -%} Title {%- endcomment -%}
@@ -378,10 +591,10 @@
           {%- endif -%}
         {%- endfor -%}
 
-        {%- comment -%} Quantity + Add to Cart {%- endcomment -%}
-        <div class="flex gap-3 pt-4 border-t border-gray-100">
+        {%- comment -%} Quantity + Add to Cart + Checkout Now {%- endcomment -%}
+        <div class="flex gap-3 pt-4 border-t border-gray-100 flex-wrap">
           <div class="pdp-qty">
-            <button type="button" onclick="pdpChangeQty{{ section.id | replace: '-', '_' }}(-1)" aria-label="Decrease">−</button>
+            <button type="button" onclick="pdpChangeQty{{ section.id | replace: '-', '_' }}(-1)" aria-label="Decrease">-</button>
             <input
               type="number"
               id="pdp-qty-input-{{ section.id }}"
@@ -393,13 +606,22 @@
             >
             <button type="button" onclick="pdpChangeQty{{ section.id | replace: '-', '_' }}(1)" aria-label="Increase">+</button>
           </div>
-          <button
-            type="submit"
-            class="pdp-add-to-cart flex-1 rounded-full font-bold text-base py-3 px-6 transition-opacity hover:opacity-90"
-            id="pdp-atc-btn-{{ section.id }}"
-          >
-            Add to Cart
-          </button>
+          <div class="flex flex-1 gap-3 min-w-0">
+            <button
+              type="submit"
+              class="pdp-add-to-cart flex-1 rounded-full font-bold text-base py-3 px-6 transition-opacity hover:opacity-90"
+              id="pdp-atc-btn-{{ section.id }}"
+            >
+              Add to Cart
+            </button>
+            <a
+              href="/checkout"
+              class="pdp-checkout-now flex-1 rounded-full font-bold text-base py-3 px-6 text-center transition-colors"
+              id="pdp-checkout-btn-{{ section.id }}"
+            >
+              Checkout Now
+            </a>
+          </div>
         </div>
 
       </form>
@@ -408,14 +630,11 @@
   </div>
 </section>
 
-{%- comment -%} ── TABS ── {%- endcomment -%}
+{%- comment -%} TABS {%- endcomment -%}
 <section class="max-w-7xl mx-auto px-4 pb-16">
   <div class="border-b border-gray-200 flex gap-6 sm:gap-10 overflow-x-auto">
     <button class="pdp-tab-btn active" data-tab="details" onclick="pdpSwitchTab{{ section.id | replace: '-', '_' }}(this, 'details')">
       {{ section.settings.tab_details_label }}
-    </button>
-    <button class="pdp-tab-btn" data-tab="reviews" onclick="pdpSwitchTab{{ section.id | replace: '-', '_' }}(this, 'reviews')">
-      {{ section.settings.tab_reviews_label }}
     </button>
     <button class="pdp-tab-btn" data-tab="faqs" onclick="pdpSwitchTab{{ section.id | replace: '-', '_' }}(this, 'faqs')">
       {{ section.settings.tab_faqs_label }}
@@ -426,42 +645,6 @@
   <div id="pdp-tab-details-{{ section.id }}" class="pdp-tab-panel pt-8">
     <div class="pdp-body max-w-3xl">
       {{ product.description }}
-    </div>
-  </div>
-
-  {%- comment -%} Reviews Tab {%- endcomment -%}
-  <div id="pdp-tab-reviews-{{ section.id }}" class="pdp-tab-panel pt-8 hidden">
-    <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
-      <div class="flex items-center gap-3">
-        <h2 class="font-black text-xl tracking-tight">{{ section.settings.reviews_title }}</h2>
-        <span class="text-gray-400 text-base font-normal" id="pdp-review-count-display-{{ section.id }}"></span>
-      </div>
-      <div class="flex items-center gap-3">
-        <span class="text-sm text-gray-500">Latest</span>
-        <a
-          href="#"
-          class="inline-block bg-black text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:opacity-80 transition-opacity"
-          onclick="return false;"
-        >
-          Write a Review
-        </a>
-      </div>
-    </div>
-
-    {%- comment -%} Shopify product reviews app renders here — fallback placeholder {%- endcomment -%}
-    <div id="shopify-product-reviews" data-id="{{ product.id }}">
-      {{ product.metafields.spr.reviews }}
-    </div>
-
-    {%- comment -%} Fallback review cards (shown when no reviews app) {%- endcomment -%}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="pdp-reviews-grid-{{ section.id }}">
-      {%- comment -%} Static demo cards — replace with your reviews app output {%- endcomment -%}
-    </div>
-
-    <div class="flex justify-center mt-8">
-      <button class="border border-gray-200 rounded-full px-8 py-3 text-sm font-medium hover:border-black transition-colors">
-        Load More Reviews
-      </button>
     </div>
   </div>
 
@@ -489,14 +672,327 @@
   </div>
 </section>
 
-{%- comment -%} ── RELATED PRODUCTS ── {%- endcomment -%}
+{%- comment -%} STANDALONE REVIEWS SECTION {%- endcomment -%}
+<section class="reviews-section-wrap py-16" id="pdp-reviews-section-{{ section.id }}">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+      <h2 class="font-black text-2xl md:text-3xl tracking-tight">{{ section.settings.reviews_title }}</h2>
+      <button
+        class="inline-block bg-white text-black border-2 border-black text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-black hover:text-white transition-colors"
+        onclick="pdpOpenReviewForm{{ section.id | replace: '-', '_' | replace: '.', '_' }}()"
+      >
+        Write a Review
+      </button>
+    </div>
+
+    {%- comment -%} Rating summary (updated dynamically by JS) {%- endcomment -%}
+    <div class="flex flex-col md:flex-row gap-8 mb-10 p-6 border border-gray-200 rounded-2xl">
+      <div class="flex flex-col items-center justify-center gap-3 min-w-[180px] md:w-[200px] flex-shrink-0 border-b md:border-b-0 md:border-r border-gray-200 pb-6 md:pb-0 md:pr-8">
+        <span class="text-6xl font-black tracking-tight text-black" id="pdp-avg-rating-{{ section.id }}">-</span>
+        <span class="text-lg text-gray-400 font-medium">out of 5</span>
+        <div class="flex items-center gap-0.5" id="pdp-avg-stars-{{ section.id }}"></div>
+        <span class="text-sm text-gray-400" id="pdp-review-count-{{ section.id }}">From 0 reviews</span>
+      </div>
+      <div class="flex-1 flex flex-col gap-3 justify-center" id="pdp-bar-distribution-{{ section.id }}">
+        {% for i in (1..5) %}
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-gray-600 font-medium w-12 flex-shrink-0 text-right">{{ 6 | minus: forloop.index }} star</span>
+            <div class="reviews-rating-bar-track">
+              <div class="reviews-rating-bar-fill" id="pdp-bar-{{ 6 | minus: forloop.index }}-{{ section.id }}" style="width:0%"></div>
+            </div>
+            <span class="text-sm text-gray-400 w-8 flex-shrink-0" id="pdp-bar-count-{{ 6 | minus: forloop.index }}-{{ section.id }}">0</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {%- comment -%} Review cards grid {%- endcomment -%}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="pdp-reviews-grid-{{ section.id }}">
+      <p class="text-gray-400 text-sm col-span-2" id="pdp-reviews-empty-{{ section.id }}">Loading reviews...</p>
+    </div>
+
+    <div class="flex justify-center mt-10" id="pdp-load-more-wrap-{{ section.id }}" style="display:none!important">
+      <button
+        class="border-2 border-black rounded-full px-10 py-3 text-sm font-bold hover:bg-black hover:text-white transition-colors"
+        onclick="pdpLoadMoreReviews{{ section.id | replace: '-', '_' }}()"
+      >
+        Load More Reviews
+      </button>
+    </div>
+
+  </div>
+</section>
+
+{%- comment -%} Write a Review modal {%- endcomment -%}
+<div id="pdp-review-modal-{{ section.id }}" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:20px;padding:32px;max-width:480px;width:90%;max-height:90vh;overflow-y:auto;position:relative;">
+    <button onclick="pdpCloseReviewForm{{ section.id | replace: '-', '_' }}()" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:20px;color:#666;">&#x2715;</button>
+    <h3 style="font-size:20px;font-weight:900;margin-bottom:20px;">Write a Review</h3>
+    <form id="pdp-review-form-{{ section.id }}" onsubmit="pdpSubmitReview{{ section.id | replace: '-', '_' }}(event)">
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Your Name *</label>
+        <input type="text" name="author" required maxlength="100"
+          style="width:100%;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;outline:none;">
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Rating *</label>
+        <div style="display:flex;gap:8px;" id="pdp-star-picker-{{ section.id }}">
+          {% for i in (1..5) %}
+            <button type="button" data-star="{{ i }}"
+              onclick="pdpPickStar{{ section.id | replace: '-', '_' }}({{ i }})"
+              style="background:none;border:none;cursor:pointer;padding:2px;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#d1d5db" stroke="#d1d5db" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </button>
+          {% endfor %}
+        </div>
+        <input type="hidden" name="rating" id="pdp-rating-input-{{ section.id }}" value="" required>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Title</label>
+        <input type="text" name="title" maxlength="200"
+          style="width:100%;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;outline:none;">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">Review *</label>
+        <textarea name="body" required maxlength="2000" rows="4"
+          style="width:100%;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;font-size:14px;outline:none;resize:vertical;"></textarea>
+      </div>
+      <p id="pdp-form-error-{{ section.id }}" style="color:#dc2626;font-size:13px;margin-bottom:12px;display:none;"></p>
+      <button type="submit" id="pdp-form-submit-{{ section.id }}"
+        style="width:100%;background:#000;color:#fff;border:none;border-radius:100px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;">
+        Submit Review
+      </button>
+    </form>
+    <p id="pdp-form-success-{{ section.id }}" style="display:none;text-align:center;color:#16a34a;font-weight:600;font-size:15px;margin-top:16px;">
+      Thank you! Your review has been submitted.
+    </p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var PRODUCT_ID = '{{ product.id }}';
+  var API_BASE = '{{ section.settings.reviews_api_url }}';
+  var SID = '{{ section.id }}';
+  var FN = '{{ section.id | replace: "-", "_" }}';
+  var allReviews = [];
+  var page = 0;
+  var PAGE_SIZE = 6;
+
+  function starsHTML(rating, size) {
+    size = size || 15;
+    var s = '';
+    for (var i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        s += '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24"><path style="fill:#f59e0b;stroke:#f59e0b;stroke-width:1;" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+      } else {
+        s += '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24"><path style="fill:none;stroke:#d1d5db;stroke-width:1.5;" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+      }
+    }
+    return s;
+  }
+
+  function formatDate(iso) {
+    var d = new Date(iso);
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function renderCard(r) {
+    return '<div class="pdp-review-card flex flex-col gap-3">' +
+      '<div class="flex flex-col gap-1">' +
+        '<div class="flex items-center gap-0.5">' + starsHTML(r.rating) + '</div>' +
+      '</div>' +
+      '<div>' +
+        '<p class="font-bold text-base text-black mb-0.5">' + escapeHtml(r.author) + '</p>' +
+        '<p class="text-xs text-gray-400">' + formatDate(r.date) + '</p>' +
+      '</div>' +
+      (r.title ? '<p class="font-semibold text-sm text-black">' + escapeHtml(r.title) + '</p>' : '') +
+      '<p class="pdp-body text-sm leading-relaxed">' + escapeHtml(r.body) + '</p>' +
+    '</div>';
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function updateSummary(reviews) {
+    var total = reviews.length;
+    var counts = {1:0,2:0,3:0,4:0,5:0};
+    var sum = 0;
+    reviews.forEach(function(r){ counts[r.rating]++; sum += r.rating; });
+    var avg = total > 0 ? (sum / total).toFixed(1) : '-';
+
+    document.getElementById('pdp-avg-rating-' + SID).textContent = avg;
+    document.getElementById('pdp-review-count-' + SID).textContent = 'From ' + total + ' review' + (total !== 1 ? 's' : '');
+    document.getElementById('pdp-avg-stars-' + SID).innerHTML = avg !== '-' ? starsHTML(Math.round(avg), 22) : '';
+
+    for (var s = 1; s <= 5; s++) {
+      var pct = total > 0 ? Math.round((counts[s] / total) * 100) : 0;
+      var barEl = document.getElementById('pdp-bar-' + s + '-' + SID);
+      var cntEl = document.getElementById('pdp-bar-count-' + s + '-' + SID);
+      if (barEl) barEl.style.width = pct + '%';
+      if (cntEl) cntEl.textContent = counts[s];
+    }
+  }
+
+  function renderPage() {
+    var grid = document.getElementById('pdp-reviews-grid-' + SID);
+    var empty = document.getElementById('pdp-reviews-empty-' + SID);
+    var loadWrap = document.getElementById('pdp-load-more-wrap-' + SID);
+    var slice = allReviews.slice(0, (page + 1) * PAGE_SIZE);
+
+    if (allReviews.length === 0) {
+      empty.style.display = '';
+      empty.textContent = 'No reviews yet. Be the first to write one!';
+      loadWrap.style.setProperty('display', 'none', 'important');
+      return;
+    }
+
+    empty.style.display = 'none';
+    var html = '';
+    slice.forEach(function(r){ html += renderCard(r); });
+    grid.innerHTML = html;
+
+    if (slice.length < allReviews.length) {
+      loadWrap.style.removeProperty('display');
+    } else {
+      loadWrap.style.setProperty('display', 'none', 'important');
+    }
+  }
+
+  function loadReviews() {
+    if (!API_BASE || !PRODUCT_ID) {
+      document.getElementById('pdp-reviews-empty-' + SID).textContent = 'Reviews not configured.';
+      return;
+    }
+    fetch(API_BASE + '/api/reviews/' + PRODUCT_ID)
+      .then(function(r){ return r.json(); })
+      .then(function(data) {
+        allReviews = Array.isArray(data) ? data : [];
+        updateSummary(allReviews);
+        renderPage();
+      })
+      .catch(function() {
+        document.getElementById('pdp-reviews-empty-' + SID).textContent = 'Could not load reviews.';
+      });
+  }
+
+  window['pdpLoadMoreReviews' + FN] = function() {
+    page++;
+    renderPage();
+  };
+
+  window['pdpOpenReviewForm' + FN] = function() {
+    var modal = document.getElementById('pdp-review-modal-' + SID);
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  window['pdpCloseReviewForm' + FN] = function() {
+    var modal = document.getElementById('pdp-review-modal-' + SID);
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  window['pdpPickStar' + FN] = function(n) {
+    document.getElementById('pdp-rating-input-' + SID).value = n;
+    var btns = document.querySelectorAll('#pdp-star-picker-' + SID + ' button');
+    btns.forEach(function(btn, idx) {
+      var svg = btn.querySelector('svg path');
+      if (idx < n) {
+        svg.setAttribute('fill', '#f59e0b');
+        svg.setAttribute('stroke', '#f59e0b');
+      } else {
+        svg.setAttribute('fill', '#d1d5db');
+        svg.setAttribute('stroke', '#d1d5db');
+      }
+    });
+  };
+
+  window['pdpSubmitReview' + FN] = function(e) {
+    e.preventDefault();
+    var form = document.getElementById('pdp-review-form-' + SID);
+    var btn = document.getElementById('pdp-form-submit-' + SID);
+    var errEl = document.getElementById('pdp-form-error-' + SID);
+    var successEl = document.getElementById('pdp-form-success-' + SID);
+    var data = new FormData(form);
+
+    if (!data.get('rating')) {
+      errEl.textContent = 'Please select a rating.';
+      errEl.style.display = '';
+      return;
+    }
+
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    fetch(API_BASE + '/api/reviews/' + PRODUCT_ID, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        author: data.get('author'),
+        rating: data.get('rating'),
+        title: data.get('title'),
+        body: data.get('body')
+      })
+    })
+    .then(function(r){
+      if (!r.ok) return r.json().then(function(d){ throw new Error(d.error || 'Error'); });
+      return r.json();
+    })
+    .then(function(newReview) {
+      allReviews.unshift(newReview);
+      updateSummary(allReviews);
+      page = 0;
+      renderPage();
+      form.style.display = 'none';
+      successEl.style.display = '';
+      setTimeout(function(){
+        window['pdpCloseReviewForm' + FN]();
+        form.reset();
+        form.style.display = '';
+        successEl.style.display = 'none';
+        btn.disabled = false;
+        btn.textContent = 'Submit Review';
+        window['pdpPickStar' + FN](0);
+      }, 2500);
+    })
+    .catch(function(err) {
+      errEl.textContent = err.message || 'Failed to submit. Try again.';
+      errEl.style.display = '';
+      btn.disabled = false;
+      btn.textContent = 'Submit Review';
+    });
+  };
+
+  var modalEl = document.getElementById('pdp-review-modal-' + SID);
+  if (modalEl) {
+    modalEl.addEventListener('click', function(e) {
+      if (e.target === this) window['pdpCloseReviewForm' + FN]();
+    });
+  }
+
+  loadReviews();
+})();
+</script>
+
+{%- comment -%} RELATED PRODUCTS {%- endcomment -%}
 {% if section.settings.show_related %}
+  {%- assign related_collection = product.collections.first -%}
   <section class="max-w-7xl mx-auto px-4 pb-20 border-t border-gray-100 pt-16">
-    <h2 class="related-heading font-black text-center mb-10 tracking-tighter uppercase">
-      {{ section.settings.related_title }}
-    </h2>
+    <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
+      <h2 class="related-heading font-black tracking-tighter uppercase">
+        {{ section.settings.related_title }}
+      </h2>
+      {% if related_collection %}
+        <a href="{{ related_collection.url }}" class="text-sm font-semibold underline text-gray-500 hover:text-black transition-colors whitespace-nowrap">
+          View All
+        </a>
+      {% endif %}
+    </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
-      {%- assign related_collection = product.collections.first -%}
       {%- assign shown = 0 -%}
       {% if related_collection %}
         {% for p in related_collection.products %}
@@ -538,14 +1034,72 @@
   </section>
 {% endif %}
 
+{%- comment -%} POPULAR THIS WEEK {%- endcomment -%}
+{% if section.settings.show_related %}
+  {%- assign popular_collection = product.collections.first -%}
+  <section class="max-w-7xl mx-auto px-4 pb-20 border-t border-gray-100 pt-16">
+    <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
+      <h2 class="related-heading font-black tracking-tighter uppercase">
+        {{ section.settings.popular_title }}
+      </h2>
+      {% if popular_collection %}
+        <a href="{{ popular_collection.url }}" class="text-sm font-semibold underline text-gray-500 hover:text-black transition-colors whitespace-nowrap">
+          View All
+        </a>
+      {% endif %}
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+      {%- assign pop_shown = 0 -%}
+      {% if popular_collection %}
+        {% for p in popular_collection.products %}
+          {% unless p.id == product.id %}
+            {% if pop_shown < section.settings.related_products_count %}
+              {%- assign pop_shown = pop_shown | plus: 1 -%}
+              <div class="group cursor-pointer">
+                <a href="{{ p.url }}">
+                  <div class="bg-[#F0EEED] rounded-[20px] aspect-square overflow-hidden mb-4">
+                    <img
+                      src="{{ p.featured_image | image_url: width: 500 }}"
+                      alt="{{ p.title | escape }}"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    >
+                  </div>
+                  <div class="related-product-title font-semibold mb-1 truncate">{{ p.title }}</div>
+                  <div class="flex items-center gap-0.5 mb-2">
+                    {% for i in (1..5) %}
+                      <svg width="14" height="14" viewBox="0 0 24 24"><path class="star-full" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    {% endfor %}
+                    <span class="text-xs text-gray-400 ml-1">5/5</span>
+                  </div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="related-product-price font-bold">{{ p.price | money }}</span>
+                    {% if p.compare_at_price > p.price %}
+                      <span class="related-product-price line-through text-gray-400">{{ p.compare_at_price | money }}</span>
+                      {%- assign pop_discount = p.compare_at_price | minus: p.price | times: 100 | divided_by: p.compare_at_price -%}
+                      <span class="pdp-discount-badge text-[11px] font-bold px-2 py-0.5 rounded-full">-{{ pop_discount }}%</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
 <script>
 (function() {
   var sid = '{{ section.id }}';
   var safeId = sid.replace(/-/g, '_');
 
-  // ── Image gallery ──
+  // -- Image gallery --
   var totalImages = {{ product.media.size | default: 0 }};
+  var currentImageIdx = 0;
   window['pdpSetImage' + safeId] = function(idx) {
+    currentImageIdx = idx;
     for (var i = 0; i < totalImages; i++) {
       var img = document.getElementById('pdp-img-' + sid + '-' + i);
       if (img) img.classList.toggle('opacity-0', i !== idx);
@@ -553,8 +1107,16 @@
     var thumbs = document.querySelectorAll('#pdp-thumbs-' + sid + ' .pdp-thumb');
     thumbs.forEach(function(t) { t.classList.toggle('active', parseInt(t.dataset.index) === idx); });
   };
+  window['pdpPrev' + safeId] = function() {
+    var idx = (currentImageIdx - 1 + totalImages) % totalImages;
+    window['pdpSetImage' + safeId](idx);
+  };
+  window['pdpNext' + safeId] = function() {
+    var idx = (currentImageIdx + 1) % totalImages;
+    window['pdpSetImage' + safeId](idx);
+  };
 
-  // ── Quantity stepper ──
+  // -- Quantity stepper --
   window['pdpChangeQty' + safeId] = function(delta) {
     var input = document.getElementById('pdp-qty-input-' + sid);
     var hidden = document.getElementById('pdp-quantity-hidden-' + sid);
@@ -566,7 +1128,7 @@
     if (hidden) hidden.value = val;
   };
 
-  // ── Variant selection ──
+  // -- Variant selection --
   var variants = {{ product.variants | json }};
   var selectedOptions = [
     '{{ first_variant.option1 | default: '' }}',
@@ -617,7 +1179,6 @@
 
   function formatMoney(cents) {
     var symbol = {{ shop.money_format | json }};
-    // Simple fallback: show with shop currency
     return symbol.replace('{{amount}}', (cents / 100).toFixed(2))
                  .replace('{{amount_no_decimals}}', Math.round(cents / 100))
                  .replace('{{amount_with_comma_separator}}', (cents / 100).toFixed(2).replace('.', ','));
@@ -643,13 +1204,11 @@
     updateVariantUI();
   };
 
-  // ── Tabs ──
+  // -- Tabs --
   window['pdpSwitchTab' + safeId] = function(btn, tabName) {
-    // Update button states
     document.querySelectorAll('#shopify-section-' + sid + ' .pdp-tab-btn').forEach(function(b) {
       b.classList.toggle('active', b.dataset.tab === tabName);
     });
-    // Show/hide panels
     document.querySelectorAll('#shopify-section-' + sid + ' .pdp-tab-panel').forEach(function(panel) {
       panel.classList.add('hidden');
     });
@@ -657,7 +1216,17 @@
     if (target) target.classList.remove('hidden');
   };
 
-  // ── Cart form AJAX (optional enhancement) ──
+  // -- Reviews filter chips --
+  window['pdpFilterReviews' + safeId] = function(btn, filter) {
+    var wrap = document.getElementById('pdp-review-filters-' + sid);
+    if (wrap) {
+      wrap.querySelectorAll('.reviews-filter-chip').forEach(function(c) { c.classList.remove('active'); });
+    }
+    btn.classList.add('active');
+    // Filter logic: for demo all cards remain visible; wire up real filter when using a reviews app
+  };
+
+  // -- Cart form AJAX --
   var form = document.getElementById('pdp-form-' + sid);
   if (form) {
     form.addEventListener('submit', function(e) {
@@ -675,7 +1244,6 @@
         setTimeout(function() {
           if (btn) { btn.textContent = 'Add to Cart'; btn.disabled = false; }
         }, 1500);
-        // Update cart count in header if badge exists
         fetch('/cart.js')
           .then(function(r) { return r.json(); })
           .then(function(cart) {
@@ -684,7 +1252,7 @@
           });
       })
       .catch(function() {
-        if (btn) { btn.textContent = 'Error — try again'; btn.disabled = false; }
+        if (btn) { btn.textContent = 'Error -- try again'; btn.disabled = false; }
       });
     });
   }
@@ -852,6 +1420,23 @@
     },
     {
       "type": "header",
+      "content": "SEO — Dados Estruturados (Schema)"
+    },
+    {
+      "type": "checkbox",
+      "id": "schema_enabled",
+      "label": "Ativar Product Schema (JSON-LD)",
+      "info": "Gera dados estruturados para rich snippets no Google (estrelas, preço, disponibilidade).",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "schema_default_brand",
+      "label": "Marca padrão",
+      "info": "Usado quando o produto não tem o metafield seo.brand preenchido. Se vazio, usa o nome da loja."
+    },
+    {
+      "type": "header",
       "content": "Reviews"
     },
     {
@@ -859,6 +1444,12 @@
       "id": "reviews_title",
       "label": "Reviews Section Title",
       "default": "All Reviews"
+    },
+    {
+      "type": "text",
+      "id": "reviews_api_url",
+      "label": "Reviews API URL",
+      "info": "URL base do seu deploy na Vercel. Ex: https://seu-projeto.vercel.app"
     },
     {
       "type": "header",
@@ -980,6 +1571,16 @@
       "step": 1,
       "unit": "px",
       "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Popular This Week"
+    },
+    {
+      "type": "text",
+      "id": "popular_title",
+      "label": "Popular This Week Title",
+      "default": "POPULAR THIS WEEK"
     }
   ],
   "blocks": [
