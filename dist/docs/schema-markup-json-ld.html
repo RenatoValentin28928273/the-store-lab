@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,31 +168,27 @@
     <div class="doc-content">
       <div class="article-body">
         <p>Ao realizar uma busca no Google por um produto, você provavelmente já notou que alguns links mostram <strong>Preço, Estoque Restante e Estrelas de Avaliação</strong> antes mesmo de serem clicados. Essas informações agregadas são chamadas de "Rich Snippets", providos pelo Schema Markup <code class="inline-code">JSON-LD</code>.</p>
-<pre><code>    &lt;h2 id=&quot;por-que-json&quot;&gt;1. Por que JSON-LD no Shopify?&lt;/h2&gt;
-    &lt;p&gt;No início, o SEO técnico baseava-se em Microdata injetada em tags HTML. O Google, agora o interpretador primário de e-commerce, padronizou e prefere largamente a metodologia &lt;strong&gt;JSON-LD (JavaScript Object Notation for Linked Data)&lt;/strong&gt; por ser um script estanque no topo do esqueleto do Shopify.&lt;/p&gt;
-    
-    &lt;p&gt;Isolar a declaração de dados do motor HTML resulta em sites mais fáceis para o algoritmo do Google classificar, resultando em saltos medidos em CTR (Click Through Rate) na plataforma orgânica em dezenas de pontos percentuais.&lt;/p&gt;
-
-    &lt;h2 id=&quot;product-schema&quot;&gt;2. Implementação Estrutural (Product Object)&lt;/h2&gt;
-    &lt;p&gt;Em páginas focadas em venda, nosso trabalho na The Lab Store injeta nativamente uma interpretação via formato JSON-LD do seu produto de back-office do Shopify que atende os parâmetros do &lt;em&gt;schema.org&lt;/em&gt;.&lt;/p&gt;
-
-    &lt;div class=&quot;tech-snippet&quot;&gt;&amp;lt;script type=&quot;application/ld+json&quot;&amp;gt;
-</code></pre>
-<p>{
-&quot;@context&quot;: &quot;https://schema.org/&quot;,
-&quot;@type&quot;: &quot;Product&quot;,
-&quot;name&quot;: &quot;{{ product.title }}&quot;,
-&quot;image&quot;: &quot;{{ product.featured_image | img_url: '800x' }}&quot;,
-&quot;description&quot;: &quot;{{ product.description | strip_html | truncatewords: 50 }}&quot;,
-&quot;offers&quot;: {
-&quot;@type&quot;: &quot;Offer&quot;,
-&quot;url&quot;: &quot;{{ shop.url }}{{ product.url }}&quot;,
-&quot;priceCurrency&quot;: &quot;{{ cart.currency.iso_code }}&quot;,
-&quot;price&quot;: &quot;{{ product.price | divided_by: 100.0 }}&quot;,
-&quot;availability&quot;: &quot;https://schema.org/InStock&quot;
+<h2 id="por-que-json">1. Por que JSON-LD no Shopify?</h2>
+<p>No início, o SEO técnico baseava-se em Microdata injetada em tags HTML. O Google, agora o interpretador primário de e-commerce, padronizou e prefere largamente a metodologia <strong>JSON-LD (JavaScript Object Notation for Linked Data)</strong> por ser um script estanque no topo do esqueleto do Shopify.</p>
+<p>Isolar a declaração de dados do motor HTML resulta em sites mais fáceis para o algoritmo do Google classificar, resultando em saltos medidos em CTR (Click Through Rate) na plataforma orgânica em dezenas de pontos percentuais.</p>
+<h2 id="product-schema">2. Implementação Estrutural (Product Object)</h2>
+<p>Em páginas focadas em venda, nosso trabalho na The Lab Store injeta nativamente uma interpretação via formato JSON-LD do seu produto de back-office do Shopify que atende os parâmetros do <em>schema.org</em>.</p>
+<div class="tech-snippet">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.title }}",
+  "image": "{{ product.featured_image | img_url: '800x' }}",
+  "description": "{{ product.description | strip_html | truncatewords: 50 }}",
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": "{{ cart.currency.iso_code }}",
+    "price": "{{ product.price | divided_by: 100.0 }}",
+    "availability": "https://schema.org/InStock"
+  }
 }
-}
-&lt;/script&gt;</p>
+&lt;/script&gt;
 
       </div>
 

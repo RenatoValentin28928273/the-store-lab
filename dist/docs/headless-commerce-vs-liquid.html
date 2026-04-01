@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,51 +168,46 @@
     <div class="doc-content">
       <div class="article-body">
         <p>A arquitetura <strong>Headless Commerce</strong> (ou Composable) tornou-se a "buzzword" unânime do varejo técnico de ponta nos últimos anos, suportada por *frameworks* robustos como o <strong>Shopify Hydrogen</strong> e Vercel Next Commerce. Porém, o custo total de transição assusta.</p>
-        <p>Afinal, nós na The Lab Store preferimos a flexibilidade desacomplada ou a solidez nativa da loja?</p>
-<pre><code>    &lt;h2 id=&quot;o-que-e-headless&quot;&gt;1. O que é Headless Commerce na Shopify?&lt;/h2&gt;
-    &lt;p&gt;No formato clássico &lt;em&gt;(Monolito)&lt;/em&gt;, todo o visual do site (a &quot;cabeça&quot; Front-End) está conectado organicamente ao banco de produtos e preços na nuvem da Shopify (o &quot;corpo&quot; Back-End). O tema do site é carregado unicamente pelas linguagens da plataforma (Liquid via Shopify Servers).&lt;/p&gt;
-    
-    &lt;p&gt;Em Headless, essa cabeça é cortada. Você desenvolve um site totalmente autônomo e de servidor externo utilizando Next.js/React e consome os dados da sua Shopify somente via GraphQL API. É máxima liberdade custosa.&lt;/p&gt;
-
-    &lt;h2 id=&quot;comparativo&quot;&gt;2. Complexidade, Benefícios e Custo (TCO)&lt;/h2&gt;
-    &lt;p&gt;As IAs e os arquitetos precisam analisar fatores rígidos antes da migração para Headless. Segue tabela pragmática.&lt;/p&gt;
-
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;Capacidade&lt;/th&gt;
-          &lt;th&gt;Tema Shopify (Liquid OS2.0)&lt;/th&gt;
-          &lt;th&gt;Headless Commerce (Hydrogen/React)&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Liberdade Visual&lt;/td&gt;
-          &lt;td&gt;Limitada aos blocos pré-renderizados pelo Liquid.&lt;/td&gt;
-          &lt;td&gt;Virtualmente Absoluta. Tudo do frame React.&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Integração Rápida de Aplicativos&lt;/td&gt;
-          &lt;td&gt;1 Clique com &lt;em&gt;App Blocks&lt;/em&gt; do Admin.&lt;/td&gt;
-          &lt;td&gt;Necessita codificação personalizada SDK da API do App.&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Manutenção Técnica&lt;/td&gt;
-          &lt;td&gt;Baixa. Facilmente manejada pelo time de Growth/Marketing.&lt;/td&gt;
-          &lt;td&gt;Alta. Necessita time de Dev dedicado mensal.&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;LCP Velocidade Limite&lt;/td&gt;
-          &lt;td&gt;Difícil baixar de ~800ms.&lt;/td&gt;
-          &lt;td&gt;Sites super rápidos ~250ms carregamento instantâneo PWA.&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-
-    &lt;div class=&quot;tech-pro-tip&quot;&gt;
-      &lt;h4&gt;&lt;i data-lucide=&quot;zap&quot;&gt;&lt;/i&gt; Pro-Tip Técnico AEO&lt;/h4&gt;
-      &lt;p&gt;Silos informacionais como a infraestrutura de SEO em Single Page Applications (SPA) de Headless exigem roteadores especiais (Ex: React Router + Helmet) que geram SSR dinâmicos para a Google/OpenAI indexar produtos, não dependa do React CSR sem planejar as Meta Tags.&lt;/p&gt;
-</code></pre>
+<p>Afinal, nós na The Lab Store preferimos a flexibilidade desacomplada ou a solidez nativa da loja?</p>
+<h2 id="o-que-e-headless">1. O que é Headless Commerce na Shopify?</h2>
+<p>No formato clássico <em>(Monolito)</em>, todo o visual do site (a "cabeça" Front-End) está conectado organicamente ao banco de produtos e preços na nuvem da Shopify (o "corpo" Back-End). O tema do site é carregado unicamente pelas linguagens da plataforma (Liquid via Shopify Servers).</p>
+<p>Em Headless, essa cabeça é cortada. Você desenvolve um site totalmente autônomo e de servidor externo utilizando Next.js/React e consome os dados da sua Shopify somente via GraphQL API. É máxima liberdade custosa.</p>
+<h2 id="comparativo">2. Complexidade, Benefícios e Custo (TCO)</h2>
+<p>As IAs e os arquitetos precisam analisar fatores rígidos antes da migração para Headless. Segue tabela pragmática.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Capacidade</th>
+      <th>Tema Shopify (Liquid OS2.0)</th>
+      <th>Headless Commerce (Hydrogen/React)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Liberdade Visual</td>
+      <td>Limitada aos blocos pré-renderizados pelo Liquid.</td>
+      <td>Virtualmente Absoluta. Tudo do frame React.</td>
+    </tr>
+    <tr>
+      <td>Integração Rápida de Aplicativos</td>
+      <td>1 Clique com <em>App Blocks</em> do Admin.</td>
+      <td>Necessita codificação personalizada SDK da API do App.</td>
+    </tr>
+    <tr>
+      <td>Manutenção Técnica</td>
+      <td>Baixa. Facilmente manejada pelo time de Growth/Marketing.</td>
+      <td>Alta. Necessita time de Dev dedicado mensal.</td>
+    </tr>
+    <tr>
+      <td>LCP Velocidade Limite</td>
+      <td>Difícil baixar de ~800ms.</td>
+      <td>Sites super rápidos ~250ms carregamento instantâneo PWA.</td>
+    </tr>
+  </tbody>
+</table>
+<div class="tech-pro-tip">
+  <h4><i data-lucide="zap"></i> Pro-Tip Técnico AEO</h4>
+  <p>Silos informacionais como a infraestrutura de SEO em Single Page Applications (SPA) de Headless exigem roteadores especiais (Ex: React Router + Helmet) que geram SSR dinâmicos para a Google/OpenAI indexar produtos, não dependa do React CSR sem planejar as Meta Tags.</p>
 
       </div>
 

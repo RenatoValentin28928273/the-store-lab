@@ -10,5 +10,5 @@ read_time: "5 min leitura"
 
 <p>Um tema Shopify bonito e um tema que converte não são a mesma coisa. A diferença está em decisões precisas de design — hierarquia visual, psicologia das cores, tipografia funcional e estrutura de página orientada por dados. Este guia detalha como a The Lab Store pensa e executa design de e-commerce para maximizar conversão sem abrir mão da identidade de marca.</p>
 
-        <div class="key-insight">
-          <div class="key-insight-label">Princípio central
+<div class="key-insight">
+  <div class="key-insight-label">Princípio central

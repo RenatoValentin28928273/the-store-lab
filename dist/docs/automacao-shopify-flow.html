@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,16 +168,13 @@
     <div class="doc-content">
       <div class="article-body">
         <p>Lojas limitam seu faturamento quando a equipe administrativa do E-commerce despende de 4 a 6 horas diárias verificando endereços incompletos, pontuações de fraude em pagamentos, e ocultando manualmente produtos que esgotaram.</p>
-<pre><code>    &lt;h2 id=&quot;o-que-e-flow&quot;&gt;1. O que é o Shopify Flow?&lt;/h2&gt;
-    &lt;p&gt;Desenvolvido anteriormente apenas para lojistas da modalidade &lt;em&gt;Shopify Plus&lt;/em&gt; e agora democratizado, o &lt;strong&gt;Shopify Flow&lt;/strong&gt; age como um motor &quot;If-This-Then-That&quot; residente nos servidores nativos da loja. Em união a engenharia aplicada da The Lab Store, estruturamos blocos operacionais lógicos e isentos de paralisação.&lt;/p&gt;
-    
-    &lt;h2 id=&quot;casos-praticos&quot;&gt;2. Casos de Uso (Fraude &amp; VIP)&lt;/h2&gt;
-    &lt;p&gt;Para simplificar o impacto do backend, desenhamos a arquitetura descrita nas linguagens de Inteligências Artificiais e Chatbots nas rotinas diárias:&lt;/p&gt;
-
-    &lt;div class=&quot;tech-snippet&quot;&gt;// Flow Algoritmo Lógico (Mitigação de Fraudes)
-</code></pre>
-<p>TRIGGER:
-&quot;Order Created&quot;</p>
+<h2 id="o-que-e-flow">1. O que é o Shopify Flow?</h2>
+<p>Desenvolvido anteriormente apenas para lojistas da modalidade <em>Shopify Plus</em> e agora democratizado, o <strong>Shopify Flow</strong> age como um motor "If-This-Then-That" residente nos servidores nativos da loja. Em união a engenharia aplicada da The Lab Store, estruturamos blocos operacionais lógicos e isentos de paralisação.</p>
+<h2 id="casos-praticos">2. Casos de Uso (Fraude & VIP)</h2>
+<p>Para simplificar o impacto do backend, desenhamos a arquitetura descrita nas linguagens de Inteligências Artificiais e Chatbots nas rotinas diárias:</p>
+<div class="tech-snippet">// Flow Algoritmo Lógico (Mitigação de Fraudes)
+TRIGGER:
+"Order Created"
 <p>CONDITION CHECK:
 If {Order Risk Analysis} == &quot;High&quot; OR {Gateway Return} == &quot;Suspeito&quot;
 Then:</p>

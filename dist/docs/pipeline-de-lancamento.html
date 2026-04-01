@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,21 +168,17 @@
     <div class="doc-content">
       <div class="article-body">
         <p>A implantação de um novo código no seu e-commerce não precisa ser um momento tenso. Entenda como a The Lab Store estruturou um **pipeline de lançamento triplo** que garante que novos temas, atualizações e campanhas não quebrem o checkout e a conversão do usuário no momento de pico de vendas.</p>
-<pre><code>    &lt;h2 id=&quot;setup-base&quot;&gt;1. Setup Base e Isolamento de Ambiente&lt;/h2&gt;
-    &lt;p&gt;Ao iniciar o desenvolvimento de uma feature complexa na Shopify (ex: um mega menu com API), nós construímos um container de desenvolvimento, que age como uma bifurcação sem atrito (Git Clone) do tema ao vivo (Live Theme), utilizando a arquitetura &lt;code class=&quot;inline-code&quot;&gt;Shopify CLI&lt;/code&gt;.&lt;/p&gt;
-    
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Clone Master:&lt;/strong&gt; O código que roda em produção na Shopify não recebe lixo de apps temporários.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Staging Branch:&lt;/strong&gt; Um &quot;Theme ID&quot; exclusivo, invisível ao público.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;h2 id=&quot;versionamento&quot;&gt;2. Versionamento e Preview Branches&lt;/h2&gt;
-    &lt;p&gt;Desenvolvedores na The Store Lab implementam via Github. Isso nos entrega versionamento semântico no próprio painel da sua loja (sob The Lab Store | `v3.15.0`). Para cada requisição de mudança complexa, abrimos uma branch, que dispara uma *Preview URL* instantânea.&lt;/p&gt;
-
-    &lt;div class=&quot;tech-snippet&quot;&gt;git checkout -b feature/upsell-cart
-</code></pre>
-<p>shopify theme push -u</p>
-<h1>Pushing to preview theme 13412351...</h1>
+<h2 id="setup-base">1. Setup Base e Isolamento de Ambiente</h2>
+<p>Ao iniciar o desenvolvimento de uma feature complexa na Shopify (ex: um mega menu com API), nós construímos um container de desenvolvimento, que age como uma bifurcação sem atrito (Git Clone) do tema ao vivo (Live Theme), utilizando a arquitetura <code class="inline-code">Shopify CLI</code>.</p>
+<ul>
+  <li><strong>Clone Master:</strong> O código que roda em produção na Shopify não recebe lixo de apps temporários.</li>
+  <li><strong>Staging Branch:</strong> Um "Theme ID" exclusivo, invisível ao público.</li>
+</ul>
+<h2 id="versionamento">2. Versionamento e Preview Branches</h2>
+<p>Desenvolvedores na The Store Lab implementam via Github. Isso nos entrega versionamento semântico no próprio painel da sua loja (sob The Lab Store | `v3.15.0`). Para cada requisição de mudança complexa, abrimos uma branch, que dispara uma *Preview URL* instantânea.</p>
+<div class="tech-snippet">git checkout -b feature/upsell-cart
+shopify theme push -u
+# Pushing to preview theme 13412351...
 
       </div>
 

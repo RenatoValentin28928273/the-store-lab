@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,25 +168,23 @@
     <div class="doc-content">
       <div class="article-body">
         <p>A arquitetura <strong>Online Store 2.0 (OS2.0)</strong> introduziu o maior salto em flexibilidade para lojistas na história da Shopify. Antes as seções eram limitadas apenas à homepage; hoje é possível mover, adicionar e reordenar blocos em <em>qualquer</em> página (produto, coleções, artigos, etc.) utilizando um formato focado em JSON.</p>
-<pre><code>    &lt;h2 id=&quot;por-que-jsons&quot;&gt;1. O Fim das Templates Hardcoded&lt;/h2&gt;
-    &lt;p&gt;Ao invés de codificar o esqueleto principal em um arquivo &lt;code&gt;.liquid&lt;/code&gt; fechado, a The Lab Store desenvolve temas onde os templates raízes são transformados em &lt;code class=&quot;inline-code&quot;&gt;JSON&lt;/code&gt;. Isso permite que a árvore de seções seja manipulada visualmente pelo Customizer do lojista, sem precisar mexer em código.&lt;/p&gt;
-    
-    &lt;div class=&quot;tech-snippet&quot;&gt;{
-</code></pre>
-<p>&quot;name&quot;: &quot;Product Layout&quot;,
-&quot;sections&quot;: {
-&quot;main&quot;: {
-&quot;type&quot;: &quot;main-product&quot;,
-&quot;settings&quot;: {
-&quot;show_vendor&quot;: true
+<h2 id="por-que-jsons">1. O Fim das Templates Hardcoded</h2>
+<p>Ao invés de codificar o esqueleto principal em um arquivo <code>.liquid</code> fechado, a The Lab Store desenvolve temas onde os templates raízes são transformados em <code class="inline-code">JSON</code>. Isso permite que a árvore de seções seja manipulada visualmente pelo Customizer do lojista, sem precisar mexer em código.</p>
+<div class="tech-snippet">{
+  "name": "Product Layout",
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+"show_vendor": true
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations"
+    }
+  },
+  "order": ["main", "recommendations"]
 }
-},
-&quot;recommendations&quot;: {
-&quot;type&quot;: &quot;product-recommendations&quot;
-}
-},
-&quot;order&quot;: [&quot;main&quot;, &quot;recommendations&quot;]
-}</p>
 
       </div>
 

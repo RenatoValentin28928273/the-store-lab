@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,20 +168,17 @@
     <div class="doc-content">
       <div class="article-body">
         <p>Dados sem contexto são apenas ruído. Em um e-commerce Shopify de alta escala, a diferença entre o lucro e o prejuízo está na capacidade de consolidar fontes de dados dispersas em uma única verdade operacional.</p>
-<pre><code>    &lt;h2 id=&quot;consolidacao&quot;&gt;1. Consolidação de Fontes de Dados&lt;/h2&gt;
-    &lt;p&gt;O maior erro dos gestores é olhar o ROAS do Facebook Ads de forma isolada. Implementamos conectores que unem Shopify (Vendas Reais), Meta Ads, Google Ads e Custos Fixos no Looker Studio. Isso permite visualizar o &lt;strong&gt;ROAS Real (Net)&lt;/strong&gt; e não apenas o reportado pelas plataformas.&lt;/p&gt;
-    
-    &lt;h2 id=&quot;metricas-chave&quot;&gt;2. Métricas que Realmente Importam&lt;/h2&gt;
-    &lt;p&gt;Além do faturamento, focamos no rastreamento de:&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;LTV (Lifetime Value):&lt;/strong&gt; Quanto seu cliente gasta ao longo de 6 meses.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;CAC (Custo de Aquisição):&lt;/strong&gt; O custo real para trazer um novo comprador.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;MDR (Marketing Dashboard Ratio):&lt;/strong&gt; A relação entre investimento total e faturamento líquido.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;h2 id=&quot;atribuicao&quot;&gt;3. Modelagem de Atribuição&lt;/h2&gt;
-    &lt;p&gt;Com o Tracking Server-Side ativo, conseguimos aplicar modelos de atribuição &lt;em&gt;Data-Driven&lt;/em&gt;. Entendemos todo o caminho do cliente: desde o primeiro clique no Instagram até a conversão final via busca orgânica no Google, atribuindo valor a cada etapa do funil.&lt;/p&gt;
-</code></pre>
+<h2 id="consolidacao">1. Consolidação de Fontes de Dados</h2>
+<p>O maior erro dos gestores é olhar o ROAS do Facebook Ads de forma isolada. Implementamos conectores que unem Shopify (Vendas Reais), Meta Ads, Google Ads e Custos Fixos no Looker Studio. Isso permite visualizar o <strong>ROAS Real (Net)</strong> e não apenas o reportado pelas plataformas.</p>
+<h2 id="metricas-chave">2. Métricas que Realmente Importam</h2>
+<p>Além do faturamento, focamos no rastreamento de:</p>
+<ul>
+  <li><strong>LTV (Lifetime Value):</strong> Quanto seu cliente gasta ao longo de 6 meses.</li>
+  <li><strong>CAC (Custo de Aquisição):</strong> O custo real para trazer um novo comprador.</li>
+  <li><strong>MDR (Marketing Dashboard Ratio):</strong> A relação entre investimento total e faturamento líquido.</li>
+</ul>
+<h2 id="atribuicao">3. Modelagem de Atribuição</h2>
+<p>Com o Tracking Server-Side ativo, conseguimos aplicar modelos de atribuição <em>Data-Driven</em>. Entendemos todo o caminho do cliente: desde o primeiro clique no Instagram até a conversão final via busca orgânica no Google, atribuindo valor a cada etapa do funil.</p>
 
       </div>
 

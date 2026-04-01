@@ -10,13 +10,13 @@ read_time: "5 min leitura"
 
 <p>Lojas Shopify que dependem exclusivamente de pixels no navegador estão operando "às cegas". O iOS 14.5 e os AdBlockers eliminam até 40% dos seus dados de conversão.</p>
 
-        <h2 id="o-problema">1. O Problema do Rastreamento Client-Side</h2>
-        <p>No modelo tradicional, o pixel do Facebook ou Google Ads é disparado pelo navegador do cliente. Se o navegador bloqueia o script ou o usuário está em um dispositivo Apple com restrições rígidas, sua loja vende, mas o algoritmo de anúncio não sabe quem comprou. Isso destrói seu ROAS (Retorno sobre Gasto com Anúncio).</p>
-        
-        <h2 id="a-solucao">2. A Solução: GTM via Servidor</h2>
-        <p>O rastreamento via servidor inverte o processo. Os dados são enviados da sua loja para um servidor de sua propriedade e, de lá, são despachados para as redes sociais. Isso garante soberania de dados e precisão absoluta.</p>
+<h2 id="o-problema">1. O Problema do Rastreamento Client-Side</h2>
+<p>No modelo tradicional, o pixel do Facebook ou Google Ads é disparado pelo navegador do cliente. Se o navegador bloqueia o script ou o usuário está em um dispositivo Apple com restrições rígidas, sua loja vende, mas o algoritmo de anúncio não sabe quem comprou. Isso destrói seu ROAS (Retorno sobre Gasto com Anúncio).</p>
 
-        <div class="tech-snippet">// Simulação de Webhook Server-Side para Meta CAPI
+<h2 id="a-solucao">2. A Solução: GTM via Servidor</h2>
+<p>O rastreamento via servidor inverte o processo. Os dados são enviados da sua loja para um servidor de sua propriedade e, de lá, são despachados para as redes sociais. Isso garante soberania de dados e precisão absoluta.</p>
+
+<div class="tech-snippet">// Simulação de Webhook Server-Side para Meta CAPI
 POST /v19.0/{pixel_id}/events
 Content-Type: application/json
 

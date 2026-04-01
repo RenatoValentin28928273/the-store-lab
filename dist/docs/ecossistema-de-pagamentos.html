@@ -68,7 +68,7 @@
     .breadcrumbs { display: flex; gap: 10px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; font-family: 'JetBrains Mono', monospace; }
     .hub-title-tech { font-size: clamp(2.5rem, 5vw, 3.5rem); font-family: 'Space Grotesk', sans-serif; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px; color: var(--text-main); }
     .hero-highlight { color: var(--tech-blue) !important; }
-    .docs-hero { padding: calc(var(--nav-height) + 80px) 0 40px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
+    .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
     .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
     .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
@@ -168,18 +168,15 @@
     <div class="doc-content">
       <div class="article-body">
         <p>A etapa do funil com mais abandono e desconfiança se localiza nos pagamentos. Historicamente, a Shopify tem barreiras no mercado brasileiro em suas integrações por conta do ecossistema de parcelamentos e o popular "PIX".</p>
-<pre><code>    &lt;h2 id=&quot;desafio-nacional&quot;&gt;1. O Desafio do Checkout no Brasil&lt;/h2&gt;
-    &lt;p&gt;O consumidor no Brasil não paga primariamente via Cartão de Crédito em 1 parcela como o norte-americano. Ele engaja através de &lt;strong&gt;PIX, Boleto e Cartões Multi-Parcelados&lt;/strong&gt;. Sem um conector na API de pagamentos que se acople perfeitamente na Shopify, a conversão cai vertiginosamente.&lt;/p&gt;
-    
-    &lt;h2 id=&quot;checkout-transparente&quot;&gt;2. Checkout Transparente (Yampi, Pagar.me)&lt;/h2&gt;
-    &lt;p&gt;Desenvolvemos lógicas de código (Redirecionamento Invisível e Webhooks) nas propriedades do tema da Shopify. Ele escuta o botão &quot;Comprar&quot; ou &quot;Sign-Up&quot;, transportando os dados de &lt;strong&gt;Cart Attributes&lt;/strong&gt; do usuário em segundos até o terminal da provedora transparente.&lt;/p&gt;
-
-    &lt;div class=&quot;tech-snippet&quot;&gt;// Exemplo de Tracking de Buy-Button (Vanilla JS)
-</code></pre>
-<p>document.querySelector('#add-to-cart').addEventListener('click', async (e) =&gt; {
-const customPayload = await FetchShopifyCart();
-PassToGateway(customPayload, &quot;Yampi&quot;);
-});</p>
+<h2 id="desafio-nacional">1. O Desafio do Checkout no Brasil</h2>
+<p>O consumidor no Brasil não paga primariamente via Cartão de Crédito em 1 parcela como o norte-americano. Ele engaja através de <strong>PIX, Boleto e Cartões Multi-Parcelados</strong>. Sem um conector na API de pagamentos que se acople perfeitamente na Shopify, a conversão cai vertiginosamente.</p>
+<h2 id="checkout-transparente">2. Checkout Transparente (Yampi, Pagar.me)</h2>
+<p>Desenvolvemos lógicas de código (Redirecionamento Invisível e Webhooks) nas propriedades do tema da Shopify. Ele escuta o botão "Comprar" ou "Sign-Up", transportando os dados de <strong>Cart Attributes</strong> do usuário em segundos até o terminal da provedora transparente.</p>
+<div class="tech-snippet">// Exemplo de Tracking de Buy-Button (Vanilla JS)
+document.querySelector('#add-to-cart').addEventListener('click', async (e) => {
+  const customPayload = await FetchShopifyCart();
+  PassToGateway(customPayload, "Yampi"); 
+});
 
       </div>
 
