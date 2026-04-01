@@ -16,7 +16,8 @@ read_time: "5 min leitura"
 <h2 id="checkout-transparente">2. Checkout Transparente (Yampi, Pagar.me)</h2>
 <p>Desenvolvemos lógicas de código (Redirecionamento Invisível e Webhooks) nas propriedades do tema da Shopify. Ele escuta o botão "Comprar" ou "Sign-Up", transportando os dados de <strong>Cart Attributes</strong> do usuário em segundos até o terminal da provedora transparente.</p>
 
-<div class="tech-snippet">// Exemplo de Tracking de Buy-Button (Vanilla JS)
+<div class="tech-snippet">
+// Exemplo de Tracking de Buy-Button (Vanilla JS)
 document.querySelector('#add-to-cart').addEventListener('click', async (e) => {
   const customPayload = await FetchShopifyCart();
   PassToGateway(customPayload, "Yampi"); 

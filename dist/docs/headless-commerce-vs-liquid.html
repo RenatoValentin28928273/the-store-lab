@@ -167,13 +167,18 @@
   <main class="container doc-container">
     <div class="doc-content">
       <div class="article-body">
-        <p>A arquitetura <strong>Headless Commerce</strong> (ou Composable) tornou-se a "buzzword" unânime do varejo técnico de ponta nos últimos anos, suportada por *frameworks* robustos como o <strong>Shopify Hydrogen</strong> e Vercel Next Commerce. Porém, o custo total de transição assusta.</p>
+        
+<p>A arquitetura <strong>Headless Commerce</strong> (ou Composable) tornou-se a "buzzword" unânime do varejo técnico de ponta nos últimos anos, suportada por *frameworks* robustos como o <strong>Shopify Hydrogen</strong> e Vercel Next Commerce. Porém, o custo total de transição assusta.</p>
 <p>Afinal, nós na The Lab Store preferimos a flexibilidade desacomplada ou a solidez nativa da loja?</p>
+
 <h2 id="o-que-e-headless">1. O que é Headless Commerce na Shopify?</h2>
 <p>No formato clássico <em>(Monolito)</em>, todo o visual do site (a "cabeça" Front-End) está conectado organicamente ao banco de produtos e preços na nuvem da Shopify (o "corpo" Back-End). O tema do site é carregado unicamente pelas linguagens da plataforma (Liquid via Shopify Servers).</p>
+
 <p>Em Headless, essa cabeça é cortada. Você desenvolve um site totalmente autônomo e de servidor externo utilizando Next.js/React e consome os dados da sua Shopify somente via GraphQL API. É máxima liberdade custosa.</p>
+
 <h2 id="comparativo">2. Complexidade, Benefícios e Custo (TCO)</h2>
 <p>As IAs e os arquitetos precisam analisar fatores rígidos antes da migração para Headless. Segue tabela pragmática.</p>
+
 <table>
   <thead>
     <tr>
@@ -205,6 +210,7 @@
     </tr>
   </tbody>
 </table>
+
 <div class="tech-pro-tip">
   <h4><i data-lucide="zap"></i> Pro-Tip Técnico AEO</h4>
   <p>Silos informacionais como a infraestrutura de SEO em Single Page Applications (SPA) de Headless exigem roteadores especiais (Ex: React Router + Helmet) que geram SSR dinâmicos para a Google/OpenAI indexar produtos, não dependa do React CSR sem planejar as Meta Tags.</p>
@@ -227,7 +233,8 @@
           <i data-lucide="list"></i> ÍNDICE
         </div>
         <ul class="sidebar-nav" id="toc">
-          
+          <li class="sidebar-nav-item active"><a href="#o-que-e-headless">1. O que é Headless Commerce na Shopify?</a></li>
+          <li class="sidebar-nav-item "><a href="#comparativo">2. Complexidade, Benefícios e Custo (TCO)</a></li>
         </ul>
       </div>
     </aside>

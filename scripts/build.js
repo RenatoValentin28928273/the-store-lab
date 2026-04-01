@@ -53,11 +53,13 @@ async function build() {
     const source = await fs.readFile(file, 'utf-8');
     const { data, content } = matter(source);
     
-    // Converte Markdown para HTML (Adicionando IDs aos H2 para ScrollSpy)
-    const htmlContent = md.render(content);
+    // Usa o conteúdo diretamente se já for HTML, senão converte com markdown-it
+    const isHtml = content.trimStart().startsWith('<');
+    const htmlContent = isHtml ? content : md.render(content);
     const toc = [];
-    let renderedContent = htmlContent.replace(/<h2>(.*?)<\/h2>/g, (match, title) => {
-      const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    let renderedContent = htmlContent.replace(/<h2(?:[^>]*)>(.*?)<\/h2>/g, (match, title) => {
+      const existingId = match.match(/id="([^"]+)"/);
+      const id = existingId ? existingId[1] : title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       toc.push({ id, title });
       return `<h2 id="${id}">${title}</h2>`;
     });

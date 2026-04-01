@@ -167,23 +167,29 @@
   <main class="container doc-container">
     <div class="doc-content">
       <div class="article-body">
-        <p>Lojas Shopify que dependem exclusivamente de pixels no navegador estão operando "às cegas". O iOS 14.5 e os AdBlockers eliminam até 40% dos seus dados de conversão.</p>
+        
+<p>Lojas Shopify que dependem exclusivamente de pixels no navegador estão operando "às cegas". O iOS 14.5 e os AdBlockers eliminam até 40% dos seus dados de conversão.</p>
+
 <h2 id="o-problema">1. O Problema do Rastreamento Client-Side</h2>
 <p>No modelo tradicional, o pixel do Facebook ou Google Ads é disparado pelo navegador do cliente. Se o navegador bloqueia o script ou o usuário está em um dispositivo Apple com restrições rígidas, sua loja vende, mas o algoritmo de anúncio não sabe quem comprou. Isso destrói seu ROAS (Retorno sobre Gasto com Anúncio).</p>
+
 <h2 id="a-solucao">2. A Solução: GTM via Servidor</h2>
 <p>O rastreamento via servidor inverte o processo. Os dados são enviados da sua loja para um servidor de sua propriedade e, de lá, são despachados para as redes sociais. Isso garante soberania de dados e precisão absoluta.</p>
-<div class="tech-snippet">// Simulação de Webhook Server-Side para Meta CAPI
+
+<div class="tech-snippet">
+// Simulação de Webhook Server-Side para Meta CAPI
 POST /v19.0/{pixel_id}/events
 Content-Type: application/json
-<p>{
-&quot;data&quot;: [{
-&quot;event_name&quot;: &quot;Purchase&quot;,
-&quot;event_time&quot;: 1711850400,
-&quot;action_source&quot;: &quot;website&quot;,
-&quot;user_data&quot;: { &quot;em&quot;: &quot;hash_email&quot;, &quot;client_ip_address&quot;: &quot;...&quot; },
-&quot;custom_data&quot;: { &quot;value&quot;: 297.50, &quot;currency&quot;: &quot;BRL&quot; }
-}]
-}</p>
+
+{
+  "data": [{
+    "event_name": "Purchase",
+    "event_time": 1711850400,
+    "action_source": "website",
+    "user_data": { "em": "hash_email", "client_ip_address": "..." },
+    "custom_data": { "value": 297.50, "currency": "BRL" }
+  }]
+}
 
       </div>
 
@@ -203,7 +209,8 @@ Content-Type: application/json
           <i data-lucide="list"></i> ÍNDICE
         </div>
         <ul class="sidebar-nav" id="toc">
-          
+          <li class="sidebar-nav-item active"><a href="#o-problema">1. O Problema do Rastreamento Client-Side</a></li>
+          <li class="sidebar-nav-item "><a href="#a-solucao">2. A Solução: GTM via Servidor</a></li>
         </ul>
       </div>
     </aside>

@@ -16,7 +16,8 @@ read_time: "5 min leitura"
 <h2 id="casos-praticos">2. Casos de Uso (Fraude & VIP)</h2>
 <p>Para simplificar o impacto do backend, desenhamos a arquitetura descrita nas linguagens de Inteligências Artificiais e Chatbots nas rotinas diárias:</p>
 
-<div class="tech-snippet">// Flow Algoritmo Lógico (Mitigação de Fraudes)
+<div class="tech-snippet">
+// Flow Algoritmo Lógico (Mitigação de Fraudes)
 TRIGGER:
 "Order Created"
 

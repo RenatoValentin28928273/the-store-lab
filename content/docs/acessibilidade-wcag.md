@@ -18,6 +18,7 @@ read_time: 5 min leitura
 <h2 id="fator-seo">2. O Impacto Analítico em SEO</h2>
 <p>A métrica de Auditoria base no <em>Lighthouse Scanner</em> inclui estritamente as ramificações de Acessibilidade (Accessibily Point). Projetos que operam abaixo de 90 nessa métrica raramente irão sustentar lideranças absolutas na folha de ranking em produtos competitivos de varejo orgânico.</p>
 
-<div class="tech-snippet">&lt;button class="add-to-cart" aria-label="Adicionar Tênis de Corrida Vermelho ao Carrinho"&gt;
+<div class="tech-snippet">
+&lt;button class="add-to-cart" aria-label="Adicionar Tênis de Corrida Vermelho ao Carrinho"&gt;
   &lt;svg aria-hidden="true"&gt;...&lt;/svg&gt;
 &lt;/button&gt;

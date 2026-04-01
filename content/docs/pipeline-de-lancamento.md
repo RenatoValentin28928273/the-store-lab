@@ -21,6 +21,7 @@ read_time: "5 min leitura"
 <h2 id="versionamento">2. Versionamento e Preview Branches</h2>
 <p>Desenvolvedores na The Store Lab implementam via Github. Isso nos entrega versionamento semântico no próprio painel da sua loja (sob The Lab Store | `v3.15.0`). Para cada requisição de mudança complexa, abrimos uma branch, que dispara uma *Preview URL* instantânea.</p>
 
-<div class="tech-snippet">git checkout -b feature/upsell-cart
+<div class="tech-snippet">
+git checkout -b feature/upsell-cart
 shopify theme push -u
 # Pushing to preview theme 13412351...

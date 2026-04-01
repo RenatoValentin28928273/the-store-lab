@@ -29,7 +29,8 @@ read_time: "5 min leitura"
 <h3>Preload + fetchpriority no hero</h3>
 <p>O browser descobre a imagem LCP somente ao parsear o HTML e encontrar a tag <code class="inline-code">&lt;img&gt;</code>. Com <code class="inline-code">preload</code>, você instrui o browser a iniciar o download imediatamente, antes mesmo de processar o CSS ou JS que renderizaria esse elemento.</p>
 
-<div class="tech-snippet">&lt;!-- No &lt;head&gt; do seu theme.liquid --&gt;
+<div class="tech-snippet">
+&lt;!-- No &lt;head&gt; do seu theme.liquid --&gt;
 &lt;link rel="preload" as="image"
   href="{{ section.settings.hero_image | image_url: width: 1200 }}"
   fetchpriority="high"

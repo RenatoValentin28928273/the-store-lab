@@ -167,10 +167,14 @@
   <main class="container doc-container">
     <div class="doc-content">
       <div class="article-body">
-        <p>A arquitetura <strong>Online Store 2.0 (OS2.0)</strong> introduziu o maior salto em flexibilidade para lojistas na história da Shopify. Antes as seções eram limitadas apenas à homepage; hoje é possível mover, adicionar e reordenar blocos em <em>qualquer</em> página (produto, coleções, artigos, etc.) utilizando um formato focado em JSON.</p>
+        
+<p>A arquitetura <strong>Online Store 2.0 (OS2.0)</strong> introduziu o maior salto em flexibilidade para lojistas na história da Shopify. Antes as seções eram limitadas apenas à homepage; hoje é possível mover, adicionar e reordenar blocos em <em>qualquer</em> página (produto, coleções, artigos, etc.) utilizando um formato focado em JSON.</p>
+
 <h2 id="por-que-jsons">1. O Fim das Templates Hardcoded</h2>
 <p>Ao invés de codificar o esqueleto principal em um arquivo <code>.liquid</code> fechado, a The Lab Store desenvolve temas onde os templates raízes são transformados em <code class="inline-code">JSON</code>. Isso permite que a árvore de seções seja manipulada visualmente pelo Customizer do lojista, sem precisar mexer em código.</p>
-<div class="tech-snippet">{
+
+<div class="tech-snippet">
+{
   "name": "Product Layout",
   "sections": {
     "main": {
@@ -204,7 +208,7 @@
           <i data-lucide="list"></i> ÍNDICE
         </div>
         <ul class="sidebar-nav" id="toc">
-          
+          <li class="sidebar-nav-item active"><a href="#por-que-jsons">1. O Fim das Templates Hardcoded</a></li>
         </ul>
       </div>
     </aside>

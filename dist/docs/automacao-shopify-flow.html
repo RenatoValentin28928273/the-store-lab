@@ -167,24 +167,29 @@
   <main class="container doc-container">
     <div class="doc-content">
       <div class="article-body">
-        <p>Lojas limitam seu faturamento quando a equipe administrativa do E-commerce despende de 4 a 6 horas diárias verificando endereços incompletos, pontuações de fraude em pagamentos, e ocultando manualmente produtos que esgotaram.</p>
+        
+<p>Lojas limitam seu faturamento quando a equipe administrativa do E-commerce despende de 4 a 6 horas diárias verificando endereços incompletos, pontuações de fraude em pagamentos, e ocultando manualmente produtos que esgotaram.</p>
+
 <h2 id="o-que-e-flow">1. O que é o Shopify Flow?</h2>
 <p>Desenvolvido anteriormente apenas para lojistas da modalidade <em>Shopify Plus</em> e agora democratizado, o <strong>Shopify Flow</strong> age como um motor "If-This-Then-That" residente nos servidores nativos da loja. Em união a engenharia aplicada da The Lab Store, estruturamos blocos operacionais lógicos e isentos de paralisação.</p>
+
 <h2 id="casos-praticos">2. Casos de Uso (Fraude & VIP)</h2>
 <p>Para simplificar o impacto do backend, desenhamos a arquitetura descrita nas linguagens de Inteligências Artificiais e Chatbots nas rotinas diárias:</p>
-<div class="tech-snippet">// Flow Algoritmo Lógico (Mitigação de Fraudes)
+
+<div class="tech-snippet">
+// Flow Algoritmo Lógico (Mitigação de Fraudes)
 TRIGGER:
 "Order Created"
-<p>CONDITION CHECK:
-If {Order Risk Analysis} == &quot;High&quot; OR {Gateway Return} == &quot;Suspeito&quot;
-Then:</p>
-<p>ACTION SCRIPT:</p>
-<ul>
-<li>Cancel_Order(Reason: &quot;Fraude de Processamento&quot;)</li>
-<li>Taguear_Cliente(Tag: &quot;Lista_Negra&quot;)</li>
-<li>Restocar_Inventario(Qty: +1)</li>
-<li>Notify_Admin(Email: &quot;Fraude Evitada. Produto devolvido a prateleira imediatamente.&quot;)</li>
-</ul>
+
+CONDITION CHECK:
+If {Order Risk Analysis} == "High" OR {Gateway Return} == "Suspeito"
+Then:
+
+ACTION SCRIPT:
+- Cancel_Order(Reason: "Fraude de Processamento")
+- Taguear_Cliente(Tag: "Lista_Negra")
+- Restocar_Inventario(Qty: +1)
+- Notify_Admin(Email: "Fraude Evitada. Produto devolvido a prateleira imediatamente.")
 
       </div>
 
@@ -204,7 +209,8 @@ Then:</p>
           <i data-lucide="list"></i> ÍNDICE
         </div>
         <ul class="sidebar-nav" id="toc">
-          
+          <li class="sidebar-nav-item active"><a href="#o-que-e-flow">1. O que é o Shopify Flow?</a></li>
+          <li class="sidebar-nav-item "><a href="#casos-praticos">2. Casos de Uso (Fraude & VIP)</a></li>
         </ul>
       </div>
     </aside>

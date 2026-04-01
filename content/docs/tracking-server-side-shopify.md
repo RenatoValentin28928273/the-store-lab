@@ -16,7 +16,8 @@ read_time: "5 min leitura"
 <h2 id="a-solucao">2. A Solução: GTM via Servidor</h2>
 <p>O rastreamento via servidor inverte o processo. Os dados são enviados da sua loja para um servidor de sua propriedade e, de lá, são despachados para as redes sociais. Isso garante soberania de dados e precisão absoluta.</p>
 
-<div class="tech-snippet">// Simulação de Webhook Server-Side para Meta CAPI
+<div class="tech-snippet">
+// Simulação de Webhook Server-Side para Meta CAPI
 POST /v19.0/{pixel_id}/events
 Content-Type: application/json
 

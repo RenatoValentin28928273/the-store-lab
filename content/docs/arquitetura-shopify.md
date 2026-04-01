@@ -13,7 +13,8 @@ read_time: "5 min leitura"
 <h2 id="por-que-jsons">1. O Fim das Templates Hardcoded</h2>
 <p>Ao invés de codificar o esqueleto principal em um arquivo <code>.liquid</code> fechado, a The Lab Store desenvolve temas onde os templates raízes são transformados em <code class="inline-code">JSON</code>. Isso permite que a árvore de seções seja manipulada visualmente pelo Customizer do lojista, sem precisar mexer em código.</p>
 
-<div class="tech-snippet">{
+<div class="tech-snippet">
+{
   "name": "Product Layout",
   "sections": {
     "main": {

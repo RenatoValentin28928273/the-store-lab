@@ -18,7 +18,8 @@ read_time: "5 min leitura"
 <h2 id="product-schema">2. Implementação Estrutural (Product Object)</h2>
 <p>Em páginas focadas em venda, nosso trabalho na The Lab Store injeta nativamente uma interpretação via formato JSON-LD do seu produto de back-office do Shopify que atende os parâmetros do <em>schema.org</em>.</p>
 
-<div class="tech-snippet">&lt;script type="application/ld+json"&gt;
+<div class="tech-snippet">
+&lt;script type="application/ld+json"&gt;
 {
   "@context": "https://schema.org/",
   "@type": "Product",
