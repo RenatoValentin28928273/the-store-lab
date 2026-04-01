@@ -70,8 +70,8 @@
     .hero-highlight { color: var(--tech-blue) !important; }
     .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
-    .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
-    .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
+    .doc-container { display: grid; grid-template-columns: 280px 1fr; gap: 60px; padding: 60px 0 100px; }
+    .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-right: 20px; }
     
     .article-body { color: #333; line-height: 1.8; font-size: 1.05rem; }
     .article-body h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; margin: 40px 0 20px; color: var(--text-main); }
@@ -84,7 +84,7 @@
     .post-cta { margin-top: 60px; padding: 40px; background: #ffffff; border: 1px solid var(--border-soft); border-radius: 16px; text-align: center; }
     .btn-solid-blue { display: inline-flex; align-items: center; gap: 10px; background: var(--tech-blue); color: white; padding: 12px 24px; border-radius: 99px; font-weight: 600; text-decoration: none; }
 
-    @media (max-width: 1024px) { .doc-container { grid-template-columns: 1fr; padding: 40px 20px; } .doc-sidebar { display: none; } }
+    @media (max-width: 1024px) { .doc-container { grid-template-columns: 1fr; padding: 40px 20px; } .doc-sidebar { display: none; } .doc-content { order: 1; } }
   </style>
 </head>
 <body>
@@ -165,6 +165,18 @@
   </section>
 
   <main class="container doc-container">
+    <aside class="doc-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i data-lucide="list"></i> ÍNDICE
+        </div>
+        <ul class="sidebar-nav" id="toc">
+          <li class="sidebar-nav-item active"><a href="#o-problema">1. O Problema do Rastreamento Client-Side</a></li>
+          <li class="sidebar-nav-item "><a href="#a-solucao">2. A Solução: GTM via Servidor</a></li>
+        </ul>
+      </div>
+    </aside>
+
     <div class="doc-content">
       <div class="article-body">
         
@@ -202,18 +214,6 @@ Content-Type: application/json
         </a>
       </div>
     </div>
-
-    <aside class="doc-sidebar">
-      <div class="sidebar-card">
-        <div class="sidebar-title">
-          <i data-lucide="list"></i> ÍNDICE
-        </div>
-        <ul class="sidebar-nav" id="toc">
-          <li class="sidebar-nav-item active"><a href="#o-problema">1. O Problema do Rastreamento Client-Side</a></li>
-          <li class="sidebar-nav-item "><a href="#a-solucao">2. A Solução: GTM via Servidor</a></li>
-        </ul>
-      </div>
-    </aside>
   </main>
 
   <footer class="footer">

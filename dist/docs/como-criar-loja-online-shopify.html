@@ -70,8 +70,8 @@
     .hero-highlight { color: var(--tech-blue) !important; }
     .docs-hero { padding: calc(var(--nav-height) + 120px) 0 60px; background: radial-gradient(circle at top right, rgba(52, 97, 255, 0.08), transparent 600px); border-bottom: 1px solid var(--border-soft); }
 
-    .doc-container { display: grid; grid-template-columns: 1fr 280px; gap: 60px; padding: 60px 0 100px; }
-    .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-left: 20px; }
+    .doc-container { display: grid; grid-template-columns: 280px 1fr; gap: 60px; padding: 60px 0 100px; }
+    .doc-sidebar { position: sticky; top: 120px; height: fit-content; padding-right: 20px; }
     
     .article-body { color: #333; line-height: 1.8; font-size: 1.05rem; }
     .article-body h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; margin: 40px 0 20px; color: var(--text-main); }
@@ -84,7 +84,7 @@
     .post-cta { margin-top: 60px; padding: 40px; background: #ffffff; border: 1px solid var(--border-soft); border-radius: 16px; text-align: center; }
     .btn-solid-blue { display: inline-flex; align-items: center; gap: 10px; background: var(--tech-blue); color: white; padding: 12px 24px; border-radius: 99px; font-weight: 600; text-decoration: none; }
 
-    @media (max-width: 1024px) { .doc-container { grid-template-columns: 1fr; padding: 40px 20px; } .doc-sidebar { display: none; } }
+    @media (max-width: 1024px) { .doc-container { grid-template-columns: 1fr; padding: 40px 20px; } .doc-sidebar { display: none; } .doc-content { order: 1; } }
   </style>
 </head>
 <body>
@@ -165,6 +165,24 @@
   </section>
 
   <main class="container doc-container">
+    <aside class="doc-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i data-lucide="list"></i> ÍNDICE
+        </div>
+        <ul class="sidebar-nav" id="toc">
+          <li class="sidebar-nav-item active"><a href="#1-qual-plataforma-escolher">1. Qual plataforma escolher</a></li>
+          <li class="sidebar-nav-item "><a href="#2-passo-a-passo-loja-no-ar-em-7-dias">2. Passo a passo: loja no ar em 7 dias</a></li>
+          <li class="sidebar-nav-item "><a href="#3-configura-es-essenciais">3. Configurações essenciais</a></li>
+          <li class="sidebar-nav-item "><a href="#4-custos-reais-para-2026">4. Custos reais para 2026</a></li>
+          <li class="sidebar-nav-item "><a href="#5-erros-que-atrasam-o-lan-amento">5. Erros que atrasam o lançamento</a></li>
+          <li class="sidebar-nav-item "><a href="#6-depois-do-lan-amento">6. Depois do lançamento</a></li>
+          <li class="sidebar-nav-item "><a href="#perguntas-frequentes">Perguntas Frequentes</a></li>
+          <li class="sidebar-nav-item "><a href="#sim-aceita-cnpj-brasileiro-e-permite-cart-es-sem-taxas-extras-da-shopify-pix-e-boleto-funcionam-via-apps-como-mercado-pago-">Sim. Aceita CNPJ brasileiro e permite cartões sem taxas extras da Shopify. Pix e boleto funcionam via apps como Mercado Pago.</a></li>
+        </ul>
+      </div>
+    </aside>
+
     <div class="doc-content">
       <div class="article-body">
         <p>Criar uma loja online em 2026 é tecnicamente simples. O que separa uma loja que gera receita de uma que fica parada na vitrine digital são as decisões certas nos primeiros sete dias: plataforma, pagamento, frete e estrutura mínima para vender. Se você ainda está na fase de decisão de nicho ou formalização, recomendamos ler primeiro nosso <a href="./como-planejar-e-commerce-do-zero.html">Guia de Planejamento de E-commerce do Zero</a>.</p>
@@ -335,24 +353,6 @@ Em <code>Online Store › Preferences</code>: remova a senha da loja. A partir d
         </a>
       </div>
     </div>
-
-    <aside class="doc-sidebar">
-      <div class="sidebar-card">
-        <div class="sidebar-title">
-          <i data-lucide="list"></i> ÍNDICE
-        </div>
-        <ul class="sidebar-nav" id="toc">
-          <li class="sidebar-nav-item active"><a href="#1-qual-plataforma-escolher">1. Qual plataforma escolher</a></li>
-          <li class="sidebar-nav-item "><a href="#2-passo-a-passo-loja-no-ar-em-7-dias">2. Passo a passo: loja no ar em 7 dias</a></li>
-          <li class="sidebar-nav-item "><a href="#3-configura-es-essenciais">3. Configurações essenciais</a></li>
-          <li class="sidebar-nav-item "><a href="#4-custos-reais-para-2026">4. Custos reais para 2026</a></li>
-          <li class="sidebar-nav-item "><a href="#5-erros-que-atrasam-o-lan-amento">5. Erros que atrasam o lançamento</a></li>
-          <li class="sidebar-nav-item "><a href="#6-depois-do-lan-amento">6. Depois do lançamento</a></li>
-          <li class="sidebar-nav-item "><a href="#perguntas-frequentes">Perguntas Frequentes</a></li>
-          <li class="sidebar-nav-item "><a href="#sim-aceita-cnpj-brasileiro-e-permite-cart-es-sem-taxas-extras-da-shopify-pix-e-boleto-funcionam-via-apps-como-mercado-pago-">Sim. Aceita CNPJ brasileiro e permite cartões sem taxas extras da Shopify. Pix e boleto funcionam via apps como Mercado Pago.</a></li>
-        </ul>
-      </div>
-    </aside>
   </main>
 
   <footer class="footer">
