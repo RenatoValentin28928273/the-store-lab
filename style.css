@@ -32,7 +32,7 @@
   --blue-hero: rgba(30, 60, 220, 0.55);
 
   --font-main: 'Inter', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-display: 'Inter', sans-serif;
 
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -2274,7 +2274,7 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -2323,3 +2323,93 @@ ul { list-style: none; }
   padding-left: 10px;
   border-left: 2px solid var(--blue);
 } @media (max-width: 991px) { .doc-sidebar { display: none; } }
+/* ====== MARKDOWN CONTENT SUPPORT (DOCS) ====== */
+.article-body {
+  color: var(--gray-300);
+  line-height: 1.8;
+}
+
+.article-body h2, .article-body h3 {
+  font-family: var(--font-display);
+  margin: 48px 0 24px;
+  color: var(--white);
+}
+
+.article-body p {
+  margin-bottom: 20px;
+}
+
+/* Responsive Tables */
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 32px 0;
+  font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: block;
+  overflow-x: auto; /* Force horizontal scroll for wide tables on mobile */
+  white-space: nowrap;
+}
+
+.article-body th {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  padding: 14px 20px;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 2px solid var(--blue-subtle);
+}
+
+.article-body td {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--gray-400);
+}
+
+.article-body tr:last-child td {
+  border-bottom: none;
+}
+
+.article-body tr:hover td {
+  background: rgba(52, 97, 255, 0.05);
+  color: var(--white);
+}
+
+.article-body ul, .article-body ol {
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+.article-body li {
+  margin-bottom: 10px;
+  color: var(--gray-400);
+}
+
+.article-body strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.article-body blockquote {
+  border-left: 4px solid var(--blue);
+  background: var(--blue-subtle);
+  padding: 24px;
+  margin: 32px 0;
+  border-radius: 0 12px 12px 0;
+  font-style: italic;
+  color: var(--gray-300);
+}
+
+/* Global Container Refinement Overrides */
+.container {
+  padding: 0 40px !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px !important;
+  }
+}
