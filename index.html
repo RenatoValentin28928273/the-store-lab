@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Lab Store — Agência Shopify de Alta Performance</title>
-  <meta name="description" content="Criamos lojas Shopify que vendem. Design premium, estratégia afiada e tecnologia de ponta para marcas que querem crescer de verdade. Líderes em performance e conversão." />
+  <title>The Lab Store — Temas Shopify Premium</title>
+  <meta name="description" content="Temas Shopify premium desenvolvidos para converter. Design exclusivo, código limpo e suporte especializado para sua loja vender mais." />
   <link rel="canonical" href="https://thestorelab.com.br/" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://thestorelab.com.br/" />
-  <meta property="og:title" content="The Lab Store — Agência Shopify de Alta Performance" />
-  <meta property="og:description" content="Design premium, estratégia afiada e tecnologia de ponta. Transformamos sua marca em uma máquina de vendas no Shopify." />
+  <meta property="og:title" content="The Lab Store — Temas Shopify Premium" />
+  <meta property="og:description" content="Temas Shopify premium desenvolvidos para converter. Design exclusivo, código limpo e suporte especializado." />
   <meta property="og:image" content="https://thestorelab.com.br/og-image.png" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://thestorelab.com.br/" />
-  <meta property="twitter:title" content="The Lab Store — Agência Shopify de Alta Performance" />
-  <meta property="twitter:description" content="Design premium, estratégia afiada e tecnologia de ponta. Transformamos sua marca em uma máquina de vendas no Shopify." />
+  <meta property="twitter:title" content="The Lab Store — Temas Shopify Premium" />
+  <meta property="twitter:description" content="Temas Shopify premium desenvolvidos para converter." />
   <meta property="twitter:image" content="https://thestorelab.com.br/og-image.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,7 +31,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="/style.css" />
 
-  <!-- Structured Data: Organization -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,67 +39,1067 @@
     "name": "The Lab Store",
     "url": "https://thestorelab.com.br/",
     "logo": "https://thestorelab.com.br/favicon.png",
-    "description": "Agência especializada em criação e otimização de lojas Shopify de alta performance.",
+    "description": "Temas Shopify premium desenvolvidos para converter.",
     "sameAs": [
-      "https://instagram.com/thelabstore",
-      "https://linkedin.com/company/thelabstore"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+55-11-99999-9999",
-      "contactType": "sales",
-      "areaServed": "BR",
-      "availableLanguage": "Portuguese"
-    }
+      "https://instagram.com/thestorelab",
+      "https://linkedin.com/company/thestorelab"
+    ]
   }
   </script>
 
   <!-- Vercel Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>
-
-  <!-- Vercel Speed Insights -->
   <script defer src="/_vercel/speed-insights/script.js"></script>
+
+  <style>
+    /* ====== HERO TEMAS ====== */
+    .hero-temas {
+      background: var(--black);
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero-temas .hero-glow-topleft {
+      position: absolute;
+      top: -120px;
+      left: -120px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(52,97,255,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-temas .hero-glow-right {
+      position: absolute;
+      top: 0;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(52,97,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-temas-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(52,97,255,0.12);
+      border: 1px solid rgba(52,97,255,0.3);
+      border-radius: var(--radius-full);
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--blue-light);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-temas-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .hero-temas-title .highlight {
+      color: var(--blue);
+    }
+    .hero-temas-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray-400);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-temas-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 72px;
+    }
+    .hero-temas-mockups {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 20px;
+      align-items: end;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .mockup-card {
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .mockup-card:hover { transform: translateY(-6px); border-color: rgba(52,97,255,0.3); }
+    .mockup-card--main {
+      border-color: rgba(52,97,255,0.4);
+      box-shadow: 0 0 40px rgba(52,97,255,0.15);
+    }
+    .mockup-screen {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, var(--gray-700) 0%, var(--gray-800) 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 10px;
+    }
+    .mockup-screen--dark {
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
+    }
+    .mockup-screen--light {
+      background: linear-gradient(135deg, #f8f8f8 0%, #e8e8f0 100%);
+    }
+    .mockup-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.15);
+    }
+    .mockup-bar--blue { background: var(--blue); width: 60%; }
+    .mockup-bar--short { width: 40%; }
+    .mockup-bar--medium { width: 75%; }
+    .mockup-grid-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex: 1;
+    }
+    .mockup-block {
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+    }
+    .mockup-block--dark { background: rgba(0,0,0,0.2); }
+    .mockup-block--light { background: rgba(52,97,255,0.15); }
+    .mockup-label {
+      padding: 12px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mockup-label span { color: var(--blue-light); }
+
+    /* ====== TICKER ====== */
+    .hero-editorial-ticker {
+      background: var(--gray-800);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .hero-ticker-track {
+      display: inline-flex;
+      gap: 32px;
+      animation: ticker 28s linear infinite;
+    }
+    .hero-ticker-track span {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+    .ticker-sep { color: var(--blue) !important; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ====== SEÇÃO TEMAS ====== */
+    .temas-section {
+      padding: 100px 0;
+      background: var(--black);
+    }
+    .temas-section--alt {
+      background: var(--gray-800);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      background: rgba(52,97,255,0.1);
+      border: 1px solid rgba(52,97,255,0.2);
+      border-radius: var(--radius-full);
+      padding: 5px 14px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .section-title .text-blue { color: var(--blue); }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--gray-400);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Grid de temas */
+    .temas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .tema-card {
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .tema-card:hover {
+      border-color: rgba(52,97,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .tema-preview {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tema-preview--1 { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 100%); }
+    .tema-preview--2 { background: linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 100%); }
+    .tema-preview--3 { background: linear-gradient(135deg, #f5f0eb 0%, #ede5db 100%); }
+    .tema-preview--4 { background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); }
+    .tema-preview--5 { background: linear-gradient(135deg, #1a0a2e 0%, #2d1060 100%); }
+    .tema-preview--6 { background: linear-gradient(135deg, #fff8f0 0%, #ffeedd 100%); }
+    .tema-nav-mock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .tema-nav-dot {
+      width: 32px;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.2);
+    }
+    .tema-nav-dot--blue { background: var(--blue); }
+    .tema-nav-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .tema-nav-dots span {
+      width: 20px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.15);
+    }
+    .tema-hero-mock {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+    }
+    .tema-h1-mock {
+      height: 14px;
+      border-radius: 4px;
+      width: 80%;
+    }
+    .tema-h1-mock--light { background: rgba(255,255,255,0.6); }
+    .tema-h1-mock--dark { background: rgba(0,0,0,0.3); }
+    .tema-h1-mock--blue { background: var(--blue); width: 60%; }
+    .tema-p-mock {
+      height: 8px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.2);
+    }
+    .tema-p-mock--dark { background: rgba(0,0,0,0.15); }
+    .tema-p-mock--short { width: 60%; }
+    .tema-btn-mock {
+      height: 28px;
+      width: 100px;
+      border-radius: 14px;
+      background: var(--blue);
+      margin-top: 4px;
+    }
+    .tema-btn-mock--white { background: white; }
+    .tema-btn-mock--outline {
+      background: transparent;
+      border: 2px solid var(--blue);
+    }
+    .tema-products-mock {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .tema-product-item {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+    }
+    .tema-product-item--light { background: rgba(0,0,0,0.08); }
+    .tema-badge-hot {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--blue);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+    }
+    .tema-badge-new {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .tema-info {
+      padding: 20px;
+    }
+    .tema-info-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .tema-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+    }
+    .tema-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      background: rgba(52,97,255,0.1);
+      border-radius: var(--radius-full);
+      padding: 3px 10px;
+    }
+    .tema-desc {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .tema-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-tema-demo {
+      flex: 1;
+      padding: 9px 0;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      transition: var(--transition);
+    }
+    .btn-tema-demo:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-tema-cta {
+      flex: 1;
+      padding: 9px 0;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-align: center;
+      background: var(--white);
+      color: var(--black);
+      transition: var(--transition);
+    }
+    .btn-tema-cta:hover { background: var(--blue); color: var(--white); }
+
+    /* ====== DEMOS GRID ====== */
+    .demos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .demo-card {
+      background: var(--gray-700);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .demo-card:hover { border-color: rgba(52,97,255,0.35); transform: translateY(-3px); }
+    .demo-thumb {
+      width: 100%;
+      aspect-ratio: 3/2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: var(--gray-800);
+    }
+    .demo-thumb--a { background: linear-gradient(135deg, #0f0f1a, #1a1a3e); }
+    .demo-thumb--b { background: linear-gradient(135deg, #0a0a0a, #1f1f1f); }
+    .demo-thumb--c { background: linear-gradient(135deg, #f5f0eb, #ede5db); }
+    .demo-thumb--d { background: linear-gradient(135deg, #0d1117, #161b22); }
+    .demo-thumb-inner {
+      width: 80%;
+      height: 70%;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px;
+    }
+    .demo-thumb-inner--light { background: rgba(0,0,0,0.06); }
+    .demo-bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.2); }
+    .demo-bar--blue { background: var(--blue); width: 50%; }
+    .demo-bar--short { width: 35%; }
+    .demo-bar--dark { background: rgba(0,0,0,0.2); }
+    .demo-bar--dark-short { background: rgba(0,0,0,0.15); width: 40%; }
+    .demo-info {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .demo-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--white);
+    }
+    .demo-link {
+      font-size: 0.75rem;
+      color: var(--blue-light);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition);
+    }
+    .demo-link:hover { color: var(--white); }
+
+    /* ====== COMPARATIVO ====== */
+    .comparativo-section {
+      padding: 100px 0;
+      background: var(--black);
+    }
+    .comparativo-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+    .comp-tab {
+      padding: 10px 24px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .comp-tab.active, .comp-tab:hover {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+    }
+    .comp-panel { display: none; }
+    .comp-panel.active { display: block; }
+
+    /* Tabela de temas */
+    .comp-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .comp-table th {
+      padding: 20px 24px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      background: var(--gray-800);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .comp-table th:first-child { text-align: left; }
+    .comp-table th.col-featured {
+      background: rgba(52,97,255,0.15);
+      color: var(--blue-light);
+      position: relative;
+    }
+    .comp-table th.col-featured::before {
+      content: "Popular";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: var(--radius-full);
+    }
+    .comp-table td {
+      padding: 16px 24px;
+      text-align: center;
+      color: var(--gray-400);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: var(--gray-800);
+    }
+    .comp-table td:first-child {
+      text-align: left;
+      color: var(--white);
+      font-weight: 500;
+    }
+    .comp-table td.col-featured {
+      background: rgba(52,97,255,0.07);
+    }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .comp-table tr:hover td.col-featured { background: rgba(52,97,255,0.1); }
+    .check-yes { color: #4ade80; font-size: 1.1rem; }
+    .check-no { color: var(--gray-600); font-size: 1.1rem; }
+    .comp-cta-row td {
+      padding: 20px 24px;
+      background: var(--gray-800) !important;
+    }
+    .comp-cta-row td.col-featured {
+      background: rgba(52,97,255,0.1) !important;
+    }
+    .btn-comp {
+      display: inline-block;
+      padding: 9px 20px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-comp:hover { border-color: var(--blue); color: var(--blue-light); }
+    .btn-comp--primary {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .btn-comp--primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); color: var(--white); }
+
+    /* Tabela de planos */
+    .planos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .plano-card {
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      transition: var(--transition);
+    }
+    .plano-card:hover { border-color: rgba(52,97,255,0.3); }
+    .plano-card--featured {
+      border-color: var(--blue);
+      background: linear-gradient(160deg, rgba(52,97,255,0.1) 0%, var(--gray-800) 100%);
+      position: relative;
+    }
+    .plano-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+    .plano-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--white);
+    }
+    .plano-desc {
+      font-size: 0.88rem;
+      color: var(--gray-400);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+    .plano-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .plano-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--gray-300);
+    }
+    .plano-feature-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(52,97,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue-light);
+      font-size: 0.7rem;
+    }
+    .plano-feature-icon--no {
+      background: rgba(255,255,255,0.05);
+      color: var(--gray-600);
+    }
+    .plano-cta {
+      display: block;
+      text-align: center;
+      padding: 13px 24px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      transition: var(--transition);
+    }
+    .plano-cta:hover { border-color: var(--blue); color: var(--blue-light); }
+    .plano-cta--featured {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .plano-cta--featured:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+
+    /* ====== CTA SIMPLIFICADO ====== */
+    .cta-simples {
+      padding: 100px 0;
+      background: var(--gray-800);
+      text-align: center;
+    }
+    .cta-simples-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .cta-simples-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .cta-simples-sub {
+      font-size: 1rem;
+      color: var(--gray-400);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .cta-input-row {
+      display: flex;
+      gap: 0;
+      background: var(--gray-700);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-full);
+      padding: 6px;
+      transition: var(--transition);
+    }
+    .cta-input-row:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(52,97,255,0.15);
+    }
+    .cta-input-row input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      color: var(--white);
+      font-family: var(--font-main);
+    }
+    .cta-input-row input::placeholder { color: var(--gray-500); }
+    .cta-input-row button {
+      background: var(--blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 10px 24px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .cta-input-row button:hover { background: var(--blue-dark); }
+    .cta-disclaimer {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: var(--gray-500);
+    }
+
+    /* ====== FAQ ====== */
+    .faq {
+      padding: 100px 0;
+      background: var(--black);
+    }
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+      text-align: left;
+      gap: 16px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+    .faq-question:hover { color: var(--blue-light); }
+    .faq-icon {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--blue);
+      flex-shrink: 0;
+      transition: transform var(--transition);
+      line-height: 1;
+    }
+    .faq-question[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 0 20px;
+      font-size: 0.92rem;
+      color: var(--gray-400);
+      line-height: 1.7;
+      max-width: 620px;
+    }
+    .faq-answer.open { display: block; }
+
+    /* ====== FOOTER ====== */
+    .footer {
+      background: var(--gray-800);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 60px 0 0;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: var(--gray-500);
+      margin-top: 16px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      transition: var(--transition);
+    }
+    .social-link:hover { border-color: var(--blue); color: var(--blue-light); }
+    .footer-links-group h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .footer-links-group ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links-group li a {
+      font-size: 0.88rem;
+      color: var(--gray-500);
+      transition: color var(--transition);
+    }
+    .footer-links-group li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+    .footer-bottom-links { display: flex; gap: 24px; }
+    .footer-bottom-links a { color: var(--gray-600); transition: color var(--transition); }
+    .footer-bottom-links a:hover { color: var(--white); }
+
+    /* ====== NAVBAR ====== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 32px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-box {
+      width: 36px;
+      height: 36px;
+      background: rgba(52,97,255,0.12);
+      border: 1px solid rgba(52,97,255,0.25);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-text {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .logo-accent { color: var(--blue); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex: 1;
+      justify-content: center;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-item { position: relative; }
+    .nav-item > a { display: flex; align-items: center; gap: 4px; }
+    .nav-chevron { width: 10px; height: 10px; stroke: currentColor; }
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gray-800);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-md);
+      padding: 8px;
+      min-width: 220px;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      box-shadow: var(--shadow-lg);
+    }
+    .nav-item:hover .nav-dropdown { opacity: 1; pointer-events: all; }
+    .nav-dropdown a {
+      display: block;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--gray-300);
+    }
+    .nav-dropdown a:hover { background: rgba(52,97,255,0.1); color: var(--white); }
+    .nav-cta {
+      background: var(--white);
+      color: var(--black);
+      border-radius: var(--radius-full);
+      padding: 9px 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--blue); color: var(--white); }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: var(--gray-800);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 999;
+      padding: 16px 0 24px;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-nav { display: flex; flex-direction: column; }
+    .mobile-link {
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray-300);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .mobile-link-sub {
+      padding-left: 40px;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+    .mobile-btn { margin: 16px 24px 0; text-align: center; }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 1024px) {
+      .temas-grid { grid-template-columns: repeat(2, 1fr); }
+      .demos-grid { grid-template-columns: repeat(2, 1fr); }
+      .planos-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .hero-temas { padding: 110px 0 60px; }
+      .hero-temas-mockups { grid-template-columns: 1fr; max-width: 360px; }
+      .hero-temas-mockups .mockup-card:not(.mockup-card--main) { display: none; }
+      .temas-grid { grid-template-columns: 1fr; }
+      .demos-grid { grid-template-columns: 1fr 1fr; }
+      .planos-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-bottom-links { flex-wrap: wrap; justify-content: center; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .comp-table { font-size: 0.8rem; }
+      .comp-table th, .comp-table td { padding: 12px 16px; }
+    }
+    @media (max-width: 480px) {
+      .demos-grid { grid-template-columns: 1fr; }
+      .cta-input-row { flex-direction: column; border-radius: var(--radius-lg); }
+      .cta-input-row button { border-radius: var(--radius-full); padding: 12px 24px; }
+    }
+  </style>
 </head>
 <body>
-
-
 
   <!-- ====== NAVBAR ====== -->
   <header class="navbar" id="navbar">
     <div class="container nav-inner">
-      <a href="/" class="logo" id="logo-link" title="Ir para o topo">
+      <a href="/" class="logo" id="logo-link" title="The Lab Store">
         <div class="logo-box">
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" role="img" aria-label="Logo Lab Store">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20" role="img" aria-label="Logo The Lab Store">
             <path d="M15 9V4H16C16.6 4 17 3.6 17 3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3C7 3.6 7.4 4 8 4H9V9L4.5 18.5C4.2 19.2 4.7 20 5.5 20H18.5C19.3 20 19.8 19.2 19.5 18.5L15 9Z" stroke="#3461FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M6.3 16C8.5 15 10.5 17 13 16C15.5 15 17.5 16.5 17.7 17L18.5 18.5C18.7 19 18.3 19.5 17.8 19.5L6.2 19.5C5.7 19.5 5.3 19 5.5 18.5L6.3 16Z" fill="#3461FF"/>
           </svg>
         </div>
-        <span class="logo-text">The Lab Store</span>
+        <span class="logo-text">THE LAB <span class="logo-accent">STORE</span></span>
       </a>
       <nav class="nav-links" id="nav-links">
-        <div class="nav-item">
-          <a href="/servicos/">Serviços<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <div class="nav-dropdown">
-            <a href="/servicos/design-premium.html">Design Premium</a>
-            <a href="/servicos/desenvolvimento-shopify.html">Desenvolvimento Shopify</a>
-            <a href="/servicos/estrategia-growth.html">Estratégia &amp; Growth</a>
-            <a href="/servicos/gestao-suporte.html">Gestão &amp; Suporte</a>
-            <a href="/servicos/seo-ecommerce.html">SEO E-commerce</a>
-            <a href="/servicos/pagamentos-logistica.html">Pagamentos &amp; Logística</a>
-          </div>
-        </div>
-        <div class="nav-item">
-          <a href="/temas-shopify.html">Temas<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5L5 6.5L8 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <div class="nav-dropdown">
-            <a href="/temas-shopify.html">Temas Shopify Customizados</a>
-          </div>
-        </div>
-        <a href="/#resultados">Resultados</a>
-        <a href="/#depoimentos">Cases</a>
-        <a href="/docs.html">FAQ</a>
-        <a href="/#contato">Contato</a>
+        <a href="#temas">Temas</a>
+        <a href="#demos">Demos</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">FAQ</a>
       </nav>
-      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="nav-cta">Começar agora</a>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20temas%20Shopify%20da%20The%20Lab%20Store." class="nav-cta">Começar agora</a>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -109,362 +1109,628 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobile-menu">
     <nav class="mobile-nav">
-      <a href="/servicos/" class="mobile-link">Serviços</a>
-      <div class="mobile-sublinks-group">
-      <a href="/servicos/design-premium.html" class="mobile-link mobile-link-sub">Design Premium</a>
-      <a href="/servicos/desenvolvimento-shopify.html" class="mobile-link mobile-link-sub">Desenvolvimento Shopify</a>
-      <a href="/servicos/estrategia-growth.html" class="mobile-link mobile-link-sub">Estratégia &amp; Growth</a>
-      <a href="/servicos/gestao-suporte.html" class="mobile-link mobile-link-sub">Gestão &amp; Suporte</a>
-      <a href="/servicos/seo-ecommerce.html" class="mobile-link mobile-link-sub">SEO E-commerce</a>
-      <a href="/servicos/pagamentos-logistica.html" class="mobile-link mobile-link-sub">Pagamentos &amp; Logística</a>
-    </div><a href="/temas-shopify.html" class="mobile-link">Temas</a>
-      <a href="/#resultados" class="mobile-link">Resultados</a>
-      <a href="/#depoimentos" class="mobile-link">Cases</a>
-      <a href="/docs.html" class="mobile-link">FAQ</a>
-      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="btn btn-primary mobile-btn">Começar agora</a>
+      <a href="#temas" class="mobile-link">Temas</a>
+      <a href="#demos" class="mobile-link">Demos</a>
+      <a href="#planos" class="mobile-link">Planos</a>
+      <a href="#faq" class="mobile-link">FAQ</a>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20temas%20Shopify%20da%20The%20Lab%20Store." class="mobile-link mobile-btn btn btn-primary">Começar agora</a>
     </nav>
   </div>
 
   <!-- ====== HERO ====== -->
-  <section class="hero" id="home">
-
-    <!-- Starfield canvas -->
-    <canvas class="hero-stars" id="heroStars" aria-hidden="true"></canvas>
-
-    <!-- Atmospheric blue glow top-left -->
+  <section class="hero-temas" id="home">
     <div class="hero-glow-topleft"></div>
-    <div class="hero-glow-center"></div>
-
-    <!-- Curved arc decoration (bottom right) -->
-    <div class="hero-arc" aria-hidden="true">
-      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M400 400 A380 380 0 0 0 20 400" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <path d="M400 400 A320 320 0 0 0 80 400" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-      </svg>
-    </div>
-
-    <!-- Spinning starburst badge (bottom right) -->
-    <div class="hero-spinning-badge" aria-hidden="true">
-      <svg class="hero-spinning-ring" viewBox="0 0 200 200">
-        <defs>
-          <path id="circlePath" d="M 100,100 m -75,0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"/>
-        </defs>
-        <text font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="4">
-          <textPath href="#circlePath">SHOPIFY PARTNERS Â· THE LAB STORE Â· </textPath>
-        </text>
-      </svg>
-      <div class="hero-spinning-star">
-        <svg viewBox="0 0 40 40" fill="none">
-          <line x1="20" y1="2" x2="20" y2="38" stroke="white" stroke-width="1.5"/>
-          <line x1="2" y1="20" x2="38" y2="20" stroke="white" stroke-width="1.5"/>
-          <line x1="7" y1="7" x2="33" y2="33" stroke="white" stroke-width="1"/>
-          <line x1="33" y1="7" x2="7" y2="33" stroke="white" stroke-width="1"/>
-        </svg>
-      </div>
-    </div>
-
-    <div class="container hero-inner">
-
-      <!-- Badge top-left pill -->
-      <div class="hero-badge">
-        <svg class="badge-icon" viewBox="0 0 512 512" width="20" height="20" style="margin-right: 10px;">
-          <!-- Iconic Shopify Green Bag -->
-          <path fill="#95BF47" d="M137.4 104.4l12.5-31.4c7.3-17.2 23.7-29.1 42.4-29.1h132.3c18.7 0 35.1 11.8 42.4 29.1l12.5 31.4h80c9.1 0 16.5 7.4 16.5 16.5v304.6c0 9.1-7.4 16.5-16.5 16.5H51.4c-9.1 0-16.5-7.4-16.5-16.5V120.9c0-9.1 7.4-16.5 16.5-16.5h86z"/>
-          <!-- The "S" inside -->
-          <path fill="white" d="M256.4 367.6c-31 0-54.1-14.8-65.2-21.8l16.3-34.1c10.4 6 27.7 17.5 49 17.5 17.5 0 26.3-7.8 26.3-17.1 0-25.3-78-21.1-78-75.1 0-31.4 26-54.6 64.4-54.6 26.6 0 46.4 11.1 56.8 17.9l-16 33.3c-11.8-8.1-26.6-14.4-40.8-14.4-16.6 0-24.1 8.7-24.1 16.6 0 25.6 78 21.4 78 75.1 0 32.8-26 56.8-66.7 56.8z"/>
-        </svg>
+    <div class="hero-glow-right"></div>
+    <div class="container">
+      <div class="hero-temas-badge">
+        <svg viewBox="0 0 512 512" width="16" height="16"><path fill="#95BF47" d="M137.4 104.4l12.5-31.4c7.3-17.2 23.7-29.1 42.4-29.1h132.3c18.7 0 35.1 11.8 42.4 29.1l12.5 31.4h80c9.1 0 16.5 7.4 16.5 16.5v304.6c0 9.1-7.4 16.5-16.5 16.5H51.4c-9.1 0-16.5-7.4-16.5-16.5V120.9c0-9.1 7.4-16.5 16.5-16.5h86z"/><path fill="white" d="M256.4 367.6c-31 0-54.1-14.8-65.2-21.8l16.3-34.1c10.4 6 27.7 17.5 49 17.5 17.5 0 26.3-7.8 26.3-17.1 0-25.3-78-21.1-78-75.1 0-31.4 26-54.6 64.4-54.6 26.6 0 46.4 11.1 56.8 17.9l-16 33.3c-11.8-8.1-26.6-14.4-40.8-14.4-16.6 0-24.1 8.7-24.1 16.6 0 25.6 78 21.4 78 75.1 0 32.8-26 56.8-66.7 56.8z"/></svg>
         Shopify Partners Certificados
       </div>
-
-      <!-- MAIN TITLE: large editorial typography -->
-      <h1 class="hero-title">
-        <span class="hero-line hero-line--thin">Agência Shopify</span>
-        <span class="hero-line hero-line--bold">de Alta <span class="hero-highlight">Performance</span></span>
+      <h1 class="hero-temas-title">
+        Você com os melhores<br/>temas <span class="highlight">Shopify</span>
       </h1>
-
-      <!-- Subtitle + CTA -->
-      <div class="hero-bottom-row">
-        <p class="hero-subtitle">
-          Design premium, estratégia afiada e tecnologia de ponta. Transformamos sua marca em uma máquina de vendas no Shopify.
-        </p>
-        <div class="hero-actions">
-          <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="btn btn-primary btn-lg" id="hero-cta-primary">Quero minha loja agora</a>
-          <a href="/servicos/" class="btn btn-ghost btn-lg" id="hero-cta-ghost">Ver serviços →</a>
-        </div>
+      <p class="hero-temas-subtitle">
+        Temas premium desenvolvidos para converter. Design exclusivo, código limpo e performance máxima para sua loja vender mais.
+      </p>
+      <div class="hero-temas-actions">
+        <a href="#temas" class="btn btn-primary btn-lg">Ver temas</a>
+        <a href="#demos" class="btn btn-ghost btn-lg" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; padding: 13px 28px; font-size: 0.95rem; font-weight: 600; color: var(--white); transition: var(--transition);">Ver demos →</a>
       </div>
 
+      <!-- Mockups -->
+      <div class="hero-temas-mockups">
+        <!-- Esquerda -->
+        <div class="mockup-card">
+          <div class="mockup-screen mockup-screen--dark">
+            <div class="mockup-bar mockup-bar--short"></div>
+            <div class="mockup-bar mockup-bar--blue"></div>
+            <div class="mockup-bar"></div>
+            <div class="mockup-grid-mini">
+              <div class="mockup-block"></div>
+              <div class="mockup-block"></div>
+              <div class="mockup-block"></div>
+              <div class="mockup-block"></div>
+            </div>
+          </div>
+          <div class="mockup-label">Tema Noir <span>Dark</span></div>
+        </div>
+        <!-- Centro (featured) -->
+        <div class="mockup-card mockup-card--main">
+          <div class="mockup-screen" style="background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 60%, #0a0a2e 100%); padding: 24px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <div style="width:60px;height:8px;border-radius:4px;background:white;opacity:0.8;"></div>
+              <div style="display:flex;gap:8px;">
+                <div style="width:30px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);"></div>
+                <div style="width:30px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);"></div>
+                <div style="width:30px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);"></div>
+              </div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="height:18px;width:75%;border-radius:5px;background:white;margin-bottom:10px;"></div>
+              <div style="height:10px;width:55%;border-radius:4px;background:rgba(255,255,255,0.3);margin-bottom:6px;"></div>
+              <div style="height:10px;width:40%;border-radius:4px;background:rgba(255,255,255,0.2);margin-bottom:18px;"></div>
+              <div style="height:32px;width:120px;border-radius:16px;background:var(--blue);"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+              <div style="aspect-ratio:1;border-radius:8px;background:rgba(52,97,255,0.2);"></div>
+              <div style="aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,0.08);"></div>
+              <div style="aspect-ratio:1;border-radius:8px;background:rgba(52,97,255,0.1);"></div>
+            </div>
+          </div>
+          <div class="mockup-label">Tema Apex <span>⭐ Popular</span></div>
+        </div>
+        <!-- Direita -->
+        <div class="mockup-card">
+          <div class="mockup-screen mockup-screen--light">
+            <div style="display:flex;gap:8px;margin-bottom:10px;">
+              <div style="height:6px;flex:1;border-radius:3px;background:rgba(0,0,0,0.1);"></div>
+              <div style="height:6px;width:40%;border-radius:3px;background:rgba(0,0,0,0.15);"></div>
+            </div>
+            <div style="height:12px;width:65%;border-radius:4px;background:rgba(0,0,0,0.25);margin-bottom:8px;"></div>
+            <div style="height:8px;width:50%;border-radius:3px;background:rgba(0,0,0,0.1);margin-bottom:16px;"></div>
+            <div style="height:28px;width:90px;border-radius:14px;background:var(--blue);"></div>
+          </div>
+          <div class="mockup-label">Tema Blanche <span>Light</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ====== TICKER — estilo editorial ====== -->
+  <!-- ====== TICKER ====== -->
   <div class="hero-editorial-ticker">
     <div class="hero-ticker-track">
       <span>THE LAB STORE</span><span class="ticker-sep">✦</span>
       <span>SHOPIFY PARTNERS</span><span class="ticker-sep">✦</span>
-      <span>DESIGN PREMIUM</span><span class="ticker-sep">✦</span>
-      <span>ESTRATÉGIA & GROWTH</span><span class="ticker-sep">✦</span>
-      <span>SEO & CRO</span><span class="ticker-sep">✦</span>
-      <span>+120 LOJAS ENTREGUES</span><span class="ticker-sep">✦</span>
+      <span>TEMAS PREMIUM</span><span class="ticker-sep">✦</span>
+      <span>ALTA CONVERSÃO</span><span class="ticker-sep">✦</span>
+      <span>CÓDIGO LIMPO</span><span class="ticker-sep">✦</span>
+      <span>SUPORTE DEDICADO</span><span class="ticker-sep">✦</span>
       <span>THE LAB STORE</span><span class="ticker-sep">✦</span>
       <span>SHOPIFY PARTNERS</span><span class="ticker-sep">✦</span>
-      <span>DESIGN PREMIUM</span><span class="ticker-sep">✦</span>
-      <span>ESTRATÉGIA & GROWTH</span><span class="ticker-sep">✦</span>
-      <span>SEO & CRO</span><span class="ticker-sep">✦</span>
-      <span>+120 LOJAS ENTREGUES</span><span class="ticker-sep">✦</span>
+      <span>TEMAS PREMIUM</span><span class="ticker-sep">✦</span>
+      <span>ALTA CONVERSÃO</span><span class="ticker-sep">✦</span>
+      <span>CÓDIGO LIMPO</span><span class="ticker-sep">✦</span>
+      <span>SUPORTE DEDICADO</span><span class="ticker-sep">✦</span>
     </div>
   </div>
 
-  <!-- ====== RESULTADOS / MÉTRICAS ====== -->
-  <section class="resultados" id="resultados">
+  <!-- ====== NOSSOS TEMAS ====== -->
+  <section class="temas-section" id="temas">
     <div class="container">
-      <div class="section-tag">GERE RESULTADO</div>
-      <h2 class="section-title">
-        Mais de <span class="text-white">R$ 500.000</span><br/>
-        faturados pelos nossos clientes
-      </h2>
-      <p class="section-subtitle">
-        Cada loja que sai do nosso laboratório é projetada para converter.<br/>
-        Métricas reais, crescimento real.
-      </p>
-
-      <div class="metrics-grid">
-        <div class="metric-card" id="metric-1">
-          <div class="metric-icon"><i data-lucide="flask-conical"></i></div>
-          <h3 class="metric-title">Lojas do Zero</h3>
-          <p class="metric-desc">Da ideia à loja no ar em tempo recorde. Desenvolvemos seu e-commerce com design exclusivo, configurações avançadas e pronto para vender.</p>
-        </div>
-        <div class="metric-card metric-featured" id="metric-2">
-          <div class="metric-icon"><i data-lucide="microscope"></i></div>
-          <h3 class="metric-title">Otimização & CRO</h3>
-          <p class="metric-desc">Auditamos sua loja e implementamos melhorias que aumentam a taxa de conversão. Testes A/B, UX refinada e velocidade máxima.</p>
-        </div>
-        <div class="metric-card" id="metric-3">
-          <div class="metric-icon"><i data-lucide="test-tube-2"></i></div>
-          <h3 class="metric-title">Migração para Shopify</h3>
-          <p class="metric-desc">Migre de qualquer plataforma para o Shopify sem perder dados, SEO ou histórico. Processo seguro e validado.</p>
-        </div>
+      <div class="section-header">
+        <div class="section-tag">NOSSOS TEMAS</div>
+        <h2 class="section-title">Temas feitos para <span class="text-blue">vender mais</span></h2>
+        <p class="section-subtitle">Cada tema é desenvolvido com foco em conversão, performance e identidade de marca única.</p>
       </div>
-    </div>
-  </section>
+      <div class="temas-grid">
 
-  <!-- ====== SERVIÇOS ====== -->
-  <section class="servicos" id="servicos">
-    <div class="container">
-      <div class="section-tag">NOSSOS SERVIÇOS</div>
-      <h2 class="section-title-light">Tudo que sua loja<br/>precisa para decolar</h2>
-      <div class="services-grid">
-
-        <div class="service-item" id="serv-1">
-          <div class="service-number">01</div>
-          <div class="service-icon"><i data-lucide="palette"></i></div>
-          <div class="service-content">
-            <h3>Design Premium & Customização</h3>
-            <p>Temas exclusivos desenvolvidos à mão. Sua identidade visual no ar com layouts que convertem e impressionam.</p>
-            <span class="service-tag">Design</span>
-          </div>
-          <div class="service-arrow">→</div>
-        </div>
-
-        <div class="service-item" id="serv-2">
-          <div class="service-number">02</div>
-          <div class="service-icon"><i data-lucide="code"></i></div>
-          <div class="service-content">
-            <h3>Desenvolvimento Shopify Avançado</h3>
-            <p>Apps customizados, Liquid avançado, integrações com ERPs, marketplaces e ferramentas de marketing.</p>
-            <span class="service-tag">Dev</span>
-          </div>
-          <div class="service-arrow">→</div>
-        </div>
-
-        <div class="service-item" id="serv-3">
-          <div class="service-number">03</div>
-          <div class="service-icon"><i data-lucide="trending-up"></i></div>
-          <div class="service-content">
-            <h3>Estratégia & Growth</h3>
-            <p>Funil de vendas, automações de e-mail, análise de dados e estratégias de crescimento escalável.</p>
-            <span class="service-tag">Growth</span>
-          </div>
-          <div class="service-arrow">→</div>
-        </div>
-
-        <div class="service-item" id="serv-4">
-          <div class="service-number">04</div>
-          <div class="service-icon"><i data-lucide="life-buoy"></i></div>
-          <div class="service-content">
-            <h3>Gestão & Suporte Contínuo</h3>
-            <p>Não abandonamos você após o lançamento. Suporte dedicado, atualizações e gestão da sua loja mensalmente.</p>
-            <span class="service-tag">Suporte</span>
-          </div>
-          <div class="service-arrow">→</div>
-        </div>
-
-        <div class="service-item" id="serv-5">
-          <div class="service-number">05</div>
-          <div class="service-icon"><i data-lucide="search"></i></div>
-          <div class="service-content">
-            <h3>SEO para E-commerce</h3>
-            <p>Otimização técnica e de conteúdo para rankear no Google e atrair tráfego orgânico qualificado para sua loja.</p>
-            <span class="service-tag">SEO</span>
-          </div>
-          <div class="service-arrow">→</div>
-        </div>
-
-        <div class="service-item" id="serv-6">
-          <div class="service-number">06</div>
-          <div class="service-icon"><i data-lucide="truck"></i></div>
-          <div class="service-content">
-            <h3>Configuração de Pagamentos & Logística</h3>
-            <p>Gateways de pagamento, cálculo de frete, integrações com Correios, transportadoras e fulfillment.</p>
-            <span class="service-tag">Operação</span>
-          </div>
-          <div class="service-arrow">→</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== PROCESSO ====== -->
-  <section class="processo" id="processo">
-    <div class="container">
-      <div class="section-tag">COMO FUNCIONA</div>
-      <h2 class="section-title">Nosso laboratório<br/>tem um método</h2>
-      <div class="process-steps">
-        <div class="process-step" id="step-1">
-          <div class="step-num">01</div>
-          <div class="step-line"></div>
-          <div class="step-body">
-            <h3>Diagnóstico</h3>
-            <p>Entendemos sua marca, mercado, produto e objetivos. Fazemos um diagnóstico completo antes de começar.</p>
-          </div>
-        </div>
-        <div class="process-step" id="step-2">
-          <div class="step-num">02</div>
-          <div class="step-line"></div>
-          <div class="step-body">
-            <h3>Estratégia</h3>
-            <p>Criamos um plano personalizado de desenvolvimento, design e lançamento alinhado ao seu negócio.</p>
-          </div>
-        </div>
-        <div class="process-step" id="step-3">
-          <div class="step-num">03</div>
-          <div class="step-line"></div>
-          <div class="step-body">
-            <h3>Execução</h3>
-            <p>Desenvolvemos com qualidade e agilidade. Você acompanha cada etapa em tempo real via painel de projeto.</p>
-          </div>
-        </div>
-        <div class="process-step" id="step-4">
-          <div class="step-num">04</div>
-          <div class="step-line-none"></div>
-          <div class="step-body">
-            <h3>Lançamento & Escala</h3>
-            <p>Sua loja vai ao ar com suporte completo. Depois, escalamos juntos com dados, testes e otimização contínua.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== DEPOIMENTOS ====== -->
-  <section class="depoimentos" id="depoimentos">
-    <div class="container">
-      <div class="section-tag">CASES REAIS</div>
-      <h2 class="section-title-light">Resultados que falam<br/>por si mesmos</h2>
-      <div class="testimonials-grid">
-
-        <div class="testimonial-card" id="test-1">
-          <div class="test-quote">"</div>
-          <p class="test-text">A The Lab Store transformou completamente nossa operação. Em 3 meses, saímos de R$20k para R$180k mensais. O design e a estratégia deles são de outro nível.</p>
-          <div class="test-author">
-            <div class="test-avatar">MR</div>
-            <div>
-              <strong>Marcos Ribeiro</strong>
-              <span>CEO — Urban Drops</span>
+        <!-- Apex -->
+        <div class="tema-card">
+          <div class="tema-preview tema-preview--1">
+            <div class="tema-badge-hot">Popular</div>
+            <div class="tema-nav-mock">
+              <div class="tema-nav-dot tema-nav-dot--blue"></div>
+              <div class="tema-nav-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tema-hero-mock">
+              <div class="tema-h1-mock tema-h1-mock--light"></div>
+              <div class="tema-h1-mock tema-h1-mock--blue"></div>
+              <div class="tema-p-mock"></div>
+              <div class="tema-p-mock tema-p-mock--short"></div>
+              <div class="tema-btn-mock"></div>
+            </div>
+            <div class="tema-products-mock">
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
             </div>
           </div>
-          <div class="test-result">+800% em receita</div>
-        </div>
-
-        <div class="testimonial-card testimonial-featured" id="test-2">
-          <div class="test-quote">"</div>
-          <p class="test-text">Migramos do WooCommerce para o Shopify com a The Lab Store e não perdemos nem um pedido. A loja ficou muito mais rápida e nossa conversão aumentou 3x.</p>
-          <div class="test-author">
-            <div class="test-avatar">JC</div>
-            <div>
-              <strong>Julia Costa</strong>
-              <span>Fundadora — Nova Brand</span>
+          <div class="tema-info">
+            <div class="tema-info-top">
+              <span class="tema-name">Apex</span>
+              <span class="tema-tag">Dark Premium</span>
+            </div>
+            <p class="tema-desc">Layout editorial dark com animações suaves. Ideal para moda, streetwear e marcas de alto impacto visual.</p>
+            <div class="tema-actions">
+              <a href="#demos" class="btn-tema-demo">Ver demo</a>
+              <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Tenho%20interesse%20no%20tema%20Apex." class="btn-tema-cta">Quero esse</a>
             </div>
           </div>
-          <div class="test-result">3x mais conversão</div>
         </div>
 
-        <div class="testimonial-card" id="test-3">
-          <div class="test-quote">"</div>
-          <p class="test-text">Equipe extremamente profissional. Entregaram tudo no prazo e com uma qualidade que superou minhas expectativas. Minha loja virou referência no nicho.</p>
-          <div class="test-author">
-            <div class="test-avatar">RP</div>
-            <div>
-              <strong>Rafael Pinto</strong>
-              <span>Diretor — Peak Label</span>
+        <!-- Noir -->
+        <div class="tema-card">
+          <div class="tema-preview tema-preview--2">
+            <div class="tema-nav-mock">
+              <div class="tema-nav-dot" style="background:rgba(255,255,255,0.4)"></div>
+              <div class="tema-nav-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tema-hero-mock">
+              <div class="tema-h1-mock tema-h1-mock--light"></div>
+              <div class="tema-h1-mock tema-h1-mock--light" style="width:50%"></div>
+              <div class="tema-p-mock"></div>
+              <div class="tema-p-mock tema-p-mock--short"></div>
+              <div class="tema-btn-mock tema-btn-mock--white"></div>
+            </div>
+            <div class="tema-products-mock">
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
             </div>
           </div>
-          <div class="test-result">Referência no nicho</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== DIFERENCIAIS ====== -->
-  <section class="diferenciais" id="diferenciais">
-    <div class="container">
-      <div class="diff-grid">
-        <div class="diff-content">
-          <div class="section-tag">POR QUE A THE LAB STORE</div>
-          <h2 class="section-title">Ciência aplicada<br/>ao seu e-commerce</h2>
-          <p class="diff-desc">Não somos apenas uma agência de design. Somos especialistas em crescimento no Shopify. Combinamos dados, criatividade e tecnologia para criar lojas que performam.</p>
-          <ul class="diff-list">
-            <li><span class="diff-check"><i data-lucide="check" class="check-icon"></i></span> Shopify Partners certificados</li>
-            <li><span class="diff-check"><i data-lucide="check" class="check-icon"></i></span> Mais de 120 lojas entregues</li>
-            <li><span class="diff-check"><i data-lucide="check" class="check-icon"></i></span> Suporte em português 24/7</li>
-            <li><span class="diff-check"><i data-lucide="check" class="check-icon"></i></span> NPS de satisfação acima de 9.8</li>
-            <li><span class="diff-check"><i data-lucide="check" class="check-icon"></i></span> Foco em ROI e resultados reais</li>
-          </ul>
-          <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20" class="btn btn-primary" id="diff-cta">Falar com um especialista →</a>
-        </div>
-        <div class="diff-visual">
-          <div class="diff-card-big">
-            <div class="diff-metric">
-              <span class="diff-num">120+</span>
-              <span class="diff-label">Lojas Entregues</span>
+          <div class="tema-info">
+            <div class="tema-info-top">
+              <span class="tema-name">Noir</span>
+              <span class="tema-tag">Minimalista</span>
             </div>
-            <div class="diff-bar-wrap">
-              <div class="diff-bar-item">
-                <span>Satisfação de clientes</span>
-                <div class="diff-bar"><div class="diff-bar-fill" style="width:98%"></div></div>
-                <span>98%</span>
-              </div>
-              <div class="diff-bar-item">
-                <span>Prazo de entrega</span>
-                <div class="diff-bar"><div class="diff-bar-fill" style="width:95%"></div></div>
-                <span>95%</span>
-              </div>
-              <div class="diff-bar-item">
-                <span>Aumento em conversão</span>
-                <div class="diff-bar"><div class="diff-bar-fill" style="width:88%"></div></div>
-                <span>+88%</span>
+            <p class="tema-desc">Minimalismo absoluto em preto e branco. Produto em destaque, sem distrações. Perfeito para joias e luxo.</p>
+            <div class="tema-actions">
+              <a href="#demos" class="btn-tema-demo">Ver demo</a>
+              <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Tenho%20interesse%20no%20tema%20Noir." class="btn-tema-cta">Quero esse</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blanche -->
+        <div class="tema-card">
+          <div class="tema-preview tema-preview--3">
+            <div class="tema-badge-new">Novo</div>
+            <div class="tema-nav-mock">
+              <div class="tema-nav-dot" style="background:rgba(0,0,0,0.3)"></div>
+              <div class="tema-nav-dots">
+                <span style="background:rgba(0,0,0,0.15)"></span>
+                <span style="background:rgba(0,0,0,0.15)"></span>
+                <span style="background:rgba(0,0,0,0.15)"></span>
               </div>
             </div>
+            <div class="tema-hero-mock">
+              <div class="tema-h1-mock tema-h1-mock--dark"></div>
+              <div class="tema-h1-mock tema-h1-mock--blue"></div>
+              <div class="tema-p-mock tema-p-mock--dark"></div>
+              <div class="tema-p-mock tema-p-mock--dark tema-p-mock--short"></div>
+              <div class="tema-btn-mock"></div>
+            </div>
+            <div class="tema-products-mock">
+              <div class="tema-product-item tema-product-item--light"></div>
+              <div class="tema-product-item tema-product-item--light"></div>
+              <div class="tema-product-item tema-product-item--light"></div>
+            </div>
           </div>
-          <div class="diff-badge-floating">
-            <span><i data-lucide="star" style="width: 16px; height: 16px; fill: var(--blue);"></i></span>
-            <div>
-              <strong>5.0</strong>
-              <small>avaliação média</small>
+          <div class="tema-info">
+            <div class="tema-info-top">
+              <span class="tema-name">Blanche</span>
+              <span class="tema-tag">Clean Light</span>
+            </div>
+            <p class="tema-desc">Elegância em tons claros. Ótimo para beleza, cosméticos, wellness e marcas femininas sofisticadas.</p>
+            <div class="tema-actions">
+              <a href="#demos" class="btn-tema-demo">Ver demo</a>
+              <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Tenho%20interesse%20no%20tema%20Blanche." class="btn-tema-cta">Quero esse</a>
             </div>
           </div>
         </div>
+
+        <!-- Vault -->
+        <div class="tema-card">
+          <div class="tema-preview tema-preview--4">
+            <div class="tema-nav-mock">
+              <div class="tema-nav-dot tema-nav-dot--blue"></div>
+              <div class="tema-nav-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tema-hero-mock">
+              <div class="tema-h1-mock tema-h1-mock--light"></div>
+              <div class="tema-h1-mock tema-h1-mock--light" style="width:45%"></div>
+              <div class="tema-p-mock"></div>
+              <div class="tema-p-mock tema-p-mock--short"></div>
+              <div style="display:flex;gap:8px;margin-top:4px;">
+                <div class="tema-btn-mock" style="width:80px;"></div>
+                <div class="tema-btn-mock tema-btn-mock--outline" style="width:80px;"></div>
+              </div>
+            </div>
+            <div class="tema-products-mock">
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
+            </div>
+          </div>
+          <div class="tema-info">
+            <div class="tema-info-top">
+              <span class="tema-name">Vault</span>
+              <span class="tema-tag">Tech & Gadgets</span>
+            </div>
+            <p class="tema-desc">Design técnico e moderno para eletrônicos, gadgets e suplementos. Foco em especificações e CTA direto.</p>
+            <div class="tema-actions">
+              <a href="#demos" class="btn-tema-demo">Ver demo</a>
+              <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Tenho%20interesse%20no%20tema%20Vault." class="btn-tema-cta">Quero esse</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aura -->
+        <div class="tema-card">
+          <div class="tema-preview tema-preview--5">
+            <div class="tema-nav-mock">
+              <div class="tema-nav-dot tema-nav-dot--blue"></div>
+              <div class="tema-nav-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="tema-hero-mock">
+              <div class="tema-h1-mock tema-h1-mock--light"></div>
+              <div class="tema-h1-mock" style="background:rgba(180,120,255,0.7);width:55%;height:14px;border-radius:4px;"></div>
+              <div class="tema-p-mock"></div>
+              <div class="tema-p-mock tema-p-mock--short"></div>
+              <div class="tema-btn-mock" style="background:rgba(180,120,255,0.8);"></div>
+            </div>
+            <div class="tema-products-mock">
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
+              <div class="tema-product-item"></div>
+            </div>
+          </div>
+          <div class="tema-info">
+            <div class="tema-info-top">
+              <span class="tema-name">Aura</span>
+              <span class="tema-tag">Bold & Colorido</span>
+            </div>
+            <p class="tema-desc">Paleta roxa vibrante e layouts arrojados. Para marcas que querem se destacar com personalidade forte.</p>
+            <div class="tema-actions">
+              <a href="#demos" class="btn-tema-demo">Ver demo</a>
+              <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Tenho%20interesse%20no%20tema%20Aura." class="btn-tema-cta">Quero esse</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soleil -->
+        <div class="tema-card">
+          <div class="tema-preview tema-preview--6">
+            <div class="tema-badge-new">Em breve</div>
+            <div class="tema-nav-mock">
+              <div class="tema-nav-dot" style="background:rgba(0,0,0,0.25)"></div>
+              <div class="tema-nav-dots">
+                <span style="background:rgba(0,0,0,0.12)"></span>
+                <span style="background:rgba(0,0,0,0.12)"></span>
+                <span style="background:rgba(0,0,0,0.12)"></span>
+              </div>
+            </div>
+            <div class="tema-hero-mock">
+              <div class="tema-h1-mock tema-h1-mock--dark"></div>
+              <div class="tema-h1-mock tema-h1-mock--dark" style="width:50%;background:rgba(200,140,0,0.4)"></div>
+              <div class="tema-p-mock tema-p-mock--dark"></div>
+              <div class="tema-p-mock tema-p-mock--dark tema-p-mock--short"></div>
+              <div class="tema-btn-mock" style="background:rgba(200,140,0,0.6);"></div>
+            </div>
+            <div class="tema-products-mock">
+              <div class="tema-product-item tema-product-item--light"></div>
+              <div class="tema-product-item tema-product-item--light"></div>
+              <div class="tema-product-item tema-product-item--light"></div>
+            </div>
+          </div>
+          <div class="tema-info">
+            <div class="tema-info-top">
+              <span class="tema-name">Soleil</span>
+              <span class="tema-tag">Lifestyle</span>
+            </div>
+            <p class="tema-desc">Tons quentes e atmosfera aconchegante. Ideal para decoração, artesanato, alimentos e lifestyle premium.</p>
+            <div class="tema-actions">
+              <a href="#demos" class="btn-tema-demo">Ver demo</a>
+              <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Tenho%20interesse%20no%20tema%20Soleil." class="btn-tema-cta">Quero esse</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DEMOS ====== -->
+  <section class="temas-section temas-section--alt" id="demos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">LOJAS DE DEMONSTRAÇÃO</div>
+        <h2 class="section-title">Veja os temas <span class="text-blue">ao vivo</span></h2>
+        <p class="section-subtitle">Acesse as lojas demo e navegue como um cliente real antes de decidir.</p>
+      </div>
+      <div class="demos-grid">
+
+        <div class="demo-card">
+          <div class="demo-thumb demo-thumb--a">
+            <div class="demo-thumb-inner">
+              <div class="demo-bar demo-bar--blue"></div>
+              <div class="demo-bar"></div>
+              <div class="demo-bar demo-bar--short"></div>
+            </div>
+          </div>
+          <div class="demo-info">
+            <span class="demo-name">Apex — Demo</span>
+            <span class="demo-link">Em breve <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i></span>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-thumb demo-thumb--b">
+            <div class="demo-thumb-inner">
+              <div class="demo-bar"></div>
+              <div class="demo-bar demo-bar--short"></div>
+              <div class="demo-bar"></div>
+            </div>
+          </div>
+          <div class="demo-info">
+            <span class="demo-name">Noir — Demo</span>
+            <span class="demo-link">Em breve <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i></span>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-thumb demo-thumb--c">
+            <div class="demo-thumb-inner demo-thumb-inner--light">
+              <div class="demo-bar demo-bar--dark"></div>
+              <div class="demo-bar demo-bar--dark-short"></div>
+              <div class="demo-bar demo-bar--dark"></div>
+            </div>
+          </div>
+          <div class="demo-info">
+            <span class="demo-name">Blanche — Demo</span>
+            <span class="demo-link">Em breve <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i></span>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="demo-thumb demo-thumb--d">
+            <div class="demo-thumb-inner">
+              <div class="demo-bar demo-bar--blue"></div>
+              <div class="demo-bar"></div>
+              <div class="demo-bar demo-bar--short"></div>
+            </div>
+          </div>
+          <div class="demo-info">
+            <span class="demo-name">Vault — Demo</span>
+            <span class="demo-link">Em breve <i data-lucide="arrow-up-right" style="width:12px;height:12px;"></i></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== COMPARATIVO ====== -->
+  <section class="comparativo-section" id="planos">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">COMPARATIVO</div>
+        <h2 class="section-title">Compare e escolha o <span class="text-blue">ideal para você</span></h2>
+        <p class="section-subtitle">Compare os temas por recursos ou escolha o plano de suporte certo para o seu negócio.</p>
+      </div>
+
+      <div class="comparativo-tabs">
+        <button class="comp-tab active" data-tab="temas">Comparar Temas</button>
+        <button class="comp-tab" data-tab="planos">Planos de Suporte</button>
+      </div>
+
+      <!-- Painel: Temas -->
+      <div class="comp-panel active" id="panel-temas">
+        <div class="comp-table-wrap">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Recurso</th>
+                <th>Noir</th>
+                <th class="col-featured">Apex</th>
+                <th>Blanche</th>
+                <th>Vault</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Design responsivo</td>
+                <td><span class="check-yes">✓</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Animações premium</td>
+                <td><span class="check-no">—</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-no">—</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Mega menu</td>
+                <td><span class="check-no">—</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Quick view de produto</td>
+                <td><span class="check-yes">✓</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Carrinho lateral (drawer)</td>
+                <td><span class="check-no">—</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Seção de vídeo hero</td>
+                <td><span class="check-no">—</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-no">—</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Filtros de coleção avançados</td>
+                <td><span class="check-yes">✓</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr>
+                <td>Otimização Core Web Vitals</td>
+                <td><span class="check-yes">✓</span></td>
+                <td class="col-featured"><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+                <td><span class="check-yes">✓</span></td>
+              </tr>
+              <tr class="comp-cta-row">
+                <td></td>
+                <td><a href="https://wa.me/5542999655157?text=Interesse%20no%20tema%20Noir" class="btn-comp">Quero o Noir</a></td>
+                <td class="col-featured"><a href="https://wa.me/5542999655157?text=Interesse%20no%20tema%20Apex" class="btn-comp btn-comp--primary">Quero o Apex</a></td>
+                <td><a href="https://wa.me/5542999655157?text=Interesse%20no%20tema%20Blanche" class="btn-comp">Quero o Blanche</a></td>
+                <td><a href="https://wa.me/5542999655157?text=Interesse%20no%20tema%20Vault" class="btn-comp">Quero o Vault</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Painel: Planos -->
+      <div class="comp-panel" id="panel-planos">
+        <div class="planos-grid">
+
+          <div class="plano-card">
+            <div>
+              <div class="plano-name">Starter</div>
+              <p class="plano-desc">Para quem quer o tema instalado e configurado, pronto para vender.</p>
+            </div>
+            <ul class="plano-features">
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Instalação do tema
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Configuração de cores e fontes
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Cadastro de até 20 produtos
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Suporte por 30 dias
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon plano-feature-icon--no">—</span>
+                <span style="color:var(--gray-600)">Customizações avançadas</span>
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon plano-feature-icon--no">—</span>
+                <span style="color:var(--gray-600)">Integrações externas</span>
+              </li>
+            </ul>
+            <a href="https://wa.me/5542999655157?text=Interesse%20no%20plano%20Starter" class="plano-cta">Falar com especialista</a>
+          </div>
+
+          <div class="plano-card plano-card--featured">
+            <div class="plano-badge">Mais popular</div>
+            <div>
+              <div class="plano-name">Pro</div>
+              <p class="plano-desc">Tema + customização completa + integrações. Loja pronta para escalar.</p>
+            </div>
+            <ul class="plano-features">
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Tudo do Starter
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Customizações de layout
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Integração com apps de marketing
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Configuração de pagamentos
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Suporte prioritário por 60 dias
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                1 revisão de design inclusa
+              </li>
+            </ul>
+            <a href="https://wa.me/5542999655157?text=Interesse%20no%20plano%20Pro" class="plano-cta plano-cta--featured">Falar com especialista</a>
+          </div>
+
+          <div class="plano-card">
+            <div>
+              <div class="plano-name">Elite</div>
+              <p class="plano-desc">Projeto completo com gestão contínua. Para marcas que querem crescer no Shopify.</p>
+            </div>
+            <ul class="plano-features">
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Tudo do Pro
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Gestão mensal da loja
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                SEO técnico e de conteúdo
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Relatório mensal de performance
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Suporte dedicado sem prazo
+              </li>
+              <li class="plano-feature">
+                <span class="plano-feature-icon">✓</span>
+                Revisões ilimitadas
+              </li>
+            </ul>
+            <a href="https://wa.me/5542999655157?text=Interesse%20no%20plano%20Elite" class="plano-cta">Falar com especialista</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ====== CTA SIMPLIFICADO ====== -->
+  <section class="cta-simples" id="contato">
+    <div class="container">
+      <div class="cta-simples-inner">
+        <div class="section-tag">PRONTO PARA COMEÇAR?</div>
+        <h2 class="cta-simples-title">Crie sua loja de forma<br/><span style="color:var(--blue)">fácil e rápida</span></h2>
+        <p class="cta-simples-sub">Fale com um especialista e receba uma proposta personalizada para o seu negócio.</p>
+        <div class="cta-input-row">
+          <input type="text" id="cta-nome" placeholder="Seu WhatsApp com DDD" autocomplete="tel" />
+          <button type="button" id="cta-btn">Começar agora →</button>
+        </div>
+        <p class="cta-disclaimer">🔒 Sem spam. Retornamos em até 24h.</p>
       </div>
     </div>
   </section>
@@ -472,107 +1738,82 @@
   <!-- ====== FAQ ====== -->
   <section class="faq" id="faq">
     <div class="container">
-      <div class="section-tag">DÚVIDAS FREQUENTES</div>
-      <h2 class="section-title-light">Perguntas que<br/>todo mundo faz</h2>
+      <div class="section-header">
+        <div class="section-tag">DÚVIDAS FREQUENTES</div>
+        <h2 class="section-title">FAQ</h2>
+      </div>
       <div class="faq-list">
 
-        <div class="faq-item" id="faq-1">
+        <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            <span>Quanto tempo leva para criar uma loja do zero?</span>
+            <span>Os temas funcionam em qualquer plano do Shopify?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Dependendo da complexidade, uma loja completa leva de 15 a 30 dias úteis. Projetos mais simples podem ser entregues em até 10 dias. Sempre alinhamos os prazos antes de começar.</p>
+            <p>Sim! Todos os nossos temas são compatíveis com todos os planos do Shopify, incluindo o plano Basic. Recomendamos o plano Shopify ou superior para aproveitar todos os recursos avançados de apps e relatórios.</p>
           </div>
         </div>
 
-        <div class="faq-item" id="faq-2">
+        <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            <span>Vocês trabalham com lojas de qualquer nicho?</span>
+            <span>Posso personalizar as cores e fontes do tema?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Sim! Já trabalhamos com moda, beleza, eletrônicos, pet shop, suplementos, decoração, infoprodutos e muito mais. Nossa metodologia funciona para qualquer segmento no Shopify.</p>
+            <p>Sim! Todos os temas possuem um painel de customização completo dentro do Shopify. Você pode alterar cores, fontes, espaçamentos e seções sem precisar mexer em código. Para personalizações mais avançadas, oferecemos suporte especializado.</p>
           </div>
         </div>
 
-        <div class="faq-item" id="faq-3">
+        <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            <span>Precisamos ter uma conta Shopify antes de contratar?</span>
+            <span>Quanto tempo leva para minha loja ficar no ar?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Não é necessário. Nós te ajudamos a configurar sua conta Shopify desde o início, escolhendo o plano ideal para o seu volume de vendas e necessidades.</p>
+            <p>Com o plano Starter, a loja fica pronta em até 5 dias úteis. Com o plano Pro, em até 15 dias. Para o plano Elite com gestão contínua, alinhamos o prazo conforme o escopo do projeto.</p>
           </div>
         </div>
 
-        <div class="faq-item" id="faq-4">
+        <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            <span>Vocês oferecem suporte após o lançamento da loja?</span>
+            <span>Os temas são otimizados para velocidade e SEO?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Sim! Oferecemos planos de suporte e gestão mensal. Você nunca ficará sozinho — nosso time está disponível para ajustes, atualizações e otimizações contínuas.</p>
+            <p>Absolutamente. Todos os temas são desenvolvidos com foco em Core Web Vitals, código limpo e estrutura semântica para SEO. Nossos temas atingem consistentemente 90+ de performance no Google PageSpeed Insights.</p>
           </div>
         </div>
 
-        <div class="faq-item" id="faq-5">
+        <div class="faq-item">
           <button class="faq-question" aria-expanded="false">
-            <span>Qual o investimento para criar minha loja?</span>
+            <span>Vocês oferecem suporte após a entrega?</span>
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Cada projeto é único. O valor varia conforme a complexidade, número de páginas, integrações e personalizações. Entre em contato para receber um orçamento personalizado e sem compromisso.</p>
+            <p>Sim. Todos os planos incluem um período de suporte pós-entrega. O plano Elite oferece suporte contínuo sem prazo definido, com atendimento prioritário via WhatsApp em horário comercial.</p>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Posso migrar minha loja atual para um dos temas?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Sim! Fazemos a migração completa do conteúdo, produtos, clientes e histórico de pedidos da sua loja atual para o novo tema Shopify, sem perda de dados ou impacto no SEO.</p>
+          </div>
+        </div>
 
-  <!-- ====== CTA FINAL ====== -->
-  <section class="cta-final" id="contato">
-    <div class="cta-bg-grid"></div>
-    <div class="cta-glow"></div>
-    <div class="container cta-inner">
-      <div class="section-tag">PRONTO PARA COMEÇAR?</div>
-      <h2 class="cta-title">
-        Sua loja de alta<br/>performance começa aqui.
-      </h2>
-      <p class="cta-subtitle">
-        Junte-se a mais de 120 marcas que escolheram o laboratório certo<br/>para crescer no Shopify.
-      </p>
-      <div class="cta-form" id="contact-form">
-        <div class="form-row">
-          <input type="text" id="input-nome" placeholder="Seu nome" class="form-input" />
-          <input type="email" id="input-email" placeholder="Seu melhor e-mail" class="form-input" />
-        </div>
-        <div class="form-row">
-          <input type="tel" id="input-whatsapp" placeholder="WhatsApp com DDD" class="form-input" />
-          <select id="input-servico" class="form-input form-select">
-            <option value="" disabled selected>Qual serviço você precisa?</option>
-            <option>Loja do Zero</option>
-            <option>Otimização / CRO</option>
-            <option>Migração para Shopify</option>
-            <option>Gestão Mensal</option>
-            <option>SEO para E-commerce</option>
-            <option>Outro</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-full" id="form-submit">
-          Quero minha loja agora →
-        </button>
-        <p class="form-disclaimer"><i data-lucide="lock" class="disclaimer-icon"></i> Seus dados estão seguros. Sem spam, prometemos.</p>
       </div>
     </div>
   </section>
 
   <!-- ====== FOOTER ====== -->
-    <footer class="footer">
+  <footer class="footer">
     <div class="container footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="/" class="logo" id="logo-link-footer" title="Ir para o topo">
+          <a href="/" class="logo" id="logo-link-footer" title="The Lab Store">
             <div class="logo-box">
               <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
                 <path d="M15 9V4H16C16.6 4 17 3.6 17 3C17 2.4 16.6 2 16 2H8C7.4 2 7 2.4 7 3C7 3.6 7.4 4 8 4H9V9L4.5 18.5C4.2 19.2 4.7 20 5.5 20H18.5C19.3 20 19.8 19.2 19.5 18.5L15 9Z" stroke="#3461FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -581,44 +1822,43 @@
             </div>
             <span class="logo-text">THE LAB <span class="logo-accent">STORE</span></span>
           </a>
-          <p>Agência especializada em criação e otimização de lojas Shopify de alta performance.</p>
+          <p>Temas Shopify premium para marcas que querem se destacar e vender mais.</p>
           <div class="footer-socials">
-            <a href="https://www.instagram.com/thestorelab/" target="_blank" class="social-link" id="footer-instagram" aria-label="Siga-nos no Instagram" title="Instagram">
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            <a href="https://www.instagram.com/thestorelab/" target="_blank" class="social-link" aria-label="Instagram">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
             </a>
-            <a href="https://www.linkedin.com/company/thestorelab/" target="_blank" class="social-link" id="footer-linkedin" aria-label="Siga-nos no LinkedIn" title="LinkedIn">
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <a href="https://www.linkedin.com/company/thestorelab/" target="_blank" class="social-link" aria-label="LinkedIn">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.5"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 014 0v4M11 10v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </a>
-            <a href="https://wa.me/5542999655157" target="_blank" class="social-link" id="footer-whatsapp" aria-label="Fale conosco no WhatsApp" title="WhatsApp">
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52z" fill="currentColor" opacity=".15"/><path d="M17.5 14.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.41-1.5-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51H7.5c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.1 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="currentColor"/></svg>
+            <a href="https://wa.me/5542999655157" target="_blank" class="social-link" aria-label="WhatsApp">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52z" fill="currentColor" opacity=".15"/><path d="M17.5 14.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.41-1.5-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51H7.5c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.1 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z" fill="currentColor"/></svg>
             </a>
           </div>
         </div>
         <div class="footer-links-group">
-          <h4>Serviços</h4>
+          <h4>Temas</h4>
           <ul>
-            <li><a href="/servicos/design-premium.html">Design Premium</a></li>
-            <li><a href="/servicos/desenvolvimento-shopify.html">Desenvolvimento</a></li>
-            <li><a href="/servicos/estrategia-growth.html">Estratégia & Growth</a></li>
-            <li><a href="/servicos/gestao-suporte.html">Gestão & Suporte</a></li>
-            <li><a href="/servicos/seo-ecommerce.html">SEO E-commerce</a></li>
-            <li><a href="/servicos/pagamentos-logistica.html">Pagamentos & Logística</a></li>
+            <li><a href="#temas">Apex</a></li>
+            <li><a href="#temas">Noir</a></li>
+            <li><a href="#temas">Blanche</a></li>
+            <li><a href="#temas">Vault</a></li>
+            <li><a href="#temas">Aura</a></li>
           </ul>
         </div>
         <div class="footer-links-group">
-          <h4>Empresa</h4>
+          <h4>Planos</h4>
           <ul>
-            <li><a href="/index.html#resultados">Resultados</a></li>
-            <li><a href="/index.html#processo">Processo</a></li>
-            <li><a href="/index.html#depoimentos">Cases</a></li>
-            <li><a href="/docs.html">FAQ</a></li>
+            <li><a href="#planos">Starter</a></li>
+            <li><a href="#planos">Pro</a></li>
+            <li><a href="#planos">Elite</a></li>
+            <li><a href="#demos">Demos</a></li>
           </ul>
         </div>
         <div class="footer-links-group">
           <h4>Contato</h4>
           <ul>
             <li><a href="mailto:contato@thestorelab.com.br">contato@thestorelab.com.br</a></li>
-            <li><a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20The%20Store%20Lab.%20">WhatsApp</a></li>
+            <li><a href="https://wa.me/5542999655157">WhatsApp</a></li>
             <li><a href="https://www.instagram.com/thestorelab/">Instagram</a></li>
           </ul>
         </div>
@@ -634,13 +1874,64 @@
     </div>
   </footer>
 
-  <script src="/script.js"></script>
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Fechar menu ao clicar em link mobile
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        // fechar todos
+        document.querySelectorAll('.faq-question').forEach(b => {
+          b.setAttribute('aria-expanded', 'false');
+          b.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          btn.setAttribute('aria-expanded', 'true');
+          answer.classList.add('open');
+        }
+      });
+    });
+
+    // Comparativo tabs
+    document.querySelectorAll('.comp-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.comp-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.comp-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // CTA input → WhatsApp
+    document.getElementById('cta-btn').addEventListener('click', () => {
+      const val = document.getElementById('cta-nome').value.trim();
+      const msg = val
+        ? `Olá! Meu WhatsApp é ${val}. Gostaria de saber mais sobre os temas Shopify da The Lab Store.`
+        : `Olá! Gostaria de saber mais sobre os temas Shopify da The Lab Store.`;
+      window.open('https://wa.me/5542999655157?text=' + encodeURIComponent(msg), '_blank');
+    });
+
+    // Lucide icons
+    if (window.lucide) lucide.createIcons();
+  </script>
 
 </body>
 </html>
-
-
-
-
-
-
