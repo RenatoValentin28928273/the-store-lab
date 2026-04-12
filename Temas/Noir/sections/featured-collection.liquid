@@ -1,0 +1,96 @@
+<section class="featured-collection section-padding">
+  <div class="container">
+      <div class="section-header">
+          <h2 class="section-title">{{ section.settings.title }}</h2>
+          <a href="{{ section.settings.button_link }}" class="section-link">{{ section.settings.button_text }}</a>
+      </div>
+      <div class="product-carousel-container">
+          <!-- Nav Arrows -->
+          <button class="carousel-nav prev" aria-label="Anterior">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="carousel-nav next" aria-label="Próximo">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="product-carousel">
+            {% for block in section.blocks %}
+              <div class="product-card-slide" {{ block.shopify_attributes }}>
+                  <div class="product-card-img-wrapper" style="background-color: {{ block.settings.card_bg }}; aspect-ratio: 3/4;">
+                      {% if block.settings.badge != blank %}
+                      <span class="card-badge {% if block.settings.badge == 'Novo' %}new{% elsif block.settings.badge contains 'OFF' %}sale{% endif %}">{{ block.settings.badge }}</span>
+                      {% endif %}
+                      <div class="product-card-img" style="background-color: transparent;"></div>
+                      <button class="quick-add-btn" aria-label="Adicionar rapidamente">
+                          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                      </button>
+                  </div>
+                  <h3 class="product-card-title">{{ block.settings.product_title }}</h3>
+                  <div class="product-card-price">{{ block.settings.price }}</div>
+              </div>
+            {% endfor %}
+          </div>
+      </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Mais vendidos"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "Ver todos"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Mock",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Title",
+          "default": "Product Title"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "R$ 299,00"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text (optional)"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Background Color",
+          "default": "#E6E1DC"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}
