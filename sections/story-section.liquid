@@ -1,0 +1,31 @@
+<section class="story-section">
+  <div class="container" style="text-align: left;">
+      <span class="story-tag">{{ section.settings.tag }}</span>
+      <h2 class="story-title" style="margin: 0;">{{ section.settings.title }}</h2>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag",
+      "default": "Nossa história"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Roupa que não precisa gritar para ser notada."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Section"
+    }
+  ]
+}
+{% endschema %}

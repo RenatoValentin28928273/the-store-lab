@@ -5,10 +5,30 @@
     },
     "benefits": {
       "type": "ticker"
+    },
+    "featured": {
+      "type": "featured-collection"
+    },
+    "lookbook": {
+      "type": "lookbook-feature"
+    },
+    "categories": {
+      "type": "shop-category"
+    },
+    "story": {
+      "type": "story-section"
+    },
+    "benefits_bottom": {
+      "type": "ticker"
     }
   },
   "order": [
     "hero",
-    "benefits"
+    "benefits",
+    "featured",
+    "lookbook",
+    "categories",
+    "story",
+    "benefits_bottom"
   ]
 }
