@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noir — Product Page Preview</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./assets/variables.css">
+    <link rel="stylesheet" href="./assets/theme.css">
+    
+    <style>
+        .header {
+            height: 64px;
+            background-color: var(--color-off-white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 32px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .product-section {
+            padding-top: 100px;
+            background-color: #fff;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .product-image--main {
+            grid-column: span 2;
+            aspect-ratio: 4 / 5;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image--secondary {
+            aspect-ratio: 3 / 4;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-info {
+            position: sticky;
+            top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .product-breadcrumb {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .product-title {
+            margin: 0;
+            line-height: 1.1;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .selector-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            display: block;
+            color: var(--text-muted);
+        }
+
+        .swatch-list, .size-list {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .swatch-item, .size-item {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .swatch-item.active, .size-item.active {
+            border-color: var(--color-black);
+            background-color: var(--color-black);
+            color: #fff;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            height: 56px;
+            background: var(--color-black);
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="header-nav"><a href="/">Home</a></nav>
+        <div class="header-logo">NOIR</div>
+        <nav class="header-nav"><span>Carrinho (0)</span></nav>
+    </header>
+
+    <section class="product-section">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-gallery">
+                    <div class="product-image product-image--main">IMG 1</div>
+                    <div class="product-image product-image--secondary">IMG 2</div>
+                    <div class="product-image product-image--secondary">IMG 3</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-breadcrumb">INÍCIO / COLEÇÕES / JAQUETA BOMBER</div>
+                    <h1 class="product-title">JAQUETA BOMBER NOIR</h1>
+                    <div class="product-price">R$ 1.250,00</div>
+                    <div class="product-variants">
+                        <span class="selector-label">Cor</span>
+                        <ul class="swatch-list">
+                            <li class="swatch-item active" style="background:#000;"></li>
+                            <li class="swatch-item" style="background:#e0ddd7;"></li>
+                        </ul>
+                    </div>
+                    <button class="add-to-cart-btn btn-noir">Adicionar à Sacola</button>
+                    <div class="product-accordions" style="margin-top:40px; border-top: 1px solid #eee;">
+                        <div style="padding:20px 0; border-bottom:1px solid #eee; display:flex; justify-content:space-between; font-size:12px;"><span>DESCRIÇÃO</span><span>+</span></div>
+                        <div style="padding:20px 0; border-bottom:1px solid #eee; display:flex; justify-content:space-between; font-size:12px;"><span>DETALHES</span><span>+</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
