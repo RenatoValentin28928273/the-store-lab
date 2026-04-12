@@ -1,0 +1,120 @@
+<section class="hero-banner" id="section-{{ section.id }}">
+  <div class="hero-overlay"></div>
+  <div class="hero-content container">
+    {% if section.settings.tag != blank %}
+      <span class="hero-tag">{{ section.settings.tag }}</span>
+    {% endif %}
+    {% if section.settings.title != blank %}
+      <h1 class="hero-title">{{ section.settings.title }}</h1>
+    {% endif %}
+    {% if section.settings.button_label != blank %}
+      <a href="{{ section.settings.button_link }}" class="hero-btn">{{ section.settings.button_label }}</a>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.hero-banner {
+    height: 700px;
+    background-color: #1a1a1a;
+    background-image: url('{{ section.settings.image | img_url: '2000x' }}');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 32px;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 14px 40px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.hero-btn:hover {
+    background: #fff;
+    color: #000;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner Noir",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem de Fundo"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tag (ex: Inverno 2026)",
+      "default": "Inverno 2026"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Título",
+      "default": "A roupa para você arrasar no inverno"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Botão",
+      "default": "Explorar Coleção"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do Botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner Noir"
+    }
+  ]
+}
+{% endschema %}
