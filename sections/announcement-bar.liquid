@@ -1,0 +1,42 @@
+<section class="announcement-bar">
+  <div class="container container-announcement">
+    <p class="announcement-text">{{ section.settings.text }}</p>
+  </div>
+</section>
+
+<style>
+.announcement-bar {
+    background-color: var(--color-black, #000);
+    color: var(--color-white, #fff);
+    padding: 8px 0;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.container-announcement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Barra de Anúncio Noir",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texto",
+      "default": "✦ Frete grátis acima de R$ 299 · Troca grátis em 30 dias ✦"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de Anúncio Noir"
+    }
+  ]
+}
+{% endschema %}
