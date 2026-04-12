@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner"
+    },
+    "benefits": {
+      "type": "ticker"
+    }
+  },
+  "order": [
+    "hero",
+    "benefits"
+  ]
+}
