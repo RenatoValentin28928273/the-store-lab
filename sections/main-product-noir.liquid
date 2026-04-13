@@ -296,7 +296,7 @@
 
         <div class="product-noir__main-header">
           <div class="product-noir__title-wrapper">
-            <h1 class="product-noir__title">{{ product.title }}</h1>
+            <{{ section.settings.heading_tag }} class="product-noir__title">{{ product.title }}</{{ section.settings.heading_tag }}>
             <div class="product-noir__share-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.229 7.424L12 3l4.771 4.424M12 3v12.242" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.167 12.144V19a2 2 0 01-2 2H6.833a2 2 0 01-2-2v-6.856" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
@@ -404,6 +404,19 @@
 {
   "name": "Produto Noir Premium",
   "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Tag de Título (SEO)",
+      "options": [
+        { "value": "h1", "label": "H1 (Recomendado)" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h1"
+    },
     {
       "type": "text",
       "id": "status_text",

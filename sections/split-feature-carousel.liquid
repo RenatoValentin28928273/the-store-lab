@@ -13,7 +13,7 @@
 <section class="split-carousel-section" id="section-{{ section.id }}">
   <div class="container-noir-split">
     <div class="header-group-split">
-      <h2 class="split-headline">{{ section.settings.headline }}</h2>
+      <{{ section.settings.heading_tag | default: 'h2' }} class="split-headline">{{ section.settings.headline }}</{{ section.settings.heading_tag | default: 'h2' }}>
       <p class="split-subtext">{{ section.settings.subtext }}</p>
     </div>
 
@@ -49,9 +49,9 @@
 
                   <!-- Info do Produto -->
                   <div class="product-info-wrap">
-                    <h3 class="product-split-title">
+                    <{{ section.settings.card_heading_tag | default: 'h3' }} class="product-split-title">
                       {% if product != blank %}{{ product.title }}{% else %}Nome do Produto{% endif %}
-                    </h3>
+                    </{{ section.settings.card_heading_tag | default: 'h3' }}>
                     <p class="product-split-desc">
                       {% if product != blank %}{{ product.description | strip_html | truncate: 50 }}{% else %}Sobre o produto curto{% endif %}
                     </p>
@@ -327,6 +327,31 @@ document.addEventListener('DOMContentLoaded', function() {
 {
   "name": "Destaque Split Carousel",
   "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Tag de Título (SEO)",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2 (Recomendado)" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "card_heading_tag",
+      "label": "Tag dos Nomes dos Produtos (Card)",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3 (Recomendado)" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h3"
+    },
     {
       "type": "text",
       "id": "headline",

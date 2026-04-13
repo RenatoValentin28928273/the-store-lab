@@ -8,7 +8,7 @@
     
     <!-- Cabeçalho Editorial -->
     <header class="collection-noir__header">
-      <h1 class="collection-noir__title">{{ collection.title }}</h1>
+      <{{ section.settings.heading_tag | default: 'h1' }} class="collection-noir__title">{{ collection.title }}</{{ section.settings.heading_tag | default: 'h1' }}>
       {%- if collection.description != blank -%}
         <div class="collection-noir__description">
           {{ collection.description }}
@@ -36,7 +36,7 @@
     <div class="collection-noir__grid" id="product-grid">
       {%- for product in collection.products -%}
         <div class="collection-noir__grid-item">
-          {% render 'product-card-noir', product: product %}
+          {% render 'product-card-noir', product: product, heading_tag: section.settings.card_heading_tag %}
         </div>
       {%- else -%}
         <p class="collection-noir__empty">Nenhum produto encontrado nesta coleção.</p>
@@ -166,6 +166,31 @@
 {
   "name": "Coleção Noir Principal",
   "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Tag de Título (SEO)",
+      "options": [
+        { "value": "h1", "label": "H1 (Recomendado)" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "select",
+      "id": "card_heading_tag",
+      "label": "Tag dos Nomes dos Produtos (Card)",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3 (Recomendado)" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h3"
+    },
     {
       "type": "range",
       "id": "products_per_page",

@@ -23,7 +23,7 @@
     </div>
 
     <div class="product-card-noir__info">
-      <h3 class="product-card-noir__title">{{ product.title | uppercase }}</h3>
+      <{{ heading_tag | default: 'h3' }} class="product-card-noir__title">{{ product.title | uppercase }}</{{ heading_tag | default: 'h3' }}>
       
       <p class="product-card-noir__subtitle">
         {%- if product.metafields.descriptors.subtitle != blank -%}

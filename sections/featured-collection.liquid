@@ -6,7 +6,7 @@
 <section class="featured-collection section-padding">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">{{ section.settings.title }}</h2>
+      <{{ section.settings.heading_tag | default: 'h2' }} class="section-title">{{ section.settings.title }}</{{ section.settings.heading_tag | default: 'h2' }}>
       {% if section.settings.button_text != blank %}
         <a href="{{ section.settings.collection.url | default: section.settings.button_link }}" class="section-link">{{ section.settings.button_text }}</a>
       {% endif %}
@@ -25,7 +25,7 @@
         {%- if section.settings.collection != blank -%}
           {%- for product in section.settings.collection.products limit: section.settings.limit -%}
             <div class="product-card-slide">
-              {% render 'product-card-noir', product: product %}
+              {% render 'product-card-noir', product: product, heading_tag: section.settings.card_heading_tag %}
             </div>
           {%- endfor -%}
         {%- else -%}
@@ -48,6 +48,19 @@
   "name": "Coleção em Destaque Noir",
   "settings": [
     {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Tag de Título (SEO)",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2 (Recomendado)" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h2"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Título da Seção",
@@ -57,6 +70,18 @@
       "type": "collection",
       "id": "collection",
       "label": "Coleção"
+    },
+    {
+      "type": "select",
+      "id": "card_heading_tag",
+      "label": "Tag dos Títulos dos Produtos (Card)",
+      "options": [
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3 (Recomendado)" },
+        { "value": "h4", "label": "H4" },
+        { "value": "p", "label": "Parágrafo (p)" }
+      ],
+      "default": "h3"
     },
     {
       "type": "range",
