@@ -1,34 +1,202 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
-      "type": "hero-banner"
+      "type": "hero-banner",
+      "blocks": {
+        "banner_NbLXTW": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/young-beautiful-woman-looking-camera-trendy-girl-casual-summer-white-t-shirt-jeans-shorts-round-sunglasses-positive-female-shows-facial-emotions-funny-model-isolated-blue.jpg",
+            "headline": "Seda",
+            "headline_font": "inter_n4",
+            "headline_size": 80,
+            "headline_color": "#ffffff",
+            "subtext": "Suavidade e sofisticação. Aproveite o Kit Leve 4 Pague 3",
+            "subtext_font": "inter_n4",
+            "subtext_size": 18,
+            "subtext_color": "#ffffff",
+            "button_label": "Conhecer Coleção",
+            "button_link": "",
+            "btn_bg_color": "#ffffff",
+            "btn_text_color": "#000000",
+            "btn_radius": 6,
+            "content_bottom_padding": 120
+          }
+        },
+        "banner_WD6Raa": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/concentrated-youngs-ladies.jpg",
+            "headline": "Seda",
+            "headline_font": "inter_n4",
+            "headline_size": 80,
+            "headline_color": "#ffffff",
+            "subtext": "Suavidade e sofisticação. Aproveite o Kit Leve 4 Pague 3",
+            "subtext_font": "inter_n4",
+            "subtext_size": 18,
+            "subtext_color": "#ffffff",
+            "button_label": "VER COLEÇÃO",
+            "button_link": "",
+            "btn_bg_color": "#ffffff",
+            "btn_text_color": "#000000",
+            "btn_radius": 0,
+            "content_bottom_padding": 120
+          }
+        }
+      },
+      "block_order": [
+        "banner_NbLXTW",
+        "banner_WD6Raa"
+      ],
+      "settings": {}
     },
-    "benefits": {
-      "type": "ticker"
+    "featured_categories_pF6jf6": {
+      "type": "featured-categories",
+      "blocks": {
+        "category_dXcPNm": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/gere-a-imagem-de-uma-mulher-com-uma-camiseta-branca-em-um-fundo-clean-e-minimalista-na-rua.png",
+            "title": "Camisetas",
+            "title_font": "inter_n4",
+            "title_color": "#ffffff",
+            "title_size": 18,
+            "subtext": "Confira a nossa coleção de camisetas femininas com design premium.",
+            "subtext_font": "sans_serif_n4",
+            "subtext_color": "#e2e2e2",
+            "subtext_size": 12,
+            "cta_text": "Ver coleção",
+            "link": "",
+            "cta_color": "#ffffff"
+          }
+        },
+        "category_Lzag7q": {
+          "type": "category",
+          "settings": {
+            "title": "Category",
+            "title_font": "sans_serif_n4",
+            "title_color": "#000000",
+            "title_size": 18,
+            "subtext": "Subtext",
+            "subtext_font": "sans_serif_n4",
+            "subtext_color": "#666666",
+            "subtext_size": 12,
+            "cta_text": "SHOP NOW",
+            "link": "",
+            "cta_color": "#ffffff"
+          }
+        },
+        "category_WQPYFp": {
+          "type": "category",
+          "settings": {
+            "title": "Category",
+            "title_font": "sans_serif_n4",
+            "title_color": "#000000",
+            "title_size": 18,
+            "subtext": "Subtext",
+            "subtext_font": "sans_serif_n4",
+            "subtext_color": "#666666",
+            "subtext_size": 12,
+            "cta_text": "SHOP NOW",
+            "link": "",
+            "cta_color": "#ffffff"
+          }
+        },
+        "category_RLNJz6": {
+          "type": "category",
+          "settings": {
+            "title": "Category",
+            "title_font": "sans_serif_n4",
+            "title_color": "#000000",
+            "title_size": 18,
+            "subtext": "Subtext",
+            "subtext_font": "sans_serif_n4",
+            "subtext_color": "#666666",
+            "subtext_size": 12,
+            "cta_text": "SHOP NOW",
+            "link": "",
+            "cta_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "category_dXcPNm",
+        "category_Lzag7q",
+        "category_WQPYFp",
+        "category_RLNJz6"
+      ],
+      "name": "Categorias Noir",
+      "settings": {
+        "bg_color": "#ffffff",
+        "columns_desktop": 4,
+        "headline": "Nossas Coleções",
+        "font_family": "inter_n4",
+        "headline_color": "#000000",
+        "headline_size": 32,
+        "subtext": "Confira nossas coleções com diversos produtos para você aproveitar",
+        "subtext_font_family": "inter_n4",
+        "subtext_color": "#434343",
+        "subtext_size": 14
+      }
     },
-    "featured": {
-      "type": "featured-collection"
-    },
-    "lookbook": {
-      "type": "lookbook-feature"
-    },
-    "categories": {
-      "type": "shop-category"
-    },
-    "story": {
-      "type": "story-section"
-    },
-    "benefits_bottom": {
-      "type": "ticker"
+    "split_feature_carousel_jUmFMF": {
+      "type": "split-feature-carousel",
+      "blocks": {
+        "product_ww3mfw": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_yAMnHQ": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_jz9BE9": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_ww3mfw",
+        "product_yAMnHQ",
+        "product_jz9BE9"
+      ],
+      "name": "Destaque Split Carousel",
+      "settings": {
+        "headline": "Mais Vendidos",
+        "font_family": "inter_n4",
+        "headline_color": "#000000",
+        "headline_size": 32,
+        "subtext": "Confira nossos produtos mais vendidos",
+        "subtext_font_family": "inter_n4",
+        "subtext_color": "#666666",
+        "subtext_size": 14,
+        "large_image": "shopify://shop_images/Model_from_Side.png",
+        "image_position": "right",
+        "bg_color": "#ffffff",
+        "side_bg_color": "#ffffff",
+        "container_width": 1200,
+        "card_radius": 10
+      }
     }
   },
   "order": [
     "hero",
-    "benefits",
-    "featured",
-    "lookbook",
-    "categories",
-    "story",
-    "benefits_bottom"
+    "featured_categories_pF6jf6",
+    "split_feature_carousel_jUmFMF"
   ]
 }
