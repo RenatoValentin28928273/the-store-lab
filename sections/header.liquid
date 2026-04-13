@@ -6,10 +6,118 @@
       "type": "link_list",
       "id": "menu",
       "label": "Menu Principal"
+    },
+    {
+      "type": "header",
+      "content": "Estilo do Header"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do Texto",
+      "default": "#000000"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Fonte",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Ticker do Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ticker",
+      "label": "Mostrar Ticker",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "ticker_bg_color",
+      "label": "Cor de Fundo do Ticker",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "ticker_text_color",
+      "label": "Cor do Texto do Ticker",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "font_picker",
+      "id": "ticker_font_family",
+      "label": "Fonte do Ticker",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "ticker_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Fonte do Ticker",
+      "default": 11
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ticker",
+      "name": "Item do Ticker",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto",
+          "default": "✦ Frete grátis para todo o Brasil ✦"
+        }
+      ]
     }
   ]
 }
 {% endschema %}
+
+{%- if section.settings.font_family != blank -%}
+  <style>
+    {{ section.settings.font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+{%- if section.settings.ticker_font_family != blank -%}
+  <style>
+    {{ section.settings.ticker_font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+{% if section.settings.show_ticker and section.blocks.size > 0 %}
+  <div id="header-ticker-{{ section.id }}">
+    <div class="header-ticker-track">
+      {% for block in section.blocks %}
+        {% if block.type == 'ticker' %}
+          <p class="header-ticker-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
 
 <header class="header">
   <!-- Lado Esquerdo: Menu Hamburger -->
@@ -75,6 +183,55 @@
 </header>
 
 <style>
+#shopify-section-{{ section.id }} .header {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.font_size }}px;
+    {%- if section.settings.font_family != blank -%}
+    font-family: {{ section.settings.font_family.family }}, {{ section.settings.font_family.fallback_families }};
+    font-weight: {{ section.settings.font_family.weight }};
+    font-style: {{ section.settings.font_family.style }};
+    {%- endif -%}
+}
+
+#shopify-section-{{ section.id }} .header-logo,
+#shopify-section-{{ section.id }} .menu-btn,
+#shopify-section-{{ section.id }} .header-btn {
+    color: {{ section.settings.text_color }};
+}
+
+#shopify-section-{{ section.id }} .header-btn:not(.bag-btn) {
+    background: transparent;
+    border-color: {{ section.settings.text_color | color_modify: 'alpha', 0.2 }};
+}
+
+{% if section.settings.show_ticker %}
+#header-ticker-{{ section.id }} {
+    background-color: {{ section.settings.ticker_bg_color }};
+    color: {{ section.settings.ticker_text_color }};
+    font-size: {{ section.settings.ticker_font_size }}px;
+    {%- if section.settings.ticker_font_family != blank -%}
+    font-family: {{ section.settings.ticker_font_family.family }}, {{ section.settings.ticker_font_family.fallback_families }};
+    font-weight: {{ section.settings.ticker_font_family.weight }};
+    font-style: {{ section.settings.ticker_font_family.style }};
+    {%- endif -%}
+    padding: 8px 20px;
+    text-align: center;
+}
+.header-ticker-track {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+.header-ticker-item {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+{% endif %}
+
 .header {
     height: 64px;
     background-color: var(--color-off-white);
