@@ -1,3 +1,15 @@
+{%- if section.settings.font_family != blank -%}
+  <style>
+    {{ section.settings.font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+{%- if section.settings.subtext_font_family != blank -%}
+  <style>
+    {{ section.settings.subtext_font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
 <section class="split-carousel-section" id="section-{{ section.id }}">
   <div class="container-noir">
     <div class="header-group-split">
@@ -92,15 +104,26 @@
 
 .split-headline {
     margin: 0;
-    font-size: 32px;
+    font-size: {{ section.settings.headline_size }}px;
+    color: {{ section.settings.headline_color }};
+    {% if section.settings.font_family != blank %}
+      font-family: {{ section.settings.font_family.family }}, {{ section.settings.font_family.fallback_families }};
+      font-weight: {{ section.settings.font_family.weight }};
+      font-style: {{ section.settings.font_family.style }};
+    {% endif %}
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
 .split-subtext {
     margin: 10px 0 0 0;
-    color: #666;
-    font-size: 14px;
+    color: {{ section.settings.subtext_color }};
+    font-size: {{ section.settings.subtext_size }}px;
+    {% if section.settings.subtext_font_family != blank %}
+      font-family: {{ section.settings.subtext_font_family.family }}, {{ section.settings.subtext_font_family.fallback_families }};
+      font-weight: {{ section.settings.subtext_font_family.weight }};
+      font-style: {{ section.settings.subtext_font_family.style }};
+    {% endif %}
 }
 
 .split-content-wrapper {
@@ -302,10 +325,58 @@ document.addEventListener('DOMContentLoaded', function() {
       "default": "Headline"
     },
     {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte da Headline",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Cor da Headline",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho da Headline",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Subtext"
+    },
+    {
       "type": "text",
       "id": "subtext",
       "label": "Subtext",
       "default": "Subtext"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtext_font_family",
+      "label": "Fonte do Subtext",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Cor do Subtext",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do Subtext",
+      "default": 14
     },
     {
       "type": "image_picker",
