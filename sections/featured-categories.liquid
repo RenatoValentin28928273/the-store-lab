@@ -43,6 +43,9 @@
             <div class="category-content">
               <h3 class="category-card-title">{{ block.settings.title }}</h3>
               <p class="category-card-subtext">{{ block.settings.subtext }}</p>
+              {% if block.settings.cta_text != blank %}
+                <a href="{{ block.settings.link }}" class="category-card-cta">{{ block.settings.cta_text }}</a>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -159,6 +162,24 @@
         font-weight: {{ block.settings.subtext_font.weight }};
         font-style: {{ block.settings.subtext_font.style }};
       {% endif %}
+  }
+
+  #block-{{ block.id }} .category-card-cta {
+      display: inline-block;
+      margin-top: 20px;
+      color: {{ block.settings.cta_color }};
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border-bottom: 2px solid {{ block.settings.cta_color }};
+      padding-bottom: 2px;
+      transition: opacity 0.3s ease;
+  }
+
+  #block-{{ block.id }} .category-card-cta:hover {
+      opacity: 0.7;
   }
 {% endfor %}
 
@@ -345,6 +366,27 @@
           "unit": "px",
           "label": "Tamanho do Subtext",
           "default": 12
+        },
+        {
+          "type": "header",
+          "content": "Botão CTA (Call to Action)"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Texto do Link",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do Card"
+        },
+        {
+          "type": "color",
+          "id": "cta_color",
+          "label": "Cor do Link",
+          "default": "#FFFFFF"
         }
       ]
     }
