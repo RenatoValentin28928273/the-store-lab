@@ -193,19 +193,6 @@
         "card_radius": 10
       }
     },
-    "main_grid": {
-      "type": "grid-categories-4",
-      "settings": {
-        "bg_color": "#ffffff",
-        "gap": 20,
-        "aspect_ratio": "3/2",
-        "border_radius": 0,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20
-      }
-    },
     "grid_categories_4_h3wDQy": {
       "type": "grid-categories-4",
       "blocks": {
@@ -247,7 +234,6 @@
     "hero",
     "featured_categories_pF6jf6",
     "split_feature_carousel_jUmFMF",
-    "main_grid",
     "grid_categories_4_h3wDQy"
   ]
 }
