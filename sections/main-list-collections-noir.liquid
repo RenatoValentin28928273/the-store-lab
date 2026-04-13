@@ -5,6 +5,7 @@
 
   .list-collections-noir {
     padding: 60px 0;
+    background-color: {{ section.settings.section_bg_color | default: '#ffffff' }};
   }
   .list-collections-noir__header {
     max-width: 800px;
@@ -187,6 +188,16 @@
 {
   "name": "Departamento Noir",
   "settings": [
+    {
+      "type": "header",
+      "content": "Estilo da Seção"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Cor de Fundo da Seção",
+      "default": "#ffffff"
+    },
     {
       "type": "header",
       "content": "SEO e Títulos"
