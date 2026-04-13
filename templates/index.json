@@ -71,7 +71,7 @@
             "title_color": "#ffffff",
             "title_size": 18,
             "subtext": "Confira a nossa coleção de camisetas femininas com design premium.",
-            "subtext_font": "sans_serif_n4",
+            "subtext_font": "inter_n4",
             "subtext_color": "#e2e2e2",
             "subtext_size": 12,
             "cta_text": "Ver coleção",
@@ -177,6 +177,8 @@
       ],
       "name": "Destaque Split Carousel",
       "settings": {
+        "heading_tag": "h2",
+        "card_heading_tag": "h3",
         "headline": "Mais Vendidos",
         "font_family": "inter_n4",
         "headline_color": "#000000",
