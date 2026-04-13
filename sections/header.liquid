@@ -263,14 +263,33 @@
           </div>
       </div>
       <div class="menu-drawer-body">
-          {% for link in section.settings.menu.links %}
-              <a href="{{ link.url }}" class="menu-drawer-link {% if link.title contains 'Outlet' or link.title contains 'Sale' %}highlight{% endif %}">
-                  {{ link.title }}
-                  {% if link.links != blank %}
-                      <svg class="menu-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
-                  {% endif %}
-              </a>
-          {% endfor %}
+          <p class="menu-drawer-label">Categorias</p>
+          
+          {%- if section.settings.menu != blank -%}
+              {% for link in section.settings.menu.links %}
+                  <div class="menu-item-group">
+                      <a href="{{ link.url }}" class="menu-drawer-link {% if link.title contains 'Outlet' or link.title contains 'Sale' %}highlight{% endif %}">
+                          {{ link.title | uppercase }}
+                          {% if link.links != blank %}
+                              <svg class="menu-arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+                          {% endif %}
+                      </a>
+                      
+                      {%- if link.links != blank -%}
+                          <div class="menu-drawer-submenu">
+                              {%- for childlink in link.links -%}
+                                  <a href="{{ childlink.url }}" class="menu-submenu-link">{{ childlink.title }}</a>
+                              {%- endfor -%}
+                          </div>
+                      {%- endif -%}
+                  </div>
+              {% endfor %}
+          {%- else -%}
+              {% comment %} Lista automática de coleções se nenhum menu for selecionado {% endcomment %}
+              {% for collection in collections limit: 8 %}
+                  <a href="{{ collection.url }}" class="menu-drawer-link">{{ collection.title | uppercase }}</a>
+              {% endfor %}
+          {%- endif -%}
       </div>
   </div>
 
@@ -778,23 +797,57 @@
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     overflow-y: auto;
 }
 
+.menu-drawer-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #999;
+    margin-bottom: 8px;
+}
+
 .menu-drawer-link {
-    font-size: 16px;
-    color: var(--color-black);
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
     text-decoration: none;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    letter-spacing: 0.1em;
+    padding: 12px 0;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.menu-drawer-submenu {
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+    border-left: 1px solid #eee;
+}
+
+.menu-submenu-link {
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.menu-submenu-link:hover {
+    color: #000;
 }
 
 .menu-arrow {
-    margin-left: 12px;
+    transition: transform 0.3s ease;
 }
 
 .menu-drawer-link.highlight {
-    color: #DA4A6B; /* Rosa pastel/Outlet */
+    color: #DA4A6B;
 }
 </style>
