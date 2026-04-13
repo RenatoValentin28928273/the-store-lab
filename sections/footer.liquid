@@ -215,7 +215,7 @@
               placeholder="youremail@example.com"
               required
             >
-            <button type="submit" class="footer-noir__submit" name="commit">Submit</button>
+            <button type="submit" class="footer-noir__submit" name="commit">{{ section.settings.newsletter_button_label }}</button>
           {%- endform -%}
         </div>
       </div>
@@ -327,6 +327,12 @@
       "id": "newsletter_title",
       "label": "Título da Newsletter",
       "default": "Stay updated on the latest from Andie"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_label",
+      "label": "Texto do Botão",
+      "default": "Submit"
     },
     {
       "type": "header",
