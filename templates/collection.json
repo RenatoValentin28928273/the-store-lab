@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection-noir",
+      "settings": {
+        "products_per_page": 12
+      }
+    },
+    "explore_categories": {
+      "type": "grid-categories-4",
+      "settings": {
+        "full_width": true,
+        "gap": 15
+      }
+    },
+    "recommendations": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Recomendados para você"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "explore_categories",
+    "recommendations"
+  ]
+}

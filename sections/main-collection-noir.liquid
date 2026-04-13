@@ -1,0 +1,180 @@
+{% comment %}
+  Main Collection Section - Noir Style
+{% endcomment %}
+
+{% paginate collection.products by section.settings.products_per_page %}
+<section class="collection-noir section-padding" id="collection-{{ collection.id }}">
+  <div class="collection-noir__container container">
+    
+    <!-- Cabeçalho Editorial -->
+    <header class="collection-noir__header">
+      <h1 class="collection-noir__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="collection-noir__description">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+    </header>
+
+    <!-- Barra de Filtros e Ordenação -->
+    <div class="collection-noir__toolbar">
+      <div class="collection-noir__filters">
+        <!-- Filtros Simplificados (Padrão Shopify 2.0) -->
+        {%- for filter in collection.filters -%}
+          <div class="collection-noir__filter-item">
+            <span class="filter-label">{{ filter.label }} <svg width="10" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor"/></svg></span>
+          </div>
+        {%- endfor -%}
+      </div>
+      
+      <div class="collection-noir__sort">
+        <span class="sort-label">Ordernar por <svg width="10" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor"/></svg></span>
+      </div>
+    </div>
+
+    <!-- Grid de Produtos -->
+    <div class="collection-noir__grid" id="product-grid">
+      {%- for product in collection.products -%}
+        <div class="collection-noir__grid-item">
+          {% render 'product-card-noir', product: product %}
+        </div>
+      {%- else -%}
+        <p class="collection-noir__empty">Nenhum produto encontrado nesta coleção.</p>
+      {%- endfor -%}
+    </div>
+
+    <!-- Paginação / Botão Ver Mais -->
+    {%- if paginate.pages > 1 -%}
+      <div class="collection-noir__pagination">
+        <button class="btn-noir-large" id="load-more">VEJA MAIS</button>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+{% endpaginate %}
+
+<style>
+  .collection-noir {
+    padding: 60px 0;
+    background: #fff;
+  }
+
+  .collection-noir__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .collection-noir__header {
+    max-width: 800px;
+    margin-bottom: 50px;
+  }
+
+  .collection-noir__title {
+    font-family: serif;
+    font-size: 48px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+  }
+
+  .collection-noir__description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* Toolbar */
+  .collection-noir__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+    margin-bottom: 40px;
+  }
+
+  .collection-noir__filters {
+    display: flex;
+    gap: 30px;
+  }
+
+  .collection-noir__filter-item, .collection-noir__sort {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .collection-noir__filter-item svg {
+    margin-top: 2px;
+  }
+
+  /* Grid - 2 Colunas como no Figma */
+  .collection-noir__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+  }
+
+  /* Paginação */
+  .collection-noir__pagination {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-noir-large {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 15px 60px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 40px;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: background 0.3s ease;
+  }
+
+  .btn-noir-large:hover {
+    background: #333;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .collection-noir__grid {
+      grid-template-columns: 1fr;
+    }
+    .collection-noir__title {
+      font-size: 32px;
+    }
+    .collection-noir__filters {
+      display: none; /* Poderia ser um Drawer no futuro */
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Coleção Noir Principal",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 12,
+      "label": "Produtos por página"
+    }
+  ]
+}
+{% endschema %}
