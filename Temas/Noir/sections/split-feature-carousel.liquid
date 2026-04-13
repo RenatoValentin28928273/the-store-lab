@@ -167,6 +167,7 @@
     aspect-ratio: 1/1;
     overflow: hidden;
     margin-bottom: 15px;
+    border-radius: {{ section.settings.card_radius }}px; /* Aplicando radius customizável */
 }
 
 .inner-img {
@@ -408,6 +409,16 @@ document.addEventListener('DOMContentLoaded', function() {
       "unit": "px",
       "label": "Largura Máxima do Conteúdo",
       "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Arredondamento dos Cards",
+      "default": 8
     }
   ],
   "blocks": [
