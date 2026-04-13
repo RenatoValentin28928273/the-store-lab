@@ -6,7 +6,29 @@
 
 <section class="announcement-bar" id="announcement-bar-{{ section.id }}">
   <div class="container container-announcement">
-    <p class="announcement-text">{{ section.settings.text }}</p>
+    {%- if section.settings.text_1 != blank -%}
+      {%- if section.settings.link_1 != blank -%}
+        <a href="{{ section.settings.link_1 }}" class="announcement-text">{{ section.settings.text_1 }}</a>
+      {%- else -%}
+        <p class="announcement-text">{{ section.settings.text_1 }}</p>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_2 != blank -%}
+      {%- if section.settings.link_2 != blank -%}
+        <a href="{{ section.settings.link_2 }}" class="announcement-text">{{ section.settings.text_2 }}</a>
+      {%- else -%}
+        <p class="announcement-text">{{ section.settings.text_2 }}</p>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_3 != blank -%}
+      {%- if section.settings.link_3 != blank -%}
+        <a href="{{ section.settings.link_3 }}" class="announcement-text">{{ section.settings.text_3 }}</a>
+      {%- else -%}
+        <p class="announcement-text">{{ section.settings.text_3 }}</p>
+      {%- endif -%}
+    {%- endif -%}
   </div>
 </section>
 
@@ -30,6 +52,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.announcement-text {
+    margin: 0;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+a.announcement-text:hover {
+    opacity: 0.7;
 }
 </style>
 
@@ -39,9 +74,35 @@
   "settings": [
     {
       "type": "text",
-      "id": "text",
-      "label": "Texto",
-      "default": "✦ Frete grátis acima de R$ 299 · Troca grátis em 30 dias ✦"
+      "id": "text_1",
+      "label": "Texto 1",
+      "default": "✦ Frete grátis acima de R$ 299"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Texto 2",
+      "default": "Troca grátis em 30 dias ✦"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Texto 3"
+    },
+    {
+      "type": "url",
+      "id": "link_3",
+      "label": "Link 3"
     },
     {
       "type": "color",
