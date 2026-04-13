@@ -77,6 +77,16 @@
     outline: none;
   }
 
+  /* Remove o fundo branco/azul do preenchimento automático (Autofill) */
+  .footer-noir__input:-webkit-autofill,
+  .footer-noir__input:-webkit-autofill:hover, 
+  .footer-noir__input:-webkit-autofill:focus, 
+  .footer-noir__input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px {{ section.settings.bg_color }} inset !important;
+    -webkit-text-fill-color: {{ section.settings.text_color }} !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
   .footer-noir__submit {
     background: transparent;
     border: none;
