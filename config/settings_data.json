@@ -59,6 +59,26 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "menu_KAza8E": {
+            "type": "menu",
+            "settings": {
+              "title": "Institucional",
+              "menu": ""
+            }
+          },
+          "menu_X3MHG3": {
+            "type": "menu",
+            "settings": {
+              "title": "Suporte",
+              "menu": ""
+            }
+          }
+        },
+        "block_order": [
+          "menu_KAza8E",
+          "menu_X3MHG3"
+        ],
         "settings": {
           "brand_name": "Noir",
           "font_logo": "inter_n4",
