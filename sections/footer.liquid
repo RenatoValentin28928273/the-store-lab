@@ -1,13 +1,17 @@
 {% comment %}
-  Footer Noir Premium - Inspirado no modelo "Andie"
+  Footer Noir Premium - Com controles de Tipografia
 {% endcomment %}
 
 {%- style -%}
+  /* Carregamento das fontes escolhidas no editor */
+  {{ section.settings.font_logo | font_face: font_display: 'swap' }}
+  {{ section.settings.font_content | font_face: font_display: 'swap' }}
+
   .footer-noir {
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
     padding: 80px 0 40px;
-    font-family: 'Inter', sans-serif;
+    font-family: {{ section.settings.font_content.family }}, {{ section.settings.font_content.fallback_families }};
   }
 
   .footer-noir a {
@@ -26,7 +30,6 @@
     padding: 0 40px;
   }
 
-  /* Grid Principal */
   .footer-noir__grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
@@ -34,24 +37,25 @@
     margin-bottom: 80px;
   }
 
-  /* Coluna da Marca e Newsletter */
   .footer-noir__brand-col {
     display: flex;
     flex-direction: column;
     gap: 40px;
   }
 
+  /* Estilo da Logo Dinâmica */
   .footer-noir__logo {
-    font-family: serif;
-    font-size: 48px;
-    font-weight: 700;
+    font-family: {{ section.settings.font_logo.family }}, {{ section.settings.font_logo.fallback_families }};
+    font-size: {{ section.settings.logo_size }}px;
+    font-weight: {{ section.settings.font_logo.weight }};
+    font-style: {{ section.settings.font_logo.style }};
     margin: 0;
     line-height: 1;
     color: {{ section.settings.accent_color }};
   }
 
   .footer-noir__newsletter-text {
-    font-size: 16px;
+    font-size: {{ section.settings.newsletter_size }}px;
     margin-bottom: 20px;
     font-weight: 500;
   }
@@ -73,11 +77,6 @@
     outline: none;
   }
 
-  .footer-noir__input::placeholder {
-    color: {{ section.settings.text_color }};
-    opacity: 0.6;
-  }
-
   .footer-noir__submit {
     background: transparent;
     border: none;
@@ -90,7 +89,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* Redes Sociais */
   .footer-noir__socials {
     display: flex;
     gap: 20px;
@@ -103,9 +101,9 @@
     fill: {{ section.settings.accent_color }};
   }
 
-  /* Colunas de Links */
+  /* Estilo dos Rótulos Dinâmicos */
   .footer-noir__label {
-    font-size: 13px;
+    font-size: {{ section.settings.label_size }}px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -128,10 +126,9 @@
     font-weight: 400;
   }
 
-  /* Bottom Bar */
   .footer-noir__bottom {
     border-top: 1px solid rgba(161, 90, 77, 0.1);
-    padding-top: 40px;
+    padding-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -163,58 +160,33 @@
     text-align: center;
   }
 
-  /* Responsivo */
   @media (max-width: 992px) {
-    .footer-noir__grid {
-      grid-template-columns: 1fr;
-      gap: 50px;
-    }
-    .footer-noir__brand-col {
-      align-items: center;
-      text-align: center;
-    }
-    .footer-noir__form {
-      margin: 0 auto;
-      width: 100%;
-    }
-    .footer-noir__col--links {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      text-align: left;
-    }
+    .footer-noir__grid { grid-template-columns: 1fr; gap: 50px; }
+    .footer-noir__brand-col { align-items: center; text-align: center; }
+    .footer-noir__form { margin: 0 auto; width: 100%; }
+    .footer-noir__col--links { display: grid; grid-template-columns: repeat(2, 1fr); text-align: left; }
   }
-
   @media (max-width: 768px) {
-    .footer-noir__col--links {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
+    .footer-noir__col--links { grid-template-columns: 1fr; gap: 40px; }
+    .footer-noir__logo { font-size: calc({{ section.settings.logo_size }}px * 0.8); }
   }
 {%- endstyle -%}
 
 <footer class="footer-noir" id="section-{{ section.id }}">
   <div class="footer-noir__container">
-    
     <div class="footer-noir__grid">
-      
-      <!-- Lado Esquerdo: Marca, Social e Newsletter -->
       <div class="footer-noir__brand-col">
         <div class="footer-noir__header">
           <h2 class="footer-noir__logo">{{ section.settings.brand_name }}</h2>
           <div class="footer-noir__socials">
             {%- if settings.social_facebook_link != blank -%}
-              <a href="{{ settings.social_facebook_link }}" class="footer-noir__social-link" aria-label="Facebook">
+              <a href="{{ settings.social_facebook_link }}" class="footer-noir__social-link">
                 <svg viewBox="0 0 24 24"><path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.33h-4.14c-4.59,0-5.63,3.43-5.63,5.63v1.5H5.86v4.89h2.87v11.29h4.77v-11.29h4.13l.77-4.89Z"/></svg>
               </a>
             {%- endif -%}
             {%- if settings.social_instagram_link != blank -%}
-              <a href="{{ settings.social_instagram_link }}" class="footer-noir__social-link" aria-label="Instagram">
+              <a href="{{ settings.social_instagram_link }}" class="footer-noir__social-link">
                 <svg viewBox="0 0 24 24"><path d="M12,2.16c3.2,0,3.58.01,4.85.07,1.17.05,1.81.25,2.23.41.56.22.95.48,1.37.9.42.42.68.81.9,1.37.16.42.36,1.05.41,2.23.06,1.27.07,1.65.07,4.85s-.01,3.58-.07,4.85c-.05,1.17-.25,1.81-.41,2.23-.22.56-.48.95-.9,1.37-.42.42-.81.68-1.37.9-.42.16-1.05.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.81-.25-2.23-.41-.56-.22-.95-.48-1.37-.9-.42-.42-.68-.81-.9-1.37-.16-.42-.36-1.05-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.81.41-2.23.22-.56.48-.95.9-1.37.42-.42.81-.68,1.37-.9.42-.16,1.05-.36,2.23-.41,1.27-.06,1.65-.07,4.85-.07M12,0C8.74,0,8.33.01,7.05.07,5.77.13,4.9.33,4.14.62c-.78.3-1.45.71-2.11,1.37C1.37,2.65.96,3.32.66,4.1c-.29.77-.49,1.63-.55,2.91C0,8.3,0,8.71,0,12s.01,3.7.07,4.98c.06,1.28.26,2.14.55,2.91.3.78.71,1.45,1.37,2.11.66.66,1.33,1.07,2.11,1.37.77.29,1.63.49,2.91.55,1.28.06,1.69.07,4.98.07s3.7-.01,4.98-.07c1.28-.06,2.14-.26,2.91-.55.78-.3,1.45-.71,2.11-1.37.66-.66,1.07-1.33,1.37-2.11.29-.77.49-1.63.55-2.91.06-1.28.07-1.69.07-4.98s-.01-3.7-.07-4.98c-.06-1.28-.26-2.14-.55-2.91-.3-.78-.71-1.45-1.37-2.11-.66-.66-1.33-1.07-2.11-1.37-.77-.29-1.63-.49-2.91-.55C15.67.01,15.26,0,12,0Z"/><path d="M12,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84Zm0,10.16A4,4,0,1,1,16,12,4,4,0,0,1,12,16Z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
-              </a>
-            {%- endif -%}
-            {%- if settings.social_tiktok_link != blank -%}
-              <a href="{{ settings.social_tiktok_link }}" class="footer-noir__social-link" aria-label="TikTok">
-                <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84,0,15.14.01,16.44,0c.08,1.53.63,3.09,1.75,4.17,1.12,1.11,2.7,1.74,4.28,1.98v3.41c-1.88-.02-3.75-.58-5.32-1.64-.17-.11-.33-.24-.49-.37v7.35c.13,5.92-5.46,10.61-11.13,8.76-3.8-1.24-6.3-5.49-5.12-9.33,1-3.23,4.41-5.61,7.8-4.95v3.4c-1.62-.27-3.27.35-4.14,1.74-.83,1.31-.69,3.13.34,4.28.98,1.1,2.69,1.47,3.99.78,1.01-.54,1.57-1.66,1.55-2.8V.02Z"/></svg>
               </a>
             {%- endif -%}
           </div>
@@ -238,13 +210,11 @@
         </div>
       </div>
 
-      <!-- Colunas Dinâmicas (Blocos) -->
       {%- for block in section.blocks -%}
         <div class="footer-noir__col footer-noir__col--nav" {{ block.shopify_attributes }}>
           {%- if block.settings.title != blank -%}
             <span class="footer-noir__label">{{ block.settings.title }}</span>
           {%- endif -%}
-          
           {%- if block.settings.menu != blank -%}
             <ul class="footer-noir__list">
               {%- for link in block.settings.menu.links -%}
@@ -254,12 +224,9 @@
           {%- endif -%}
         </div>
       {%- endfor -%}
-
     </div>
 
-    <!-- Barra Inferior -->
     <div class="footer-noir__bottom">
-      
       {%- if section.settings.show_payment_icons -%}
         <div class="footer-noir__payments">
           {%- for type in shop.enabled_payment_types -%}
@@ -267,7 +234,6 @@
           {%- endfor -%}
         </div>
       {%- endif -%}
-
       <div class="footer-noir__legal">
         {%- if section.settings.bottom_menu != blank -%}
           {%- for link in section.settings.bottom_menu.links -%}
@@ -275,11 +241,9 @@
           {%- endfor -%}
         {%- endif -%}
       </div>
-
       <div class="footer-noir__copyright">
         &copy; {{ 'now' | date: "%Y" }} {{ section.settings.brand_name }}. Todos os direitos reservados.
       </div>
-
     </div>
   </div>
 </footer>
@@ -293,6 +257,56 @@
       "id": "brand_name",
       "label": "Nome da Marca",
       "default": "Andie"
+    },
+    {
+      "type": "header",
+      "content": "Tipografia da Logo"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_logo",
+      "label": "Fonte da Logo",
+      "default": "playfair_display_n7"
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho da Logo",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Tipografia Geral"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_content",
+      "label": "Fonte do Conteúdo",
+      "default": "inter_n4"
+    },
+    {
+      "type": "range",
+      "id": "newsletter_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do Texto Newsletter",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do Título das Colunas",
+      "default": 13
     },
     {
       "type": "header",
@@ -352,7 +366,7 @@
           "type": "text",
           "id": "title",
           "label": "Título da Coluna",
-          "default": "Suporte"
+          "default": "Support"
         },
         {
           "type": "link_list",
