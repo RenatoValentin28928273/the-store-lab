@@ -219,9 +219,9 @@
       ],
       "name": "Grid Categorias 4",
       "settings": {
-        "bg_color": "#FFFFFF",
+        "bg_color": "#ffffff",
         "gap": 20,
-        "aspect_ratio": "3/2",
+        "aspect_ratio": "4/5",
         "border_radius": 0,
         "padding_top": 40,
         "padding_bottom": 40,
