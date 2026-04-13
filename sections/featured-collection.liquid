@@ -1,36 +1,45 @@
+{% comment %}
+  Seção de Coleção em Destaque - Noir Premium
+  Agora usa o snippet product-card-noir para consistência e links funcionais.
+{% endcomment %}
+
 <section class="featured-collection section-padding">
   <div class="container">
-      <div class="section-header">
-          <h2 class="section-title">{{ section.settings.title }}</h2>
-          <a href="{{ section.settings.button_link }}" class="section-link">{{ section.settings.button_text }}</a>
-      </div>
-      <div class="product-carousel-container">
-          <!-- Nav Arrows -->
-          <button class="carousel-nav prev" aria-label="Anterior">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="carousel-nav next" aria-label="Próximo">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.collection.url | default: section.settings.button_link }}" class="section-link">{{ section.settings.button_text }}</a>
+      {% endif %}
+    </div>
 
-          <div class="product-carousel">
-            {% for block in section.blocks %}
-              <div class="product-card-slide" {{ block.shopify_attributes }}>
-                  <div class="product-card-img-wrapper" style="background-color: {{ block.settings.card_bg }}; aspect-ratio: 3/4;">
-                      {% if block.settings.badge != blank %}
-                      <span class="card-badge {% if block.settings.badge == 'Novo' %}new{% elsif block.settings.badge contains 'OFF' %}sale{% endif %}">{{ block.settings.badge }}</span>
-                      {% endif %}
-                      <div class="product-card-img" style="background-color: transparent;"></div>
-                      <button class="quick-add-btn" aria-label="Adicionar rapidamente">
-                          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-                      </button>
-                  </div>
-                  <h3 class="product-card-title">{{ block.settings.product_title }}</h3>
-                  <div class="product-card-price">{{ block.settings.price }}</div>
+    <div class="product-carousel-container">
+      <!-- Nav Arrows -->
+      <button class="carousel-nav prev" aria-label="Anterior">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="carousel-nav next" aria-label="Próximo">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="product-carousel">
+        {%- if section.settings.collection != blank -%}
+          {%- for product in section.settings.collection.products limit: section.settings.limit -%}
+            <div class="product-card-slide">
+              {% render 'product-card-noir', product: product %}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {% comment %} Fallback para quando não há coleção selecionada {% endcomment %}
+          {% for i in (1..4) %}
+            <div class="product-card-slide">
+              <div style="aspect-ratio: 3/4; background: #eee; display: flex; align-items: center; justify-content: center;">
+                Produto Exemplo
               </div>
-            {% endfor %}
-          </div>
+            </div>
+          {% endfor %}
+        {%- endif -%}
       </div>
+    </div>
   </div>
 </section>
 
@@ -41,50 +50,33 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Heading",
+      "label": "Título da Seção",
       "default": "Mais vendidos"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Limite de produtos",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button Label",
+      "label": "Texto do botão",
       "default": "Ver todos"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button Link"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "product",
-      "name": "Product Mock",
-      "settings": [
-        {
-          "type": "text",
-          "id": "product_title",
-          "label": "Title",
-          "default": "Product Title"
-        },
-        {
-          "type": "text",
-          "id": "price",
-          "label": "Price",
-          "default": "R$ 299,00"
-        },
-        {
-          "type": "text",
-          "id": "badge",
-          "label": "Badge text (optional)"
-        },
-        {
-          "type": "color",
-          "id": "card_bg",
-          "label": "Background Color",
-          "default": "#E6E1DC"
-        }
-      ]
+      "label": "Link do botão (opcional)"
     }
   ],
   "presets": [
@@ -94,3 +86,81 @@
   ]
 }
 {% endschema %}
+
+<style>
+  .featured-collection {
+    padding: 80px 0;
+    overflow: hidden;
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    padding: 0 10px;
+  }
+  .section-title {
+    font-family: serif;
+    font-size: 32px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .section-link {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #666;
+    text-decoration: underline;
+  }
+  .product-carousel-container {
+    position: relative;
+    padding: 0 10px;
+  }
+  .product-carousel {
+    display: flex;
+    gap: 20px;
+    transition: all 0.5s ease;
+  }
+  .product-card-slide {
+    flex: 0 0 calc(25% - 15px);
+    min-width: 250px;
+  }
+  .carousel-nav {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .carousel-nav.prev { left: -20px; }
+  .carousel-nav.next { right: -20px; }
+
+  @media (max-width: 989px) {
+    .product-card-slide {
+      flex: 0 0 calc(50% - 10px);
+    }
+  }
+  @media (max-width: 550px) {
+    .product-card-slide {
+      flex: 0 0 85%;
+    }
+    .product-carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 20px;
+    }
+    .product-card-slide {
+      scroll-snap-align: start;
+    }
+    .carousel-nav { display: none; }
+  }
+</style>
