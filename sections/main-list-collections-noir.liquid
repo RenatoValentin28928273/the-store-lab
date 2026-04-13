@@ -1,0 +1,247 @@
+{%- style -%}
+  .list-collections-noir {
+    padding: 60px 0;
+  }
+  .list-collections-noir__header {
+    max-width: 800px;
+    margin-bottom: 60px;
+  }
+  .list-collections-noir__title {
+    font-family: serif;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .list-collections-noir__description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  /* Filtros Horizontais */
+  .list-collections-noir__filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 60px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  .list-collections-noir__filter-item {
+    flex: 1;
+    min-width: 150px;
+    padding: 15px;
+    border: 1px solid #000;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s;
+  }
+  .list-collections-noir__filter-item:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  /* Subcategoria Row */
+  .collection-row {
+    margin-bottom: 80px;
+  }
+  .collection-row__header {
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .collection-row__title {
+    font-family: serif;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .collection-row__subtext {
+    font-size: 12px;
+    text-transform: lowercase;
+    display: block;
+    margin-top: 5px;
+    opacity: 0.8;
+  }
+
+  /* Carousel */
+  .row-carousel-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .row-carousel {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease;
+    padding: 0 20px;
+  }
+  .row-carousel__item {
+    flex: 0 0 calc(20% - 16px);
+    min-width: 200px;
+  }
+
+  .collection-row__footer {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .collection-row__view-all {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1024px) {
+    .row-carousel__item {
+      flex: 0 0 calc(33.33% - 14px);
+    }
+  }
+  @media (max-width: 768px) {
+    .row-carousel__item {
+      flex: 0 0 70%;
+    }
+    .row-carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+    .row-carousel__item {
+      scroll-snap-align: start;
+    }
+    .list-collections-noir__title {
+      font-size: 2.5rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="list-collections-noir section-{{ section.id }}">
+  <div class="container">
+    
+    <!-- Cabeçalho do Departamento -->
+    <header class="list-collections-noir__header">
+      <{{ section.settings.heading_tag | default: 'h1' }} class="list-collections-noir__title">{{ section.settings.title }}</{{ section.settings.heading_tag | default: 'h1' }}>
+      {% if section.settings.description != blank %}
+        <div class="list-collections-noir__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+    </header>
+
+    <!-- Barra de Filtros (Links Rápidos para as Coleções da Página) -->
+    <nav class="list-collections-noir__filters">
+      {% for block in section.blocks %}
+        {%- if block.settings.collection != blank -%}
+          <a href="#collection-{{ block.id }}" class="list-collections-noir__filter-item">
+            {{ block.settings.title | default: block.settings.collection.title }}
+          </a>
+        {%- endif -%}
+      {% endfor %}
+    </nav>
+
+    <!-- Listagem das Coleções -->
+    <div class="list-collections-noir__rows">
+      {% for block in section.blocks %}
+        {%- assign collection = block.settings.collection -%}
+        {%- if collection != blank -%}
+          <div class="collection-row" id="collection-{{ block.id }}" {{ block.shopify_attributes }}>
+            
+            <div class="collection-row__header" style="background-color: {{ block.settings.bg_color | default: '#f4f4f4' }};">
+              <h2 class="collection-row__title">{{ block.settings.title | default: collection.title }}</h2>
+              <span class="collection-row__subtext">subtext: {{ block.settings.subtext | default: 'explore a categoria' }}</span>
+            </div>
+
+            <div class="row-carousel-container">
+              <div class="row-carousel">
+                {% for product in collection.products limit: 10 %}
+                  <div class="row-carousel__item">
+                    {% render 'product-card-noir', product: product %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="collection-row__footer">
+              <a href="{{ collection.url }}" class="collection-row__view-all">Ver todos</a>
+            </div>
+          </div>
+        {%- endif -%}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Departamento Noir",
+  "settings": [
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Tag de Título (SEO)",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título do Departamento",
+      "default": "Roupas (Departamento)"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição SEO",
+      "default": "<p>Introdução com até 1000 caracteres trabalhando a palavra-chave principal no início e com um CTA.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_row",
+      "name": "Sub-coleção",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Coleção"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título Customizado (H2)",
+          "info": "Deixe em branco para usar o nome original da coleção."
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtexto",
+          "default": "explore"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Cor de Fundo do Título",
+          "default": "#f4f4f4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Departamento Noir",
+      "blocks": [
+        { "type": "collection_row" },
+        { "type": "collection_row" }
+      ]
+    }
+  ]
+}
+{% endschema %}
