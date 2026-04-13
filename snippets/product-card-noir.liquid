@@ -4,6 +4,7 @@
 {% endcomment %}
 
 <div class="product-card-noir">
+  {%- comment -%} O Link agora envolve o conteúdo mas também tem uma camada invisível que cobre tudo abaixo {%- endcomment -%}
   <a href="{{ product.url }}" class="product-card-noir__full-link" aria-label="{{ product.title }}">
     <div class="product-card-noir__image-wrapper">
       {%- if product.featured_media -%}
@@ -22,9 +23,7 @@
     </div>
 
     <div class="product-card-noir__info">
-      <h3 class="product-card-noir__title">
-        {{ product.title | uppercase }}
-      </h3>
+      <h3 class="product-card-noir__title">{{ product.title | uppercase }}</h3>
       
       <p class="product-card-noir__subtitle">
         {%- if product.metafields.descriptors.subtitle != blank -%}
@@ -38,15 +37,12 @@
         <div class="product-card-noir__swatches">
           {%- assign color_option = product.options_by_name['Color'] | default: product.options_by_name['Cor'] -%}
           {%- for value in color_option.values limit: 5 -%}
-            <span class="product-card-noir__swatch" style="background-color: {{ value | split: ' ' | last | handle }}; border: 1px solid #eee;"></span>
+            <span class="product-card-noir__swatch" style="background-color: {{ value | split: ' ' | last | handle }};"></span>
           {%- endfor -%}
         </div>
       {%- endif -%}
 
       <div class="product-card-noir__price">
-        {%- if product.compare_at_price > product.price -%}
-          <span class="product-card-noir__price--old">{{ product.compare_at_price | money }}</span>
-        {%- endif -%}
         <span class="product-card-noir__price--current">{{ product.price | money }}</span>
       </div>
     </div>
@@ -56,67 +52,54 @@
 <style>
   .product-card-noir {
     position: relative;
-    transition: transform 0.3s ease;
+    display: block;
+    width: 100%;
+    cursor: pointer;
   }
 
   .product-card-noir__full-link {
+    display: block;
     text-decoration: none;
     color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Camada invisível que garante que qualquer clique no card funcione como link */
+  .product-card-noir__full-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
   }
 
   .product-card-noir__image-wrapper {
     position: relative;
     aspect-ratio: 3/4;
     overflow: hidden;
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
   }
 
   .product-card-noir__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   .product-card-noir:hover .product-card-noir__image {
     transform: scale(1.05);
   }
 
-  .product-card-noir__badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #000;
-    color: #fff;
-    padding: 4px 10px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    z-index: 2;
-  }
-
   .product-card-noir__info {
     display: flex;
     flex-direction: column;
     gap: 4px;
-  }
-
-  .product-card-noir__swatches {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin: 6px 0;
-  }
-
-  .product-card-noir__swatch {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: block;
-    border: 1px solid #eee;
+    padding: 0 4px;
   }
 
   .product-card-noir__title {
@@ -124,7 +107,6 @@
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.05em;
-    line-height: 1.2;
     color: #000;
   }
 
@@ -132,23 +114,26 @@
     margin: 0;
     font-size: 11px;
     color: #888;
-    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+  }
+
+  .product-card-noir__swatches {
+    display: flex;
+    gap: 6px;
+    margin: 8px 0;
+  }
+
+  .product-card-noir__swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid #eee;
   }
 
   .product-card-noir__price {
-    margin-top: 4px;
     font-size: 14px;
     font-weight: 700;
     color: #000;
-  }
-
-  .product-card-noir__price--old {
-    text-decoration: line-through;
-    color: #aaa;
-    margin-right: 8px;
-    font-size: 11px;
-    font-weight: 400;
+    margin-top: 4px;
   }
 </style>
