@@ -1,0 +1,266 @@
+{%- style -%}
+  #section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .main-categories-grid__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ section.settings.gap }}px;
+  }
+
+  .main-categories-grid__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.border_radius }}px;
+    aspect-ratio: {{ section.settings.aspect_ratio }};
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-decoration: none;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .main-categories-grid__item:hover .main-categories-grid__image img {
+    transform: scale(1.05);
+  }
+
+  .main-categories-grid__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .main-categories-grid__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .main-categories-grid__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    z-index: 2;
+  }
+
+  .main-categories-grid__content {
+    position: relative;
+    z-index: 3;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .main-categories-grid__title {
+    color: #fff;
+    margin: 0;
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+  }
+
+  .main-categories-grid__cta {
+    background: #fff;
+    color: #000;
+    padding: 12px 24px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .main-categories-grid__cta:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .main-categories-grid__wrapper {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .main-categories-grid__content {
+      padding: 25px;
+    }
+    #section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section id="section-{{ section.id }}" class="main-categories-grid">
+  <div class="container">
+    <div class="main-categories-grid__wrapper">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="main-categories-grid__item" {{ block.shopify_attributes }}>
+          <div class="main-categories-grid__image">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'img-responsive' }}
+            {%- else -%}
+              {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="main-categories-grid__overlay"></div>
+          <div class="main-categories-grid__content">
+            <h3 class="main-categories-grid__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.cta_text != blank -%}
+              <span class="main-categories-grid__cta">{{ block.settings.cta_text }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Grid Categorias 4",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento entre Cards",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Proporção da Imagem",
+      "options": [
+        { "value": "1/1", "label": "Quadrado (1:1)" },
+        { "value": "4/5", "label": "Retrato (4:5)" },
+        { "value": "16/9", "label": "Paisagem (16:9)" },
+        { "value": "3/2", "label": "Horizontal (3:2)" }
+      ],
+      "default": "3/2"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Arredondamento dos Cantos",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento da Seção"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top Desktop",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom Desktop",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top Mobile",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom Mobile",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoria",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem da Categoria"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "NOME DA CATEGORIA"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Texto do Botão",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do Card"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grid Categorias 4",
+      "blocks": [
+        { "type": "category", "settings": { "title": "WOMEN'S" } },
+        { "type": "category", "settings": { "title": "MEN'S" } },
+        { "type": "category", "settings": { "title": "ACCESSORIES" } },
+        { "type": "category", "settings": { "title": "NEW ARRIVALS" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

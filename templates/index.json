@@ -192,11 +192,15 @@
         "container_width": 1200,
         "card_radius": 10
       }
+    },
+    "main_grid": {
+      "type": "grid-categories-4"
     }
   },
   "order": [
     "hero",
     "featured_categories_pF6jf6",
-    "split_feature_carousel_jUmFMF"
+    "split_feature_carousel_jUmFMF",
+    "main_grid"
   ]
 }
