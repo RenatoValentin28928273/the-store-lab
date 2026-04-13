@@ -807,6 +807,223 @@
             }
         }
 
+        /* Main Categories Grid - Full Bleed 2 Column */
+        .main-categories-grid {
+            width: 100%;
+            background: #fff;
+        }
+
+        .main-categories-grid__wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .main-categories-grid__item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            text-decoration: none;
+        }
+
+        .main-categories-grid__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .main-categories-grid__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+            z-index: 2;
+        }
+
+        .main-categories-grid__content {
+            position: relative;
+            z-index: 3;
+            padding: 40px;
+        }
+
+        .main-categories-grid__title {
+            color: #fff;
+            margin: 0;
+            font-size: clamp(32px, 5vw, 64px);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .main-categories-grid__wrapper {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .main-categories-grid__title {
+                font-size: 32px;
+            }
+        }
+
+        /* Footer Noir Premium */
+        .footer-noir {
+            background-color: #f4ece1;
+            color: #a15a4d;
+            padding: 80px 0 40px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container--wide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .footer-noir__grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-noir__col--main {
+            flex: 0 0 450px;
+        }
+
+        .footer-noir__logo {
+            font-family: serif;
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 30px;
+            color: #a15a4d;
+            line-height: 1;
+        }
+
+        .footer-noir__newsletter-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .footer-noir__form {
+            display: flex;
+            border: 1px solid #a15a4d;
+            max-width: 400px;
+            background: #fff;
+        }
+
+        .footer-noir__input {
+            flex: 1;
+            border: none;
+            padding: 12px 15px;
+            font-size: 14px;
+            outline: none;
+            color: #000;
+        }
+
+        .footer-noir__submit {
+            background-color: #a15a4d;
+            color: #fff;
+            border: none;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .footer-noir__socials {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-noir__social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: #a15a4d;
+        }
+
+        .footer-noir__col--links {
+            display: flex;
+            gap: 100px;
+        }
+
+        .footer-noir__label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .footer-noir__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-noir__list li {
+            margin-bottom: 15px;
+        }
+
+        .footer-noir__list a {
+            font-size: 14px;
+            color: #a15a4d;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .footer-noir__payments {
+            padding: 40px 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-noir__payment-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-noir__bottom {
+            margin-top: 40px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .footer-noir__copyright {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .footer-noir__bottom-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-noir__bottom-nav a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        @media (max-width: 992px) {
+            .footer-noir__grid { flex-direction: column; gap: 40px; }
+            .footer-noir__col--main { flex: 1; }
+            .footer-noir__col--links { gap: 50px; }
+        }
+
+        @media (max-width: 768px) {
+            .footer-noir__col--links { flex-direction: column; }
+            .footer-noir__copyright { flex-direction: column; align-items: flex-start; gap: 15px; }
+        }
+
 
         /* Benefits */
         .benefits-bar {
@@ -1337,6 +1554,31 @@
             </div>
         </section>
 
+        <section class="main-categories-grid">
+            <div class="main-categories-grid__wrapper">
+                <a href="#" class="main-categories-grid__item">
+                    <div class="main-categories-grid__image" style="background-color: #E6E1DC; border: 1px solid #ddd; height: 100%;">
+                         <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="main-categories-grid__overlay"></div>
+                    <div class="main-categories-grid__content">
+                        <h3 class="main-categories-grid__title">WOMEN'S</h3>
+                        <span class="main-categories-grid__cta">SHOP NOW</span>
+                    </div>
+                </a>
+                <a href="#" class="main-categories-grid__item">
+                    <div class="main-categories-grid__image" style="background-color: #D6D1CC; border: 1px solid #ddd; height: 100%;">
+                         <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=800" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="main-categories-grid__overlay"></div>
+                    <div class="main-categories-grid__content">
+                        <h3 class="main-categories-grid__title">MEN'S</h3>
+                        <span class="main-categories-grid__cta">SHOP NOW</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
         <section class="lookbook-feature section-padding">
             <div class="lookbook-grid container">
                 
@@ -1509,39 +1751,76 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
+    <footer class="footer-noir">
+        <div class="container--wide">
+            <div class="footer-noir__grid">
+                <!-- Newsletter & Logo Col -->
+                <div class="footer-noir__col footer-noir__col--main">
+                    <h2 class="footer-noir__logo">Andie</h2>
 
-            <div class="footer-grid">
-                
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <h4 class="footer-label">INSTITUCIONAL</h4>
-                        <ul class="footer-links">
-                            <li><a href="#">Nossa História</a></li>
-                            <li><a href="#">Sustentabilidade</a></li>
-                            <li><a href="#">Onde encontrar</a></li>
+                    <div class="footer-noir__newsletter">
+                        <p class="footer-noir__newsletter-text">Stay updated on the latest from Andie</p>
+                        <form class="footer-noir__form">
+                            <input type="email" placeholder="youremail@example.com" class="footer-noir__input">
+                            <button type="submit" class="footer-noir__submit">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="footer-noir__socials">
+                        <a href="#" class="footer-noir__social-link" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.33h-4.14c-4.59,0-5.63,3.43-5.63,5.63v1.5H5.86v4.89h2.87v11.29h4.77v-11.29h4.13l.77-4.89Z"/></svg>
+                        </a>
+                        <a href="#" class="footer-noir__social-link" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12,2.16c3.2,0,3.58.01,4.85.07,1.17.05,1.81.25,2.23.41.56.22.95.48,1.37.9.42.42.68.81.9,1.37.16.42.36,1.05.41,2.23.06,1.27.07,1.65.07,4.85s-.01,3.58-.07,4.85c-.05,1.17-.25,1.81-.41,2.23-.22.56-.48.95-.9,1.37-.42.42-.81.68-1.37.9-.42.16-1.05.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.81-.25-2.23-.41-.56-.22-.95-.48-1.37-.9-.42-.42-.68-.81-.9-1.37-.16-.42-.36-1.05-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.81.41-2.23.22-.56.48-.95.9-1.37.42-.42.81-.68,1.37-.9.42-.16,1.05-.36,2.23-.41,1.27-.06,1.65-.07,4.85-.07M12,0C8.74,0,8.33.01,7.05.07,5.77.13,4.9.33,4.14.62c-.78.3-1.45.71-2.11,1.37C1.37,2.65.96,3.32.66,4.1c-.29.77-.49,1.63-.55,2.91C0,8.3,0,8.71,0,12s.01,3.7.07,4.98c.06,1.28.26,2.14.55,2.91.3.78.71,1.45,1.37,2.11.66.66,1.33,1.07,2.11,1.37.77.29,1.63.49,2.91.55,1.28.06,1.69.07,4.98.07s3.7-.01,4.98-.07c1.28-.06,2.14-.26,2.91-.55.78-.3,1.45-.71,2.11-1.37.66-.66,1.07-1.33,1.37-2.11.29-.77.49-1.63.55-2.91.06-1.28.07-1.69.07-4.98s-.01-3.7-.07-4.98c-.06-1.28-.26-2.14-.55-2.91-.3-.78-.71-1.45-1.37-2.11-.66-.66-1.33-1.07-2.11-1.37-.77-.29-1.63-.49-2.91-.55C15.67.01,15.26,0,12,0Z"/><path d="M12,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84Zm0,10.16A4,4,0,1,1,16,12,4,4,0,0,1,12,16Z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+                        </a>
+                        <a href="#" class="footer-noir__social-link" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84,0,15.14.01,16.44,0c.08,1.53.63,3.09,1.75,4.17,1.12,1.11,2.7,1.74,4.28,1.98v3.41c-1.88-.02-3.75-.58-5.32-1.64-.17-.11-.33-.24-.49-.37v7.35c.13,5.92-5.46,10.61-11.13,8.76-3.8-1.24-6.3-5.49-5.12-9.33,1-3.23,4.41-5.61,7.8-4.95v3.4c-1.62-.27-3.27.35-4.14,1.74-.83,1.31-.69,3.13.34,4.28.98,1.1,2.69,1.47,3.99.78,1.01-.54,1.57-1.66,1.55-2.8V.02Z"/></svg>
+                        </a>
+                        <a href="#" class="footer-noir__social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24"><path d="M23.95,4.57c-.88.39-1.83.65-2.82.77,1.02-.61,1.8-1.57,2.17-2.72-.95.56-2,1-3.13,1.22-.9-.96-2.17-1.56-3.59-1.56-2.71,0-4.91,2.2-4.91,4.91,0,.38.04.76.13,1.11-4.08-.2-7.7-2.16-10.13-5.13-.42.72-.66,1.55-.66,2.46,0,1.71.87,3.21,2.19,4.09-.81-.03-1.56-.25-2.22-.61v.06c0,2.38,1.69,4.37,3.94,4.82-.41.11-.85.17-1.29.17-.32,0-.62-.03-.92-.09.63,1.95,2.44,3.37,4.6,3.41-1.68,1.32-3.8,2.11-6.1,2.11-.4,0-.79-.02-1.17-.07,2.18,1.4,4.78,2.21,7.57,2.21,9.09,0,14.05-7.53,14.05-14.05,0-.22,0-.43-.01-.65.96-.69,1.8-1.56,2.46-2.55Z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Links Columns -->
+                <div class="footer-noir__col footer-noir__col--links">
+                    <div class="footer-noir__nav">
+                        <h4 class="footer-noir__label">Support</h4>
+                        <ul class="footer-noir__list">
+                            <li><a href="#">Shipping</a></li>
+                            <li><a href="#">Returns & Exchanges</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
-                    <div class="footer-col">
-                        <h4 class="footer-label">AJUDA</h4>
-                        <ul class="footer-links">
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Envio & Entrega</a></li>
-                            <li><a href="#">Trocas & Devoluções</a></li>
+                    <div class="footer-noir__nav">
+                        <h4 class="footer-noir__label">Company</h4>
+                        <ul class="footer-noir__list">
+                            <li><a href="#">Become an Affiliate</a></li>
+                            <li><a href="#">Product Collections</a></li>
+                            <li><a href="#">Accessibility Statement</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <div class="footer-logo">NOIR</div>
-                <div class="footer-info">
-                    <span class="copyright">© 2025 Noir. Todos os direitos reservados.</span>
-                    <div class="payment-methods">
-                        <span class="payment-item">VISA</span>
-                        <span class="payment-item">MASTER</span>
-                        <span class="payment-item">PIX</span>
+            <!-- Payments Section -->
+            <div class="footer-noir__payments">
+                <div class="footer-noir__payment-icons">
+                    <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/visa.svg" alt="Visa" width="35">
+                    <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/master.svg" alt="Mastercard" width="35">
+                    <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/american_express.svg" alt="American Express" width="35">
+                    <img src="https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/paypal.svg" alt="Paypal" width="35">
+                </div>
+            </div>
+
+            <div class="footer-noir__bottom">
+                <div class="footer-noir__copyright">
+                    <span>&copy; 2026 Andie Swim</span>
+                    <div class="footer-noir__bottom-nav">
+                        <a href="#">Terms and Conditions</a>
+                        <a href="#">Privacy Policy</a>
                     </div>
                 </div>
             </div>

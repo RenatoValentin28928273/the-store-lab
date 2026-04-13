@@ -23,6 +23,13 @@
     transition: transform 0.3s ease-in-out;
   }
 
+  /* Specific handling for 2 items to look like the example */
+  {% if section.blocks.size == 2 %}
+    .main-categories-grid__item {
+      aspect-ratio: {{ section.settings.aspect_ratio_2_items }};
+    }
+  {% endif %}
+
   .main-categories-grid__item:hover .main-categories-grid__image img {
     transform: scale(1.05);
   }
@@ -66,11 +73,11 @@
   .main-categories-grid__title {
     color: #fff;
     margin: 0;
-    font-size: clamp(24px, 4vw, 42px);
+    font-size: clamp(28px, 5vw, 64px);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
   }
 
   .main-categories-grid__cta {
@@ -94,7 +101,11 @@
   @media (max-width: 768px) {
     .main-categories-grid__wrapper {
       grid-template-columns: 1fr;
-      gap: 15px;
+      gap: {{ section.settings.gap_mobile }}px;
+      {% if section.settings.full_width %}
+        padding-left: {{ section.settings.gap_mobile }}px;
+        padding-right: {{ section.settings.gap_mobile }}px;
+      {% endif %}
     }
     .main-categories-grid__content {
       padding: 25px;
@@ -103,17 +114,20 @@
       padding-top: {{ section.settings.padding_top_mobile }}px;
       padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
     }
+    .main-categories-grid__title {
+      font-size: 32px;
+    }
   }
 {%- endstyle -%}
 
 <section id="section-{{ section.id }}" class="main-categories-grid">
-  <div class="container">
+  <div class="{% unless section.settings.full_width %}container{% endunless %}">
     <div class="main-categories-grid__wrapper">
       {%- for block in section.blocks -%}
         <a href="{{ block.settings.link }}" class="main-categories-grid__item" {{ block.shopify_attributes }}>
           <div class="main-categories-grid__image">
             {%- if block.settings.image != blank -%}
-              {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'img-responsive' }}
+              {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', class: 'img-responsive' }}
             {%- else -%}
               {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
@@ -144,26 +158,56 @@
       "default": "#FFFFFF"
     },
     {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Largura Total",
+      "default": false
+    },
+    {
       "type": "range",
       "id": "gap",
       "min": 0,
       "max": 50,
       "step": 5,
       "unit": "px",
-      "label": "Espaçamento entre Cards",
+      "label": "Espaçamento entre Cards (Desktop)",
       "default": 20
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Espaçamento entre Cards (Mobile)",
+      "default": 10
     },
     {
       "type": "select",
       "id": "aspect_ratio",
-      "label": "Proporção da Imagem",
+      "label": "Proporção da Imagem (Padrão)",
       "options": [
         { "value": "1/1", "label": "Quadrado (1:1)" },
         { "value": "4/5", "label": "Retrato (4:5)" },
         { "value": "16/9", "label": "Paisagem (16:9)" },
-        { "value": "3/2", "label": "Horizontal (3:2)" }
+        { "value": "3/2", "label": "Horizontal (3:2)" },
+        { "value": "2/3", "label": "Vertical (2:3)" }
       ],
       "default": "3/2"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_2_items",
+      "label": "Proporção (Quando 2 Itens)",
+      "info": "Usado apenas quando há exatamente 2 blocos",
+      "options": [
+        { "value": "1/1", "label": "Quadrado (1:1)" },
+        { "value": "4/5", "label": "Retrato (4:5)" },
+        { "value": "2/3", "label": "Vertical (2:3)" },
+        { "value": "16/9", "label": "Paisagem (16:9)" }
+      ],
+      "default": "4/5"
     },
     {
       "type": "range",
