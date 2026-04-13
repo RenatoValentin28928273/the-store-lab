@@ -48,6 +48,7 @@
           #block-{{ block.id }} .hero-cta-btn {
               background-color: {{ block.settings.btn_bg_color }};
               color: {{ block.settings.btn_text_color }};
+              border-radius: {{ block.settings.btn_radius }}px;
           }
           #block-{{ block.id }} .hero-slide-content {
               padding-bottom: {{ block.settings.content_bottom_padding }}px;
@@ -338,6 +339,16 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "btn_text_color",
           "label": "Cor do Texto do Botão",
           "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "btn_radius",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "label": "Arredondamento do Botão",
+          "default": 0
         },
         {
           "type": "range",
