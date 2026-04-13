@@ -141,7 +141,7 @@
     flex: 1;
     width: 50%;
     min-width: 0; /* Fix para grid/flex swiper */
-    background: #E5E5E5;
+    background: {{ section.settings.side_bg_color }};
     padding: 40px;
     display: flex;
     align-items: center;
@@ -234,7 +234,7 @@
     width: 100%;
     height: 100%;
     position: relative;
-    background: #E5E5E5;
+    background: {{ section.settings.side_bg_color }};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -399,6 +399,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "bg_color",
       "label": "Cor de Fundo da Seção",
       "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "side_bg_color",
+      "label": "Cor de Fundo do Carrossel (Cinza)",
+      "default": "#E5E5E5"
     },
     {
       "type": "range",
