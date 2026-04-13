@@ -1,0 +1,356 @@
+<section class="split-carousel-section" id="section-{{ section.id }}">
+  <div class="container-noir">
+    <div class="header-group-split">
+      <h2 class="split-headline">{{ section.settings.headline }}</h2>
+      <p class="split-subtext">{{ section.settings.subtext }}</p>
+    </div>
+
+    <div class="split-content-wrapper {% if section.settings.image_position == 'left' %}row-reverse{% endif %}">
+      <!-- Lado do Carrossel de Produtos -->
+      <div class="split-product-side">
+        <div class="swiper main-product-carousel js-main-product-carousel">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% assign product = block.settings.product %}
+              <div class="swiper-slide product-card-split" {{ block.shopify_attributes }}>
+                <div class="product-card-inner">
+                  <!-- Carrossel de Fotos do Produto -->
+                  <div class="swiper-container js-inner-photo-carousel">
+                    <div class="swiper-wrapper">
+                      {% if product != blank %}
+                        {% for image in product.images limit: 5 %}
+                          <div class="swiper-slide">
+                            <img src="{{ image | image_url: width: 600 }}" alt="{{ product.title }}" loading="lazy" class="inner-img">
+                          </div>
+                        {% endfor %}
+                      {% else %}
+                        <div class="swiper-slide">
+                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <button class="quick-add-btn-split">
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                  </div>
+
+                  <!-- Info do Produto -->
+                  <div class="product-info-wrap">
+                    <h3 class="product-split-title">
+                      {% if product != blank %}{{ product.title }}{% else %}Nome do Produto{% endif %}
+                    </h3>
+                    <p class="product-split-desc">
+                      {% if product != blank %}{{ product.description | strip_html | truncate: 50 }}{% else %}Sobre o produto curto{% endif %}
+                    </p>
+                    <span class="product-split-price">
+                      {% if product != blank %}{{ product.price | money }}{% else %}R$ 0,00{% endif %}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+          <!-- Navegação do Carrossel Principal -->
+          <div class="swiper-button-prev main-nav-btn prev"></div>
+          <div class="swiper-button-next main-nav-btn next"></div>
+        </div>
+      </div>
+
+      <!-- Lado da Foto Grande -->
+      <div class="split-image-side">
+        <div class="large-image-wrap">
+          {% if section.settings.large_image != blank %}
+            <img src="{{ section.settings.large_image | image_url: width: 1200 }}" alt="Feature image" loading="lazy" class="large-feature-img">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            <div class="placeholder-text">FOTO</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Reset e Base */
+.split-carousel-section {
+    padding: 80px 40px;
+    background-color: {{ section.settings.bg_color }};
+}
+
+.container-noir {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.header-group-split {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.split-headline {
+    margin: 0;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.split-subtext {
+    margin: 10px 0 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.split-content-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.split-content-wrapper.row-reverse {
+    flex-direction: row-reverse;
+}
+
+/* Lado do Carrossel */
+.split-product-side {
+    flex: 1;
+    width: 50%;
+    min-width: 0; /* Fix para grid/flex swiper */
+    background: #E5E5E5;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 4px;
+}
+
+.main-product-carousel {
+    padding: 20px 0;
+}
+
+.product-card-split {
+    height: auto;
+}
+
+.product-card-inner {
+    background: transparent;
+}
+
+.js-inner-photo-carousel {
+    position: relative;
+    background: #fff;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.inner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Paginação interna (dots) */
+.js-inner-photo-carousel .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.8;
+}
+.js-inner-photo-carousel .swiper-pagination-bullet-active {
+    background: #000;
+}
+
+.quick-add-btn-split {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: #000;
+    color: #fff;
+    border: none;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+.quick-add-btn-split:hover {
+    transform: scale(1.1);
+}
+
+.product-split-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.product-split-desc {
+    margin: 4px 0;
+    font-size: 12px;
+    color: #444;
+}
+
+.product-split-price {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* Lado da Imagem Grande */
+.split-image-side {
+    flex: 1;
+    width: 50%;
+}
+
+.large-image-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: #E5E5E5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+}
+
+.large-feature-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.placeholder-text {
+    position: absolute;
+    font-size: 24px;
+    font-weight: 600;
+    color: #999;
+}
+
+/* Nav Principal */
+.main-nav-btn {
+    width: 35px !important;
+    height: 35px !important;
+    background: #000 !important;
+    color: #fff !important;
+    border-radius: 50%;
+}
+
+.main-nav-btn::after {
+    font-size: 14px !important;
+    font-weight: 800;
+}
+
+@media (max-width: 1024px) {
+    .split-content-wrapper {
+        flex-direction: column !important;
+    }
+    .split-product-side, .split-image-side {
+        width: 100%;
+    }
+    .split-product-side {
+        padding: 20px;
+    }
+}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializa Carrosséis Internos (Fotos do Produto) 
+    const innerCarousels = document.querySelectorAll('.js-inner-photo-carousel');
+    innerCarousels.forEach(el => {
+        new Swiper(el, {
+            slidesPerView: 1,
+            nested: true,
+            pagination: {
+                el: el.querySelector('.swiper-pagination'),
+                clickable: true
+            }
+        });
+    });
+
+    // Inicializa Carrossel Principal (Cards de Produto)
+    new Swiper('.js-main-product-carousel', {
+        slidesPerView: 1.2,
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.main-nav-btn.next',
+            prevEl: '.main-nav-btn.prev',
+        },
+        breakpoints: {
+            640: { slidesPerView: 2.2 }
+        }
+    });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Destaque Split Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Subtext"
+    },
+    {
+      "type": "image_picker",
+      "id": "large_image",
+      "label": "Imagem de Destaque (Lado)"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Posição da Imagem Grande",
+      "options": [
+        { "value": "right", "label": "Direita" },
+        { "value": "left", "label": "Esquerda" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo da Seção",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produto",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Selecionar Produto"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Destaque Split Carousel",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
