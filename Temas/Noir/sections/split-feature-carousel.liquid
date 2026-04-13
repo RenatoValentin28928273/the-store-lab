@@ -11,7 +11,7 @@
 {%- endif -%}
 
 <section class="split-carousel-section" id="section-{{ section.id }}">
-  <div class="container-noir">
+  <div class="container-noir-split">
     <div class="header-group-split">
       <h2 class="split-headline">{{ section.settings.headline }}</h2>
       <p class="split-subtext">{{ section.settings.subtext }}</p>
@@ -92,8 +92,8 @@
     background-color: {{ section.settings.bg_color }};
 }
 
-.container-noir {
-    max-width: 1440px;
+.container-noir-split {
+    max-width: {{ section.settings.container_width }}px;
     margin: 0 auto;
 }
 
@@ -237,7 +237,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 600px;
+    min-height: 500px; /* Reduzindo altura mínima */
 }
 
 .large-feature-img {
@@ -398,6 +398,16 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "bg_color",
       "label": "Cor de Fundo da Seção",
       "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Largura Máxima do Conteúdo",
+      "default": 1200
     }
   ],
   "blocks": [
