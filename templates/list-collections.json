@@ -18,7 +18,7 @@
             "collection": "sueter-feminino",
             "title": "Vestidos",
             "subtext": "explore",
-            "bg_color": "#f4f4f4"
+            "bg_color": "#ffffff"
           }
         },
         "collection_row_4VKHya": {
@@ -38,7 +38,17 @@
       "settings": {
         "heading_tag": "h1",
         "title": "Nossos Departamentos",
-        "description": "<p>Explore nossas coleções exclusivas curadas para você.</p>"
+        "title_font": "inter_n4",
+        "title_size": 56,
+        "title_color": "#000000",
+        "description": "<p>Explore nossas coleções exclusivas curadas para você.</p>",
+        "desc_size": 16,
+        "desc_color": "#666666",
+        "block_title_size": 28,
+        "block_title_color": "#000000",
+        "filter_bg_color": "#ffffff",
+        "filter_text_color": "#000000",
+        "filter_font_size": 11
       }
     }
   },
