@@ -286,10 +286,11 @@
       <!-- Informações do Produto -->
       <div class="product-noir__info">
         
+        {%- assign current_collection = collection | default: product.collections.first -%}
         <nav class="product-noir__breadcrumb">
           <a href="/" style="color: inherit; text-decoration: none;">Início</a> / 
-          <a href="{{ collection.url | default: '/collections/all' }}" style="color: inherit; text-decoration: none;">
-            {{ collection.title | default: 'Coleções' }}
+          <a href="{{ current_collection.url | default: '/collections/all' }}" style="color: inherit; text-decoration: none;">
+            {{ current_collection.title | default: 'Coleções' }}
           </a> / 
           {{ product.title }}
         </nav>
