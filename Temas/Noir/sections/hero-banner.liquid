@@ -1,119 +1,350 @@
-<section class="hero-banner" id="section-{{ section.id }}">
-  <div class="hero-overlay"></div>
-  <div class="hero-content container">
-    {% if section.settings.tag != blank %}
-      <span class="hero-tag">{{ section.settings.tag }}</span>
-    {% endif %}
-    {% if section.settings.title != blank %}
-      <h1 class="hero-title">{{ section.settings.title }}</h1>
-    {% endif %}
-    {% if section.settings.button_label != blank %}
-      <a href="{{ section.settings.button_link }}" class="hero-btn">{{ section.settings.button_label }}</a>
-    {% endif %}
+{%- if section.blocks.size > 0 -%}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{%- endif -%}
+
+<section class="hero-slider swiper js-hero-slider" id="section-{{ section.id }}">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      <div class="swiper-slide hero-slide" {{ block.shopify_attributes }} id="block-{{ block.id }}">
+        <div class="hero-image-bg">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 2400 }}" alt="{{ block.settings.headline | escape }}" class="hero-img">
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg hero-img' }}
+          {% endif %}
+        </div>
+        
+        <div class="hero-overlay-noir"></div>
+
+        <div class="hero-slide-content container-noir">
+          <div class="content-bottom-left">
+             <h2 class="hero-headline">{{ block.settings.headline }}</h2>
+             <p class="hero-subtext">{{ block.settings.subtext }}</p>
+             {% if block.settings.button_label != blank %}
+               <a href="{{ block.settings.button_link }}" class="hero-cta-btn">{{ block.settings.button_label }}</a>
+             {% endif %}
+          </div>
+        </div>
+
+        <style>
+          #block-{{ block.id }} .hero-headline {
+              color: {{ block.settings.headline_color }};
+              font-size: {{ block.settings.headline_size }}px;
+              {% if block.settings.headline_font != blank %}
+                font-family: {{ block.settings.headline_font.family }}, {{ block.settings.headline_font.fallback_families }};
+                font-weight: {{ block.settings.headline_font.weight }};
+                font-style: {{ block.settings.headline_font.style }};
+              {% endif %}
+          }
+          #block-{{ block.id }} .hero-subtext {
+              color: {{ block.settings.subtext_color }};
+              font-size: {{ block.settings.subtext_size }}px;
+              {% if block.settings.subtext_font != blank %}
+                font-family: {{ block.settings.subtext_font.family }}, {{ block.settings.subtext_font.fallback_families }};
+                font-weight: {{ block.settings.subtext_font.weight }};
+              {% endif %}
+          }
+          #block-{{ block.id }} .hero-cta-btn {
+              background-color: {{ block.settings.btn_bg_color }};
+              color: {{ block.settings.btn_text_color }};
+          }
+        </style>
+        
+        {% if block.settings.headline_font != blank %}
+          <style>{{ block.settings.headline_font | font_face: font_display: 'swap' }}</style>
+        {% endif %}
+        {% if block.settings.subtext_font != blank %}
+          <style>{{ block.settings.subtext_font | font_face: font_display: 'swap' }}</style>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="hero-controls container-noir">
+    <div class="swiper-pagination hero-pagination"></div>
+    
+    <div class="hero-nav-pill">
+      <div class="hero-arrow prev">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </div>
+      <div class="hero-arrow next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-.hero-banner {
-    height: 700px;
-    background-color: #1a1a1a;
-    background-image: url('{{ section.settings.image | img_url: '2000x' }}');
-    background-size: cover;
-    background-position: center;
+.hero-slider {
+    width: 100%;
+    height: 90vh;
     position: relative;
-    display: flex;
-    align-items: center;
-    color: #fff;
     overflow: hidden;
 }
 
-.hero-overlay {
+.hero-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
-    z-index: 1;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-tag {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--color-accent);
-    margin-bottom: 20px;
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
-.hero-title {
-    font-size: 48px;
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 32px;
+.hero-overlay-noir {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 40%);
+    z-index: 1;
 }
 
-.hero-btn {
+.hero-slide-content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 120px;
+    z-index: 2;
+}
+
+.content-bottom-left {
+    max-width: 600px;
+}
+
+.hero-headline {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.hero-subtext {
+    margin: 20px 0 30px 0;
+    line-height: 1.5;
+}
+
+.hero-cta-btn {
     display: inline-block;
-    background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 14px 40px;
-    font-size: 11px;
+    padding: 16px 45px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.hero-btn:hover {
-    background: #fff;
-    color: #000;
+.hero-cta-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+}
+
+/* Controls */
+.hero-controls {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.hero-pagination {
+    position: static !important;
+    width: auto !important;
+}
+
+.hero-pagination .swiper-pagination-bullet {
+    background: #fff !important;
+    opacity: 0.4;
+    width: 6px;
+    height: 6px;
+    margin: 0 4px !important;
+}
+
+.hero-pagination .swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+.hero-nav-pill {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 6px 15px;
+    gap: 15px;
+}
+
+.hero-arrow {
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.hero-arrow:hover {
+    opacity: 0.6;
+}
+
+.container-noir {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+    .hero-slider { height: 80vh; }
+    .hero-headline { font-size: 40px !important; }
+    .hero-slide-content { padding-bottom: 100px; }
+    .container-noir { padding: 0 20px; }
 }
 </style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.js-hero-slider', {
+        loop: true,
+        speed: 800,
+        effect: 'fade',
+        fadeEffect: { crossFade: true },
+        pagination: {
+            el: '.hero-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.hero-arrow.next',
+            prevEl: '.hero-arrow.prev',
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        }
+    });
+});
+</script>
+
 {% schema %}
 {
-  "name": "Hero Banner Noir",
-  "settings": [
+  "name": "Hero Slider Noir",
+  "settings": [],
+  "blocks": [
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Imagem de Fundo"
-    },
-    {
-      "type": "text",
-      "id": "tag",
-      "label": "Tag (ex: Inverno 2026)",
-      "default": "Inverno 2026"
-    },
-    {
-      "type": "textarea",
-      "id": "title",
-      "label": "Título",
-      "default": "A roupa para você arrasar no inverno"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Botão",
-      "default": "Explorar Coleção"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Link do Botão"
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem de Fundo"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "Seda"
+        },
+        {
+          "type": "font_picker",
+          "id": "headline_font",
+          "label": "Fonte da Headline",
+          "default": "playfair_display_n4"
+        },
+        {
+          "type": "range",
+          "id": "headline_size",
+          "min": 30,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "Tamanho da Headline",
+          "default": 80
+        },
+        {
+          "type": "color",
+          "id": "headline_color",
+          "label": "Cor da Headline",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Suavidade e sofisticação. Aproveite o Kit Leve 4 Pague 3"
+        },
+        {
+          "type": "font_picker",
+          "id": "subtext_font",
+          "label": "Fonte do Subtext",
+          "default": "inter_n4"
+        },
+        {
+          "type": "range",
+          "id": "subtext_size",
+          "min": 12,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamanho do Subtext",
+          "default": 18
+        },
+        {
+          "type": "color",
+          "id": "subtext_color",
+          "label": "Cor do Subtext",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texto do Botão",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link do Botão"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Cor de Fundo do Botão",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Cor do Texto do Botão",
+          "default": "#000000"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Hero Banner Noir"
+      "name": "Hero Slider Noir",
+      "blocks": [
+        { "type": "banner" }
+      ]
     }
   ]
 }
