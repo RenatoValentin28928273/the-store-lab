@@ -19,7 +19,7 @@
       "type": "story-section"
     },
     "main_grid": {
-      "type": "main-categories-grid"
+      "type": "grid-categories-4"
     },
     "benefits_bottom": {
       "type": "ticker"
