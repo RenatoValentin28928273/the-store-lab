@@ -49,6 +49,9 @@
               background-color: {{ block.settings.btn_bg_color }};
               color: {{ block.settings.btn_text_color }};
           }
+          #block-{{ block.id }} .hero-slide-content {
+              padding-bottom: {{ block.settings.content_bottom_padding }}px;
+          }
         </style>
         
         {% if block.settings.headline_font != blank %}
@@ -335,6 +338,16 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "btn_text_color",
           "label": "Cor do Texto do Botão",
           "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "content_bottom_padding",
+          "min": 40,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "label": "Distância do Rodapé (Conteúdo)",
+          "default": 120
         }
       ]
     }
