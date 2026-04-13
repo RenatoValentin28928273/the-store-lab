@@ -61,6 +61,11 @@
         "type": "footer",
         "settings": {
           "brand_name": "Noir",
+          "font_logo": "inter_n4",
+          "logo_size": 48,
+          "font_content": "inter_n4",
+          "newsletter_size": 16,
+          "label_size": 13,
           "newsletter_title": "Entre para o clube.",
           "bg_color": "#000000",
           "text_color": "#ffffff",
