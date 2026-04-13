@@ -18,6 +18,9 @@
     "story": {
       "type": "story-section"
     },
+    "main_grid": {
+      "type": "main-categories-grid"
+    },
     "benefits_bottom": {
       "type": "ticker"
     }
@@ -28,6 +31,7 @@
     "featured",
     "lookbook",
     "categories",
+    "main_grid",
     "story",
     "benefits_bottom"
   ]
