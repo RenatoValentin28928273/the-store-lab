@@ -643,6 +643,11 @@
 }
 {% endif %}
 
+#shopify-section-{{ section.id }} {
+    position: sticky;
+    top: 33px; /* Valor aproximado para a barra de anúncio */
+    z-index: 1000;
+}
 .header {
     height: 64px;
     background-color: var(--color-off-white);
@@ -651,9 +656,6 @@
     justify-content: space-between;
     padding: 0 40px;
     border-bottom: 1px solid var(--border-color);
-    position: sticky;
-    top: 31px; /* Ajuste aproximado para o anúncio */
-    z-index: 1000;
 }
 
 .header-logo {
