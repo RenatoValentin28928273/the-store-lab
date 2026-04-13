@@ -194,13 +194,78 @@
       }
     },
     "main_grid": {
-      "type": "grid-categories-4"
+      "type": "grid-categories-4",
+      "settings": {
+        "bg_color": "#ffffff",
+        "gap": 20,
+        "aspect_ratio": "3/2",
+        "border_radius": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "grid_categories_4_h3wDQy": {
+      "type": "grid-categories-4",
+      "blocks": {
+        "category_jLJek9": {
+          "type": "category",
+          "settings": {
+            "title": "WOMEN'S",
+            "cta_text": "SHOP NOW",
+            "link": ""
+          }
+        },
+        "category_kkBCJH": {
+          "type": "category",
+          "settings": {
+            "title": "MEN'S",
+            "cta_text": "SHOP NOW",
+            "link": ""
+          }
+        },
+        "category_hGHAVi": {
+          "type": "category",
+          "settings": {
+            "title": "ACCESSORIES",
+            "cta_text": "SHOP NOW",
+            "link": ""
+          }
+        },
+        "category_qdBV7F": {
+          "type": "category",
+          "settings": {
+            "title": "NEW ARRIVALS",
+            "cta_text": "SHOP NOW",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_jLJek9",
+        "category_kkBCJH",
+        "category_hGHAVi",
+        "category_qdBV7F"
+      ],
+      "name": "Grid Categorias 4",
+      "settings": {
+        "bg_color": "#FFFFFF",
+        "gap": 20,
+        "aspect_ratio": "3/2",
+        "border_radius": 0,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
     }
   },
   "order": [
     "hero",
     "featured_categories_pF6jf6",
     "split_feature_carousel_jUmFMF",
-    "main_grid"
+    "main_grid",
+    "grid_categories_4_h3wDQy"
   ]
 }
