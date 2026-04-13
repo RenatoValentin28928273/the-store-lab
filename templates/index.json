@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -211,10 +220,8 @@
       "name": "Grid Categorias 4",
       "settings": {
         "bg_color": "#ffffff",
-        "full_width": true,
         "gap": 15,
         "aspect_ratio": "4/5",
-        "aspect_ratio_2_items": "4/5",
         "border_radius": 0,
         "padding_top": 40,
         "padding_bottom": 40,
