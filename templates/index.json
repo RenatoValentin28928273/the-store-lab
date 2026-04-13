@@ -224,29 +224,11 @@
             "cta_text": "SHOP NOW",
             "link": ""
           }
-        },
-        "category_hGHAVi": {
-          "type": "category",
-          "settings": {
-            "title": "ACCESSORIES",
-            "cta_text": "SHOP NOW",
-            "link": ""
-          }
-        },
-        "category_qdBV7F": {
-          "type": "category",
-          "settings": {
-            "title": "NEW ARRIVALS",
-            "cta_text": "SHOP NOW",
-            "link": ""
-          }
         }
       },
       "block_order": [
         "category_jLJek9",
-        "category_kkBCJH",
-        "category_hGHAVi",
-        "category_qdBV7F"
+        "category_kkBCJH"
       ],
       "name": "Grid Categorias 4",
       "settings": {
