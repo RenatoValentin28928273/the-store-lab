@@ -1,0 +1,134 @@
+{% comment %}
+  Seção de Reviews - Experiências Noir
+{% endcomment %}
+
+{%- style -%}
+  .reviews-noir {
+    padding: 80px 0;
+    background: #fff;
+    border-top: 1px solid #eee;
+  }
+  .reviews-noir__header {
+    margin-bottom: 50px;
+    text-align: left;
+  }
+  .reviews-noir__title {
+    font-family: serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .reviews-noir__rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #666;
+  }
+  .reviews-noir__stars {
+    color: #000;
+  }
+
+  .reviews-noir__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .reviews-noir__card {
+    border: 1px solid #eee;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .reviews-noir__card-stars {
+    color: #000;
+    font-size: 12px;
+  }
+
+  .reviews-noir__text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    font-weight: 400;
+  }
+
+  .reviews-noir__author {
+    margin-top: auto;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+  }
+
+  @media (max-width: 768px) {
+    .reviews-noir__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{%- endstyle -%}
+
+<section class="reviews-noir">
+  <div class="container">
+    <header class="reviews-noir__header">
+      <h2 class="reviews-noir__title">Experiências Noir</h2>
+      <div class="reviews-noir__rating">
+        <span>4.9</span>
+        <span class="reviews-noir__stars">★★★★★</span>
+        <span>(128 avaliações)</span>
+      </div>
+    </header>
+
+    <div class="reviews-noir__grid">
+      {%- for block in section.blocks -%}
+        <div class="reviews-noir__card">
+          <div class="reviews-noir__card-stars">★★★★★</div>
+          <p class="reviews-noir__text">"{{ block.settings.text }}"</p>
+          <span class="reviews-noir__author">{{ block.settings.author }} — COMPRADORA VERIFICADA</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews Noir",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Depoimento",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto do Depoimento",
+          "default": "O caimento é perfeito. O tecido tem um toque muito superior a tudo que já usei."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Autor",
+          "default": "FERNANDA G."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews Noir",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}
