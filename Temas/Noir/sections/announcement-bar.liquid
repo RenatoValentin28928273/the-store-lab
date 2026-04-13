@@ -1,16 +1,27 @@
-<section class="announcement-bar">
+{%- if section.settings.font_family != blank -%}
+  <style>
+    {{ section.settings.font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+<section class="announcement-bar" id="announcement-bar-{{ section.id }}">
   <div class="container container-announcement">
     <p class="announcement-text">{{ section.settings.text }}</p>
   </div>
 </section>
 
 <style>
-.announcement-bar {
-    background-color: var(--color-black, #000);
-    color: var(--color-white, #fff);
+#announcement-bar-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
     padding: 8px 0;
     text-align: center;
-    font-size: 11px;
+    font-size: {{ section.settings.font_size }}px;
+    {%- if section.settings.font_family != blank -%}
+    font-family: {{ section.settings.font_family.family }}, {{ section.settings.font_family.fallback_families }};
+    font-weight: {{ section.settings.font_family.weight }};
+    font-style: {{ section.settings.font_family.style }};
+    {%- endif -%}
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
@@ -31,6 +42,34 @@
       "id": "text",
       "label": "Texto",
       "default": "✦ Frete grátis acima de R$ 299 · Troca grátis em 30 dias ✦"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do Texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Fonte",
+      "default": 11
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte",
+      "default": "helvetica_n4"
     }
   ],
   "presets": [
