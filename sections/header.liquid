@@ -263,6 +263,8 @@
           </div>
       </div>
       <div class="menu-drawer-body">
+          <a href="/" class="menu-drawer-link">INÍCIO</a>
+          
           <p class="menu-drawer-label">Categorias</p>
           
           {%- if section.settings.menu != blank -%}
@@ -287,7 +289,9 @@
           {%- else -%}
               {% comment %} Lista automática de coleções se nenhum menu for selecionado {% endcomment %}
               {% for collection in collections limit: 8 %}
-                  <a href="{{ collection.url }}" class="menu-drawer-link">{{ collection.title | uppercase }}</a>
+                  {%- unless collection.handle == 'home-page' or collection.handle == 'frontpage' -%}
+                    <a href="{{ collection.url }}" class="menu-drawer-link">{{ collection.title | uppercase }}</a>
+                  {%- endunless -%}
               {% endfor %}
           {%- endif -%}
       </div>
@@ -686,13 +690,115 @@
     transform: translateX(-50%);
 }
 
-.header-nav {
+/* --- Megamenu & Desktop Nav --- */
+@media (max-width: 989px) {
+    .hide-mobile { display: none !important; }
+}
+@media (min-width: 990px) {
+    .hide-desktop { display: none !important; }
+}
+
+.header-menu {
     display: flex;
     gap: 32px;
-    font-size: 11px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+.header-menu-link {
+    font-size: 12px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: var(--text-muted, #666);
+    text-decoration: none;
+    padding: 22px 0;
+    display: block;
+}
+.header-menu-link:hover { color: var(--color-black, #000); }
+.has-megamenu { position: static; }
+.has-megamenu:hover .megamenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.megamenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    border-top: 1px solid var(--border-color, #eee);
+    pointer-events: none;
+}
+.megamenu-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+.megamenu-links {
+    display: flex;
+    gap: 60px;
+}
+.megamenu-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+.megamenu-sublinks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.megamenu-sublinks a {
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.megamenu-sublinks a:hover { color: #000; }
+.megamenu-images {
+    display: flex;
+    gap: 20px;
+}
+.megamenu-image-card {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    width: 250px;
+}
+.megamenu-image-card img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+.megamenu-image-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
 }
 
 .header-actions {
