@@ -34,6 +34,9 @@
 
 <style>
 #announcement-bar-{{ section.id }} {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
     padding: 8px 0;
