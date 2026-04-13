@@ -27,7 +27,7 @@
             "collection": "sueter-feminino",
             "title": "Sueter",
             "subtext": "explore",
-            "bg_color": "#f4f4f4"
+            "bg_color": "#ffffff"
           }
         }
       },
@@ -36,6 +36,7 @@
         "collection_row_4VKHya"
       ],
       "settings": {
+        "section_bg_color": "#ffffff",
         "heading_tag": "h1",
         "title": "Nossos Departamentos",
         "title_font": "inter_n4",
