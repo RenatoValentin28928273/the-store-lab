@@ -63,6 +63,9 @@
     margin-bottom: 30px;
   }
   .collection-row__title {
+    font-family: serif;
+    font-size: {{ section.settings.block_title_size }}px;
+    color: {{ section.settings.block_title_color }};
     text-transform: uppercase;
     margin: 0;
   }
@@ -156,10 +159,8 @@
           <div class="collection-row" id="collection-{{ block.id }}" {{ block.shopify_attributes }}>
             
             <div class="collection-row__header" style="background-color: {{ block.settings.bg_color | default: '#f4f4f4' }};">
-              <{{ block.settings.heading_tag | default: 'h2' }} class="collection-row__title" style="font-size: {{ block.settings.title_size }}px; color: {{ block.settings.title_color }};">
-                {{ block.settings.title | default: collection.title }}
-              </{{ block.settings.heading_tag | default: 'h2' }}>
-              <span class="collection-row__subtext" style="color: {{ block.settings.title_color }};">subtext: {{ block.settings.subtext | default: 'explore a categoria' }}</span>
+              <h2 class="collection-row__title">{{ block.settings.title | default: collection.title }}</h2>
+              <span class="collection-row__subtext">subtext: {{ block.settings.subtext | default: 'explore a categoria' }}</span>
             </div>
 
             <div class="row-carousel-container">
@@ -281,6 +282,12 @@
     },
     {
       "type": "color",
+      "id": "block_title_color",
+      "label": "Cor do Título das categorias",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
       "content": "Barra de Filtros"
     },
     {
@@ -312,10 +319,6 @@
       "name": "Sub-coleção",
       "settings": [
         {
-          "type": "header",
-          "content": "Conteúdo"
-        },
-        {
           "type": "collection",
           "id": "collection",
           "label": "Coleção"
@@ -323,7 +326,7 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Título Customizado",
+          "label": "Título Customizado (H2)",
           "info": "Deixe em branco para usar o nome original da coleção."
         },
         {
@@ -333,41 +336,9 @@
           "default": "explore"
         },
         {
-          "type": "header",
-          "content": "Estilo do Bloco"
-        },
-        {
-          "type": "select",
-          "id": "heading_tag",
-          "label": "Heading Tag (SEO)",
-          "options": [
-            { "value": "h2", "label": "H2" },
-            { "value": "h3", "label": "H3" },
-            { "value": "h4", "label": "H4" },
-            { "value": "p", "label": "p" }
-          ],
-          "default": "h2"
-        },
-        {
-          "type": "range",
-          "id": "title_size",
-          "min": 14,
-          "max": 60,
-          "step": 1,
-          "unit": "px",
-          "label": "Tamanho do Título",
-          "default": 32
-        },
-        {
-          "type": "color",
-          "id": "title_color",
-          "label": "Cor do Título e Subtexto",
-          "default": "#000000"
-        },
-        {
           "type": "color",
           "id": "bg_color",
-          "label": "Cor de Fundo do Banner",
+          "label": "Cor de Fundo do Título",
           "default": "#f4f4f4"
         }
       ]
