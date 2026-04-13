@@ -1,4 +1,8 @@
 {%- style -%}
+  {%- if section.settings.title_font != blank -%}
+    {{ section.settings.title_font | font_face: font_display: 'swap' }}
+  {%- endif -%}
+
   .list-collections-noir {
     padding: 60px 0;
   }
@@ -7,16 +11,17 @@
     margin-bottom: 60px;
   }
   .list-collections-noir__title {
-    font-family: serif;
-    font-size: 3.5rem;
+    font-family: {% if section.settings.title_font != blank %}{{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }}{% else %}serif{% endif %};
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.title_color }};
     line-height: 1.1;
     text-transform: uppercase;
     margin-bottom: 20px;
   }
   .list-collections-noir__description {
-    font-size: 1.1rem;
+    font-size: {{ section.settings.desc_size }}px;
+    color: {{ section.settings.desc_color }};
     line-height: 1.6;
-    color: #666;
   }
   
   /* Filtros Horizontais */
@@ -25,25 +30,26 @@
     gap: 10px;
     margin-bottom: 60px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     border-bottom: 1px solid #eee;
   }
   .list-collections-noir__filter-item {
     flex: 1;
     min-width: 150px;
     padding: 15px;
-    border: 1px solid #000;
+    border: 1px solid {{ section.settings.filter_text_color | default: '#000' }};
+    background-color: {{ section.settings.filter_bg_color | default: 'transparent' }};
     text-align: center;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: {{ section.settings.filter_font_size | default: 11 }}px;
     letter-spacing: 0.1em;
     text-decoration: none;
-    color: #000;
+    color: {{ section.settings.filter_text_color | default: '#000' }};
     transition: all 0.3s;
   }
   .list-collections-noir__filter-item:hover {
-    background: #000;
-    color: #fff;
+    background: {{ section.settings.filter_text_color | default: '#000' }};
+    color: {{ section.settings.filter_bg_color | default: '#fff' }};
   }
 
   /* Subcategoria Row */
@@ -57,7 +63,8 @@
   }
   .collection-row__title {
     font-family: serif;
-    font-size: 1.8rem;
+    font-size: {{ section.settings.block_title_size }}px;
+    color: {{ section.settings.block_title_color }};
     text-transform: uppercase;
     margin: 0;
   }
@@ -181,6 +188,10 @@
   "name": "Departamento Noir",
   "settings": [
     {
+      "type": "header",
+      "content": "SEO e Títulos"
+    },
+    {
       "type": "select",
       "id": "heading_tag",
       "label": "Tag de Título (SEO)",
@@ -197,10 +208,98 @@
       "default": "Roupas (Departamento)"
     },
     {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Fonte do Título",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do Título",
+      "default": 56
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do Título",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Descrição"
+    },
+    {
       "type": "richtext",
       "id": "description",
       "label": "Descrição SEO",
       "default": "<p>Introdução com até 1000 caracteres trabalhando a palavra-chave principal no início e com um CTA.</p>"
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Descrição",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Cor da Descrição",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Blocos de Categoria (H2)"
+    },
+    {
+      "type": "range",
+      "id": "block_title_size",
+      "min": 16,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do Título das categorias",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "block_title_color",
+      "label": "Cor do Título das categorias",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Barra de Filtros"
+    },
+    {
+      "type": "color",
+      "id": "filter_bg_color",
+      "label": "Cor de Fundo dos Filtros",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "filter_text_color",
+      "label": "Cor do Texto/Borda dos Filtros",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "filter_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Fonte dos Filtros",
+      "default": 11
     }
   ],
   "blocks": [
