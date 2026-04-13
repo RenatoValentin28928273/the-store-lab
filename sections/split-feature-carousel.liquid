@@ -151,6 +151,7 @@
 
 .main-product-carousel {
     padding: 20px 0;
+    width: 100%; /* Garante que o carrossel ocupe todo o espaço lateral */
 }
 
 .product-card-split {
@@ -301,17 +302,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Inicializa Carrossel Principal (Cards de Produto)
-    new Swiper('.js-main-product-carousel', {
-        slidesPerView: 1.1,
-        spaceBetween: 20,
-        navigation: {
-            nextEl: '.main-nav-btn.next',
-            prevEl: '.main-nav-btn.prev',
-        },
-        breakpoints: {
-            640: { slidesPerView: 1.6 }
-        }
-    });
+    const productCarousel = document.querySelector('.js-main-product-carousel');
+    if (productCarousel) {
+        const slideCount = productCarousel.querySelectorAll('.product-card-split').length;
+        new Swiper(productCarousel, {
+            slidesPerView: slideCount === 1 ? 1 : 1.1,
+            spaceBetween: 20,
+            watchOverflow: true,
+            navigation: {
+                nextEl: '.main-nav-btn.next',
+                prevEl: '.main-nav-btn.prev',
+            },
+            breakpoints: {
+                640: { 
+                    slidesPerView: slideCount === 1 ? 1 : 1.6 
+                }
+            }
+        });
+    }
 });
 </script>
 
