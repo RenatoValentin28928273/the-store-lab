@@ -37,7 +37,7 @@
           "show_ticker": false,
           "ticker_bg_color": "#000000",
           "ticker_text_color": "#ffffff",
-          "ticker_font_family": "sans_serif_n4",
+          "ticker_font_family": "inter_n4",
           "ticker_font_size": 11,
           "btn_radius": 5,
           "btn_bg_color": "#ffffff",
