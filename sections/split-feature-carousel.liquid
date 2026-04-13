@@ -25,7 +25,7 @@
             {% for block in section.blocks %}
               {% assign product = block.settings.product %}
               <div class="swiper-slide product-card-split" {{ block.shopify_attributes }}>
-                <div class="product-card-inner">
+                <a href="{{ product.url }}" class="product-card-inner" style="text-decoration: none; color: inherit; display: block;">
                   <!-- Carrossel de Fotos do Produto -->
                   <div class="swiper-container js-inner-photo-carousel">
                     <div class="swiper-wrapper">
@@ -42,9 +42,9 @@
                       {% endif %}
                     </div>
                     <div class="swiper-pagination"></div>
-                    <button class="quick-add-btn-split">
+                    <div class="quick-add-btn-split">
                       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-                    </button>
+                    </div>
                   </div>
 
                   <!-- Info do Produto -->
@@ -59,7 +59,7 @@
                       {% if product != blank %}{{ product.price | money }}{% else %}R$ 0,00{% endif %}
                     </span>
                   </div>
-                </div>
+                </a>
               </div>
             {% endfor %}
           </div>
