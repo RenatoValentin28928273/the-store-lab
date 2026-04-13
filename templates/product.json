@@ -1,16 +1,35 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
-      "type": "main-product",
+      "type": "main-product-noir",
+      "blocks": {
+        "desc": {
+          "type": "accordion",
+          "settings": {
+            "title": "DESCRIÇÃO",
+            "content": "<p>Jaqueta bomber estruturada com acabamento em couro noir premium. Design minimalista com foco em recortes precisos.</p>"
+          }
+        },
+        "details": {
+          "type": "accordion",
+          "settings": {
+            "title": "DETALHES & CAIMENTO",
+            "content": "<p>Caimento oversize. A modelo veste P.</p>"
+          }
+        },
+        "shipping": {
+          "type": "accordion",
+          "settings": {
+            "title": "ENVIO & DEVOLUÇÕES",
+            "content": "<p>Frete grátis para todo Brasil em compras acima de R$ 500.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "desc",
+        "details",
+        "shipping"
+      ],
       "settings": {
         "status_text": "Edição Limitada. Apenas 10 unidades restantes"
       }

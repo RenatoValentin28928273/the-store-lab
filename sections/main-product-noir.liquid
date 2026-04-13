@@ -1,0 +1,431 @@
+{% comment %}
+  Main Product Section - Noir Premium Style (100% Figma Match)
+{% endcomment %}
+
+{%- style -%}
+  .product-noir {
+    padding-top: 40px;
+    padding-bottom: 80px;
+    background-color: #fff;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .product-noir__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .product-noir__grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* Galeria Empilhada - Estilo Figma */
+  .product-noir__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .product-noir__media-item {
+    position: relative;
+    background: #f9f9f9;
+  }
+
+  .product-noir__media-item--full {
+    grid-column: span 2;
+  }
+
+  .product-noir__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Coluna de Informações */
+  .product-noir__info {
+    position: sticky;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .product-noir__breadcrumb {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  .product-noir__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .product-noir__title {
+    font-family: serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 0;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  .product-noir__share-icon svg {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .product-noir__status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #2e7d32;
+    font-weight: 500;
+  }
+
+  .product-noir__status-dot {
+    width: 6px;
+    height: 6px;
+    background: #2e7d32;
+    border-radius: 50%;
+  }
+
+  .product-noir__price-wrapper {
+    margin-top: -10px;
+  }
+
+  .product-noir__price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .product-noir__installments {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* Seletores */
+  .product-noir__selector-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .product-noir__swatches {
+    display: flex;
+    gap: 12px;
+  }
+
+  .product-noir__swatch-item {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    padding: 2px;
+    background-clip: content-box;
+    transition: all 0.2s ease;
+  }
+
+  .product-noir__swatch-item.active {
+    border-color: #000;
+  }
+
+  .product-noir__pill-list {
+    display: flex;
+    gap: 10px;
+  }
+
+  .product-noir__pill {
+    min-width: 44px;
+    height: 44px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .product-noir__pill.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  /* Botão de Compra */
+  .product-noir__actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .product-noir__atc-btn {
+    flex: 1;
+    background: #000;
+    color: #fff;
+    border: none;
+    height: 56px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .product-noir__wishlist-btn {
+    width: 56px;
+    height: 56px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  .product-noir__wishlist-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Accordions */
+  .product-noir__accordions {
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+  }
+
+  .product-noir__accordion-item {
+    border-bottom: 1px solid #eee;
+  }
+
+  .product-noir__accordion-header {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    color: #000;
+  }
+
+  .product-noir__accordion-content {
+    padding: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #444;
+    display: none;
+  }
+
+  /* Responsivo */
+  @media (max-width: 989px) {
+    .product-noir__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .product-noir__gallery {
+      grid-template-columns: 1fr;
+    }
+    .product-noir__media-item--full {
+      grid-column: span 1;
+    }
+    .product-noir__container {
+      padding: 0 20px;
+    }
+    .product-noir__title {
+      font-size: 28px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="product-noir">
+  <div class="product-noir__container">
+    <div class="product-noir__grid">
+      
+      <!-- Galeria Grid/Empilhada -->
+      <div class="product-noir__gallery">
+        {%- for media in product.media -%}
+          <div class="product-noir__media-item {% if forloop.first %}product-noir__media-item--full{% endif %}">
+            <img src="{{ media | image_url: width: 1400 }}" 
+                 alt="{{ media.alt | escape }}" 
+                 class="product-noir__image"
+                 loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Informações do Produto -->
+      <div class="product-noir__info">
+        
+        <nav class="product-noir__breadcrumb">
+          Início / {{ collection.title | default: 'Coleções' }} / {{ product.title }}
+        </nav>
+
+        <div class="product-noir__main-header">
+          <div class="product-noir__title-wrapper">
+            <h1 class="product-noir__title">{{ product.title }}</h1>
+            <div class="product-noir__share-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7.229 7.424L12 3l4.771 4.424M12 3v12.242" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.167 12.144V19a2 2 0 01-2 2H6.833a2 2 0 01-2-2v-6.856" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          
+          {%- if section.settings.status_text != blank -%}
+            <div class="product-noir__status-badge">
+              <span class="product-noir__status-dot"></span>
+              {{ section.settings.status_text }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="product-noir__price-wrapper">
+          <div class="product-noir__price">{{ product.price | money }}</div>
+          <div class="product-noir__installments">ou 10x de {{ product.price | divided_by: 10 | money }} sem juros</div>
+        </div>
+
+        <!-- Seletor de Variantes (Simulado para Design, funcional na Shopify) -->
+        <div class="product-noir__selectors">
+          {%- for option in product.options_with_values -%}
+            <div class="product-noir__selector-group" style="margin-bottom: 25px;">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="product-noir__selector-label">{{ option.name }}: {{ option.selected_value }}</label>
+                {%- if option.name == 'Tamanho' or option.name == 'Size' -%}
+                   <a href="#" class="product-noir__selector-label" style="text-decoration: underline; color: #999;">Guia de Medidas</a>
+                {%- endif -%}
+              </div>
+              
+              <div class="{% if option.name == 'Cor' or option.name == 'Color' %}product-noir__swatches{% else %}product-noir__pill-list{% endif %}">
+                {%- for value in option.values -%}
+                  {%- if option.name == 'Cor' or option.name == 'Color' -%}
+                    <span class="product-noir__swatch-item {% if value == option.selected_value %}active{% endif %}" 
+                          style="background-color: {{ value | handle }};"></span>
+                  {%- else -%}
+                    <span class="product-noir__pill {% if value == option.selected_value %}active{% endif %}">{{ value }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Ações -->
+        <div class="product-noir__actions">
+          <button class="product-noir__atc-btn">
+            <svg width="20" viewBox="0 0 20 20" fill="none"><path d="M15.8333 5.83333H4.16667C3.70643 5.83333 3.33333 6.20643 3.33333 6.66667V16.6667C3.33333 17.1269 3.70643 17.5 4.16667 17.5H15.8333C16.2936 17.5 16.6667 17.1269 16.6667 16.6667V6.66667C16.6667 6.20643 16.2936 5.83333 15.8333 5.83333Z" stroke="white" stroke-width="1.5"/><path d="M6.66666 8.33333V5C6.66666 4.11594 7.01785 3.2681 7.64297 2.64298C8.26809 2.01786 9.11593 1.66667 9.99999 1.66667C10.8841 1.66667 11.7319 2.01786 12.357 2.64298C12.9821 3.2681 13.3333 4.11594 13.3333 5V8.33333" stroke="white" stroke-width="1.5"/></svg>
+            ADICIONAR À SACOLA
+          </button>
+          <div class="product-noir__wishlist-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+        </div>
+
+        <!-- Accordions dinâmicos por blocos -->
+        <div class="product-noir__accordions">
+          {%- for block in section.blocks -%}
+            <div class="product-noir__accordion-item" {{ block.shopify_attributes }}>
+              <button class="product-noir__accordion-header">
+                {{ block.settings.title }}
+                <span class="icon">+</span>
+              </button>
+              <div class="product-noir__accordion-content">
+                {{ block.settings.content }}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.product-noir__accordion-header').forEach(button => {
+    button.addEventListener('click', () => {
+      const content = button.nextElementSibling;
+      const isOpen = content.style.display === 'block';
+      
+      // Fecha outros que possam estar abertos (opcional, estilo noir costuma ser um por vez)
+      document.querySelectorAll('.product-noir__accordion-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.product-noir__accordion-header .icon').forEach(i => i.textContent = '+');
+
+      if (!isOpen) {
+        content.style.display = 'block';
+        button.querySelector('.icon').textContent = '-';
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Produto Noir Premium",
+  "settings": [
+    {
+      "type": "text",
+      "id": "status_text",
+      "label": "Texto de Status (ex: Edição Limitada)",
+      "default": "Edição Limitada. Apenas 10 unidades restantes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Acordeão",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Descrição"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Conteúdo",
+          "default": "<p>Conteúdo do detalhe do produto aqui.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produto Noir Premium",
+      "blocks": [
+        { "type": "accordion", "settings": { "title": "Descrição" } },
+        { "type": "accordion", "settings": { "title": "Detalhes & Caimento" } },
+        { "type": "accordion", "settings": { "title": "Envio & Devoluções" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
