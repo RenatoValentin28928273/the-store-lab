@@ -100,6 +100,7 @@
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px; /* Cantos arredondados premium */
 }
 
 .category-card:hover {
@@ -108,7 +109,7 @@
 
 .category-image-wrap {
     position: relative;
-    aspect-ratio: 4/5;
+    aspect-ratio: 2.5/4; /* Proporção mais vertical/elegante */
     background-color: #f0f0f0;
 }
 
@@ -118,8 +119,8 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+    height: 60%; /* Gradiente mais alto para melhor leitura */
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
     z-index: 1;
     pointer-events: none;
 }
@@ -133,9 +134,9 @@
 
 .category-content {
     position: absolute;
-    bottom: 40px;
-    left: 40px;
-    right: 40px;
+    bottom: 25px; /* Conteúdo mais abaixo conforme referência */
+    left: 25px;
+    right: 25px;
     z-index: 2;
 }
 
