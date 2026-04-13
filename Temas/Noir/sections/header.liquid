@@ -144,6 +144,30 @@
       "id": "bag_label",
       "label": "Texto: Carrinho",
       "default": "Bag"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Mostrar Busca",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Mostrar Conta",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Mostrar Favoritos",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bag",
+      "label": "Mostrar Carrinho",
+      "default": true
     }
   ],
   "blocks": [
@@ -231,22 +255,33 @@
 
   <!-- Lado Direito: Ações em Bloco -->
   <div class="header-actions">
-    <a href="/search" class="header-btn">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> 
-      {{ section.settings.search_label }}
-    </a>
-    <a href="/account" class="header-btn">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg> 
-      {{ section.settings.account_label }}
-    </a>
-    <a href="#wishlist" class="header-btn">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg> 
-      {{ section.settings.wishlist_label }}
-    </a>
-    <a href="/cart" class="header-btn bag-btn">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg> 
-      {{ section.settings.bag_label }} ({{ cart.item_count }})
-    </a>
+    {% if section.settings.show_search %}
+      <a href="/search" class="header-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> 
+        {{ section.settings.search_label }}
+      </a>
+    {% endif %}
+
+    {% if section.settings.show_account %}
+      <a href="/account" class="header-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg> 
+        {{ section.settings.account_label }}
+      </a>
+    {% endif %}
+
+    {% if section.settings.show_wishlist %}
+      <a href="#wishlist" class="header-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg> 
+        {{ section.settings.wishlist_label }}
+      </a>
+    {% endif %}
+
+    {% if section.settings.show_bag %}
+      <a href="/cart" class="header-btn bag-btn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg> 
+        {{ section.settings.bag_label }} ({{ cart.item_count }})
+      </a>
+    {% endif %}
   </div>
 </header>
 
