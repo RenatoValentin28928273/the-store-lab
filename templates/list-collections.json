@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections-noir",
+      "settings": {
+        "heading_tag": "h1",
+        "title": "Nossos Departamentos",
+        "description": "<p>Explore nossas coleções exclusivas curadas para você.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
