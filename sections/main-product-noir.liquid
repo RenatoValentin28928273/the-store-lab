@@ -287,7 +287,11 @@
       <div class="product-noir__info">
         
         <nav class="product-noir__breadcrumb">
-          Início / {{ collection.title | default: 'Coleções' }} / {{ product.title }}
+          <a href="/" style="color: inherit; text-decoration: none;">Início</a> / 
+          <a href="{{ collection.url | default: '/collections/all' }}" style="color: inherit; text-decoration: none;">
+            {{ collection.title | default: 'Coleções' }}
+          </a> / 
+          {{ product.title }}
         </nav>
 
         <div class="product-noir__main-header">
