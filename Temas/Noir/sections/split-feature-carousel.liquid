@@ -164,7 +164,7 @@
 .js-inner-photo-carousel {
     position: relative;
     background: #fff;
-    aspect-ratio: 1/1;
+    aspect-ratio: 3/4.5; /* Mudando para formato editorial/retrato */
     overflow: hidden;
     margin-bottom: 15px;
     border-radius: {{ section.settings.card_radius }}px; /* Aplicando radius customizável */
@@ -302,14 +302,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inicializa Carrossel Principal (Cards de Produto)
     new Swiper('.js-main-product-carousel', {
-        slidesPerView: 1.2,
+        slidesPerView: 1.1,
         spaceBetween: 20,
         navigation: {
             nextEl: '.main-nav-btn.next',
             prevEl: '.main-nav-btn.prev',
         },
         breakpoints: {
-            640: { slidesPerView: 2.2 }
+            640: { slidesPerView: 1.6 }
         }
     });
 });
