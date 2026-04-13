@@ -311,30 +311,32 @@
           <div class="product-noir__installments">ou 10x de {{ product.price | divided_by: 10 | money }} sem juros</div>
         </div>
 
-        <!-- Seletor de Variantes (Simulado para Design, funcional na Shopify) -->
-        <div class="product-noir__selectors">
-          {%- for option in product.options_with_values -%}
-            <div class="product-noir__selector-group" style="margin-bottom: 25px;">
-              <div style="display: flex; justify-content: space-between;">
-                <label class="product-noir__selector-label">{{ option.name }}: {{ option.selected_value }}</label>
-                {%- if option.name == 'Tamanho' or option.name == 'Size' -%}
-                   <a href="#" class="product-noir__selector-label" style="text-decoration: underline; color: #999;">Guia de Medidas</a>
-                {%- endif -%}
-              </div>
-              
-              <div class="{% if option.name == 'Cor' or option.name == 'Color' %}product-noir__swatches{% else %}product-noir__pill-list{% endif %}">
-                {%- for value in option.values -%}
-                  {%- if option.name == 'Cor' or option.name == 'Color' -%}
-                    <span class="product-noir__swatch-item {% if value == option.selected_value %}active{% endif %}" 
-                          style="background-color: {{ value | handle }};"></span>
-                  {%- else -%}
-                    <span class="product-noir__pill {% if value == option.selected_value %}active{% endif %}">{{ value }}</span>
+        <!-- Seletor de Variantes (Oculto se for apenas Título Padrão) -->
+        {%- unless product.has_only_default_variant -%}
+          <div class="product-noir__selectors">
+            {%- for option in product.options_with_values -%}
+              <div class="product-noir__selector-group" style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <label class="product-noir__selector-label">{{ option.name }}: {{ option.selected_value }}</label>
+                  {%- if option.name == 'Tamanho' or option.name == 'Size' -%}
+                     <a href="#" class="product-noir__selector-label" style="text-decoration: underline; color: #999;">Guia de Medidas</a>
                   {%- endif -%}
-                {%- endfor -%}
+                </div>
+                
+                <div class="{% if option.name == 'Cor' or option.name == 'Color' %}product-noir__swatches{% else %}product-noir__pill-list{% endif %}">
+                  {%- for value in option.values -%}
+                    {%- if option.name == 'Cor' or option.name == 'Color' -%}
+                      <span class="product-noir__swatch-item {% if value == option.selected_value %}active{% endif %}" 
+                            style="background-color: {{ value | handle }};"></span>
+                    {%- else -%}
+                      <span class="product-noir__pill {% if value == option.selected_value %}active{% endif %}">{{ value }}</span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
               </div>
-            </div>
-          {%- endfor -%}
-        </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
 
         <!-- Ações -->
         <div class="product-noir__actions">
