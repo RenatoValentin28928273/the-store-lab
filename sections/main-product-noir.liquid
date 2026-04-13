@@ -298,7 +298,15 @@
             </div>
           </div>
           
-          {%- if section.settings.status_text != blank -%}
+          {%- assign current_variant = product.selected_or_first_available_variant -%}
+          {%- assign inventory_threshold = section.settings.inventory_threshold -%}
+          
+          {%- if current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= inventory_threshold -%}
+            <div class="product-noir__status-badge">
+              <span class="product-noir__status-dot"></span>
+              Edição Limitada. Apenas {{ current_variant.inventory_quantity }} unidades restantes
+            </div>
+          {%- elsif section.settings.status_text != blank -%}
             <div class="product-noir__status-badge">
               <span class="product-noir__status-dot"></span>
               {{ section.settings.status_text }}
@@ -395,8 +403,18 @@
     {
       "type": "text",
       "id": "status_text",
-      "label": "Texto de Status (ex: Edição Limitada)",
+      "label": "Texto de Status Manual (ex: Edição Limitada)",
       "default": "Edição Limitada. Apenas 10 unidades restantes"
+    },
+    {
+      "type": "range",
+      "id": "inventory_threshold",
+      "label": "Gatilho de Estoque Baixo",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10,
+      "info": "A mensagem automática aparecerá quando o estoque for menor ou igual a este valor."
     }
   ],
   "blocks": [
