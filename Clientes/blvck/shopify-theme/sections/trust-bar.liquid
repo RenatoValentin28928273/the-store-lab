@@ -4,31 +4,39 @@
     border-top: 1px solid {{ section.settings.border_color }};
     border-bottom: 1px solid {{ section.settings.border_color }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
-  }
-
-  .trust-bar__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-
-  .trust-bar__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
     align-items: center;
   }
+
+  .trust-bar__marquee {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  /* Pausa ao passar o mouse para melhor UX */
+  {%- if section.settings.pause_on_hover -%}
+    #shopify-section-{{ section.id }} .trust-bar:hover .trust-bar__marquee {
+      animation-play-state: paused;
+    }
+  {%- endif -%}
 
   .trust-bar__item {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 12px;
+    padding: 0 50px; /* Espaçamento entre os benefícios */
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .trust-bar__icon svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     color: {{ section.settings.icon_color }};
   }
 
@@ -39,61 +47,68 @@
 
   .trust-bar__title {
     margin: 0;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
     color: {{ section.settings.text_color }};
-    line-height: 1.2;
+    line-height: 1;
   }
 
   .trust-bar__subtitle {
-    margin: 3px 0 0;
-    font-size: 11px;
+    margin: 4px 0 0;
+    font-size: 10px;
     color: {{ section.settings.text_color }};
-    opacity: 0.7;
-    line-height: 1.2;
+    opacity: 0.5;
+    line-height: 1;
+    text-transform: lowercase;
   }
 
-  /* Ajustes para Desktop */
-  @media screen and (min-width: 768px) {
-    .trust-bar__grid {
-      grid-template-columns: repeat({{ section.blocks.size | at_most: 4 }}, 1fr);
-      gap: 20px;
-    }
-    
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Loop perfeito na metade */
+  }
+
+  /* Responsivo */
+  @media screen and (max-width: 767px) {
     .trust-bar__item {
-      justify-content: center;
+      padding: 0 30px;
     }
-    
-    .trust-bar__title {
-      font-size: 12px;
+    #shopify-section-{{ section.id }} .trust-bar {
+      padding: 12px 0;
     }
   }
 {%- endstyle -%}
 
-<div class="trust-bar">
-  <div class="trust-bar__container">
-    <div class="trust-bar__grid">
+<div class="trust-bar" aria-label="Benefícios da Loja">
+  <div class="trust-bar__marquee">
+    {%- comment -%} Renderizamos os blocos duas vezes para o efeito de loop infinito suave {%- endcomment -%}
+    {%- for i in (1..2) -%}
       {%- for block in section.blocks -%}
         <div class="trust-bar__item" {{ block.shopify_attributes }}>
-          <div class="trust-bar__icon">
-            {{ block.settings.icon_svg }}
-          </div>
+          {% if block.settings.icon_svg != blank %}
+            <div class="trust-bar__icon">
+              {{ block.settings.icon_svg }}
+            </div>
+          {% endif %}
           <div class="trust-bar__text">
             <p class="trust-bar__title">{{ block.settings.title }}</p>
             <p class="trust-bar__subtitle">{{ block.settings.subtitle }}</p>
           </div>
         </div>
       {%- endfor -%}
-    </div>
+    {%- endfor -%}
   </div>
 </div>
 
 {% schema %}
 {
-  "name": "Barra de Confiança",
+  "name": "Barra de Confiança Noir",
   "settings": [
+    {
+      "type": "header",
+      "content": "Estilo Noir"
+    },
     {
       "type": "color",
       "id": "bg_color",
@@ -104,104 +119,94 @@
       "type": "color",
       "id": "text_color",
       "label": "Cor do Texto",
-      "default": "#121212"
+      "default": "#000000"
     },
     {
       "type": "color",
       "id": "icon_color",
       "label": "Cor do Ícone",
-      "default": "#121212"
+      "default": "#000000"
     },
     {
       "type": "color",
       "id": "border_color",
       "label": "Cor da Borda",
-      "default": "#eaeaea"
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "s",
+      "label": "Velocidade do Movimento",
+      "default": 35
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pausar ao passar o mouse",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 60,
-      "step": 4,
+      "max": 40,
+      "step": 2,
       "unit": "px",
-      "label": "Padding Superior",
-      "default": 12
+      "label": "Espaço Superior",
+      "default": 18
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 60,
-      "step": 4,
+      "max": 40,
+      "step": 2,
       "unit": "px",
-      "label": "Padding Inferior",
-      "default": 12
+      "label": "Espaço Inferior",
+      "default": 18
     }
   ],
   "blocks": [
     {
       "type": "benefit",
-      "name": "Benefício",
-      "limit": 4,
+      "name": "Benefício Noir",
       "settings": [
         {
           "type": "html",
           "id": "icon_svg",
-          "label": "Ícone (SVG)",
-          "info": "Cole o código SVG do ícone aqui"
+          "label": "Ícone SVG"
         },
         {
           "type": "text",
           "id": "title",
           "label": "Título",
-          "default": "Título do Benefício"
+          "default": "Frete Grátis"
         },
         {
           "type": "text",
           "id": "subtitle",
           "label": "Subtítulo",
-          "default": "Descrição curta"
+          "default": "em todas as compras"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Barra de Confiança",
+      "name": "Barra de Confiança Noir",
       "blocks": [
-        {
-          "type": "benefit",
-          "settings": {
-            "title": "Frete Grátis",
-            "subtitle": "Para todo o Brasil",
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12\" /></svg>"
-          }
-        },
-        {
-          "type": "benefit",
-          "settings": {
-            "title": "Troca Fácil",
-            "subtitle": "1ª Troca por nossa conta",
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99\" /></svg>"
-          }
-        },
-        {
-          "type": "benefit",
-          "settings": {
-            "title": "Até 6x Sem Juros",
-            "subtitle": "No cartão de crédito",
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z\" /></svg>"
-          }
-        },
-        {
-          "type": "benefit",
-          "settings": {
-            "title": "Compra Segura",
-            "subtitle": "Dados protegidos",
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z\" /></svg>"
-          }
-        }
+        { "type": "benefit", "settings": { "title": "Envio Premium", "subtitle": "Curadoria exclusiva" } },
+        { "type": "benefit", "settings": { "title": "Troca Noir", "subtitle": "Simples e ágil" } },
+        { "type": "benefit", "settings": { "title": "Pagamento Seguro", "subtitle": "Até 12x sem juros" } },
+        { "type": "benefit", "settings": { "title": "Atendimento VIP", "subtitle": "Suporte especializado" } }
       ]
     }
   ]
