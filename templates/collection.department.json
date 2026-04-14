@@ -15,7 +15,7 @@
         "section_bg_color": "#ffffff",
         "heading_tag": "h1",
         "title": "Departamento",
-        "title_font": "sans_serif_n4",
+        "title_font": "inter_n4",
         "title_size": 56,
         "title_color": "#000000",
         "description": "<p>Explore nossas subcategorias.</p>",
@@ -31,10 +31,13 @@
       "name": "Coleção em Destaque Noir",
       "settings": {
         "heading_tag": "h2",
-        "title": "Vestidos",
-        "collection": "",
+        "title": "Sueter",
+        "title_font": "inter_n4",
+        "title_size": 32,
+        "title_color": "#000000",
+        "collection": "sueter-feminino",
         "card_heading_tag": "h3",
-        "limit": 4,
+        "limit": 6,
         "button_text": "Ver todos",
         "button_link": ""
       }
