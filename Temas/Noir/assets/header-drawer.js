@@ -10,10 +10,22 @@ class HeaderDrawer extends Component {
   static requiredRefs = ['details', 'menuDrawer'];
 
   #backdrop = null;
+  #onKeyUpHandler = null;
+  #onDetailsToggleHandler = null;
+  #onMenuItemClickHandler = null;
+  #onMenuItemHoverHandler = null;
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('keyup', this.#onKeyUp.bind(this));
+    this.#onKeyUpHandler = this.#onKeyUp.bind(this);
+    this.#onDetailsToggleHandler = this.#onDetailsToggle.bind(this);
+    this.#onMenuItemClickHandler = this.#onMenuItemClick.bind(this);
+    this.#onMenuItemHoverHandler = this.#onMenuItemHover.bind(this);
+    this.addEventListener('keyup', this.#onKeyUpHandler);
+    this.addEventListener('toggle', this.#onDetailsToggleHandler, true);
+    this.addEventListener('click', this.#onMenuItemClickHandler, true);
+    this.addEventListener('mouseover', this.#onMenuItemHoverHandler, true);
+    this.addEventListener('focusin', this.#onMenuItemHoverHandler, true);
     this.#setupAnimatedElementListeners();
     this.#initJimBackdrop();
     this.#backdrop?.addEventListener('click', () => this.close());
@@ -21,7 +33,13 @@ class HeaderDrawer extends Component {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('keyup', this.#onKeyUp);
+    if (this.#onKeyUpHandler) this.removeEventListener('keyup', this.#onKeyUpHandler);
+    if (this.#onDetailsToggleHandler) this.removeEventListener('toggle', this.#onDetailsToggleHandler, true);
+    if (this.#onMenuItemClickHandler) this.removeEventListener('click', this.#onMenuItemClickHandler, true);
+    if (this.#onMenuItemHoverHandler) {
+      this.removeEventListener('mouseover', this.#onMenuItemHoverHandler, true);
+      this.removeEventListener('focusin', this.#onMenuItemHoverHandler, true);
+    }
     this.#cleanupBackdrop();
   }
 
@@ -60,6 +78,7 @@ class HeaderDrawer extends Component {
     const details = this.#getDetailsElement(event);
     const summary = details.querySelector('summary');
     if (!summary) return;
+    if (this.#isDesktopMenuLayout() && details === this.refs.details) return;
 
     summary.setAttribute('aria-expanded', 'true');
     this.preventInitialAccordionAnimations(details);
@@ -70,6 +89,7 @@ class HeaderDrawer extends Component {
 
       // Jim full overlay
       this.refs.menuDrawer.classList.add('jim-menu-open');
+      this.#clearActiveDesktopPanel();
       if (this.#backdrop) {
         this.#backdrop.style.opacity = '1';
         this.#backdrop.style.pointerEvents = 'auto';
@@ -78,6 +98,135 @@ class HeaderDrawer extends Component {
       const drawer = details.querySelector('.menu-drawer, .menu-drawer__submenu');
       onAnimationEnd(drawer || details, () => trapFocus(details), { subtree: false });
     });
+  }
+
+  #isDesktopMenuLayout() {
+    return window.matchMedia('(min-width: 990px)').matches;
+  }
+
+  #onDetailsToggle(event) {
+    if (!this.#isDesktopMenuLayout()) return;
+    const details = event.target;
+    if (!(details instanceof HTMLDetailsElement)) return;
+    if (!details.classList.contains('menu-drawer__menu-container')) return;
+    if (!details.open) return;
+
+    const containers = this.querySelectorAll('.menu-drawer__menu-container');
+    containers.forEach(container => {
+      if (container !== details) {
+        container.open = false;
+        container.classList.remove('menu-open');
+        container.querySelector('summary')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+    details.classList.add('menu-open');
+    details.querySelector('summary')?.setAttribute('aria-expanded', 'true');
+  }
+
+  #openFirstDesktopSubmenu() {
+    if (!this.#isDesktopMenuLayout()) return;
+    const firstMenuWithChildren = this.querySelector('[data-desktop-panel-target][data-desktop-has-children="true"]');
+    if (firstMenuWithChildren?.dataset.desktopPanelTarget) {
+      this.#setActiveDesktopPanel(firstMenuWithChildren.dataset.desktopPanelTarget);
+      return;
+    }
+
+    const firstPanel = this.querySelector('.menu-drawer__desktop-panel');
+    if (firstPanel?.dataset.desktopPanel) {
+      this.#setActiveDesktopPanel(firstPanel.dataset.desktopPanel);
+      return;
+    }
+
+    const containers = [...this.querySelectorAll('.menu-drawer__menu-container')];
+    const first = containers.find(container => container.querySelector(':scope > .menu-drawer__submenu'));
+    if (!first) return;
+
+    first.open = true;
+    first.classList.add('menu-open');
+    first.querySelector('summary')?.setAttribute('aria-expanded', 'true');
+    containers.forEach(container => {
+      if (container !== first) {
+        container.open = false;
+        container.classList.remove('menu-open');
+        container.querySelector('summary')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  #onMenuItemClick(event) {
+    if (!this.#isDesktopMenuLayout()) return;
+    const target = event.target instanceof Element ? event.target.closest('[data-desktop-panel-target]') : null;
+    if (!(target instanceof HTMLElement)) return;
+    if (!this.contains(target)) return;
+
+    const panelId = target.dataset.desktopPanelTarget;
+    if (!panelId) return;
+
+    const hasChildren = target.dataset.desktopHasChildren === 'true';
+    if (!hasChildren) {
+      this.#clearActiveDesktopPanel();
+      return;
+    }
+    event.preventDefault();
+    this.#setActiveDesktopPanel(panelId);
+  }
+
+  #onMenuItemHover(event) {
+    if (!this.#isDesktopMenuLayout()) return;
+    if (event.type === 'mouseover' && !(event.target instanceof Element)) return;
+    const target = event.target instanceof Element ? event.target.closest('[data-desktop-panel-target]') : null;
+    if (!(target instanceof HTMLElement)) return;
+    if (!this.contains(target)) return;
+
+    // Ignore internal mouse transitions inside the same menu item.
+    if (event.type === 'mouseover') {
+      const related = event.relatedTarget;
+      if (related instanceof Node && target.contains(related)) return;
+    }
+
+    const panelId = target.dataset.desktopPanelTarget;
+    if (!panelId) return;
+    const hasChildren = target.dataset.desktopHasChildren === 'true';
+    if (!hasChildren) {
+      this.#clearActiveDesktopPanel();
+      return;
+    }
+    this.#setActiveDesktopPanel(panelId);
+  }
+
+  #clearActiveDesktopPanel() {
+    this.querySelectorAll('.menu-drawer__desktop-panel').forEach(panel => {
+      panel.classList.remove('is-active');
+      panel.setAttribute('aria-hidden', 'true');
+    });
+    this.querySelectorAll('[data-desktop-panel-target]').forEach(link => link.classList.remove('is-active'));
+    this.refs.menuDrawer?.classList.remove('has-active-desktop-panel');
+  }
+
+  #setActiveDesktopPanel(panelId) {
+    const panels = this.querySelectorAll('.menu-drawer__desktop-panel');
+    if (!panels.length) {
+      this.#clearActiveDesktopPanel();
+      return;
+    }
+
+    let hasMatch = false;
+    panels.forEach(panel => {
+      const isActive = panel.dataset.desktopPanel === panelId;
+      panel.classList.toggle('is-active', isActive);
+      panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      if (isActive) hasMatch = true;
+    });
+
+    if (!hasMatch) {
+      this.#clearActiveDesktopPanel();
+      return;
+    }
+
+    this.querySelectorAll('[data-desktop-panel-target]').forEach(link => {
+      link.classList.toggle('is-active', link.dataset.desktopPanelTarget === panelId);
+    });
+    this.refs.menuDrawer?.classList.add('has-active-desktop-panel');
   }
 
   back(event) {
@@ -95,6 +244,7 @@ class HeaderDrawer extends Component {
     summary.setAttribute('aria-expanded', 'false');
     details.classList.remove('menu-open');
     this.refs.menuDrawer.classList.remove('menu-drawer--has-submenu-opened', 'jim-menu-open');
+    this.#clearActiveDesktopPanel();
     if (this.#backdrop) {
       this.#backdrop.style.opacity = '0';
       this.#backdrop.style.pointerEvents = 'none';
@@ -136,4 +286,3 @@ function reset(element) {
   element.removeAttribute('open');
   element.querySelector('summary')?.setAttribute('aria-expanded', 'false');
 }
-

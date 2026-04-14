@@ -12,14 +12,22 @@
 {%- enddoc -%}
 
 {% liquid
-  assign block_settings = block.settings
+  assign block_settings = block_settings | default: block.settings | default: section.settings
   assign max_featured_items = 4
-  assign image_border_radius = block_settings.image_border_radius
+  assign image_border_radius = block_settings.image_border_radius | default: 0
+  assign drawer_color_scheme = block_settings.color_scheme | default: section.settings.color_scheme_top | default: 'scheme-1'
 
   if block_settings.menu_style == 'featured_collections'
     assign ratio = block_settings.featured_collections_aspect_ratio
   elsif block_settings.menu_style == 'featured_products'
     assign ratio = block_settings.featured_products_aspect_ratio
+  endif
+
+  # Fallback se linklist estiver vazio
+  if linklist == blank or linklist.links.size == 0
+    comment
+      AVISO: Linklist está vazio! Use um menu válido.
+    endcomment
   endif
 
   ##
@@ -49,15 +57,38 @@
 >
   <style>
     /* --- Estilo Minimalista (Gaveta Lateral) --- */
+    .header-drawer--editorial {
+      --editorial-drawer-bg: rgb(var(--color-background-rgb));
+      --editorial-drawer-text: rgb(var(--color-foreground-rgb));
+      --editorial-drawer-text-soft: rgb(var(--color-foreground-rgb) / 0.72);
+      --editorial-drawer-text-muted: rgb(var(--color-foreground-rgb) / 0.62);
+      --editorial-drawer-border: rgb(var(--color-foreground-rgb) / 0.12);
+      --editorial-drawer-shadow: 20px 0 50px rgba(0, 0, 0, 0.16);
+      --editorial-nav-size: 1.52rem;
+      --editorial-nav-weight: 400;
+      --editorial-nav-spacing: 0.012em;
+      --editorial-subnav-size: 1.35rem;
+      --editorial-subnav-weight: 400;
+      --editorial-group-size: 1.08rem;
+      --editorial-group-weight: 400;
+      --editorial-utility-size: 0.78rem;
+      --editorial-utility-weight: 400;
+      --editorial-utility-spacing: 0.04em;
+      --editorial-panel-link-size: 1rem;
+      --editorial-panel-link-weight: 400;
+    }
+
     .header-drawer--editorial .menu-drawer {
       padding-top: 0;
+      background: var(--editorial-drawer-bg);
+      color: var(--editorial-drawer-text);
     }
     .header-drawer--editorial .menu-drawer__navigation {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-      padding-top: 60px !important;
+      padding-top: 104px !important;
       padding-inline: 30px !important; /* Espaçamento da borda esquerda */
     }
     .header-drawer--editorial .menu-drawer__menu {
@@ -94,22 +125,23 @@
       align-items: center;
       padding: 12px 0 !important;
       border: none !important;
-      border-bottom: 1px solid rgba(var(--color-foreground-rgb), 0.1) !important;
-      color: var(--color-foreground) !important;
+      border-bottom: none !important;
+      color: var(--editorial-drawer-text) !important;
       text-align: left;
     }
     .header-drawer--editorial .menu-drawer__menu-item--mainlist .menu-drawer__menu-item-text,
     .header-drawer--editorial .menu-drawer__menu-item--parent .menu-drawer__menu-item-text {
-      font-size: 20px !important;
-      font-weight: 500 !important;
-      letter-spacing: 0.05em !important;
-      text-transform: uppercase !important;
+      font-size: var(--editorial-nav-size) !important;
+      font-weight: var(--editorial-nav-weight) !important;
+      letter-spacing: var(--editorial-nav-spacing) !important;
+      text-transform: none !important;
+      color: var(--editorial-drawer-text-soft) !important;
     }
     .header-drawer--editorial .menu-drawer__menu-item--child .menu-drawer__menu-item-text {
-      font-size: 15px !important;
-      font-weight: 400 !important;
-      text-transform: uppercase !important;
-      color: rgba(var(--color-foreground-rgb), 0.8) !important;
+      font-size: var(--editorial-subnav-size) !important;
+      font-weight: var(--editorial-subnav-weight) !important;
+      text-transform: none !important;
+      color: var(--editorial-drawer-text-soft) !important;
     }
     .header-drawer--editorial .icon-chevron,
     .header-drawer--editorial .icon-plus {
@@ -122,7 +154,7 @@
     .header-drawer--editorial .menu-drawer__footer {
       border-top: none;
       padding-top: 40px;
-      display: flex;
+      display: flex !important;
       justify-content: flex-start;
     }
     .header-drawer--editorial .menu-drawer__footer-links {
@@ -133,12 +165,13 @@
       align-items: center;
       justify-content: flex-start;
       gap: 12px;
-      font-size: 13px;
-      letter-spacing: 0.08em;
+      font-size: var(--editorial-utility-size);
+      font-weight: var(--editorial-utility-weight);
+      letter-spacing: var(--editorial-utility-spacing);
       padding: 10px 0;
       text-transform: uppercase;
       text-decoration: none;
-      color: rgba(var(--color-foreground-rgb), 0.6) !important;
+      color: var(--editorial-drawer-text-muted) !important;
     }
     .header-drawer--editorial .footer-icon svg {
       width: 18px;
@@ -157,7 +190,7 @@
       padding: 20px 0;
     }
     .header-drawer--editorial .menu-drawer__back-button {
-      color: var(--color-foreground) !important;
+      color: var(--editorial-drawer-text) !important;
       justify-content: flex-start;
       font-size: 14px;
       text-transform: uppercase;
@@ -166,7 +199,7 @@
     }
     .header-drawer--editorial .drawer-localization__button,
     .header-drawer--editorial .drawer-localization__button svg {
-      color: rgba(var(--color-foreground-rgb), 0.6) !important;
+      color: var(--editorial-drawer-text-muted) !important;
     }
     .header-drawer--editorial .menu-drawer__featured-content {
       display: none !important;
@@ -191,17 +224,11 @@
     /* --- Estilo Premium Jim Thompson --- */
     .header-drawer--editorial .menu-drawer.jim-menu-open {
       z-index: 100 !important;
-      background-color: pink !important;
-      {% if section.settings.header_color_scheme == 'scheme-6' or section.settings.header_color_scheme == 'scheme-5' %}
-        background-color: pink !important; /* Force pink */
-      {% endif %}
-      box-shadow: 20px 0 50px rgba(0,0,0,0.3);
+      background-color: var(--editorial-drawer-bg) !important;
+      color: var(--editorial-drawer-text) !important;
+      box-shadow: var(--editorial-drawer-shadow);
     }
     /* Se o esquema for transparente, garante que o drawer não seja */
-    .header-drawer--editorial .menu-drawer.jim-menu-open[class*="color-scheme-6"] {
-       background-color: #fff !important;
-       color: #000 !important;
-    }
     
     .header-drawer--editorial .menu-drawer.jim-menu-open ~ .menu-drawer__backdrop {
       display: none !important;
@@ -217,6 +244,9 @@
     <summary
       class="header__icon header__icon--menu header__icon--summary"
       aria-label="{{ 'accessibility.menu' | t }}"
+      aria-controls="DesktopMenuDrawer-{{ section.id }}"
+      aria-expanded="false"
+      data-desktop-menu-toggle
       on:click="/toggle"
     >
       <span class="svg-wrapper header-drawer-icon header-drawer-icon--open">
@@ -230,7 +260,7 @@
       ref="menuDrawer"
       class="
         menu-drawer
-        color-{{ block_settings.color_scheme }}
+        color-{{ drawer_color_scheme }}
       "
     >
       <button
@@ -257,9 +287,23 @@
           role="list"
         >
           {%- comment -%}
-            Handle menus with fewer than 3 levels of links
+            Link hardcoded para Home/Início
           {%- endcomment -%}
-          {% if linklist.levels < 3 %}
+          <li class="menu-drawer__list-item">
+            <a
+              href="/"
+              class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
+              data-desktop-panel-target="home"
+              data-desktop-has-children="false"
+            >
+              <span class="menu-drawer__menu-item-text wrap-text">Início</span>
+            </a>
+          </li>
+          {% if linklist.links.size > 0 %}
+            {%- comment -%}
+              Handle menus with fewer than 3 levels of links
+            {%- endcomment -%}
+            {% if linklist.levels < 3 %}
             {% assign first_accordion_open = false %}
             {% assign animation_index = 0 %}
             {%- for link in linklist.links -%}
@@ -286,15 +330,11 @@
                       <summary
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
+                        data-desktop-panel-target="{{ link.handle | escape }}"
+                        data-desktop-has-children="true"
                       >
                         <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
-                        {% if section.settings.drawer_show_chevrons %}
-                          <span class="svg-wrapper icon-chevron">
-                            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                          </span>
-                        {% endif %}
+                        <span class="menu-drawer__indicator" aria-hidden="true">></span>
                       </summary>
                       {% liquid
                         assign render_link_image = false
@@ -351,18 +391,14 @@
                     id="HeaderDrawer-{{ link.handle }}"
                     href="{{ link.url }}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
+                    data-desktop-panel-target="{{ link.handle | escape }}"
+                    data-desktop-has-children="true"
                     {% if link.current %}
                       aria-current="page"
                     {% endif %}
                   >
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
-                    {% if section.settings.drawer_show_chevrons %}
-                      <span class="svg-wrapper icon-chevron">
-                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                    {% endif %}
+                    <span class="menu-drawer__indicator" aria-hidden="true">></span>
                   </a>
                   {% liquid
                     assign render_link_image = false
@@ -412,18 +448,18 @@
                     id="HeaderDrawer-{{ link.handle }}"
                     href="{{ link.url }}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
+                    data-desktop-panel-target="{{ link.handle | escape }}"
+                    data-desktop-has-children="false"
                     {% if link.current %}
                       aria-current="page"
                     {% endif %}
                   >
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
-                    {% if section.settings.drawer_show_chevrons %}
-                      <span class="svg-wrapper icon-chevron">
-                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                    {% endif %}
+                    <span class="svg-wrapper icon-chevron" aria-hidden="true">
+                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
                   </a>
                 {% endif %}
               </li>
@@ -451,15 +487,11 @@
                       id="HeaderDrawer-{{ link.handle }}"
                       class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       on:click="header-drawer/open/submenu"
+                      data-desktop-panel-target="{{ link.handle | escape }}"
+                      data-desktop-has-children="true"
                     >
                       <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
-                      {% if section.settings.drawer_show_chevrons %}
-                        <span class="svg-wrapper icon-chevron">
-                          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </span>
-                      {% endif %}
+                      <span class="menu-drawer__indicator" aria-hidden="true">></span>
                     </summary>
                     <div
                       id="link-{{ link.handle | escape }}"
@@ -744,25 +776,103 @@
                     id="HeaderDrawer-{{ link.handle }}"
                     href="{{ link.url }}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset"
+                    data-desktop-panel-target="{{ link.handle | escape }}"
+                    data-desktop-has-children="false"
                     {% if link.current %}
                       aria-current="page"
                     {% endif %}
                   >
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
-                    {% if section.settings.drawer_show_chevrons %}
-                      <span class="svg-wrapper icon-chevron">
-                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                    {% endif %}
+                    <span class="svg-wrapper icon-chevron" aria-hidden="true">
+                      <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
                   </a>
                 {%- endif -%}
               </li>
             {%- endfor -%}
           {% endif %}
         </ul>
+        {% if linklist.links.size == 0 %}
+          <div style="padding: 2rem; font-size: 0.85rem; color: rgba(var(--color-foreground-rgb) / 0.6); font-style: italic;">
+            ⚠️ Menu vazio. Verifique se "main-menu" existe na configuração de menus do Shopify, ou configure um menu na setção do tema.
+          </div>
+        {% endif %}
       </nav>
+
+      <div
+        class="menu-drawer__desktop-content"
+        aria-live="polite"
+      >
+        <div class="menu-drawer__desktop-panels">
+          {%- for link in linklist.links -%}
+            {% if link.links == blank %}
+              {% continue %}
+            {% endif %}
+            {% liquid
+              assign has_nested_children = false
+              for childlink in link.links
+                if childlink.links != blank
+                  assign has_nested_children = true
+                  break
+                endif
+              endfor
+            %}
+            <section
+              class="menu-drawer__desktop-panel"
+              data-desktop-panel="{{ link.handle | escape }}"
+              aria-hidden="true"
+            >
+              {% if link.links != blank %}
+                {% if has_nested_children %}
+                  {%- for childlink in link.links -%}
+                    {% if childlink.links != blank %}
+                      <div class="menu-drawer__desktop-group">
+                        <h3 class="menu-drawer__desktop-group-title">{{ childlink.title | escape }}</h3>
+                        <ul
+                          class="menu-drawer__desktop-grid list-unstyled"
+                          role="list"
+                        >
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                href="{{ grandchildlink.url }}"
+                                class="menu-drawer__desktop-link"
+                              >
+                                {{ grandchildlink.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    {% endif %}
+                  {%- endfor -%}
+                {% else %}
+                  <div class="menu-drawer__desktop-group">
+                    <h3 class="menu-drawer__desktop-group-title">{{ link.title | escape }}</h3>
+                    <ul
+                      class="menu-drawer__desktop-grid list-unstyled"
+                      role="list"
+                    >
+                      {%- for childlink in link.links -%}
+                        <li>
+                          <a
+                            href="{{ childlink.url }}"
+                            class="menu-drawer__desktop-link"
+                          >
+                            {{ childlink.title | escape }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {% endif %}
+              {% endif %}
+            </section>
+          {%- endfor -%}
+        </div>
+      </div>
 
       {%- if section.settings.secondary_menu != blank and section.settings.secondary_menu.handle != linklist.handle -%}
         <div class="menu-drawer__secondary-nav">
@@ -792,9 +902,11 @@
             assign show_country = false
           endif
         %}
-        {% if data_header_drawer_type == 'mobile-drawer' and show_country or show_language %}
+        {% if data_header_drawer_type == 'mobile-drawer' %}
+          {% if show_country or show_language %}
           {% liquid
-            assign background_brightness = block.settings.color_scheme.settings.background | color_brightness
+            assign drawer_background = drawer_color_scheme.settings.background | default: section.settings.color_scheme_top.settings.background | default: '#ffffff'
+            assign background_brightness = drawer_background | color_brightness
             if background_brightness < 64
               assign flag_shadow_size = 4
             else
@@ -812,7 +924,7 @@
                 show_language: show_language,
                 localization_style: 'drawer',
                 form_style: form_style,
-                form_id: block.id
+                form_id: section.id
               %}
             </div>
           {% else %}
@@ -900,11 +1012,12 @@
                     show_language: show_language,
                     localization_style: 'drawer',
                     form_style: form_style,
-                    form_id: block.id
+                    form_id: section.id
                   %}
                 </div>
               </details>
             </drawer-localization-component>
+          {% endif %}
           {% endif %}
         {%- endif -%}
       </div>
@@ -968,18 +1081,19 @@
           <li class="menu-drawer__footer-item">
             <a href="/pages/contact" class="menu-drawer__footer-link">
               <span class="svg-wrapper footer-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17.5 13.9167V15.5833C17.5008 16.0475 17.3117 16.4918 16.9749 16.8166C16.6382 17.1415 16.1824 17.3204 15.7083 17.3125C12.315 17.0375 9.06504 15.8858 6.25004 13.9375C3.61421 12.1308 1.45254 9.96916 -0.354128 7.33333C-2.29829 4.50917 -3.44746 1.25833 -3.72513 -2.13333C-3.73292 -2.6053 -3.5546 -3.05928 -3.23075 -3.39515C-2.90691 -3.73103 -2.46416 -3.92019 -1.99996 -3.91667H-0.333295C0.0881954 -3.91667 0.485121 -3.766 0.793739 -3.49098C1.10236 -3.21597 1.30058 -2.83617 1.3542 -2.41667C1.45521 -1.57147 1.6369 -0.735624 1.89587 0.0833333L2.89587 3.58333C3.01139 3.98595 2.98188 4.41595 2.81057 4.79815C2.63926 5.18035 2.33314 5.49622 1.9542 5.68333L0.545872 6.39167C2.22748 9.35123 4.64881 11.7725 7.60837 13.4542L9.31671 12.0458C9.70381 11.6669 10.2238 11.4543 10.7667 11.4541C11.3096 11.4539 11.8315 11.6661 12.2167 12.0458L15.7167 13.0458C16.1362 13.0995 16.516 13.2977 16.791 13.6063C17.066 13.9149 17.2167 14.3118 17.2167 14.7333L17.5 13.9167Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 16.92V20a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 11.2 19a19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3-8.63A2 2 0 0 1 4.11 2H7.2a2 2 0 0 1 2 1.72c.12.9.34 1.78.66 2.62a2 2 0 0 1-.45 2.11L8.1 9.76a16 16 0 0 0 6.14 6.14l1.31-1.31a2 2 0 0 1 2.11-.45c.84.32 1.72.54 2.62.66A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
-              <span>CONTATE-NOS</span>
+              <span>CONTATO</span>
             </a>
           </li>
           <li class="menu-drawer__footer-item">
             <a href="/pages/store-locator" class="menu-drawer__footer-link">
               <span class="svg-wrapper footer-icon">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {% render 'icon', icon: 'map_pin' %}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 21s-6-5.3-6-10a6 6 0 1 1 12 0c0 4.7-6 10-6 10Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="11" r="2.3" stroke="currentColor" stroke-width="1.7"/>
                 </svg>
               </span>
               <span>ENCONTRE UMA LOJA</span>
@@ -1016,7 +1130,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--padding-lg);
+    padding: var(--padding-2xs);
   }
 
   .header__icon--summary .header-drawer-icon {
@@ -1717,5 +1831,330 @@
 
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .header-drawer--editorial .menu-drawer {
+      width: min(430px, 95vw);
+      max-width: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      transition: width var(--drawer-animation-speed) ease;
+    }
+
+    .header-drawer--editorial .menu-drawer.has-active-desktop-panel {
+      width: min(1120px, 95vw);
+      grid-template-columns: minmax(360px, 44%) 1fr;
+    }
+
+    .header-drawer--editorial .menu-drawer__navigation {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      padding: 132px 34px 26px !important;
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-content {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      border-left: 1px solid rgb(var(--color-border-rgb) / 0.5);
+      padding: 82px 30px 28px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .header-drawer--editorial .menu-drawer.has-active-desktop-panel .menu-drawer__desktop-content {
+      display: block;
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-panel {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity var(--drawer-animation-speed) ease, transform var(--drawer-animation-speed) ease;
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-panel.is-active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-group + .menu-drawer__desktop-group {
+      margin-top: 26px;
+      padding-top: 24px;
+      border-top: 1px solid rgb(var(--color-border-rgb) / 0.45);
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-group-title {
+      margin: 0 0 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: var(--editorial-group-size);
+      font-weight: var(--editorial-group-weight);
+      color: var(--editorial-drawer-text-soft);
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 24px;
+      row-gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-link {
+      color: var(--editorial-drawer-text);
+      text-decoration: none;
+      font-size: var(--editorial-panel-link-size);
+      font-weight: var(--editorial-panel-link-weight);
+      letter-spacing: 0.01em;
+      line-height: 1.35;
+      display: inline-block;
+      padding: 2px 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-link:hover {
+      color: var(--editorial-drawer-text-soft);
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-empty-title {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: var(--editorial-group-size);
+      font-weight: var(--editorial-group-weight);
+      color: var(--editorial-drawer-text-soft);
+    }
+
+    .header-drawer--editorial .menu-drawer__desktop-empty-link {
+      margin-top: 14px;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.94rem;
+      text-decoration: none;
+      color: var(--editorial-drawer-text);
+      border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.4);
+      padding-bottom: 4px;
+    }
+
+    .header-drawer--editorial .menu-drawer__close-button {
+      top: 18px;
+      left: 26px;
+      right: auto;
+      padding: 8px 0;
+      gap: 10px;
+      z-index: 101;
+    }
+
+    .header-drawer--editorial .menu-drawer__close-button .close-button-text {
+      display: inline !important;
+      font-size: 0.94rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu {
+      padding-inline: 0;
+      margin: 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__list-item {
+      min-height: auto;
+    }
+
+    .header-drawer--editorial .menu-drawer__list-item--divider {
+      border-bottom: none !important;
+      border-block-end: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist {
+      padding: 0.95rem 0 !important;
+      border: none !important;
+      border-bottom: none !important;
+      justify-content: flex-start !important;
+      gap: 0.4rem;
+    }
+
+    .header-drawer--editorial .menu-drawer__list-item--divider .menu-drawer__menu-item:not(.menu-drawer__menu-item--child) {
+      border-bottom: none !important;
+      border-block-end: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist .menu-drawer__menu-item-text {
+      font-size: 1.06rem !important;
+      letter-spacing: var(--editorial-nav-spacing) !important;
+      font-weight: var(--editorial-nav-weight) !important;
+      text-transform: none !important;
+      color: var(--editorial-drawer-text-soft) !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__indicator {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      color: var(--editorial-drawer-text-muted);
+      font-size: 0.95rem;
+      line-height: 1;
+      font-weight: 400;
+      opacity: 1;
+      transition: transform 0.18s ease, color 0.18s ease;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist[data-desktop-has-children='false'] > .menu-drawer__indicator {
+      display: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist.is-active .menu-drawer__menu-item-text,
+    .header-drawer--editorial .menu-drawer__menu-container[open] > summary .menu-drawer__menu-item-text {
+      color: var(--editorial-drawer-text) !important;
+      text-decoration: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist[data-desktop-has-children='true']:hover > .menu-drawer__indicator,
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist[data-desktop-has-children='true'].is-active > .menu-drawer__indicator,
+    .header-drawer--editorial .menu-drawer__menu-container[open] > summary[data-desktop-has-children='true'] > .menu-drawer__indicator {
+      color: var(--editorial-drawer-text);
+      transform: translateX(0.14rem);
+    }
+
+    .header-drawer--editorial .icon-chevron {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      margin-left: 0;
+      padding: 0 !important;
+      color: var(--editorial-drawer-text-muted);
+      opacity: 1;
+      transition: transform 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+    }
+
+    .header-drawer--editorial .icon-chevron svg {
+      width: 0.7rem;
+      height: 1rem;
+      stroke-width: 1.1;
+    }
+
+    .header-drawer--editorial [data-desktop-has-children='false'] > .icon-chevron {
+      display: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist:hover > .icon-chevron,
+    .header-drawer--editorial .menu-drawer__menu-item--mainlist.is-active > .icon-chevron,
+    .header-drawer--editorial .menu-drawer__menu-container[open] > summary > .icon-chevron {
+      color: var(--editorial-drawer-text);
+      transform: translateX(0.2rem);
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-container--divider {
+      border: none;
+    }
+
+    .header-drawer--editorial .menu-drawer__secondary-nav {
+      grid-column: 1;
+      grid-row: 2;
+      display: block !important;
+      margin-top: 20px;
+      padding-top: 22px;
+      border-top: 1px solid rgb(var(--color-border-rgb) / 0.5);
+      width: 100%;
+    }
+
+    .header-drawer--editorial .menu-drawer__secondary-item {
+      display: block !important;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--editorial-drawer-text-muted) !important;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      padding: 0.55rem 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__utility-links {
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: auto;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .header-drawer--editorial .menu-drawer__footer {
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: auto;
+      padding: 20px 34px max(26px, env(safe-area-inset-bottom, 0px));
+      border-top: 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__footer-link {
+      font-size: var(--editorial-utility-size) !important;
+      letter-spacing: var(--editorial-utility-spacing) !important;
+      font-weight: var(--editorial-utility-weight) !important;
+      color: var(--editorial-drawer-text-muted) !important;
+      padding: 0.3rem 0;
+      gap: 0.62rem;
+    }
+
+    .header-drawer--editorial .menu-drawer__footer-links {
+      gap: 0.7rem;
+      margin: 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__footer .footer-icon svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .header-drawer--editorial .menu-drawer__footer .footer-icon {
+      overflow: visible;
+      flex-shrink: 0;
+    }
+
+    .header-drawer--editorial .menu-drawer__submenu {
+      display: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-container[open] > .menu-drawer__submenu {
+      display: none !important;
+    }
+
+    .header-drawer--editorial .menu-drawer__inner-submenu {
+      margin: 0;
+      padding: 56px 30px 24px;
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .header-drawer--editorial .menu-drawer__nav-buttons {
+      display: none;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu--childlist {
+      display: none;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--parent {
+      display: none;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu--grandchildlist {
+      display: none;
+    }
+
+    .header-drawer--editorial .menu-drawer__menu-item--child {
+      display: none;
+    }
+
+    .header-drawer--editorial .menu-drawer__featured-content {
+      display: none !important;
+    }
   }
 {% endstylesheet %}
