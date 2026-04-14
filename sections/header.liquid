@@ -267,13 +267,14 @@
         <!-- Coluna Esquerda: Categorias Principais -->
         <div class="menu-column-left">
           <nav class="main-nav-list">
-            {%- if section.settings.menu != blank -%}
-              {% for link in section.settings.menu.links %}
-                <div class="main-nav-item {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ link.handle }}">
+            {%- assign main_menu = section.settings.menu | default: linklists.main-menu -%}
+            {%- if main_menu != blank -%}
+              {% for link in main_menu.links %}
+                <div class="main-nav-item {% if forloop.first %}is-active{% endif %}" data-target="panel-{{ link.handle }}-{{ forloop.index }}">
                   <a href="{{ link.url }}" class="main-nav-link">
                     {{ link.title | uppercase }}
                     {% if link.links != blank %}
-                      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
                     {% endif %}
                   </a>
                 </div>
@@ -300,14 +301,13 @@
 
         <!-- Coluna Direita: Subcategorias Dinâmicas -->
         <div class="menu-column-right">
-          {%- if section.settings.menu != blank -%}
-            {% for link in section.settings.menu.links %}
-              <div class="submenu-panel {% if forloop.first %}is-active{% endif %}" id="panel-{{ link.handle }}">
+          {%- if main_menu != blank -%}
+            {% for link in main_menu.links %}
+              <div class="submenu-panel {% if forloop.first %}is-active{% endif %}" id="panel-{{ link.handle }}-{{ forloop.index }}">
                 
                 <!-- Links de Destaque -->
                 <div class="featured-sublinks">
-                  <a href="{{ link.url }}" class="featured-link">NOVIDADES</a>
-                  <a href="{{ link.url }}" class="featured-link">VER TUDO</a>
+                  <a href="{{ link.url }}" class="featured-link">VER TUDO EM {{ link.title | uppercase }}</a>
                 </div>
 
                 <div class="submenu-grid">
@@ -321,11 +321,16 @@
                               <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>
                             {%- endfor -%}
                           {%- else -%}
-                            <li><a href="{{ childlink.url }}">Explorar tudo</a></li>
+                            <li><a href="{{ childlink.url }}">Explorar todos os itens</a></li>
                           {%- endif -%}
                         </ul>
                       </div>
                     {%- endfor -%}
+                  {%- else -%}
+                    <div class="submenu-empty">
+                      <p>Explore a coleção completa de {{ link.title }}.</p>
+                      <a href="{{ link.url }}" class="featured-link">VER COLEÇÃO</a>
+                    </div>
                   {%- endif -%}
                 </div>
               </div>
