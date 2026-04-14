@@ -1,0 +1,267 @@
+{{ 'blvck-global.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .blvck-hero {
+    position: relative;
+    height: {{ section.settings.hero_height }}vh;
+    min-height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-12);
+    background-color: var(--color-bg-primary);
+  }
+
+  .blvck-hero__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+    transition: transform 10s ease-out;
+  }
+
+  .blvck-hero:hover .blvck-hero__image {
+    transform: scale(1.05);
+  }
+
+  .blvck-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+    pointer-events: none;
+  }
+
+  .blvck-hero__content {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+  }
+
+  .blvck-hero__title {
+    color: var(--color-text-primary);
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.04em;
+    margin-bottom: var(--space-8);
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blvck-hero__title {
+        font-size: var(--text-xl);
+    }
+    .blvck-hero {
+        padding: var(--space-6);
+    }
+  }
+
+  .blvck-hero__button {
+    background: var(--color-text-primary);
+    color: var(--color-bg-primary);
+    padding: var(--space-4) var(--space-8);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    display: inline-block;
+    transition: opacity 0.3s;
+  }
+
+  .blvck-hero__button:hover {
+    opacity: 0.8;
+  }
+
+  .blvck-hero__shop-card {
+    position: absolute;
+    bottom: var(--space-12);
+    right: var(--space-12);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--space-4);
+    display: flex;
+    gap: var(--space-4);
+    width: 300px;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.5);
+    z-index: 20;
+  }
+
+  .blvck-hero__shop-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  .blvck-hero__shop-card-content h3 {
+    margin: 0;
+    font-size: var(--text-md);
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+  }
+
+  .blvck-hero__shop-card-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--color-text-primary);
+    margin-top: var(--space-2);
+    width: fit-content;
+  }
+{%- endstyle -%}
+
+<div class="blvck-hero section-{{ section.id }}-padding container mx-auto">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 3000 | image_tag: class: 'blvck-hero__image' }}
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'blvck-hero__image placeholder-svg' }}
+  {%- endif -%}
+
+  <div class="blvck-hero__overlay"></div>
+
+  <div class="blvck-hero__content">
+    <h1 class="blvck-hero__title font-headline">
+      {{ section.settings.title | newline_to_br }}
+    </h1>
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link }}" class="blvck-hero__button font-label">
+        {{ section.settings.button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_shop_card -%}
+    <div class="blvck-hero__shop-card hidden md:flex">
+      {%- if section.settings.card_image != blank -%}
+        {{ section.settings.card_image | image_url: width: 200 | image_tag }}
+      {%- endif -%}
+      <div class="blvck-hero__shop-card-content">
+        <h3 class="font-headline">{{ section.settings.card_title }}</h3>
+        <a href="{{ section.settings.card_link }}" class="blvck-hero__shop-card-link font-label">
+          {{ section.settings.card_link_text }} →
+        </a>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "BLVCK Hero Brutalista",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "ELEVATE YOUR\nVISUAL STYLE"
+    },
+    {
+        "type": "range",
+        "id": "hero_height",
+        "min": 50,
+        "max": 100,
+        "step": 5,
+        "unit": "vh",
+        "label": "Hero Height",
+        "default": 85
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Text",
+      "default": "EXPLORE COLLECTIONS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Floating Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shop_card",
+      "label": "Show Shop Card",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image",
+      "label": "Card Image"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card Title",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "text",
+      "id": "card_link_text",
+      "label": "Link Text",
+      "default": "STAY COOL"
+    },
+    {
+      "type": "url",
+      "id": "card_link",
+      "label": "Card Link"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "BLVCK Hero Brutalista"
+    }
+  ]
+}
+{% endschema %}

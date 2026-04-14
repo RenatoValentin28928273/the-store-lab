@@ -1,0 +1,60 @@
+{% comment %}
+  Renders a free shipping progress bar for the cart
+  Usage:
+  {% render 'blvck-free-shipping-bar' %}
+{% endcomment %}
+
+{%- liquid
+  assign free_shipping_threshold = 35000 | plus: 0
+  assign cart_total = cart.total_price
+  assign progress = cart_total | times: 1.0 | divided_by: free_shipping_threshold | times: 100
+  if progress > 100
+    assign progress = 100
+  endif
+  assign remaining = free_shipping_threshold | minus: cart_total
+-%}
+
+<style>
+  .blvck-shipping-bar {
+    padding: 1.5rem 2rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .blvck-shipping-bar__text {
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: var(--font-label);
+  }
+  .blvck-shipping-bar__progress-container {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .blvck-shipping-bar__progress-fill {
+    height: 100%;
+    background: #fff;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .blvck-shipping-bar__success {
+    color: #fff;
+    font-weight: bold;
+  }
+</style>
+
+<div class="blvck-shipping-bar js-shipping-bar">
+  <p class="blvck-shipping-bar__text">
+    {%- if remaining > 0 -%}
+      Faltam <span class="highlight">{{ remaining | money }}</span> para **Frete Grátis**
+    {%- else -%}
+      <span class="blvck-shipping-bar__success">Você ganhou FRETE GRÁTIS!</span>
+    {%- endif -%}
+  </p>
+  <div class="blvck-shipping-bar__progress-container">
+    <div class="blvck-shipping-bar__progress-fill" style="width: {{ progress }}%;"></div>
+  </div>
+</div>

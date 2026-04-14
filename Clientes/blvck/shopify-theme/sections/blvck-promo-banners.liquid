@@ -1,0 +1,210 @@
+{{ 'blvck-global.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .blvck-promo-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .blvck-promo-row {
+      flex-direction: row;
+      height: {{ section.settings.row_height }}vh;
+      min-height: 600px;
+    }
+    .blvck-promo-card {
+      width: 50%;
+    }
+  }
+
+  .blvck-promo-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .blvck-promo-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 10s ease-out;
+    z-index: 1;
+  }
+
+  .blvck-promo-card:hover .blvck-promo-card__image {
+    transform: scale(1.1);
+  }
+
+  .blvck-promo-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%);
+    z-index: 2;
+  }
+
+  .blvck-promo-card__content {
+    position: relative;
+    z-index: 3;
+    max-width: 500px;
+  }
+
+  .blvck-promo-card__category {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+    display: block;
+  }
+
+  .blvck-promo-card__title {
+    font-size: clamp(2rem, 4vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 3rem;
+  }
+
+  .blvck-promo-card__link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #fff;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 0.5rem;
+    width: fit-content;
+  }
+{%- endstyle -%}
+
+<div class="container mx-auto px-4 section-{{ section.id }}-padding">
+  <div class="blvck-promo-row">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link }}" class="blvck-promo-card" {{ block.shopify_attributes }}>
+        <div class="blvck-promo-card__overlay"></div>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1600 | image_tag: class: 'blvck-promo-card__image' }}
+        {%- else -%}
+          {{ 'lifestyle-' | append: forloop.index | placeholder_svg_tag: 'blvck-promo-card__image' }}
+        {%- endif -%}
+        
+        <div class="blvck-promo-card__content">
+          <span class="blvck-promo-card__category font-label">{{ block.settings.category }}</span>
+          <h3 class="blvck-promo-card__title font-headline">{{ block.settings.title }}</h3>
+          <span class="blvck-promo-card__link font-label">{{ block.settings.link_text }} →</span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BLVCK Promo Banners",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "row_height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Row Height",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "PROMO"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "EXCLUSIVE COLLECTION"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "VIEW MORE"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do Banner"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BLVCK Promo Banners",
+      "blocks": [
+        { "type": "banner", "settings": { "category": "COOLER SUMMER", "title": "SAVE 20% OFF SITEWIDE" } },
+        { "type": "banner", "settings": { "category": "SOLEIL COLLECTION", "title": "DESIGN FOR THE GOLDEN HOUR" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

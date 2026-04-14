@@ -1,0 +1,172 @@
+{{ 'blvck-global.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .blvck-categories__title {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    color: #fff;
+  }
+
+  .blvck-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .blvck-categories__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .blvck-category-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .blvck-category-card__image-wrapper {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    background-color: #121212;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .blvck-category-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+    transition: transform 0.7s ease, filter 0.7s ease;
+  }
+
+  .blvck-category-card:hover .blvck-category-card__image {
+    transform: scale(1.05);
+    filter: grayscale(0);
+  }
+
+  .blvck-category-card__title {
+    font-size: 1.8rem;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+    transition: decoration 0.3s;
+  }
+
+  .blvck-category-card:hover .blvck-category-card__title {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: rgba(255,255,255,0.3);
+  }
+{%- endstyle -%}
+
+<div class="container mx-auto px-4 section-{{ section.id }}-padding">
+  <h2 class="blvck-categories__title font-headline">{{ section.settings.title }}</h2>
+  
+  <div class="blvck-categories__grid">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link }}" class="blvck-category-card" {{ block.shopify_attributes }}>
+        <div class="blvck-category-card__image-wrapper">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag: class: 'blvck-category-card__image' }}
+          {%- else -%}
+            {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'blvck-category-card__image placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        <h3 class="blvck-category-card__title font-headline">{{ block.settings.title }}</h3>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BLVCK Categories Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "DISCOVER A NEW APPROACH"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "WOMENS"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BLVCK Categories Grid",
+      "blocks": [
+        { "type": "category", "settings": { "title": "WOMENS" } },
+        { "type": "category", "settings": { "title": "MENS" } },
+        { "type": "category", "settings": { "title": "NEW ARRIVALS" } },
+        { "type": "category", "settings": { "title": "BEST SELLERS" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

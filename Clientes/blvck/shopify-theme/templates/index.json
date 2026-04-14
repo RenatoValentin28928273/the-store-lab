@@ -1,0 +1,128 @@
+{
+  "sections": {
+    "blvck_hero": {
+      "type": "blvck-hero",
+      "settings": {
+        "title": "ELEVATE YOUR\nVISUAL STYLE",
+        "hero_height": 85,
+        "button_label": "EXPLORE COLLECTIONS",
+        "show_shop_card": true,
+        "card_title": "SHOP NOW",
+        "card_link_text": "STAY COOL",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "blvck_categories": {
+      "type": "blvck-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "WOMENS"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "MENS"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "NEW ARRIVALS"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "BEST SELLERS"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4"
+      ],
+      "settings": {
+        "title": "DISCOVER A NEW APPROACH",
+        "padding_top": 96,
+        "padding_bottom": 64
+      }
+    },
+    "blvck_narrative_1": {
+      "type": "blvck-narrative-grid",
+      "settings": {
+        "title": "LUXURY IS IN THE EYE OF THE BEHOLDER.\nOR, IN OUR CASE, AROUND THEM.",
+        "link_label": "DISCOVER OUR NEW ARRIVALS",
+        "tag": "NEW",
+        "layout": "left",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "blvck_narrative_2": {
+      "type": "blvck-narrative-grid",
+      "settings": {
+        "title": "IMPACTFUL VISUALS. SUBTLE LUXURY.\nMADE TO MOVE WITH YOU.",
+        "link_label": "VIEW BEST SELLERS",
+        "tag": "FEATURED",
+        "layout": "reverse",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "blvck_promo_banners": {
+      "type": "blvck-promo-banners",
+      "blocks": {
+        "banner_1": {
+          "type": "banner",
+          "settings": {
+            "category": "COOLER SUMMER",
+            "title": "SAVE 20% OFF SITEWIDE",
+            "link_text": "SHOP THE PROMO"
+          }
+        },
+        "banner_2": {
+          "type": "banner",
+          "settings": {
+            "category": "SOLEIL COLLECTION",
+            "title": "DESIGN FOR THE GOLDEN HOUR",
+            "link_text": "EXPLORE NOW"
+          }
+        }
+      },
+      "block_order": [
+        "banner_1",
+        "banner_2"
+      ],
+      "settings": {
+        "row_height": 80,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "blvck_style_shines": {
+      "type": "blvck-narrative-grid",
+      "settings": {
+        "title": "STYLE THAT SHINES\nUNDER ANY SUN.",
+        "link_label": "EXPLORE FAVORITES",
+        "tag": "BEST SELLING",
+        "layout": "left",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "blvck_hero",
+    "blvck_categories",
+    "blvck_narrative_1",
+    "blvck_narrative_2",
+    "blvck_promo_banners",
+    "blvck_style_shines"
+  ]
+}
