@@ -22,33 +22,41 @@
     font-size: {{ section.settings.desc_size }}px;
     color: {{ section.settings.desc_color }};
     line-height: 1.6;
+    margin-bottom: 25px;
+  }
+  .list-collections-noir__count {
+    font-size: 13px;
+    color: #888;
+    margin-top: 40px;
+    letter-spacing: 0.05em;
   }
   
   /* Filtros Horizontais */
   .list-collections-noir__filters {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
     margin-bottom: 60px;
-    overflow-x: auto;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
   }
   .list-collections-noir__filter-item {
-    flex: 1;
-    min-width: 150px;
-    padding: 15px;
-    border: 1px solid {{ section.settings.filter_text_color | default: '#000' }};
-    background-color: {{ section.settings.filter_bg_color | default: 'transparent' }};
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid #e0e0e0;
+    background-color: transparent;
     text-align: center;
-    font-size: {{ section.settings.filter_font_size | default: 11 }}px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
     text-decoration: none;
-    color: {{ section.settings.filter_text_color | default: '#000' }};
-    transition: all 0.3s;
+    color: #000;
+    transition: all 0.2s ease;
   }
   .list-collections-noir__filter-item:hover {
-    background: {{ section.settings.filter_text_color | default: '#000' }};
-    color: {{ section.settings.filter_bg_color | default: '#fff' }};
+    border-color: #000;
+    background: #000;
+    color: #fff;
   }
 
   /* Subcategoria Row */
@@ -190,6 +198,12 @@
           {{ display_description }}
         </div>
       {% endif %}
+      
+      {%- if template.name == 'collection' and collection -%}
+        <div class="list-collections-noir__count">
+          {{ collection.products_count }} Produtos
+        </div>
+      {%- endif -%}
     </header>
 
     <!-- Barra de Filtros (Links Rápidos) -->
@@ -197,7 +211,7 @@
       {% for block in section.blocks %}
         {%- if block.settings.collection != blank -%}
           <a href="#collection-{{ block.id }}" class="list-collections-noir__filter-item">
-            {{ block.settings.title | default: block.settings.collection.title }}
+            {{ block.settings.title | default: block.settings.collection.title | uppercase }}
           </a>
         {%- endif -%}
       {% endfor %}
