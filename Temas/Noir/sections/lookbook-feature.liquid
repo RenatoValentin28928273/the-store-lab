@@ -1,0 +1,109 @@
+<section class="lookbook-feature section-padding">
+  <div class="lookbook-grid container">
+      <!-- Left: Big Feature Image -->
+      <div class="lookbook-image-wrapper">
+          <div class="lookbook-image" style="background-color: {{ section.settings.bg_color }};"></div>
+      </div>
+
+      <!-- Right: Content & Mini Carousel -->
+      <div class="lookbook-content">
+          <div class="lookbook-header">
+              <h2 class="lookbook-title">{{ section.settings.title }}</h2>
+              <a href="{{ section.settings.button_link }}" class="lookbook-link">{{ section.settings.button_text }}</a>
+          </div>
+
+          <div class="lookbook-mini-carousel-wrap">
+              <button class="carousel-nav prev lookbook-prev" aria-label="Anterior" style="left: -15px; top: 35%; width: 32px; height: 32px;">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="carousel-nav next lookbook-next" aria-label="Próximo" style="right: -15px; top: 35%; width: 32px; height: 32px;">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+
+              <div class="lookbook-mini-carousel">
+                  {% for block in section.blocks %}
+                  <div class="lookbook-mini-slide" {{ block.shopify_attributes }}>
+                      <div class="lookbook-mini-img-wrapper" style="background-color: {{ block.settings.card_bg }}; aspect-ratio: 3/4;">
+                          {% if block.settings.badge != blank %}
+                          <span class="card-badge {% if block.settings.badge == 'Novo' %}new{% else %}sale{% endif %}">{{ block.settings.badge }}</span>
+                          {% endif %}
+                          <button class="quick-add-btn" aria-label="Adicionar rapidamente">
+                              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                          </button>
+                      </div>
+                      <h3 class="product-card-title">{{ block.settings.product_title }}</h3>
+                      <div class="product-card-price">{{ block.settings.price }}</div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lookbook Noir",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading (HTML allowed)",
+      "default": "Cashmere <span class='accent'>Ultraleve</span>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "Shop Now!"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Image Placeholder Color",
+      "default": "#EFEBE5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Lookbook item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Title",
+          "default": "Product Title"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "R$ 359,00"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Background Color",
+          "default": "#5d6148"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook Noir"
+    }
+  ]
+}
+{% endschema %}

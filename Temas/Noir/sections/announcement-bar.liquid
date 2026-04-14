@@ -1,0 +1,147 @@
+{%- if section.settings.font_family != blank -%}
+  <style>
+    {{ section.settings.font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+<section class="announcement-bar" id="announcement-bar-{{ section.id }}">
+  <div class="container container-announcement">
+    {%- if section.settings.text_1 != blank -%}
+      {%- if section.settings.link_1 != blank -%}
+        <a href="{{ section.settings.link_1 }}" class="announcement-text">{{ section.settings.text_1 }}</a>
+      {%- else -%}
+        <p class="announcement-text">{{ section.settings.text_1 }}</p>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_2 != blank -%}
+      {%- if section.settings.link_2 != blank -%}
+        <a href="{{ section.settings.link_2 }}" class="announcement-text">{{ section.settings.text_2 }}</a>
+      {%- else -%}
+        <p class="announcement-text">{{ section.settings.text_2 }}</p>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_3 != blank -%}
+      {%- if section.settings.link_3 != blank -%}
+        <a href="{{ section.settings.link_3 }}" class="announcement-text">{{ section.settings.text_3 }}</a>
+      {%- else -%}
+        <p class="announcement-text">{{ section.settings.text_3 }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+#shopify-section-{{ section.id }} {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+}
+.announcement-bar {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: 8px 0;
+    text-align: center;
+    font-size: {{ section.settings.font_size }}px;
+    {%- if section.settings.font_family != blank -%}
+    font-family: {{ section.settings.font_family.family }}, {{ section.settings.font_family.fallback_families }};
+    font-weight: {{ section.settings.font_family.weight }};
+    font-style: {{ section.settings.font_family.style }};
+    {%- endif -%}
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.container-announcement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.announcement-text {
+    margin: 0;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+a.announcement-text:hover {
+    opacity: 0.7;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Barra de Anúncio Noir",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Texto 1",
+      "default": "✦ Frete grátis acima de R$ 299"
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Texto 2",
+      "default": "Troca grátis em 30 dias ✦"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Texto 3"
+    },
+    {
+      "type": "url",
+      "id": "link_3",
+      "label": "Link 3"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do Texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho da Fonte",
+      "default": 11
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte",
+      "default": "helvetica_n4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de Anúncio Noir"
+    }
+  ]
+}
+{% endschema %}
