@@ -64,7 +64,7 @@
 
     if drawer_html == blank and section.settings.layout_style == 'editorial'
       # Use section menu setting, fallback to main-menu, then main
-      assign drawer_linklist = section.settings.menu | default: linklists.main-menu | default: linklists.main
+      assign drawer_linklist = section.settings.menu | default: linklists['main-menu'] | default: linklists.main
       render 'header-drawer', linklist: drawer_linklist, section: section, block_settings: section.settings
     else
       echo drawer_html

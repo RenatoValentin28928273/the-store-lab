@@ -28,6 +28,8 @@
     comment
       AVISO: Linklist está vazio! Use um menu válido.
     endcomment
+    # Tenta usar um menu padrão como fallback
+    assign linklist = linklists.main | default: linklists['main-menu'] | default: empty_linklist
   endif
 
   ##
