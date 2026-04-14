@@ -150,17 +150,35 @@
     background: #333;
   }
 
+  /* BLINDAGEM CONTRA OPACIDADE E FILTROS GLOBAIS */
   .product-card-noir:hover {
     opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .product-card-noir:hover .product-card-noir__image-wrapper:before,
+  .product-card-noir:hover .product-card-noir__image-wrapper:after {
+    display: none !important;
+    content: none !important;
+    opacity: 0 !important;
   }
 
   .product-card-noir:hover .product-card-noir__image {
     transform: scale(1.1);
     opacity: 1 !important;
+    filter: none !important;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0s !important;
   }
 
   .product-card-noir:hover .product-card-noir__image-link {
     opacity: 1 !important;
+    filter: none !important;
+    transition: opacity 0s !important;
+  }
+
+  .product-card-noir:hover .product-card-noir__image-link img {
+    opacity: 1 !important;
+    filter: none !important;
   }
 
   .product-card-noir__info {
