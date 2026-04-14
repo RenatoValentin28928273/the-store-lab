@@ -217,6 +217,10 @@
     <header class="list-collections-noir__header">
       <{{ section.settings.heading_tag | default: 'h1' }} class="list-collections-noir__title">{{ display_title }}</{{ section.settings.heading_tag | default: 'h1' }}>
       
+      <div style="font-size: 11px; color: blue; margin-bottom: 20px;">
+        DIAGNÓSTICO: Blocos: {{ section.blocks.size }} | Menu: {{ auto_menu.handle }} ({{ auto_menu.links.size }} links)
+      </div>
+
       {% if display_description != blank %}
         <div class="list-collections-noir__description">
           {{ display_description }}
@@ -229,7 +233,9 @@
     </header>
 
     <!-- Barra de Filtros (Links Rápidos) -->
-    <nav class="list-collections-noir__filters">
+    <nav class="list-collections-noir__filters" style="border: 1px dashed red; min-height: 50px;">
+      <a href="#" class="list-collections-noir__filter-item">AQUECIMENTO</a>
+      
       {%- if auto_menu != blank -%}
         {%- for link in auto_menu.links -%}
           <a href="#collection-{{ link.handle }}" class="list-collections-noir__filter-item">
