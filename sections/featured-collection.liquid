@@ -61,10 +61,36 @@
       "default": "h2"
     },
     {
+      "type": "header",
+      "content": "Estilo do Título"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Título da Seção",
       "default": "Mais vendidos"
+    },
+    {
+      "type": "font_picker",
+      "id": "title_font",
+      "label": "Fonte do Título",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho do Título",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do Título",
+      "default": "#000000"
     },
     {
       "type": "collection",
@@ -112,7 +138,11 @@
 }
 {% endschema %}
 
-<style>
+{%- style -%}
+  {%- if section.settings.title_font != blank -%}
+    {{ section.settings.title_font | font_face: font_display: 'swap' }}
+  {%- endif -%}
+
   .featured-collection {
     padding: 80px 0;
     overflow: hidden;
@@ -125,10 +155,12 @@
     padding: 0 10px;
   }
   .section-title {
-    font-family: serif;
-    font-size: 32px;
+    font-family: {% if section.settings.title_font != blank %}{{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }}{% else %}serif{% endif %};
+    font-size: {{ section.settings.title_size }}px;
+    color: {{ section.settings.title_color }};
     margin: 0;
   }
+{%- endstyle -%}
   .section-link {
     font-size: 12px;
     text-transform: uppercase;
