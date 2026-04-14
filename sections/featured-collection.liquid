@@ -183,22 +183,34 @@
   }
   .carousel-nav {
     position: absolute;
-    top: 40%;
+    top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #e5e5e5;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 10;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    color: #000;
   }
-  .carousel-nav.prev { left: -20px; }
-  .carousel-nav.next { right: -20px; }
+  .carousel-nav:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    transform: translateY(-50%) scale(1.1);
+  }
+  .carousel-nav svg {
+    width: 18px;
+    height: 18px;
+  }
+  .carousel-nav.prev { left: -22px; }
+  .carousel-nav.next { right: -22px; }
 
   @media (max-width: 989px) {
     .product-card-slide {
