@@ -950,12 +950,12 @@
 .main-nav-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 25px; /* Aumentado para compensar a remoção do padding dos itens */
 }
 
 .main-nav-item {
     position: relative;
-    padding: 10px 0;
+    padding: 0; /* Removido para alinhar ao topo */
 }
 
 .main-nav-link {
@@ -1039,6 +1039,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+    margin-top: 4px; /* Ajuste fino para alinhar o texto menor com a linha de base do texto maior */
 }
 
 .submenu-group-title {
