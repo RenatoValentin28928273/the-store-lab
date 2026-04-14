@@ -1,46 +1,11 @@
 {
   "sections": {
     "main": {
-      "type": "main-list-collections-noir",
-      "blocks": {
-        "collection_row_gmK8rc": {
-          "type": "collection_row",
-          "settings": {
-            "collection": "sueter-feminino",
-            "title": "Vestidos",
-            "subtext": "explore",
-            "bg_color": "#ffffff"
-          }
-        },
-        "collection_row_4VKHya": {
-          "type": "collection_row",
-          "settings": {
-            "collection": "sueter-feminino",
-            "title": "Sueter",
-            "subtext": "explore",
-            "bg_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "collection_row_gmK8rc",
-        "collection_row_4VKHya"
-      ],
+      "type": "main-list-collections",
       "settings": {
-        "section_bg_color": "#ffffff",
-        "heading_tag": "h1",
-        "title": "Nossos Departamentos",
-        "title_font": "inter_n4",
-        "title_size": 56,
-        "title_color": "#000000",
-        "description": "<p>Explore nossas coleções exclusivas curadas para você.</p>",
-        "desc_size": 16,
-        "desc_color": "#666666",
-        "block_title_size": 28,
-        "block_title_color": "#000000",
-        "filter_bg_color": "#ffffff",
-        "filter_text_color": "#000000",
-        "filter_font_size": 11
+        "title": "Collections",
+        "sort": "alphabetical",
+        "image_ratio": "square"
       }
     }
   },

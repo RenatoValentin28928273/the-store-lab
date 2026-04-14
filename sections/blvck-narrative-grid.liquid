@@ -1,0 +1,263 @@
+{{ 'blvck-global.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .blvck-layout-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  @media screen and (min-width: 990px) {
+    .blvck-layout-grid {
+      flex-direction: row;
+      gap: 6rem;
+    }
+    .blvck-layout-grid__text {
+      width: 33.333%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .blvck-layout-grid__products {
+      width: 66.666%;
+    }
+  }
+
+  .blvck-narrative-title {
+    font-size: clamp(3rem, 5vw, 6rem);
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 4rem;
+  }
+
+  .blvck-narrative-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 0.8rem;
+    width: fit-content;
+    transition: opacity 0.3s;
+  }
+
+  .blvck-product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .blvck-product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .blvck-product-card__media {
+    background: #1a1a1a;
+    padding: 3rem;
+    aspect-ratio: 4/5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .blvck-product-card__tag {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: #fff;
+    color: #000;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+
+  .blvck-product-card__image {
+    width: 100%;
+    max-width: 85%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.5s;
+    mix-blend-mode: screen;
+  }
+
+  .blvck-product-card:hover .blvck-product-card__image {
+    transform: scale(1.1);
+  }
+
+  .blvck-product-card__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .blvck-product-card__title {
+    font-size: 1.4rem;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .blvck-product-card__price {
+    font-size: 1.4rem;
+    color: #fff;
+    margin: 0;
+  }
+{%- endstyle -%}
+
+<div class="container mx-auto px-4 section-{{ section.id }}-padding">
+  <div class="blvck-layout-grid {% if section.settings.layout == 'reverse' %}flex-col-reverse lg:flex-row-reverse{% endif %}">
+    
+    <div class="blvck-layout-grid__text">
+      <h2 class="blvck-narrative-title font-headline">
+        {{ section.settings.title | newline_to_br }}
+      </h2>
+      {%- if section.settings.link_label != blank -%}
+        <a href="{{ section.settings.link_url }}" class="blvck-narrative-link font-label">
+          {{ section.settings.link_label }} →
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="blvck-layout-grid__products">
+      <div class="blvck-product-grid">
+        {%- if section.settings.collection != blank -%}
+            {%- for product in section.settings.collection.products limit: 4 -%}
+                <a href="{{ product.url }}" class="blvck-product-card">
+                    <div class="blvck-product-card__media">
+                        {%- if section.settings.tag != blank -%}
+                            <span class="blvck-product-card__tag">{{ section.settings.tag }}</span>
+                        {%- endif -%}
+                        {%- if product.featured_media != blank -%}
+                            {{ product.featured_media | image_url: width: 800 | image_tag: class: 'blvck-product-card__image' }}
+                        {%- endif -%}
+                    </div>
+                    <div class="blvck-product-card__info">
+                        <h3 class="blvck-product-card__title font-headline">{{ product.title }}</h3>
+                        <p class="blvck-product-card__price font-headline">{{ product.price | money }}</p>
+                    </div>
+                </a>
+            {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="blvck-product-card">
+                <div class="blvck-product-card__media">
+                    <span class="blvck-product-card__tag">{{ section.settings.tag }}</span>
+                    {{ 'product-' | append: i | placeholder_svg_tag: 'blvck-product-card__image' }}
+                </div>
+                <div class="blvck-product-card__info">
+                    <h3 class="blvck-product-card__title font-headline">EXAMPLE PRODUCT {{ i }}</h3>
+                    <p class="blvck-product-card__price font-headline">R$ 125.00</p>
+                </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "BLVCK Narrative Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Narrative Title",
+      "default": "LUXURY IS IN THE EYE OF THE BEHOLDER.\nOR, IN OUR CASE, AROUND THEM."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link Text",
+      "default": "DISCOVER OUR NEW ARRIVALS"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link da Seção"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product Collection"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Corner Tag (ex: NEW)",
+      "default": "NEW"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Text Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "reverse", "label": "Right (Reversed)" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "BLVCK Narrative Grid"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,263 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .trust-bar {
+    background-color: {{ section.settings.bg_color }};
+    border-top: 1px solid {{ section.settings.border_color }};
+    border-bottom: 1px solid {{ section.settings.border_color }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ESTILO GRID ESTÁTICO (PADRÃO) */
+  .trust-bar__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .trust-bar__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    .trust-bar__grid {
+      grid-template-columns: repeat({{ section.blocks.size | at_most: 4 }}, 1fr);
+    }
+  }
+
+  /* ESTILO CARROSSEL (TICKER) - SÓ ATIVA SE A OPÇÃO ESTIVER MARCADA */
+  {% if section.settings.enable_marquee %}
+    .trust-bar__container {
+      max-width: 100%;
+      padding: 0;
+    }
+    .trust-bar__grid {
+      display: flex;
+      width: max-content;
+      animation: marquee {{ section.settings.speed }}s linear infinite;
+      gap: 0;
+    }
+    .trust-bar__item {
+      padding: 0 50px;
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    {% if section.settings.pause_on_hover %}
+      .trust-bar:hover .trust-bar__grid {
+        animation-play-state: paused;
+      }
+    {% endif %}
+  {% else %}
+    .trust-bar__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+  {% endif %}
+
+  .trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .trust-bar__icon svg {
+    width: 22px;
+    height: 22px;
+    color: {{ section.settings.icon_color }};
+  }
+
+  .trust-bar__text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .trust-bar__title {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: {{ section.settings.text_color }};
+    line-height: 1.2;
+  }
+
+  .trust-bar__subtitle {
+    margin: 2px 0 0;
+    font-size: 10px;
+    color: {{ section.settings.text_color }};
+    opacity: 0.6;
+    line-height: 1.2;
+  }
+
+  /* Ajustes Mobile para Grade Estática */
+  @media screen and (max-width: 767px) {
+    {% unless section.settings.enable_marquee %}
+      .trust-bar__grid {
+        gap: 15px;
+      }
+      .trust-bar__title {
+        font-size: 10px;
+      }
+    {% endunless %}
+  }
+{%- endstyle -%}
+
+<div class="trust-bar">
+  <div class="trust-bar__container">
+    <div class="trust-bar__grid">
+      {%- comment -%} Se o carrossel estiver ligado, renderizamos 2x para o loop infinito {%- endcomment -%}
+      {%- assign repeat_count = 1 -%}
+      {%- if section.settings.enable_marquee -%}
+        {%- assign repeat_count = 2 -%}
+      {%- endif -%}
+
+      {%- for i in (1..repeat_count) -%}
+        {%- for block in section.blocks -%}
+          <div class="trust-bar__item" {{ block.shopify_attributes }}>
+            {% if block.settings.icon_svg != blank %}
+              <div class="trust-bar__icon">
+                {{ block.settings.icon_svg }}
+              </div>
+            {% endif %}
+            <div class="trust-bar__text">
+              <p class="trust-bar__title">{{ block.settings.title }}</p>
+              <p class="trust-bar__subtitle">{{ block.settings.subtitle }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de Confiança Noir",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Modo de Exibição"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_marquee",
+      "label": "Ativar Loop Infinito (Carrossel)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "s",
+      "label": "Velocidade do Carrossel",
+      "default": 35,
+      "info": "Só funciona se o Loop Infinito estiver ativado"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pausar Carrossel no Mouse",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Cores Noir"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do Texto",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Cor do Ícone",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Cor da Borda",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaço Superior",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Espaço Inferior",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Ícone SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Título do Benefício"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Descrição curta",
+          "default": "Subtítulo do benefício"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de Confiança Noir",
+      "blocks": [
+        { "type": "benefit", "settings": { "title": "Frete Grátis", "subtitle": "Para todo o Brasil" } },
+        { "type": "benefit", "settings": { "title": "Troca Fácil", "subtitle": "1ª Troca por nossa conta" } },
+        { "type": "benefit", "settings": { "title": "Até 6x Sem Juros", "subtitle": "No cartão de crédito" } },
+        { "type": "benefit", "settings": { "title": "Compra Segura", "subtitle": "Dados protegidos" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

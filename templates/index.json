@@ -1,290 +1,128 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero-banner",
+    "blvck_hero": {
+      "type": "blvck-hero",
+      "settings": {
+        "title": "ELEVATE YOUR\nVISUAL STYLE",
+        "hero_height": 85,
+        "button_label": "EXPLORE COLLECTIONS",
+        "show_shop_card": true,
+        "card_title": "SHOP NOW",
+        "card_link_text": "STAY COOL",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "blvck_categories": {
+      "type": "blvck-categories",
       "blocks": {
-        "banner_NbLXTW": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "WOMENS"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "MENS"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "NEW ARRIVALS"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "BEST SELLERS"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4"
+      ],
+      "settings": {
+        "title": "DISCOVER A NEW APPROACH",
+        "padding_top": 96,
+        "padding_bottom": 64
+      }
+    },
+    "blvck_narrative_1": {
+      "type": "blvck-narrative-grid",
+      "settings": {
+        "title": "LUXURY IS IN THE EYE OF THE BEHOLDER.\nOR, IN OUR CASE, AROUND THEM.",
+        "link_label": "DISCOVER OUR NEW ARRIVALS",
+        "tag": "NEW",
+        "layout": "left",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "blvck_narrative_2": {
+      "type": "blvck-narrative-grid",
+      "settings": {
+        "title": "IMPACTFUL VISUALS. SUBTLE LUXURY.\nMADE TO MOVE WITH YOU.",
+        "link_label": "VIEW BEST SELLERS",
+        "tag": "FEATURED",
+        "layout": "reverse",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "blvck_promo_banners": {
+      "type": "blvck-promo-banners",
+      "blocks": {
+        "banner_1": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/concentrated-youngs-ladies.jpg",
-            "headline": "Seda",
-            "headline_font": "inter_n4",
-            "headline_size": 80,
-            "headline_color": "#ffffff",
-            "subtext": "Suavidade e sofisticação. Aproveite o Kit Leve 4 Pague 3",
-            "subtext_font": "inter_n4",
-            "subtext_size": 18,
-            "subtext_color": "#ffffff",
-            "button_label": "Conhecer Coleção",
-            "button_link": "",
-            "btn_bg_color": "#ffffff",
-            "btn_text_color": "#000000",
-            "btn_radius": 6,
-            "content_bottom_padding": 120
+            "category": "COOLER SUMMER",
+            "title": "SAVE 20% OFF SITEWIDE",
+            "link_text": "SHOP THE PROMO"
           }
         },
-        "banner_WD6Raa": {
+        "banner_2": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/concentrated-youngs-ladies.jpg",
-            "headline": "Seda",
-            "headline_font": "inter_n4",
-            "headline_size": 80,
-            "headline_color": "#ffffff",
-            "subtext": "Suavidade e sofisticação. Aproveite o Kit Leve 4 Pague 3",
-            "subtext_font": "inter_n4",
-            "subtext_size": 18,
-            "subtext_color": "#ffffff",
-            "button_label": "VER COLEÇÃO",
-            "button_link": "",
-            "btn_bg_color": "#ffffff",
-            "btn_text_color": "#000000",
-            "btn_radius": 0,
-            "content_bottom_padding": 120
+            "category": "SOLEIL COLLECTION",
+            "title": "DESIGN FOR THE GOLDEN HOUR",
+            "link_text": "EXPLORE NOW"
           }
         }
       },
       "block_order": [
-        "banner_NbLXTW",
-        "banner_WD6Raa"
+        "banner_1",
+        "banner_2"
       ],
-      "settings": {}
-    },
-    "trust_bar_ix6CEh": {
-      "type": "trust-bar",
-      "blocks": {
-        "benefit_fVJTkf": {
-          "type": "benefit",
-          "settings": {
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewbox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12\"></path></svg>",
-            "title": "Frete Grátis",
-            "subtitle": "Para todo o Brasil"
-          }
-        },
-        "benefit_kEcNY4": {
-          "type": "benefit",
-          "settings": {
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewbox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99\"></path></svg>",
-            "title": "Troca Fácil",
-            "subtitle": "1ª Troca por nossa conta"
-          }
-        },
-        "benefit_rGCJf9": {
-          "type": "benefit",
-          "settings": {
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewbox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z\"></path></svg>",
-            "title": "Até 6x Sem Juros",
-            "subtitle": "No cartão de crédito"
-          }
-        },
-        "benefit_6hMWUG": {
-          "type": "benefit",
-          "settings": {
-            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewbox=\"0 0 24 24\" stroke-width=\"1.2\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z\"></path></svg>",
-            "title": "Compra Segura",
-            "subtitle": "Dados protegidos"
-          }
-        }
-      },
-      "block_order": [
-        "benefit_fVJTkf",
-        "benefit_kEcNY4",
-        "benefit_rGCJf9",
-        "benefit_6hMWUG"
-      ],
-      "name": "Barra de Confiança",
       "settings": {
-        "bg_color": "#000000",
-        "text_color": "#ffffff",
-        "icon_color": "#ffffff",
-        "border_color": "#000000",
-        "padding_top": 12,
-        "padding_bottom": 12
+        "row_height": 80,
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
-    "featured_categories_pF6jf6": {
-      "type": "featured-categories",
-      "blocks": {
-        "category_dXcPNm": {
-          "type": "category",
-          "settings": {
-            "image": "shopify://shop_images/gere-a-imagem-de-uma-mulher-com-uma-camiseta-branca-em-um-fundo-clean-e-minimalista-na-rua.png",
-            "title": "Camisetas",
-            "title_font": "inter_n4",
-            "title_color": "#ffffff",
-            "title_size": 18,
-            "subtext": "Confira a nossa coleção de camisetas femininas com design premium.",
-            "subtext_font": "inter_n4",
-            "subtext_color": "#e2e2e2",
-            "subtext_size": 12,
-            "cta_text": "Ver coleção",
-            "link": "",
-            "cta_color": "#ffffff"
-          }
-        },
-        "category_Lzag7q": {
-          "type": "category",
-          "settings": {
-            "title": "Category",
-            "title_font": "sans_serif_n4",
-            "title_color": "#000000",
-            "title_size": 18,
-            "subtext": "Subtext",
-            "subtext_font": "sans_serif_n4",
-            "subtext_color": "#666666",
-            "subtext_size": 12,
-            "cta_text": "SHOP NOW",
-            "link": "",
-            "cta_color": "#ffffff"
-          }
-        },
-        "category_WQPYFp": {
-          "type": "category",
-          "settings": {
-            "title": "Category",
-            "title_font": "sans_serif_n4",
-            "title_color": "#000000",
-            "title_size": 18,
-            "subtext": "Subtext",
-            "subtext_font": "sans_serif_n4",
-            "subtext_color": "#666666",
-            "subtext_size": 12,
-            "cta_text": "SHOP NOW",
-            "link": "",
-            "cta_color": "#ffffff"
-          }
-        },
-        "category_RLNJz6": {
-          "type": "category",
-          "settings": {
-            "title": "Category",
-            "title_font": "sans_serif_n4",
-            "title_color": "#000000",
-            "title_size": 18,
-            "subtext": "Subtext",
-            "subtext_font": "sans_serif_n4",
-            "subtext_color": "#666666",
-            "subtext_size": 12,
-            "cta_text": "SHOP NOW",
-            "link": "",
-            "cta_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "category_dXcPNm",
-        "category_Lzag7q",
-        "category_WQPYFp",
-        "category_RLNJz6"
-      ],
-      "name": "Categorias Noir",
+    "blvck_style_shines": {
+      "type": "blvck-narrative-grid",
       "settings": {
-        "bg_color": "#ffffff",
-        "columns_desktop": 4,
-        "headline": "Nossas Coleções",
-        "font_family": "inter_n4",
-        "headline_color": "#000000",
-        "headline_size": 32,
-        "subtext": "Confira nossas coleções com diversos produtos para você aproveitar",
-        "subtext_font_family": "inter_n4",
-        "subtext_color": "#434343",
-        "subtext_size": 14
-      }
-    },
-    "split_feature_carousel_jUmFMF": {
-      "type": "split-feature-carousel",
-      "blocks": {
-        "product_ww3mfw": {
-          "type": "product",
-          "settings": {
-            "product": "sueter-feminino-bege"
-          }
-        },
-        "product_yAMnHQ": {
-          "type": "product",
-          "settings": {
-            "product": "sueter-feminino-bege"
-          }
-        },
-        "product_jz9BE9": {
-          "type": "product",
-          "settings": {
-            "product": "sueter-feminino-bege"
-          }
-        }
-      },
-      "block_order": [
-        "product_ww3mfw",
-        "product_yAMnHQ",
-        "product_jz9BE9"
-      ],
-      "name": "Destaque Split Carousel",
-      "settings": {
-        "heading_tag": "h2",
-        "card_heading_tag": "h3",
-        "headline": "Mais Vendidos",
-        "font_family": "inter_n4",
-        "headline_color": "#000000",
-        "headline_size": 32,
-        "subtext": "Confira nossos produtos mais vendidos",
-        "subtext_font_family": "inter_n4",
-        "subtext_color": "#666666",
-        "subtext_size": 14,
-        "large_image": "shopify://shop_images/Model_from_Side.png",
-        "image_position": "right",
-        "bg_color": "#ffffff",
-        "side_bg_color": "#ffffff",
-        "container_width": 1200,
-        "card_radius": 10
-      }
-    },
-    "grid_categories_4_h3wDQy": {
-      "type": "grid-categories-4",
-      "blocks": {
-        "category_jLJek9": {
-          "type": "category",
-          "settings": {
-            "image": "shopify://shop_images/Model_from_Side.png",
-            "title": "Feminino",
-            "cta_text": "Ver coleção",
-            "link": ""
-          }
-        },
-        "category_kkBCJH": {
-          "type": "category",
-          "settings": {
-            "image": "shopify://shop_images/Model_from_Side.png",
-            "title": "masculino",
-            "cta_text": "ver coleção",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "category_jLJek9",
-        "category_kkBCJH"
-      ],
-      "name": "Grid Categorias 4",
-      "settings": {
-        "bg_color": "#ffffff",
-        "full_width": false,
-        "gap": 15,
-        "gap_mobile": 10,
-        "aspect_ratio": "4/5",
-        "aspect_ratio_2_items": "4/5",
-        "border_radius": 0,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20
+        "title": "STYLE THAT SHINES\nUNDER ANY SUN.",
+        "link_label": "EXPLORE FAVORITES",
+        "tag": "BEST SELLING",
+        "layout": "left",
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     }
   },
   "order": [
-    "hero",
-    "trust_bar_ix6CEh",
-    "featured_categories_pF6jf6",
-    "split_feature_carousel_jUmFMF",
-    "grid_categories_4_h3wDQy"
+    "blvck_hero",
+    "blvck_categories",
+    "blvck_narrative_1",
+    "blvck_narrative_2",
+    "blvck_promo_banners",
+    "blvck_style_shines"
   ]
 }
