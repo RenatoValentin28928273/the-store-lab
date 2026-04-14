@@ -252,7 +252,9 @@
               ">
                 {{ block.settings.title | default: collection.title }}
               </{{ block.settings.heading_tag | default: 'h2' }}>
-              <span class="collection-row__subtext" style="color: {{ block.settings.title_color }};">subtext: {{ block.settings.subtext | default: 'explore a categoria' }}</span>
+              {% if block.settings.subtext != blank %}
+                <span class="collection-row__subtext" style="color: {{ block.settings.title_color }};">{{ block.settings.subtext }}</span>
+              {% endif %}
             </div>
 
             <div class="row-carousel-container">
