@@ -305,10 +305,12 @@
             {% for link in main_menu.links %}
               <div class="submenu-panel {% if forloop.first %}is-active{% endif %}" id="panel-{{ link.handle }}-{{ forloop.index }}">
                 
-                <!-- Links de Destaque -->
-                <div class="featured-sublinks">
-                  <a href="{{ link.url }}" class="featured-link">VER TUDO EM {{ link.title | uppercase }}</a>
-                </div>
+                <!-- Links de Destaque (Só aparecem se houver sublinks) -->
+                {%- if link.links != blank -%}
+                  <div class="featured-sublinks">
+                    <a href="{{ link.url }}" class="featured-link">VER TUDO EM {{ link.title | uppercase }}</a>
+                  </div>
+                {%- endif -%}
 
                 <div class="submenu-grid">
                   {%- if link.links != blank -%}
@@ -327,18 +329,7 @@
                       </div>
                     {%- endfor -%}
                   {%- else -%}
-                    {% comment %} Fallback: Se não houver submenus aninhados, tentamos buscar um menu com o mesmo nome ou apenas listamos o link principal {% endcomment %}
-                    <div class="submenu-group">
-                      <h3 class="submenu-group-title">{{ link.title | uppercase }}</h3>
-                      <ul class="submenu-list">
-                        <li><a href="{{ link.url }}">Ver Coleção Completa</a></li>
-                        {%- if collections[link.handle].all_types.size > 0 -%}
-                          {%- for type in collections[link.handle].all_types -%}
-                            <li><a href="{{ collections[link.handle].url }}/{{ type | handleize }}">{{ type }}</a></li>
-                          {%- endfor -%}
-                        {%- endif -%}
-                      </ul>
-                    </div>
+                    {% comment %} Se estiver vazio, não mostramos nada além do link da coluna esquerda {% endcomment %}
                   {%- endif -%}
                 </div>
               </div>
