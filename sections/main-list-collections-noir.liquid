@@ -72,52 +72,49 @@
   }
 
   /* Navegação do Carousel */
-  .collection-row__nav {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
-    z-index: 5;
-    pointer-events: none;
+  .list-collections-noir .collection-row__nav {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: 0 5px !important;
+    z-index: 20 !important;
+    pointer-events: none !important;
   }
-  .collection-row__button {
-    pointer-events: auto;
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    color: #000;
-    padding: 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  .list-collections-noir .collection-row__button {
+    pointer-events: auto !important;
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease-in-out !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
   }
-  .collection-row__button:hover {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-    transform: scale(1.1);
+  .list-collections-noir .collection-row__button:hover {
+    background: #000000 !important;
+    color: #ffffff !important;
+    transform: scale(1.1) !important;
   }
-  .collection-row__button svg {
-    width: 18px;
-    height: 18px;
+  .list-collections-noir .collection-row__button.prev { margin-left: 5px !important; }
+  .list-collections-noir .collection-row__button.next { margin-right: 5px !important; }
+  .list-collections-noir .collection-row__button svg {
+    width: 20px !important;
+    height: 20px !important;
   }
-  .collection-row__button.prev { margin-left: -22px; }
-  .collection-row__button.next { margin-right: -22px; }
 
-  @media (max-width: 1024px) {
-    .collection-row__button { display: none; }
-  }
   .row-carousel-container {
-    position: relative;
+    position: relative !important;
+    padding: 0 40px !important; /* Espaço para as setas não ficarem em cima do produto */
   }
   .row-carousel {
     display: flex;
