@@ -40,7 +40,7 @@
   /* Layout */
   --container-width: 1440px;
   --gutter: 40px;
-  --radius-button: 0px; /* Editorial style usually uses sharp corners, but the cta in Figma had cornerRadius: 10? let's check */
+  --radius-button: 0px; 
 }
 
 /* CTA in Figma (21:57) had cornerRadius: 10 */
