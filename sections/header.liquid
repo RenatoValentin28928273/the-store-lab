@@ -307,23 +307,21 @@
                 
                 <div class="submenu-grid">
                   {%- if link.links != blank -%}
-                    <!-- Links de Destaque (Se houver sublinks) -->
+                    <!-- Links de Destaque (Ver tudo da Coleção) -->
                     <div class="featured-sublinks">
-                      <a href="{{ link.url }}" class="featured-link">VER TUDO EM {{ link.title | uppercase }}</a>
+                      <a href="{{ link.url }}" class="featured-link">Ver tudo da Coleção</a>
                     </div>
 
                     {%- for childlink in link.links -%}
                       <div class="submenu-group">
-                        <h3 class="submenu-group-title">{{ childlink.title | uppercase }}</h3>
-                        <ul class="submenu-list">
-                          {%- if childlink.links != blank -%}
+                        <a href="{{ childlink.url }}" class="submenu-group-title">{{ childlink.title }}</a>
+                        {%- if childlink.links != blank -%}
+                          <ul class="submenu-list">
                             {%- for grandchildlink in childlink.links -%}
                               <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>
                             {%- endfor -%}
-                          {%- else -%}
-                            <li><a href="{{ childlink.url }}">Ver tudo</a></li>
-                          {%- endif -%}
-                        </ul>
+                          </ul>
+                        {%- endif -%}
                       </div>
                     {%- endfor -%}
                   {%- else -%}
@@ -1029,10 +1027,11 @@
 
 .featured-link {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 400;
     color: #000;
-    text-decoration: none;
-    letter-spacing: 0.05em;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    letter-spacing: 0;
 }
 
 .submenu-grid {
@@ -1043,11 +1042,19 @@
 }
 
 .submenu-group-title {
-    font-size: 12px;
-    font-weight: 500;
-    color: #999;
-    letter-spacing: 0.1em;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
+    letter-spacing: 0;
     margin-bottom: 20px;
+    text-transform: none;
+    display: block;
+    text-decoration: none;
+}
+
+.submenu-group-title:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 .submenu-list {
