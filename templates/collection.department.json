@@ -17,7 +17,11 @@
           "settings": {
             "collection": "sueter-feminino",
             "title": "Sueter",
-            "subtext": "explore a categoria"
+            "subtext": "explore a categoria",
+            "heading_tag": "h2",
+            "title_size": 32,
+            "title_color": "#000000",
+            "bg_color": "#ffffff"
           }
         }
       },
