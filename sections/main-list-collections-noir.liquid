@@ -170,12 +170,24 @@
 <div class="list-collections-noir section-{{ section.id }}">
   <div class="container">
     
+    {%- liquid
+      assign display_title = section.settings.title
+      assign display_description = section.settings.description
+      
+      if template.name == 'collection' and collection
+        assign display_title = collection.title
+        if collection.description != blank
+          assign display_description = collection.description
+        endif
+      endif
+    -%}
+
     <!-- Cabeçalho do Departamento -->
     <header class="list-collections-noir__header">
-      <{{ section.settings.heading_tag | default: 'h1' }} class="list-collections-noir__title">{{ section.settings.title }}</{{ section.settings.heading_tag | default: 'h1' }}>
-      {% if section.settings.description != blank %}
+      <{{ section.settings.heading_tag | default: 'h1' }} class="list-collections-noir__title">{{ display_title }}</{{ section.settings.heading_tag | default: 'h1' }}>
+      {% if display_description != blank %}
         <div class="list-collections-noir__description">
-          {{ section.settings.description }}
+          {{ display_description }}
         </div>
       {% endif %}
     </header>
