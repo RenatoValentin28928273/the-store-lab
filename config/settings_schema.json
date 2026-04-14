@@ -6,5 +6,39 @@
     "theme_version": "1.0.0",
     "theme_support_url": "https://thestorelab.com",
     "theme_documentation_url": "https://thestorelab.com/docs"
+  },
+  {
+    "name": "Cores Noir",
+    "settings": [
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Cor Principal",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Cor de Destaque",
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": "Tipografia",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Fonte dos Títulos",
+        "default": "inter_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Fonte do Corpo",
+        "default": "inter_n4"
+      }
+    ]
   }
 ]
