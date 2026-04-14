@@ -28,8 +28,8 @@ class HeaderDrawer extends Component {
   #initJimBackdrop() {
     this.#backdrop = document.createElement('div');
     this.#backdrop.className = 'jim-menu-backdrop';
-    this.#backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:9998;opacity:0;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1);pointer-events:none;';
-    document.body.appendChild(this.#backdrop);
+    this.#backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:15;opacity:0;transition:opacity 0.4s cubic-bezier(0.16,1,0.3,1);pointer-events:none;';
+    this.appendChild(this.#backdrop);
   }
 
   #cleanupBackdrop() {

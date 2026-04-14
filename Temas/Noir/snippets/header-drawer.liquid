@@ -190,10 +190,19 @@
     }
     /* --- Estilo Premium Jim Thompson --- */
     .header-drawer--editorial .menu-drawer.jim-menu-open {
-      z-index: 9999 !important;
-      background-color: var(--color-background) !important;
+      z-index: 100 !important;
+      background-color: var(--color-background, #fff) !important;
+      {% if section.settings.header_color_scheme == 'scheme-6' or section.settings.header_color_scheme == 'scheme-5' %}
+        background-color: #111111 !important; /* Force a dark but solid background for dark schemes */
+      {% endif %}
       box-shadow: 20px 0 50px rgba(0,0,0,0.3);
     }
+    /* Se o esquema for transparente, garante que o drawer não seja */
+    .header-drawer--editorial .menu-drawer.jim-menu-open[class*="color-scheme-6"] {
+       background-color: #fff !important;
+       color: #000 !important;
+    }
+    
     .header-drawer--editorial .menu-drawer.jim-menu-open ~ .menu-drawer__backdrop {
       display: none !important;
     }
