@@ -189,21 +189,34 @@
         endif
       endif
 
-      # Lógica de Contagem: Se a coleção pai estiver zerada, somamos os blocos
+      # Fonte de dados: Blocos Manuais ou Menu Automático
+      assign source_items = section.blocks
+      assign auto_menu = linklists[collection.handle]
+      
       assign total_products = collection.all_products_count | default: 0
+      
+      # Se a coleção principal estiver vazia, tentamos somar os itens do menu ou blocos
       if total_products == 0
-        for block in section.blocks
-          if block.settings.collection != blank
-            assign total_products = total_products | plus: block.settings.collection.all_products_count
-          endif
-        endfor
+        if auto_menu != blank
+          for link in auto_menu.links
+            if link.type == 'collection_link'
+              assign total_products = total_products | plus: link.object.all_products_count
+            endif
+          endfor
+        else
+          for block in section.blocks
+            if block.settings.collection != blank
+              assign total_products = total_products | plus: block.settings.collection.all_products_count
+            endif
+          endfor
+        endif
       endif
     -%}
 
     <!-- Cabeçalho do Departamento -->
     <header class="list-collections-noir__header">
       <{{ section.settings.heading_tag | default: 'h1' }} class="list-collections-noir__title">{{ display_title }}</{{ section.settings.heading_tag | default: 'h1' }}>
-      <p style="font-size: 10px; color: red;">DEBUG: SEÇÃO NOIR ATIVA</p>
+      
       {% if display_description != blank %}
         <div class="list-collections-noir__description">
           {{ display_description }}
@@ -217,18 +230,51 @@
 
     <!-- Barra de Filtros (Links Rápidos) -->
     <nav class="list-collections-noir__filters">
-      {% for block in section.blocks %}
-        {%- if block.settings.collection != blank -%}
-          <a href="#collection-{{ block.id }}" class="list-collections-noir__filter-item">
-            {{ block.settings.title | default: block.settings.collection.title | upcase }}
+      {%- if auto_menu != blank -%}
+        {%- for link in auto_menu.links -%}
+          <a href="#collection-{{ link.handle }}" class="list-collections-noir__filter-item">
+            {{ link.title | upcase }}
           </a>
-        {%- endif -%}
-      {% endfor %}
+        {%- endfor -%}
+      {%- else -%}
+        {% for block in section.blocks %}
+          {%- if block.settings.collection != blank -%}
+            <a href="#collection-{{ block.id }}" class="list-collections-noir__filter-item">
+              {{ block.settings.title | default: block.settings.collection.title | upcase }}
+            </a>
+          {%- endif -%}
+        {% endfor %}
+      {%- endif -%}
     </nav>
 
     <!-- Listagem das Coleções -->
     <div class="list-collections-noir__rows">
-      {% for block in section.blocks %}
+      {%- if auto_menu != blank -%}
+         {%- for link in auto_menu.links -%}
+            {%- if link.type == 'collection_link' -%}
+               {%- assign sub_collection = link.object -%}
+               <div class="collection-row" id="collection-{{ link.handle }}">
+                  <div class="collection-row__header" style="background-color: #f9f9f9;">
+                    <h2 class="collection-row__title" style="font-size: 32px;">{{ sub_collection.title }}</h2>
+                    <span class="collection-row__subtext">explore a categoria</span>
+                  </div>
+                  <div class="row-carousel-container">
+                    <div class="collection-row__nav">
+                      <button class="collection-row__button prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+                      <button class="collection-row__button next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg></button>
+                    </div>
+                    <div class="row-carousel">
+                      {% for product in sub_collection.products limit: 10 %}
+                        <div class="row-carousel__item">{% render 'product-card-noir', product: product %}</div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="collection-row__footer"><a href="{{ sub_collection.url }}" class="collection-row__view-all">Ver todos</a></div>
+               </div>
+            {%- endif -%}
+         {%- endfor -%}
+      {%- else -%}
+        {% for block in section.blocks %}
         {%- assign collection = block.settings.collection -%}
         {%- if collection != blank -%}
           <div class="collection-row" id="collection-{{ block.id }}" {{ block.shopify_attributes }}>
