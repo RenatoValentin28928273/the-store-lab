@@ -219,7 +219,7 @@
       {% for block in section.blocks %}
         {%- if block.settings.collection != blank -%}
           <a href="#collection-{{ block.id }}" class="list-collections-noir__filter-item">
-            {{ block.settings.title | default: block.settings.collection.title | uppercase }}
+            {{ block.settings.title | default: block.settings.collection.title | upcase }}
           </a>
         {%- endif -%}
       {% endfor %}
