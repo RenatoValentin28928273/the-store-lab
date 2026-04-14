@@ -305,15 +305,13 @@
             {% for link in main_menu.links %}
               <div class="submenu-panel {% if forloop.first %}is-active{% endif %}" id="panel-{{ link.handle }}-{{ forloop.index }}">
                 
-                <!-- Links de Destaque (Só aparecem se houver sublinks) -->
-                {%- if link.links != blank -%}
-                  <div class="featured-sublinks">
-                    <a href="{{ link.url }}" class="featured-link">VER TUDO EM {{ link.title | uppercase }}</a>
-                  </div>
-                {%- endif -%}
-
                 <div class="submenu-grid">
                   {%- if link.links != blank -%}
+                    <!-- Links de Destaque (Se houver sublinks) -->
+                    <div class="featured-sublinks">
+                      <a href="{{ link.url }}" class="featured-link">VER TUDO EM {{ link.title | uppercase }}</a>
+                    </div>
+
                     {%- for childlink in link.links -%}
                       <div class="submenu-group">
                         <h3 class="submenu-group-title">{{ childlink.title | uppercase }}</h3>
@@ -329,7 +327,14 @@
                       </div>
                     {%- endfor -%}
                   {%- else -%}
-                    {% comment %} Se estiver vazio, não mostramos nada além do link da coluna esquerda {% endcomment %}
+                    <!-- Caso não tenha subcategorias, mostrar link simples -->
+                    <div class="submenu-group">
+                      <ul class="submenu-list">
+                        <li>
+                          <a href="{{ link.url }}" class="featured-link" style="font-size: 15px;">Ver tudo da Coleção</a>
+                        </li>
+                      </ul>
+                    </div>
                   {%- endif -%}
                 </div>
               </div>
