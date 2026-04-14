@@ -1,12 +1,6 @@
-{% comment %}
-  Snippet para o Card de Produto Noir - Estilo Editorial
-  Uso: {% render 'product-card-noir', product: product %}
-{% endcomment %}
-
 <div class="product-card-noir">
-  {%- comment -%} O Link agora envolve o conteúdo mas também tem uma camada invisível que cobre tudo abaixo {%- endcomment -%}
-  <a href="{{ product.url }}" class="product-card-noir__full-link" aria-label="{{ product.title }}">
-    <div class="product-card-noir__image-wrapper">
+  <div class="product-card-noir__image-wrapper">
+    <a href="{{ product.url }}" class="product-card-noir__image-link" aria-label="{{ product.title }}">
       {%- if product.featured_media -%}
         {{ product.featured_media | image_url: width: 800 | image_tag: 
           loading: 'lazy', 
@@ -16,124 +10,169 @@
       {%- else -%}
         {{ 'product-1' | placeholder_svg_tag: 'product-card-noir__image' }}
       {%- endif -%}
+    </a>
 
-      {%- if product.compare_at_price > product.price -%}
-        <span class="product-card-noir__badge">SALE</span>
-      {%- endif -%}
+    {%- if product.compare_at_price > product.price -%}
+      <span class="product-card-noir__badge">SALE</span>
+    {%- endif -%}
+
+    <!-- Setas de navegação internas -->
+    <button class="card-arrow card-arrow--left" aria-label="Anterior">
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M5 1L1 5L5 9" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+    <button class="card-arrow card-arrow--right" aria-label="Próximo">
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M1 9L5 5L1 1" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
+
+    <!-- Paginação (Dots) -->
+    <div class="product-card-noir__dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
     </div>
 
-    <div class="product-card-noir__info">
-      <{{ heading_tag | default: 'h3' }} class="product-card-noir__title">{{ product.title | uppercase }}</{{ heading_tag | default: 'h3' }}>
-      
-      <p class="product-card-noir__subtitle">
-        {%- if product.metafields.descriptors.subtitle != blank -%}
-          {{ product.metafields.descriptors.subtitle }}
-        {%- else -%}
-          {{ product.type }}
-        {%- endif -%}
-      </p>
+    <!-- Botão Quick Add (+) -->
+    <button class="product-card-noir__quick-add" aria-label="Adição Rápida">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
 
-      {%- if product.options_by_name['Color'] or product.options_by_name['Cor'] -%}
-        <div class="product-card-noir__swatches">
-          {%- assign color_option = product.options_by_name['Color'] | default: product.options_by_name['Cor'] -%}
-          {%- for value in color_option.values limit: 5 -%}
-            <span class="product-card-noir__swatch" style="background-color: {{ value | split: ' ' | last | handle }};"></span>
-          {%- endfor -%}
-        </div>
+  <div class="product-card-noir__info">
+    <a href="{{ product.url }}" class="product-card-noir__title-link">
+      <{{ heading_tag | default: 'h3' }} class="product-card-noir__title">{{ product.title | upcase }}</{{ heading_tag | default: 'h3' }}>
+    </a>
+    
+    <p class="product-card-noir__subtitle">
+      {%- if product.metafields.descriptors.subtitle != blank -%}
+        {{ product.metafields.descriptors.subtitle | lowercase }}
+      {%- else -%}
+        {{ product.type | lowercase }}
       {%- endif -%}
+    </p>
 
-      <div class="product-card-noir__price">
-        <span class="product-card-noir__price--current">{{ product.price | money }}</span>
-      </div>
+    <div class="product-card-noir__price">
+      {{ product.price | money }}
     </div>
-  </a>
+  </div>
 </div>
 
 <style>
   .product-card-noir {
     position: relative;
-    display: block;
     width: 100%;
-    cursor: pointer;
-  }
-
-  .product-card-noir__full-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    z-index: 5;
-  }
-
-  /* Camada invisível que garante que qualquer clique no card funcione como link */
-  .product-card-noir__full-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
   }
 
   .product-card-noir__image-wrapper {
     position: relative;
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/5;
     overflow: hidden;
     background-color: #f9f9f9;
     margin-bottom: 15px;
+    border-radius: 12px; /* Arredondamento conforme a imagem */
   }
 
   .product-card-noir__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  .product-card-noir:hover .product-card-noir__image {
-    transform: scale(1.05);
+  .product-card-noir__image-link {
+    display: block;
+    height: 100%;
   }
 
-  .product-card-noir__info {
+  /* BOTÃO QUICK ADD (+) */
+  .product-card-noir__quick-add {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    background: #000;
+    border: none;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 0 4px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+  }
+  .product-card-noir__quick-add:hover {
+    transform: scale(1.1);
   }
 
-  .product-card-noir__title {
-    margin: 0;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+  /* SETAS INTERNAS */
+  .card-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.7);
     color: #000;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 8;
   }
-
-  .product-card-noir__subtitle {
-    margin: 0;
-    font-size: 11px;
-    color: #888;
-    text-transform: uppercase;
+  .product-card-noir:hover .card-arrow {
+    opacity: 1;
+    visibility: visible;
   }
+  .card-arrow--left { left: 10px; }
+  .card-arrow--right { right: 10px; }
 
-  .product-card-noir__swatches {
+  /* DOTS DE PAGINAÇÃO */
+  .product-card-noir__dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     gap: 6px;
-    margin: 8px 0;
+    z-index: 8;
   }
-
-  .product-card-noir__swatch {
-    width: 12px;
-    height: 12px;
+  .dot {
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    border: 1px solid #eee;
+    background: #ccc;
+    transition: background 0.3s;
+  }
+  .dot.active {
+    background: #333;
   }
 
-  .product-card-noir__price {
+  /* INFORMAÇÕES */
+  .product-card-noir__info {
+    text-align: left;
+  }
+  .product-card-noir__title-link {
+    text-decoration: none;
+  }
+  .product-card-noir__title {
+    margin: 0 0 4px 0;
     font-size: 14px;
     font-weight: 700;
     color: #000;
-    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .product-card-noir__subtitle {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    color: #888;
+    font-weight: 400;
+  }
+  .product-card-noir__price {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
   }
 </style>
