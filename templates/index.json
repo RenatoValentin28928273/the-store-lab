@@ -202,8 +202,8 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Model_from_Side.png",
-            "title": "WOMEN'S",
-            "cta_text": "SHOP NOW",
+            "title": "Feminino",
+            "cta_text": "Ver coleção",
             "link": ""
           }
         },
@@ -211,8 +211,8 @@
           "type": "category",
           "settings": {
             "image": "shopify://shop_images/Model_from_Side.png",
-            "title": "MEN'S",
-            "cta_text": "SHOP NOW",
+            "title": "masculino",
+            "cta_text": "ver coleção",
             "link": ""
           }
         }
