@@ -11,6 +11,19 @@
   "sections": {
     "main": {
       "type": "main-list-collections-noir",
+      "blocks": {
+        "sueter_block": {
+          "type": "collection_row",
+          "settings": {
+            "collection": "sueter-feminino",
+            "title": "Sueter",
+            "subtext": "explore a categoria"
+          }
+        }
+      },
+      "block_order": [
+        "sueter_block"
+      ],
       "settings": {
         "section_bg_color": "#ffffff",
         "heading_tag": "h1",
@@ -25,26 +38,9 @@
         "filter_text_color": "#000000",
         "filter_font_size": 11
       }
-    },
-    "featured_collection_HcPAPm": {
-      "type": "featured-collection",
-      "name": "Coleção em Destaque Noir",
-      "settings": {
-        "heading_tag": "h2",
-        "title": "Sueter",
-        "title_font": "inter_n4",
-        "title_size": 32,
-        "title_color": "#000000",
-        "collection": "sueter-feminino",
-        "card_heading_tag": "h3",
-        "limit": 6,
-        "button_text": "Ver todos",
-        "button_link": ""
-      }
     }
   },
   "order": [
-    "main",
-    "featured_collection_HcPAPm"
+    "main"
   ]
 }
