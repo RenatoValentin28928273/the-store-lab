@@ -101,30 +101,47 @@
   }
   .list-collections-noir .collection-row__button {
     pointer-events: auto !important;
-    background: #ffffff !important;
-    border: 1px solid #000000 !important;
-    width: 48px !important;
-    height: 48px !important;
+    width: 52px !important; /* Ligeiramente maior para melhor toque */
+    height: 52px !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
-    transition: all 0.3s ease-in-out !important;
-    color: #000000 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     padding: 0 !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
   }
-  .list-collections-noir .collection-row__button:hover {
+
+  /* Botão Próximo (Preto - Destaque de Navegação) */
+  .list-collections-noir .collection-row__button.next {
     background: #000000 !important;
+    border: none !important;
     color: #ffffff !important;
-    transform: scale(1.1) !important;
+    margin-right: 5px !important;
   }
-  .list-collections-noir .collection-row__button.prev { margin-left: 5px !important; }
-  .list-collections-noir .collection-row__button.next { margin-right: 5px !important; }
+  .list-collections-noir .collection-row__button.next:hover {
+    background: #1a1a1a !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2) !important;
+  }
+
+  /* Botão Anterior (Branco - Secundário) */
+  .list-collections-noir .collection-row__button.prev {
+    background: #ffffff !important;
+    border: 1px solid #f0f0f0 !important;
+    color: #000000 !important;
+    margin-left: 5px !important;
+  }
+  .list-collections-noir .collection-row__button.prev:hover {
+    background: #f9f9f9 !important;
+    border-color: #000000 !important;
+    transform: scale(1.05) !important;
+  }
+
   .list-collections-noir .collection-row__button svg {
-    width: 20px !important;
-    height: 20px !important;
+    width: 22px !important;
+    height: 22px !important;
   }
 
   .row-carousel-container {
