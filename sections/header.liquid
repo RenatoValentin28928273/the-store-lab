@@ -328,8 +328,9 @@
                     {%- endfor -%}
                   {%- else -%}
                     <div class="submenu-empty">
-                      <p>Explore a coleção completa de {{ link.title }}.</p>
-                      <a href="{{ link.url }}" class="featured-link">VER COLEÇÃO</a>
+                      <span class="empty-label">DEPARTAMENTO {{ link.title | uppercase }}</span>
+                      <h2 class="empty-title">Explore a curadoria completa da categoria.</h2>
+                      <a href="{{ link.url }}" class="empty-button">VER TODA A COLEÇÃO →</a>
                     </div>
                   {%- endif -%}
                 </div>
@@ -1061,6 +1062,39 @@
     transition: color 0.2s;
 }
 .submenu-list a:hover { color: #666; }
+
+.submenu-empty {
+    padding: 60px 0;
+    max-width: 400px;
+}
+
+.empty-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.empty-title {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.empty-button {
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4px;
+    transition: opacity 0.3s;
+}
+.empty-button:hover { opacity: 0.6; }
 
 @media (max-width: 768px) {
     .menu-drawer { width: 100%; }
