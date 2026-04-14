@@ -304,27 +304,30 @@
           {%- if main_menu != blank -%}
             {% for link in main_menu.links %}
               <div class="submenu-panel {% if forloop.first %}is-active{% endif %}" id="panel-{{ link.handle }}-{{ forloop.index }}">
-                
-                <div class="submenu-grid">
+                     <div class="submenu-content">
                   {%- if link.links != blank -%}
-                    <!-- Links de Destaque (Ver tudo da Coleção) -->
+                    <!-- Links de Destaque (Ver tudo da Coleção) - Acima da Linha -->
                     <div class="featured-sublinks">
                       <a href="{{ link.url }}" class="featured-link">Ver tudo da Coleção</a>
                     </div>
-
-                    {%- for childlink in link.links -%}
-                      <div class="submenu-group">
-                        <a href="{{ childlink.url }}" class="submenu-group-title">{{ childlink.title }}</a>
-                        {%- if childlink.links != blank -%}
-                          <ul class="submenu-list">
-                            {%- for grandchildlink in childlink.links -%}
-                              <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>
-                            {%- endfor -%}
-                          </ul>
-                        {%- endif -%}
-                      </div>
-                    {%- endfor -%}
+                    
+                    <!-- Grade de Categorias - Abaixo da Linha -->
+                    <div class="submenu-grid">
+                      {%- for childlink in link.links -%}
+                        <div class="submenu-group">
+                          <a href="{{ childlink.url }}" class="submenu-group-title">{{ childlink.title }}</a>
+                          {%- if childlink.links != blank -%}
+                            <ul class="submenu-list">
+                              {%- for grandchildlink in childlink.links -%}
+                                <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
                   {%- else -%}
+   {%- else -%}
                     <!-- Caso não tenha subcategorias, mostrar link simples -->
                     <div class="submenu-group">
                       <ul class="submenu-list">
