@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections-noir",
+      "settings": {
+        "heading_tag": "h1",
+        "title": "Departamento",
+        "description": "<p>Explore nossas subcategorias.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
