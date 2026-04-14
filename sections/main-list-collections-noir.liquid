@@ -14,7 +14,7 @@
   .list-collections-noir__title {
     font-family: {% if section.settings.title_font != blank %}{{ section.settings.title_font.family }}, {{ section.settings.title_font.fallback_families }}{% else %}serif{% endif %};
     font-size: {{ section.settings.title_size }}px;
-    color: {{ section.settings.title_color }};
+    color: #0000FF !important; /* FORÇANDO AZUL PARA TESTE DE SINCRONIZAÇÃO */
     line-height: 1.1;
     margin-bottom: 20px;
   }
