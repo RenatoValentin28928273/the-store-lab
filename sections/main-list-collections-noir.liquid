@@ -4,6 +4,13 @@
     {{ section.settings.title_font | font_face: font_display: 'swap' }}
   {%- endif -%}
 
+  {%- comment -%} Carrega fontes das sub-coleções {%- endcomment -%}
+  {%- for block in section.blocks -%}
+    {%- if block.settings.title_font != blank -%}
+      {{ block.settings.title_font | font_face: font_display: 'swap' }}
+    {%- endif -%}
+  {%- endfor -%}
+
   .list-collections-noir {
     padding: 60px 0;
     background-color: {{ section.settings.section_bg_color | default: '#ffffff' }};
@@ -425,6 +432,12 @@
             { "value": "p", "label": "p" }
           ],
           "default": "h2"
+        },
+        {
+          "type": "font_picker",
+          "id": "title_font",
+          "label": "Fonte do Título",
+          "default": "serif"
         },
         {
           "type": "range",
