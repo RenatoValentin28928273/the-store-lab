@@ -1,14 +1,7 @@
+{%- style -%}
   {%- if section.settings.title_font != blank -%}
     {{ section.settings.title_font | font_face: font_display: 'swap' }}
   {%- endif -%}
-  {%- if section.settings.block_title_font != blank -%}
-    {{ section.settings.block_title_font | font_face: font_display: 'swap' }}
-  {%- endif -%}
-  {%- for block in section.blocks -%}
-    {%- if block.settings.title_font != blank -%}
-      {{ block.settings.title_font | font_face: font_display: 'swap' }}
-    {%- endif -%}
-  {%- endfor -%}
 
   .list-collections-noir {
     padding: 60px 0;
@@ -163,12 +156,7 @@
           <div class="collection-row" id="collection-{{ block.id }}" {{ block.shopify_attributes }}>
             
             <div class="collection-row__header" style="background-color: {{ block.settings.bg_color | default: '#f4f4f4' }};">
-              {%- assign block_font = block.settings.title_font | default: section.settings.block_title_font -%}
-              <{{ block.settings.heading_tag | default: 'h2' }} class="collection-row__title" style="
-                font-family: {% if block_font != blank %}{{ block_font.family }}, {{ block_font.fallback_families }}{% else %}serif{% endif %};
-                font-size: {{ block.settings.title_size }}px; 
-                color: {{ block.settings.title_color }};
-              ">
+              <{{ block.settings.heading_tag | default: 'h2' }} class="collection-row__title" style="font-size: {{ block.settings.title_size }}px; color: {{ block.settings.title_color }};">
                 {{ block.settings.title | default: collection.title }}
               </{{ block.settings.heading_tag | default: 'h2' }}>
               <span class="collection-row__subtext" style="color: {{ block.settings.title_color }};">subtext: {{ block.settings.subtext | default: 'explore a categoria' }}</span>
@@ -279,16 +267,6 @@
     },
     {
       "type": "header",
-      "content": "Estilo das Sub-Coleções (Global)"
-    },
-    {
-      "type": "font_picker",
-      "id": "block_title_font",
-      "label": "Fonte Padrão dos Blocos",
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "header",
       "content": "Barra de Filtros"
     },
     {
@@ -343,12 +321,6 @@
         {
           "type": "header",
           "content": "Estilo do Bloco"
-        },
-        {
-          "type": "font_picker",
-          "id": "title_font",
-          "label": "Fonte do Título",
-          "default": "helvetica_n4"
         },
         {
           "type": "select",

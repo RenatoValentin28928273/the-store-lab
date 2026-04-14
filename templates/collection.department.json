@@ -1,15 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-list-collections-noir",
       "settings": {
+        "section_bg_color": "#ffffff",
         "heading_tag": "h1",
         "title": "Departamento",
-        "description": "<p>Explore nossas subcategorias.</p>"
+        "title_font": "sans_serif_n4",
+        "title_size": 56,
+        "title_color": "#000000",
+        "description": "<p>Explore nossas subcategorias.</p>",
+        "desc_size": 16,
+        "desc_color": "#666666",
+        "filter_bg_color": "#ffffff",
+        "filter_text_color": "#000000",
+        "filter_font_size": 11
+      }
+    },
+    "featured_collection_HcPAPm": {
+      "type": "featured-collection",
+      "name": "Coleção em Destaque Noir",
+      "settings": {
+        "heading_tag": "h2",
+        "title": "Vestidos",
+        "collection": "",
+        "card_heading_tag": "h3",
+        "limit": 4,
+        "button_text": "Ver todos",
+        "button_link": ""
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "featured_collection_HcPAPm"
   ]
 }
