@@ -1,0 +1,253 @@
+{%- style -%}
+  .product-section {
+    padding-top: 60px;
+    background-color: #fff; /* Design shows white background for the main product area */
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* Image Gallery */
+  .product-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .product-image--main {
+    grid-column: span 2;
+    aspect-ratio: 4 / 5;
+    background-color: #f5f5f5;
+  }
+
+  .product-image--secondary {
+    aspect-ratio: 3 / 4;
+    background-color: #f5f5f5;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Info Column */
+  .product-info {
+    position: sticky;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .product-breadcrumb {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .product-title {
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .product-price-wrapper {
+    margin-top: 10px;
+  }
+
+  .product-price {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .product-installments {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Selectors */
+  .selector-label {
+    font-size: 12px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .swatch-list {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+  }
+
+  .swatch-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+
+  .swatch-item.active {
+    border-color: var(--color-black);
+    padding: 2px;
+    background-clip: content-box;
+  }
+
+  .size-list {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+  }
+
+  .size-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .size-item.active {
+    background-color: var(--color-black);
+    color: #fff;
+    border-color: var(--color-black);
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+    height: 56px;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  /* Accordions */
+  .product-accordions {
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .accordion-header {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  @media (max-width: 989px) {
+    .product-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="product-section">
+  <div class="container">
+    <div class="product-grid">
+      
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="product-image product-image--main">
+          {% comment %} Main Image Placeholder {% endcomment %}
+          <img src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title }}">
+        </div>
+        <div class="product-image product-image--secondary">
+           <img src="{{ product.images[1] | img_url: '600x' }}" alt="">
+        </div>
+        <div class="product-image product-image--secondary">
+           <img src="{{ product.images[2] | img_url: '600x' }}" alt="">
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info">
+        <div class="product-breadcrumb">
+          INÍCIO / COLEÇÕES / CORTES PRECISOS / {{ product.title | upcase }}
+        </div>
+
+        <h1 class="product-title">{{ product.title | upcase }}</h1>
+        
+        <div class="product-price-wrapper">
+          <div class="product-price">{{ product.price | money }}</div>
+          <div class="product-installments">ou 10x de {{ product.price | divided_by: 10 | money }} sem juros</div>
+        </div>
+
+        <div class="product-variants">
+          <div class="variant-selector">
+            <span class="selector-label">Cor: Noir Black</span>
+            <ul class="swatch-list">
+              <li class="swatch-item active" style="background-color: #0d0d0d;"></li>
+              <li class="swatch-item" style="background-color: #e8e6e0;"></li>
+            </ul>
+          </div>
+
+          <div class="variant-selector" style="margin-top: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <span class="selector-label">Tamanho: Selecione</span>
+                <a href="#" class="selector-label" style="text-decoration: underline; color: var(--text-muted);">Guia de Medidas</a>
+            </div>
+            <ul class="size-list">
+              <li class="size-item">P</li>
+              <li class="size-item active">M</li>
+              <li class="size-item">G</li>
+            </ul>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn--primary add-to-cart-btn btn-noir">
+          ADICIONAR À SACOLA
+        </button>
+
+        <div class="product-accordions">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>DESCRIÇÃO</span>
+              <span>+</span>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>DETALHES & CAIMENTO</span>
+              <span>+</span>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>ENVIO & DEVOLUÇÕES</span>
+              <span>+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main Product Noir",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Main Product Noir"
+    }
+  ]
+}
+{% endschema %}

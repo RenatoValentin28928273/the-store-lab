@@ -1,0 +1,55 @@
+<section class="shop-category section-padding">
+  <div class="container">
+      <div class="section-header">
+          <h2 class="section-title">{{ section.settings.title }}</h2>
+      </div>
+      <div class="category-grid">
+          {% for block in section.blocks %}
+          <div class="category-card" tabindex="0" {{ block.shopify_attributes }}>
+              <div class="category-card-img" style="background-color: {{ block.settings.card_bg }};"></div>
+              <div class="category-card-overlay"></div>
+              <h3 class="category-card-title">{{ block.settings.category_title }}</h3>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categorias Noir",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Explore Nossas Linhas"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Background Color",
+          "default": "#A3AFB6"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categorias Noir"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,470 @@
+{%- if section.settings.font_family != blank -%}
+  <style>
+    {{ section.settings.font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+{%- if section.settings.subtext_font_family != blank -%}
+  <style>
+    {{ section.settings.subtext_font_family | font_face: font_display: 'swap' }}
+  </style>
+{%- endif -%}
+
+{%- for block in section.blocks -%}
+  {%- if block.settings.title_font != blank -%}
+    <style>
+      {{ block.settings.title_font | font_face: font_display: 'swap' }}
+    </style>
+  {%- endif -%}
+  {%- if block.settings.subtext_font != blank -%}
+    <style>
+      {{ block.settings.subtext_font | font_face: font_display: 'swap' }}
+    </style>
+  {%- endif -%}
+{%- endfor -%}
+
+<section class="featured-categories" id="section-{{ section.id }}">
+  <div class="container-noir">
+    <div class="header-group">
+      <h2 class="section-headline">{{ section.settings.headline }}</h2>
+      <p class="section-subtext">{{ section.settings.subtext }}</p>
+    </div>
+
+    <div class="categories-container {% if section.blocks.size > 4 %}swiper js-categories-swiper{% endif %}">
+      <div class="categories-grid {% if section.blocks.size > 4 %}swiper-wrapper{% endif %}">
+        {% for block in section.blocks %}
+          <div class="category-card {% if section.blocks.size > 4 %}swiper-slide{% endif %}" {{ block.shopify_attributes }} id="block-{{ block.id }}">
+            <div class="category-image-wrap">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'category-img' }}
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+              
+              <div class="category-content">
+                <h3 class="category-card-title">{{ block.settings.title }}</h3>
+                <p class="category-card-subtext">{{ block.settings.subtext }}</p>
+                {% if block.settings.cta_text != blank %}
+                  <a href="{{ block.settings.link }}" class="category-card-cta">{{ block.settings.cta_text }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.blocks.size > 4 %}
+        <div class="swiper-button-prev category-nav prev"></div>
+        <div class="swiper-button-next category-nav next"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if section.blocks.size > 4 %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.js-categories-swiper', {
+        slidesPerView: 2.2,
+        spaceBetween: 15,
+        navigation: {
+          nextEl: '.category-nav.next',
+          prevEl: '.category-nav.prev',
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 3.2,
+          },
+          1024: {
+            slidesPerView: 5,
+          }
+        }
+      });
+    });
+  </script>
+{% endif %}
+
+<style>
+#section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: 80px 40px;
+}
+
+#section-{{ section.id }} .header-group {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+#section-{{ section.id }} .section-headline {
+    margin: 0;
+    color: {{ section.settings.headline_color }};
+    font-size: {{ section.settings.headline_size }}px;
+    {% if section.settings.font_family != blank %}
+      font-family: {{ section.settings.font_family.family }}, {{ section.settings.font_family.fallback_families }};
+      font-weight: {{ section.settings.font_family.weight }};
+      font-style: {{ section.settings.font_family.style }};
+    {% endif %}
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+#section-{{ section.id }} .section-subtext {
+    margin: 10px 0 0 0;
+    color: {{ section.settings.subtext_color }};
+    font-size: {{ section.settings.subtext_size }}px;
+    {% if section.settings.subtext_font_family != blank %}
+      font-family: {{ section.settings.subtext_font_family.family }}, {{ section.settings.subtext_font_family.fallback_families }};
+      font-weight: {{ section.settings.subtext_font_family.weight }};
+      font-style: {{ section.settings.subtext_font_family.style }};
+    {% endif %}
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: 15px;
+}
+
+.categories-grid.swiper-wrapper {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+}
+
+.category-nav {
+    color: #fff !important;
+    background: rgba(0,0,0,0.2);
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.category-nav:hover {
+    background: rgba(0,0,0,0.8);
+    transform: scale(1.1);
+}
+
+.category-nav::after {
+    font-size: 18px !important;
+    font-weight: 900;
+}
+
+.category-nav.prev { left: 20px !important; }
+.category-nav.next { right: 20px !important; }
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 8px; /* Cantos arredondados premium */
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.category-image-wrap {
+    position: relative;
+    aspect-ratio: 2.5/4; /* Proporção mais vertical/elegante */
+    background-color: #f0f0f0;
+}
+
+.category-image-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; /* Gradiente mais alto para melhor leitura */
+    background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.category-img, .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.category-content {
+    position: absolute;
+    bottom: 25px; /* Conteúdo mais abaixo conforme referência */
+    left: 25px;
+    right: 25px;
+    z-index: 2;
+}
+
+{% for block in section.blocks %}
+  #block-{{ block.id }} .category-card-title {
+      margin: 0;
+      color: {{ block.settings.title_color }};
+      font-size: {{ block.settings.title_size }}px;
+      {% if block.settings.title_font != blank %}
+        font-family: {{ block.settings.title_font.family }}, {{ block.settings.title_font.fallback_families }};
+        font-weight: {{ block.settings.title_font.weight }};
+        font-style: {{ block.settings.title_font.style }};
+      {% endif %}
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+  }
+
+  #block-{{ block.id }} .category-card-subtext {
+      margin: 12px 0 0 0;
+      color: {{ block.settings.subtext_color }};
+      font-size: {{ block.settings.subtext_size }}px;
+{% if block.settings.subtext_font != blank %}
+        font-family: {{ block.settings.subtext_font.family }}, {{ block.settings.subtext_font.fallback_families }};
+        font-weight: {{ block.settings.subtext_font.weight }};
+        font-style: {{ block.settings.subtext_font.style }};
+      {% endif %}
+  }
+
+  #block-{{ block.id }} .category-card-cta {
+      display: inline-block;
+      margin-top: 20px;
+      color: {{ block.settings.cta_color }};
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      border-bottom: 2px solid {{ block.settings.cta_color }};
+      padding-bottom: 2px;
+      transition: opacity 0.3s ease;
+  }
+
+  #block-{{ block.id }} .category-card-cta:hover {
+      opacity: 0.7;
+  }
+{% endfor %}
+
+@media (max-width: 1024px) {
+    .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .category-content {
+        bottom: 25px;
+        left: 25px;
+        right: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #section-{{ section.id }} {
+        padding: 60px 20px;
+    }
+}
+
+.container-noir {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Categorias Noir",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Cor de Fundo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Colunas no Desktop",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Headline (Título Superior)"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Headline"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_family",
+      "label": "Fonte da Headline",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Cor da Headline",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Tamanho da Headline",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Subtext (Título Superior)"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Subtext"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtext_font_family",
+      "label": "Fonte do Subtext",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Cor do Subtext",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Tamanho do Subtext",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoria",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem da Categoria"
+        },
+        {
+          "type": "header",
+          "content": "Estilo do Nome da Categoria"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Nome da Categoria",
+          "default": "Category"
+        },
+        {
+          "type": "font_picker",
+          "id": "title_font",
+          "label": "Fonte do Nome",
+          "default": "helvetica_n4"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Cor do Nome",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "title_size",
+          "min": 12,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamanho do Nome",
+          "default": 18
+        },
+        {
+          "type": "header",
+          "content": "Estilo do Subtext da Categoria"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "Subtext"
+        },
+        {
+          "type": "font_picker",
+          "id": "subtext_font",
+          "label": "Fonte do Subtext",
+          "default": "helvetica_n4"
+        },
+        {
+          "type": "color",
+          "id": "subtext_color",
+          "label": "Cor do Subtext",
+          "default": "#666666"
+        },
+        {
+          "type": "range",
+          "id": "subtext_size",
+          "min": 10,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Tamanho do Subtext",
+          "default": 12
+        },
+        {
+          "type": "header",
+          "content": "Botão CTA (Call to Action)"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Texto do Link",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link do Card"
+        },
+        {
+          "type": "color",
+          "id": "cta_color",
+          "label": "Cor do Link",
+          "default": "#FFFFFF"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categorias Noir",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
