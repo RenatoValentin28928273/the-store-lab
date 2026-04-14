@@ -321,16 +321,23 @@
                               <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a></li>
                             {%- endfor -%}
                           {%- else -%}
-                            <li><a href="{{ childlink.url }}">Explorar todos os itens</a></li>
+                            <li><a href="{{ childlink.url }}">Ver tudo</a></li>
                           {%- endif -%}
                         </ul>
                       </div>
                     {%- endfor -%}
                   {%- else -%}
-                    <div class="submenu-empty">
-                      <span class="empty-label">DEPARTAMENTO {{ link.title | uppercase }}</span>
-                      <h2 class="empty-title">Explore a curadoria completa da categoria.</h2>
-                      <a href="{{ link.url }}" class="empty-button">VER TODA A COLEÇÃO →</a>
+                    {% comment %} Fallback: Se não houver submenus aninhados, tentamos buscar um menu com o mesmo nome ou apenas listamos o link principal {% endcomment %}
+                    <div class="submenu-group">
+                      <h3 class="submenu-group-title">{{ link.title | uppercase }}</h3>
+                      <ul class="submenu-list">
+                        <li><a href="{{ link.url }}">Ver Coleção Completa</a></li>
+                        {%- if collections[link.handle].all_types.size > 0 -%}
+                          {%- for type in collections[link.handle].all_types -%}
+                            <li><a href="{{ collections[link.handle].url }}/{{ type | handleize }}">{{ type }}</a></li>
+                          {%- endfor -%}
+                        {%- endif -%}
+                      </ul>
                     </div>
                   {%- endif -%}
                 </div>
