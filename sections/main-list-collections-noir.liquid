@@ -143,9 +143,15 @@
   .row-carousel::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
   }
-  .row-carousel__item {
-    flex: 0 0 calc(20% - 16px);
-    min-width: 200px;
+  .row-carousel-item {
+    flex: 0 0 calc( (100% / var(--items-per-row, 4)) - (20px * (var(--items-per-row, 4) - 1) / var(--items-per-row, 4)) );
+    min-width: 0;
+    scroll-snap-align: start;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .row-carousel-item:hover {
+    transform: translateY(-8px);
   }
 
   .collection-row__footer {
@@ -265,9 +271,9 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
                 </button>
               </div>
-              <div class="row-carousel">
+              <div class="row-carousel" style="--items-per-row: {{ block.settings.products_per_row | default: 4 }};">
                 {% for product in collection.products limit: 10 %}
-                  <div class="row-carousel__item">
+                  <div class="row-carousel-item">
                     {% render 'product-card-noir', product: product %}
                   </div>
                 {% endfor %}
@@ -419,6 +425,15 @@
           "id": "subtext",
           "label": "Subtexto",
           "default": "explore"
+        },
+        {
+          "type": "range",
+          "id": "products_per_row",
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "default": 4,
+          "label": "Produtos por linha"
         },
         {
           "type": "header",
