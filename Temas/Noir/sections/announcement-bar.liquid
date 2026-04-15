@@ -1,0 +1,68 @@
+﻿<div class="announcement-bar" data-announcement-carousel role="region" aria-label="Barra de anuncios">
+  <div class="announcement-bar__inner container">
+    <div class="announcement-bar__viewport">
+      <div class="announcement-bar__track" data-announcement-track>
+        {% assign has_messages = false %}
+        {% for block in section.blocks %}
+          {% if block.settings.message != blank %}
+            {% assign has_messages = true %}
+          {% endif %}
+        {% endfor %}
+
+        {% if has_messages %}
+          {% for block in section.blocks %}
+            {% if block.settings.message != blank %}
+              <div class="announcement-bar__slide" data-announcement-slide {{ block.shopify_attributes }}>
+                {{ block.settings.message }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <div class="announcement-bar__slide" data-announcement-slide>
+            Frete gratis para compras acima de R$ 199
+          </div>
+          <div class="announcement-bar__slide" data-announcement-slide>
+            Novidades semanais para a sua loja
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="announcement-bar__controls" data-announcement-controls>
+      <button class="announcement-bar__button announcement-bar__button--prev" type="button" data-announcement-prev aria-label="Anuncio anterior">&lsaquo;</button>
+      <button class="announcement-bar__button announcement-bar__button--next" type="button" data-announcement-next aria-label="Proximo anuncio">&rsaquo;</button>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de Anuncios",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configuracoes da barra"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Anuncio",
+      "settings": [
+        {
+          "type": "text",
+          "id": "message",
+          "label": "Mensagem",
+          "default": "Digite aqui o anuncio"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Barra de Anuncios"
+    }
+  ]
+}
+{% endschema %}
