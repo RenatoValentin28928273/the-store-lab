@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const AUTO_PLAY_INTERVAL_MS = 5000;
   const TOP_OFFSET_SELECTORS = [
     'html',
@@ -14,9 +14,18 @@
         element.style.setProperty('margin-top', '0px', 'important');
         element.style.setProperty('padding-top', '0px', 'important');
         element.style.setProperty('top', '0px', 'important');
+        
+        // Remove attr style se for html para evitar margin injetada pelo admin bar
+        if (element.tagName === 'HTML' || element.tagName === 'BODY') {
+          element.removeAttribute('style');
+          // Re-set critical styles inline after removal to be safe
+          element.style.setProperty('margin-top', '0px', 'important');
+          element.style.setProperty('padding-top', '0px', 'important');
+        }
       });
     });
   }
+
 
   function initAnnouncementCarousel(carousel) {
     if (!carousel || carousel.dataset.announcementReady === 'true') {

@@ -3,19 +3,28 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   top: 0 !important;
-  position: relative !important;
+  position: static !important; /* Changed from relative to static to ensure no displacement */
 }
 
 body {
   margin-top: 0 !important;
   padding-top: 0 !important;
   font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 html {
   margin-top: 0 !important;
   padding-top: 0 !important;
-  --admin-bar-height: 0px !important; /* Force Shopify admin bar variable to 0 */
+  --admin-bar-height: 0px !important;
+}
+
+/* Hard reset for common Shopify elements that cause gaps */
+#preview-bar-iframe,
+.shopify-preview-bar,
+#admin-bar-iframe {
+  display: none !important;
+  height: 0 !important;
 }
 
 #shopify-section-announcement-bar,
@@ -26,6 +35,7 @@ html {
   top: 0 !important;
   display: block;
 }
+
 
 .shopify-section-group-header-group {
   margin: 0 !important;
