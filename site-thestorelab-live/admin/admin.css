@@ -358,10 +358,12 @@ textarea:focus,
 .section-toolbar {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
 }
 
-.section-toolbar button {
+.section-toolbar button,
+.section-toolbar select {
   min-width: 42px;
   min-height: 38px;
   border-color: var(--line);
@@ -370,7 +372,14 @@ textarea:focus,
   padding: 0 12px;
 }
 
-.section-toolbar button:hover {
+.section-toolbar select {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.section-toolbar button:hover,
+.section-toolbar select:hover {
   border-color: var(--ink);
   background: var(--accent);
 }

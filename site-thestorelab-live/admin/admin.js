@@ -13,6 +13,7 @@ const addSectionButton = document.getElementById('addSectionButton');
 
 let posts = [];
 let selectedSlug = '';
+let savedEditorRange = null;
 
 const slugify = (value = '') =>
   value
@@ -77,7 +78,7 @@ const textToHtml = (value = '') =>
     .join('');
 
 const sanitizeHtml = (html = '') => {
-  const allowedTags = new Set(['A', 'B', 'BR', 'EM', 'I', 'LI', 'OL', 'P', 'STRONG', 'UL']);
+  const allowedTags = new Set(['A', 'B', 'BR', 'EM', 'I', 'LI', 'OL', 'P', 'SPAN', 'STRONG', 'UL']);
   const template = document.createElement('template');
   template.innerHTML = html;
 
@@ -100,6 +101,12 @@ const sanitizeHtml = (html = '') => {
         element.setAttribute('href', href);
         element.setAttribute('target', '_blank');
         element.setAttribute('rel', 'noopener');
+      }
+    }
+    if (tagName === 'SPAN') {
+      const fontWeight = node.style.fontWeight;
+      if (/^(400|500|600|700|800|900|normal|bold)$/.test(fontWeight)) {
+        element.style.fontWeight = fontWeight;
       }
     }
     node.childNodes.forEach((child) => element.appendChild(cleanNode(child)));
@@ -132,7 +139,46 @@ const createToolbarButton = (label, command, title) => {
   return button;
 };
 
+const createFontWeightSelect = () => {
+  const select = document.createElement('select');
+  select.dataset.command = 'fontWeight';
+  select.title = 'Peso da fonte';
+  [
+    ['Peso da fonte', ''],
+    ['Normal', '400'],
+    ['Medio', '500'],
+    ['Semibold', '600'],
+    ['Bold', '700'],
+    ['Extra bold', '800'],
+  ].forEach(([label, value]) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = label;
+    select.appendChild(option);
+  });
+  return select;
+};
+
+const updateSavedSelection = () => {
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount || selection.isCollapsed) return;
+  const range = selection.getRangeAt(0);
+  const editor = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+    ? range.commonAncestorContainer.closest?.('.rich-editor')
+    : range.commonAncestorContainer.parentElement?.closest('.rich-editor');
+  if (editor) savedEditorRange = range.cloneRange();
+};
+
+const restoreSavedSelection = () => {
+  if (!savedEditorRange) return false;
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(savedEditorRange);
+  return true;
+};
+
 const replaceSelectedText = (transform) => {
+  restoreSavedSelection();
   const selection = window.getSelection();
   if (!selection || !selection.rangeCount || selection.isCollapsed) return;
 
@@ -146,6 +192,44 @@ const replaceSelectedText = (transform) => {
   range.deleteContents();
   range.insertNode(document.createTextNode(transform(selectedText)));
   selection.removeAllRanges();
+  syncSectionsText();
+};
+
+const wrapSelection = (tagName, attributes = {}) => {
+  restoreSavedSelection();
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount || selection.isCollapsed) return;
+
+  const range = selection.getRangeAt(0);
+  const editor = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+    ? range.commonAncestorContainer.closest?.('.rich-editor')
+    : range.commonAncestorContainer.parentElement?.closest('.rich-editor');
+  if (!editor) return;
+
+  const wrapper = document.createElement(tagName);
+  Object.entries(attributes).forEach(([key, value]) => wrapper.setAttribute(key, value));
+  wrapper.appendChild(range.extractContents());
+  range.insertNode(wrapper);
+  selection.removeAllRanges();
+  savedEditorRange = null;
+  syncSectionsText();
+};
+
+const applyFontWeight = (weight) => {
+  if (!weight) return;
+  wrapSelection('span', { style: `font-weight: ${weight};` });
+};
+
+const removeBoldFromSelection = () => {
+  restoreSavedSelection();
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount || selection.isCollapsed) return;
+  const range = selection.getRangeAt(0);
+  const text = selection.toString();
+  range.deleteContents();
+  range.insertNode(document.createTextNode(text));
+  selection.removeAllRanges();
+  savedEditorRange = null;
   syncSectionsText();
 };
 
@@ -180,6 +264,8 @@ const createSectionBlock = (section = {}) => {
     createToolbarButton('Lista', 'insertUnorderedList', 'Lista com marcadores'),
     createToolbarButton('1.', 'insertOrderedList', 'Lista numerada'),
     createToolbarButton('Link', 'createLink', 'Adicionar link'),
+    createFontWeightSelect(),
+    createToolbarButton('Normal', 'removeBold', 'Remover negrito da selecao'),
     createToolbarButton('AA', 'uppercase', 'Transformar selecao em maiusculas'),
     createToolbarButton('aa', 'lowercase', 'Transformar selecao em minusculas'),
     createToolbarButton('Limpar', 'removeFormat', 'Remover formatacao')
@@ -333,8 +419,18 @@ addSectionButton.addEventListener('click', () => {
 
 sectionsEditor.addEventListener('input', syncSectionsText);
 
+sectionsEditor.addEventListener('keyup', updateSavedSelection);
+sectionsEditor.addEventListener('mouseup', updateSavedSelection);
+
 sectionsEditor.addEventListener('mousedown', (event) => {
-  if (event.target.closest('[data-command]')) event.preventDefault();
+  if (event.target.closest('button[data-command]')) event.preventDefault();
+});
+
+sectionsEditor.addEventListener('change', (event) => {
+  const select = event.target.closest('select[data-command="fontWeight"]');
+  if (!select) return;
+  applyFontWeight(select.value);
+  select.value = '';
 });
 
 sectionsEditor.addEventListener('paste', (event) => {
@@ -374,6 +470,8 @@ sectionsEditor.addEventListener('click', (event) => {
   if (command === 'createLink') {
     const url = window.prompt('Cole a URL do link');
     if (url) document.execCommand(command, false, url);
+  } else if (command === 'removeBold') {
+    removeBoldFromSelection();
   } else if (command === 'uppercase') {
     replaceSelectedText((value) => value.toUpperCase());
   } else if (command === 'lowercase') {
