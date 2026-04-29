@@ -34,9 +34,26 @@ const githubRequest = async (url, options = {}) => {
   });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) {
-    throw new Error(payload.message || `GitHub API falhou com status ${response.status}.`);
+    const message = payload.message || `GitHub API falhou com status ${response.status}.`;
+    const error = new Error(message);
+    error.status = response.status;
+    error.githubMessage = payload.message;
+    error.githubDocumentationUrl = payload.documentation_url;
+    throw error;
   }
   return payload;
+};
+
+const explainGitHubError = (error, step) => {
+  if (error.githubMessage === 'Resource not accessible by personal access token') {
+    return [
+      `GitHub recusou o token ao ${step}.`,
+      'Crie um Personal Access Token classic na mesma conta que tem acesso ao repo e marque o escopo repo.',
+      'Depois salve esse token na Vercel como GITHUB_TOKEN em Production e faca redeploy.',
+    ].join(' ');
+  }
+
+  return error.message || 'Nao foi possivel salvar o post.';
 };
 
 const getRepoConfig = () => ({
@@ -81,21 +98,25 @@ export default async function handler(request, response) {
 
     const { owner, repo, branch } = getRepoConfig();
     const fileUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${contentPath}?ref=${branch}`;
-    const current = await githubRequest(fileUrl);
+    const current = await githubRequest(fileUrl, { step: 'ler o arquivo de posts' });
     const currentContent = Buffer.from(current.content || '', 'base64').toString('utf8');
     const posts = JSON.parse(currentContent);
     const nextPosts = posts.filter((item) => item.slug !== cleanPost.slug);
     nextPosts.unshift(cleanPost);
 
-    await githubRequest(`https://api.github.com/repos/${owner}/${repo}/contents/${contentPath}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        message: `Update blog post: ${cleanPost.title}`,
-        content: Buffer.from(`${JSON.stringify(nextPosts, null, 2)}\n`).toString('base64'),
-        sha: current.sha,
-        branch,
-      }),
-    });
+    try {
+      await githubRequest(`https://api.github.com/repos/${owner}/${repo}/contents/${contentPath}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          message: `Update blog post: ${cleanPost.title}`,
+          content: Buffer.from(`${JSON.stringify(nextPosts, null, 2)}\n`).toString('base64'),
+          sha: current.sha,
+          branch,
+        }),
+      });
+    } catch (error) {
+      throw new Error(explainGitHubError(error, 'gravar o arquivo de posts'));
+    }
 
     let deployTriggered = false;
     if (process.env.VERCEL_DEPLOY_HOOK_URL) {
