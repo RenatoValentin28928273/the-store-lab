@@ -64,7 +64,18 @@
             <label>Resumo lateral do artigo<textarea name="summary" rows="3" required></textarea></label>
             <label>Texto do WhatsApp<textarea name="whatsappText" rows="2"></textarea></label>
             <label>Dados estruturados extras (JSON-LD)<textarea name="structuredDataText" rows="12" placeholder='Cole um objeto ou array JSON-LD. Ex: { "@type": "FAQPage", "mainEntity": [] }'></textarea></label>
-            <label>Secoes do artigo<textarea name="sectionsText" rows="14" placeholder="Use blocos com ## Titulo da secao, seguido do texto."></textarea></label>
+
+            <section class="section-editor" aria-labelledby="sectionsEditorTitle">
+              <div class="section-editor__top">
+                <div>
+                  <span class="admin-kicker">Editor visual</span>
+                  <h2 id="sectionsEditorTitle">Secoes do artigo</h2>
+                </div>
+                <button id="addSectionButton" type="button">Adicionar secao</button>
+              </div>
+              <div class="section-list" id="sectionsEditor"></div>
+              <textarea name="sectionsText" hidden></textarea>
+            </section>
 
             <div class="editor-actions">
               <button type="submit">Salvar e publicar</button>

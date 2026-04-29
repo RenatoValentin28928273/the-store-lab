@@ -23,6 +23,21 @@ const slugify = (value = '') =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+const hasHtml = (value = '') => /<\/?[a-z][\s\S]*>/i.test(String(value));
+
+const renderRichText = (value = '') => {
+  const content = String(value || '').trim();
+  if (!content) return '';
+  if (hasHtml(content)) return content;
+
+  return content
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
+    .map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, '<br>')}</p>`)
+    .join('\n');
+};
+
 const formatDate = (value) => {
   const [year, month, day] = String(value || '').split('-');
   if (!year || !month || !day) return 'Sem data';
@@ -179,7 +194,7 @@ const renderPost = (post, relatedPosts) => {
     .map(
       (section, index) => `<section id="${slugify(section.heading)}">
             <h2>${index + 1}. ${escapeHtml(section.heading)}</h2>
-            <p>${escapeHtml(section.body)}</p>
+            ${renderRichText(section.body)}
           </section>`
     )
     .join('\n');

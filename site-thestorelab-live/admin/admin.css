@@ -24,7 +24,8 @@ body {
 
 button,
 input,
-textarea {
+textarea,
+.rich-editor {
   font: inherit;
 }
 
@@ -298,9 +299,110 @@ textarea {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+.rich-editor:focus {
   border-color: var(--ink);
   outline: 3px solid rgba(99, 244, 76, 0.32);
+}
+
+.section-editor {
+  display: grid;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--soft);
+  padding: 18px;
+}
+
+.section-editor__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.section-editor__top h2 {
+  margin: 10px 0 0;
+  font-size: 1.35rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.section-list {
+  display: grid;
+  gap: 14px;
+}
+
+.section-block {
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.section-block__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.section-block__remove {
+  border-color: var(--line);
+  background: #ffffff;
+  color: var(--ink);
+}
+
+.section-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.section-toolbar button {
+  min-width: 42px;
+  min-height: 38px;
+  border-color: var(--line);
+  background: #ffffff;
+  color: var(--ink);
+  padding: 0 12px;
+}
+
+.section-toolbar button:hover {
+  border-color: var(--ink);
+  background: var(--accent);
+}
+
+.rich-editor {
+  width: 100%;
+  min-height: 220px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  padding: 14px;
+  line-height: 1.65;
+  outline: none;
+  overflow-wrap: anywhere;
+}
+
+.rich-editor:empty::before {
+  content: attr(data-placeholder);
+  color: var(--muted);
+}
+
+.rich-editor p,
+.rich-editor ul,
+.rich-editor ol {
+  margin: 0 0 12px;
+}
+
+.rich-editor p:last-child,
+.rich-editor ul:last-child,
+.rich-editor ol:last-child {
+  margin-bottom: 0;
 }
 
 .editor-actions {
@@ -322,5 +424,15 @@ textarea:focus {
     border-bottom: 1px solid var(--line);
     padding-right: 0;
     padding-bottom: 18px;
+  }
+
+  .section-editor__top,
+  .section-block__top {
+    grid-template-columns: 1fr;
+  }
+
+  .section-editor__top {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
