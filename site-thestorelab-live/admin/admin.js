@@ -132,6 +132,23 @@ const createToolbarButton = (label, command, title) => {
   return button;
 };
 
+const replaceSelectedText = (transform) => {
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount || selection.isCollapsed) return;
+
+  const range = selection.getRangeAt(0);
+  const editor = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+    ? range.commonAncestorContainer.closest?.('.rich-editor')
+    : range.commonAncestorContainer.parentElement?.closest('.rich-editor');
+  if (!editor) return;
+
+  const selectedText = selection.toString();
+  range.deleteContents();
+  range.insertNode(document.createTextNode(transform(selectedText)));
+  selection.removeAllRanges();
+  syncSectionsText();
+};
+
 const createSectionBlock = (section = {}) => {
   const block = document.createElement('article');
   block.className = 'section-block';
@@ -163,6 +180,8 @@ const createSectionBlock = (section = {}) => {
     createToolbarButton('Lista', 'insertUnorderedList', 'Lista com marcadores'),
     createToolbarButton('1.', 'insertOrderedList', 'Lista numerada'),
     createToolbarButton('Link', 'createLink', 'Adicionar link'),
+    createToolbarButton('AA', 'uppercase', 'Transformar selecao em maiusculas'),
+    createToolbarButton('aa', 'lowercase', 'Transformar selecao em minusculas'),
     createToolbarButton('Limpar', 'removeFormat', 'Remover formatacao')
   );
 
@@ -314,6 +333,10 @@ addSectionButton.addEventListener('click', () => {
 
 sectionsEditor.addEventListener('input', syncSectionsText);
 
+sectionsEditor.addEventListener('mousedown', (event) => {
+  if (event.target.closest('[data-command]')) event.preventDefault();
+});
+
 sectionsEditor.addEventListener('paste', (event) => {
   const editor = event.target.closest('.rich-editor');
   if (!editor) return;
@@ -351,6 +374,10 @@ sectionsEditor.addEventListener('click', (event) => {
   if (command === 'createLink') {
     const url = window.prompt('Cole a URL do link');
     if (url) document.execCommand(command, false, url);
+  } else if (command === 'uppercase') {
+    replaceSelectedText((value) => value.toUpperCase());
+  } else if (command === 'lowercase') {
+    replaceSelectedText((value) => value.toLowerCase());
   } else {
     document.execCommand(command, false, null);
   }

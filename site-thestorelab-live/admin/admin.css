@@ -386,6 +386,11 @@ textarea:focus,
   line-height: 1.65;
   outline: none;
   overflow-wrap: anywhere;
+  text-transform: none;
+}
+
+.rich-editor * {
+  text-transform: none;
 }
 
 .rich-editor:empty::before {
