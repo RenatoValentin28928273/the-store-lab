@@ -225,5 +225,5 @@ postForm.addEventListener('submit', async (event) => {
   }
   posts = payload.posts;
   fillForm(post);
-  setStatus(payload.deployTriggered ? 'Salvo. Deploy disparado.' : 'Salvo. Configure o deploy hook para publicar automaticamente.');
+  setStatus(payload.deployTriggered ? 'Salvo. Deploy disparado.' : 'Salvo. Deploy automatico via GitHub iniciado.');
 });
