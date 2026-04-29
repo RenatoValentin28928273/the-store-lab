@@ -24,11 +24,14 @@ const slugify = (value = '') =>
     .replace(/^-+|-+$/g, '');
 
 const hasHtml = (value = '') => /<\/?[a-z][\s\S]*>/i.test(String(value));
+const hasBlockHtml = (value = '') => /<(p|ul|ol|blockquote|div|h[1-6])[\s>]/i.test(String(value));
 
 const renderRichText = (value = '') => {
   const content = String(value || '').trim();
   if (!content) return '';
-  if (hasHtml(content)) return content;
+  if (hasHtml(content)) {
+    return hasBlockHtml(content) ? content : `<p>${content}</p>`;
+  }
 
   return content
     .split(/\n{2,}/)
