@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const postsPath = path.join(process.cwd(), 'content', 'posts.json');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const postsPath = path.resolve(__dirname, '..', 'content', 'posts.json');
 
 const isAuthorized = (request) => {
   const configured = process.env.ADMIN_PASSWORD;
@@ -15,6 +17,12 @@ export default async function handler(request, response) {
     return;
   }
 
-  const posts = JSON.parse(await fs.readFile(postsPath, 'utf8'));
-  response.status(200).json({ posts });
+  try {
+    const posts = JSON.parse(await fs.readFile(postsPath, 'utf8'));
+    response.status(200).json({ posts });
+  } catch (error) {
+    response.status(500).json({
+      error: error.message || 'Nao foi possivel carregar os posts.',
+    });
+  }
 }
