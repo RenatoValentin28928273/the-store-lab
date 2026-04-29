@@ -56,6 +56,17 @@ const setStatus = (message) => {
   statusMessage.textContent = message;
 };
 
+const readApiPayload = async (response) => {
+  const text = await response.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch (error) {
+    return {
+      error: text || 'A API retornou uma resposta invalida.',
+    };
+  }
+};
+
 const formatDate = (value = '') => {
   const [year, month, day] = value.split('-');
   if (!year || !month || !day) return 'Sem data';
@@ -129,7 +140,7 @@ const loadPosts = async () => {
   const response = await fetch('/api/posts', {
     headers: { 'x-admin-password': getPassword() },
   });
-  const payload = await response.json();
+  const payload = await readApiPayload(response);
   if (!response.ok) throw new Error(payload.error || 'Nao foi possivel carregar os posts.');
   posts = payload.posts || [];
   fillForm(posts[0] || {});
@@ -218,7 +229,7 @@ postForm.addEventListener('submit', async (event) => {
     },
     body: JSON.stringify({ post }),
   });
-  const payload = await response.json();
+  const payload = await readApiPayload(response);
   if (!response.ok) {
     setStatus(payload.error || 'Falha ao salvar.');
     return;
