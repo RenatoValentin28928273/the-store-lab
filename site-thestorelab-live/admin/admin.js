@@ -445,6 +445,8 @@ sectionsEditor.addEventListener('paste', (event) => {
 });
 
 sectionsEditor.addEventListener('click', (event) => {
+  if (event.target.closest('select[data-command]')) return;
+
   const removeButton = event.target.closest('[data-remove-section]');
   if (removeButton) {
     const blocks = sectionsEditor.querySelectorAll('.section-block');
