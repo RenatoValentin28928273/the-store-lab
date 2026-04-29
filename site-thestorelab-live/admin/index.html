@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Blog | The Store Lab</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="admin-panel">
+      <div class="admin-header">
+        <div>
+          <span class="admin-kicker">The Store Lab</span>
+          <h1>Admin do blog</h1>
+        </div>
+        <a href="/blog/" target="_blank" rel="noopener">Ver blog</a>
+      </div>
+
+      <div class="admin-login" id="loginPanel">
+        <label for="adminPassword">Senha do admin</label>
+        <div class="admin-row">
+          <input id="adminPassword" type="password" autocomplete="current-password" placeholder="Digite a senha configurada no Vercel" />
+          <button id="loginButton" type="button">Entrar</button>
+        </div>
+        <p>Essa senha e comparada com a variavel `ADMIN_PASSWORD` no Vercel.</p>
+      </div>
+
+      <div class="admin-workspace" id="workspace" hidden>
+        <aside class="post-list">
+          <div class="post-list__top">
+            <h2>Posts</h2>
+            <button id="newPostButton" type="button">Novo</button>
+          </div>
+          <div id="postList"></div>
+        </aside>
+
+        <section class="admin-main">
+          <section class="content-overview" aria-labelledby="contentOverviewTitle">
+            <div class="content-overview__top">
+              <div>
+                <span class="admin-kicker">Conteudos publicados</span>
+                <h2 id="contentOverviewTitle">Todos os posts</h2>
+              </div>
+              <p id="contentCount">0 posts</p>
+            </div>
+            <div class="content-grid" id="contentGrid"></div>
+          </section>
+
+          <form class="editor" id="postForm">
+            <div class="editor-grid">
+              <label>Titulo<input name="title" required /></label>
+              <label>Slug<input name="slug" required /></label>
+              <label>Categoria<input name="category" required /></label>
+              <label>Data<input name="date" type="date" required /></label>
+              <label>Tempo de leitura<input name="readTime" placeholder="Leitura de 5 min" /></label>
+              <label>CTA<input name="cta" placeholder="Falar agora" /></label>
+            </div>
+
+            <label>Meta description<textarea name="description" rows="3" required></textarea></label>
+            <label>Resumo para o card<textarea name="excerpt" rows="3" required></textarea></label>
+            <label>Resumo lateral do artigo<textarea name="summary" rows="3" required></textarea></label>
+            <label>Texto do WhatsApp<textarea name="whatsappText" rows="2"></textarea></label>
+            <label>Dados estruturados extras (JSON-LD)<textarea name="structuredDataText" rows="12" placeholder='Cole um objeto ou array JSON-LD. Ex: { "@type": "FAQPage", "mainEntity": [] }'></textarea></label>
+            <label>Secoes do artigo<textarea name="sectionsText" rows="14" placeholder="Use blocos com ## Titulo da secao, seguido do texto."></textarea></label>
+
+            <div class="editor-actions">
+              <button type="submit">Salvar e publicar</button>
+              <span id="statusMessage" role="status"></span>
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="/admin/admin.js" defer></script>
+</body>
+</html>

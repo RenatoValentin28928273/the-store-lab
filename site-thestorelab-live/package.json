@@ -1,0 +1,11 @@
+{
+  "name": "thestorelab-live-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build-blog.js",
+    "dev": "node tools/static-server.js",
+    "preview": "node tools/static-server.js"
+  }
+}
