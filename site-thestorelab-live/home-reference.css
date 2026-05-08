@@ -2176,6 +2176,55 @@
 
 .home-reference .blueprint-why__grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.home-reference .blueprint-why__grid article {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 28px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.home-reference .blueprint-why__grid article::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ref-accent);
+  border-radius: 14px 14px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
+}
+
+.home-reference .blueprint-why__grid article:hover {
+  border-color: var(--ref-accent);
+  box-shadow: 0 6px 24px rgba(99, 244, 76, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+.home-reference .blueprint-why__grid article:hover::before {
+  transform: scaleX(1);
+}
+
+.home-reference .blueprint-why__grid h3 {
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.home-reference .blueprint-why__grid p {
+  font-size: 0.92rem;
+  line-height: 1.72;
+  color: var(--ref-muted);
 }
 
 .home-reference .blueprint-plan-grid {
