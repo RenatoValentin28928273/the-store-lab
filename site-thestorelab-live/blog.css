@@ -358,7 +358,7 @@
 
 .cta-shell h2 {
   color: #fff;
-  font-size: clamp(1.8rem, 3.8vw, 3rem);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   line-height: 1.08;
   font-weight: 800;
   margin: 0;
