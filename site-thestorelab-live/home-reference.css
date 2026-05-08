@@ -2302,6 +2302,29 @@
   gap: 10px;
 }
 
+.home-reference .blueprint-founder .cta-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  border: 1px solid #000000;
+  border-radius: 999px;
+  background: transparent;
+  color: #000000;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.home-reference .blueprint-founder .cta-links a:hover {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
 @media (max-width: 1080px) {
   .home-reference .blueprint-hero__inner,
   .home-reference .blueprint-pillars__grid,
