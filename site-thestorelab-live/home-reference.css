@@ -1980,9 +1980,9 @@
 .home-reference .blueprint-proof h2,
 .home-reference .blueprint-founder h2 {
   max-width: 13ch;
-  font-size: clamp(2.6rem, 5vw, 5.2rem);
-  line-height: 0.94;
-  font-weight: 900;
+  font-size: clamp(2rem, 3.6vw, 3.6rem);
+  line-height: 1.02;
+  font-weight: 800;
 }
 
 .home-reference .blueprint-pillars__grid {
