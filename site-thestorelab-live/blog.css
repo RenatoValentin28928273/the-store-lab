@@ -1,7 +1,7 @@
 /* Blog listing pages — The Store Lab */
 
 .blog-page {
-  background: #f4f4f4;
+  background: #ffffff;
   color: #000;
 }
 
@@ -150,7 +150,8 @@
   background: #fff;
   border-radius: 20px;
   padding: 28px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04), 0 16px 48px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.05);
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
@@ -219,7 +220,8 @@
   background: #fff;
   border-radius: 20px;
   padding: 28px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04), 0 16px 48px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.05);
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
