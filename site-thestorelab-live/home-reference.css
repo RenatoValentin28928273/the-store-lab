@@ -1979,7 +1979,6 @@
 .home-reference .blueprint-heading h2,
 .home-reference .blueprint-proof h2,
 .home-reference .blueprint-founder h2 {
-  max-width: 13ch;
   font-size: clamp(2rem, 3.6vw, 3.6rem);
   line-height: 1.02;
   font-weight: 800;
