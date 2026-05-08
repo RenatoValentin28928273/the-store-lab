@@ -1976,6 +1976,11 @@
   margin-bottom: 34px;
 }
 
+.home-reference .blueprint-pillars .blueprint-heading h2 {
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 800;
+}
+
 .home-reference .blueprint-heading h2,
 .home-reference .blueprint-proof h2,
 .home-reference .blueprint-founder h2 {
