@@ -2076,28 +2076,32 @@
 .home-reference .blueprint-proof {
   background: #000000;
   color: #ffffff;
+  padding: 96px 0;
 }
 
 .home-reference .blueprint-proof h2 {
+  margin-top: 22px;
   color: #ffffff;
+  font-weight: 700;
 }
 
 .home-reference .blueprint-proof__grid,
 .home-reference .blueprint-founder__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.72fr);
-  gap: clamp(28px, 5vw, 70px);
+  gap: clamp(48px, 7vw, 96px);
   align-items: center;
 }
 
 .home-reference .blueprint-proof__copy {
   display: grid;
-  gap: 18px;
+  gap: 24px;
 }
 
 .home-reference .blueprint-proof__copy p {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.68);
   font-size: 1.08rem;
+  line-height: 1.8;
 }
 
 .home-reference .blueprint-steps {
