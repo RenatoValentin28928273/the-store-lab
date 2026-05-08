@@ -245,8 +245,8 @@
 }
 
 .home-reference .reference-hero {
-  min-height: 720px;
-  padding: 118px 0 58px;
+  min-height: 620px;
+  padding: 112px 0 78px;
   border-bottom: 1px solid var(--ref-border);
   background:
     linear-gradient(to right, rgba(0, 0, 0, 0.055) 1px, transparent 1px),
@@ -257,9 +257,15 @@
 
 .home-reference .reference-hero__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
-  gap: 44px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+.home-reference .hero-copy {
+  display: grid;
+  justify-items: center;
+  text-align: center;
 }
 
 .home-reference .eyebrow {
@@ -308,24 +314,25 @@
 
 .home-reference .hero-copy h1 {
   margin-top: 20px;
-  max-width: 13.5ch;
-  font-size: clamp(3rem, 6.4vw, 5.9rem);
-  line-height: 0.96;
-  font-weight: 900;
+  max-width: 17ch;
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+  line-height: 1.02;
+  font-weight: 850;
 }
 
 .home-reference .hero-copy .lead {
-  margin-top: 24px;
-  max-width: 64ch;
+  margin-top: 20px;
+  max-width: 720px;
   color: var(--ref-muted);
-  font-size: 1.12rem;
-  line-height: 1.65;
+  font-size: 1.08rem;
+  line-height: 1.68;
 }
 
 .home-reference .hero-actions {
-  margin-top: 30px;
+  margin-top: 26px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 18px;
   flex-wrap: wrap;
 }
@@ -366,12 +373,31 @@
   text-underline-offset: 5px;
 }
 
+.home-reference .hero-proof-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.home-reference .hero-proof-row span {
+  border: 1px solid #000000;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #000000;
+  padding: 7px 11px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 .home-reference .hero-metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  max-width: 620px;
-  margin-top: 34px;
+  width: min(760px, 100%);
+  margin-top: 24px;
 }
 
 .home-reference .hero-metrics div {
@@ -451,7 +477,9 @@
 .home-reference .storefront-panel {
   position: relative;
   overflow: hidden;
-  min-height: 440px;
+  width: min(1040px, 100%);
+  min-height: 330px;
+  margin: 0 auto;
   border: 1px solid #000000;
   border-radius: 8px;
   background:
@@ -492,9 +520,9 @@
 .home-reference .panel-hero-line {
   position: relative;
   overflow: hidden;
-  width: 86%;
+  width: 54%;
   height: 34px;
-  margin-top: 54px;
+  margin-top: 62px;
   border-radius: 8px;
   background: #ffffff;
 }
@@ -509,7 +537,7 @@
 }
 
 .home-reference .panel-hero-line--short {
-  width: 52%;
+  width: 34%;
   height: 18px;
   margin-top: 14px;
   background: var(--ref-accent);
@@ -522,9 +550,10 @@
 
 .home-reference .panel-products {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-top: 36px;
+  width: 58%;
+  margin-top: 32px;
 }
 
 .home-reference .panel-products span {
@@ -585,6 +614,7 @@
 }
 
 .home-reference .reference-brands,
+.home-reference .commerce-system,
 .home-reference .reference-process,
 .home-reference .reference-portfolio,
 .home-reference .reference-testimonials,
@@ -594,6 +624,7 @@
 }
 
 .home-reference .reference-brands h2,
+.home-reference .commerce-system h2,
 .home-reference .reference-process h2,
 .home-reference .reference-portfolio h2,
 .home-reference .reference-testimonials h2,
@@ -629,7 +660,7 @@
   padding: 5px 10px;
   text-transform: uppercase;
   letter-spacing: 0;
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   font-weight: 900;
 }
 
@@ -647,6 +678,203 @@
 
 .home-reference .reference-process .section-heading h2 {
   max-width: 22ch;
+}
+
+.home-reference .commerce-system {
+  border-bottom: 1px solid var(--ref-border);
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    #ffffff;
+  background-size: 72px 72px;
+}
+
+.home-reference .commerce-system .section-heading h2 {
+  max-width: 20ch;
+}
+
+.home-reference .system-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.76fr) minmax(0, 1.24fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.home-reference .system-showcase {
+  position: sticky;
+  top: 86px;
+  overflow: hidden;
+  min-height: 640px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    #000000;
+  background-size: 38px 38px;
+  color: #ffffff;
+  padding: 26px;
+  box-shadow: 14px 14px 0 var(--ref-accent);
+}
+
+.home-reference .system-showcase::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(99, 244, 76, 0.55);
+  border-radius: 50%;
+}
+
+.home-reference .system-showcase::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--ref-accent);
+  opacity: 0.16;
+  animation: showcase-pulse 4.2s ease-in-out infinite;
+}
+
+.home-reference .showcase-kicker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  border-radius: 999px;
+  background: var(--ref-accent);
+  color: #000000;
+  padding: 5px 9px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-reference .system-showcase h3 {
+  position: relative;
+  z-index: 1;
+  max-width: 15ch;
+  margin-top: 18px;
+  color: #ffffff;
+  font-size: clamp(1.75rem, 3vw, 2.65rem);
+  line-height: 1.08;
+  font-weight: 800;
+}
+
+.home-reference .showcase-stack {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 26px;
+  display: grid;
+  gap: 10px;
+  z-index: 1;
+}
+
+.home-reference .showcase-stack span {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.78);
+  padding: 13px 14px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.home-reference .system-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.home-reference .system-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  border: 1px solid var(--ref-border);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  column-gap: 16px;
+  align-items: start;
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.home-reference .system-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--ref-accent);
+  transform: scaleX(0.16);
+  transform-origin: left;
+  transition: transform 0.24s ease;
+}
+
+.home-reference .system-card::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  right: -58px;
+  bottom: -58px;
+  border-radius: 50%;
+  background: var(--ref-accent);
+  opacity: 0.28;
+  transition: opacity 0.24s ease, transform 0.24s ease;
+}
+
+.home-reference .system-card:hover {
+  transform: translateY(-4px);
+  border-color: #000000;
+  box-shadow: 10px 10px 0 var(--ref-accent);
+}
+
+.home-reference .system-card:hover::before {
+  transform: scaleX(1);
+}
+
+.home-reference .system-card:hover::after {
+  opacity: 0.72;
+  transform: scale(1.08);
+}
+
+.home-reference .system-card span {
+  display: inline-flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background: #000000;
+  color: var(--ref-accent);
+  font-weight: 900;
+}
+
+.home-reference .system-card h3 {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  font-size: 1.28rem;
+}
+
+.home-reference .system-card p {
+  position: relative;
+  z-index: 1;
+  grid-column: 2;
+  margin-top: 12px;
+  color: var(--ref-muted);
+  line-height: 1.72;
 }
 
 .home-reference .process-steps {
@@ -792,7 +1020,7 @@
   color: var(--ref-ink);
   text-transform: uppercase;
   letter-spacing: 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
@@ -894,7 +1122,7 @@
   color: #2a2a2a;
   text-transform: uppercase;
   letter-spacing: 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 800;
 }
 
@@ -910,6 +1138,92 @@
   color: #000000;
   font-size: 0.78rem;
   font-weight: 900;
+}
+
+.home-reference .qualification-section {
+  border-top: 1px solid var(--ref-border);
+  border-bottom: 1px solid var(--ref-border);
+  background: #ffffff;
+}
+
+.home-reference .qualification-section .section-heading h2 {
+  max-width: 21ch;
+}
+
+.home-reference .qualification-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.home-reference .qualification-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 238px;
+  border: 1px solid var(--ref-border);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 22px;
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.home-reference .qualification-card::before {
+  content: "";
+  position: absolute;
+  left: -72%;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(90deg, transparent, rgba(99, 244, 76, 0.22), transparent);
+  transform: skewX(-14deg);
+  pointer-events: none;
+}
+
+.home-reference.reveal-ready .qualification-card.is-visible::before {
+  animation: qualification-shine 2.5s ease both;
+}
+
+.home-reference.reveal-ready .qualification-card.is-visible:nth-child(2)::before {
+  animation-delay: 0.16s;
+}
+
+.home-reference.reveal-ready .qualification-card.is-visible:nth-child(3)::before {
+  animation-delay: 0.32s;
+}
+
+.home-reference.reveal-ready .qualification-card.is-visible:nth-child(4)::before {
+  animation-delay: 0.48s;
+}
+
+.home-reference .qualification-card:hover {
+  transform: translateY(-4px);
+  border-color: #000000;
+  box-shadow: 10px 10px 0 var(--ref-accent);
+}
+
+.home-reference .qualification-card strong {
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--ref-accent);
+  color: #000000;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.home-reference .qualification-card h3 {
+  margin-top: 28px;
+  font-size: 1.1rem;
+}
+
+.home-reference .qualification-card p {
+  margin-top: 10px;
+  color: var(--ref-muted);
+  line-height: 1.68;
 }
 
 .home-reference .reference-faq {
@@ -1044,7 +1358,7 @@
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
@@ -1197,6 +1511,36 @@
   }
 }
 
+@keyframes showcase-pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.16;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.18);
+    opacity: 0.28;
+  }
+}
+
+@keyframes qualification-shine {
+  0% {
+    left: -72%;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  58%,
+  100% {
+    left: 124%;
+    opacity: 0;
+  }
+}
+
 @media (max-width: 1120px) {
   .home-reference .container {
     padding: 0 26px;
@@ -1212,6 +1556,10 @@
 
   .home-reference .logo-wall {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-reference .qualification-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1244,8 +1592,10 @@
 
   .home-reference .reference-hero__inner,
   .home-reference .section-heading,
+  .home-reference .system-grid,
   .home-reference .process-steps,
   .home-reference .portfolio-grid,
+  .home-reference .qualification-grid,
   .home-reference .quotes-grid,
   .home-reference .footer-bottom {
     grid-template-columns: 1fr;
@@ -1264,6 +1614,16 @@
   .home-reference .storefront-panel {
     min-height: 390px;
     box-shadow: 10px 10px 0 var(--ref-accent);
+  }
+
+  .home-reference .system-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference .system-showcase {
+    position: relative;
+    top: auto;
+    min-height: 420px;
   }
 
   .home-reference .hero-metrics {
@@ -1290,6 +1650,26 @@
     line-height: 1.67;
   }
 
+  .home-reference .hero-copy h1 {
+    max-width: 14ch;
+    font-size: clamp(2.45rem, 12vw, 3.8rem);
+    line-height: 1;
+  }
+
+  .home-reference .panel-products,
+  .home-reference .panel-hero-line,
+  .home-reference .panel-hero-line--short {
+    width: 100%;
+  }
+
+  .home-reference .system-card {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference .system-card p {
+    grid-column: auto;
+  }
+
   .home-reference .logo-wall {
     grid-template-columns: 1fr;
   }
@@ -1302,7 +1682,9 @@
   .home-reference .panel-topbar span,
   .home-reference .panel-hero-line::after,
   .home-reference .panel-products span,
-  .home-reference .panel-checklist li {
+  .home-reference .panel-checklist li,
+  .home-reference.reveal-ready .qualification-card.is-visible::before,
+  .home-reference .system-showcase::after {
     animation: none;
   }
 
@@ -1310,5 +1692,555 @@
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* Blueprint-inspired home rebuild */
+.home-reference .blueprint-home {
+  background: #ffffff;
+  color: #000000;
+}
+
+.home-reference .blueprint-home .container {
+  max-width: 1200px;
+}
+
+.home-reference .blueprint-hero {
+  min-height: 0;
+  padding: 118px 0 80px;
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    #ffffff;
+  background-size: 72px 72px;
+}
+
+.home-reference .blueprint-hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: center;
+}
+
+.home-reference .blueprint-hero__copy {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.home-reference .blueprint-kicker,
+.home-reference .blueprint-heading p,
+.home-reference .blueprint-plans article > span {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  background: var(--ref-accent);
+  color: #000000;
+  padding: 6px 11px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-reference .blueprint-hero h1 {
+  max-width: none;
+  margin-top: 24px;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  line-height: 1.1;
+  font-weight: 700;
+  hyphens: none;
+  overflow-wrap: normal;
+}
+
+.home-reference .blueprint-lead {
+  max-width: 610px;
+  margin-top: 24px;
+  color: #333333;
+  font-size: clamp(1.08rem, 1.6vw, 1.32rem);
+  line-height: 1.58;
+  font-weight: 600;
+}
+
+.home-reference .blueprint-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin-top: 28px;
+  border: 1px solid #000000;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff;
+  padding: 0 22px;
+  font-size: 0.84rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.home-reference .blueprint-primary:hover {
+  background: var(--ref-accent);
+  color: #000000;
+  box-shadow: 6px 6px 0 #000000;
+  transform: translateY(-2px);
+}
+
+.home-reference .blueprint-rating {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 24px;
+  color: #000000;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.home-reference .blueprint-rating span {
+  color: #21bd18;
+  letter-spacing: 1px;
+}
+
+.home-reference .blueprint-hero__visual {
+  position: relative;
+  min-height: 560px;
+}
+
+.home-reference .blueprint-window {
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    #050505;
+  background-size: 48px 48px;
+  box-shadow: 16px 16px 0 var(--ref-accent);
+  color: #ffffff;
+  padding: 30px;
+}
+
+.home-reference .blueprint-window > span {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin-right: 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  opacity: 0.75;
+}
+
+.home-reference .blueprint-window > span:first-child {
+  background: var(--ref-accent);
+  opacity: 1;
+}
+
+.home-reference .blueprint-window strong {
+  display: block;
+  margin-top: 118px;
+  color: var(--ref-accent);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-reference .blueprint-window p {
+  max-width: 9ch;
+  margin-top: 14px;
+  color: #ffffff;
+  font-size: clamp(3rem, 5.8vw, 5.6rem);
+  line-height: 0.88;
+  font-weight: 900;
+}
+
+.home-reference .blueprint-card {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 7px 7px 0 var(--ref-accent);
+  padding: 0 14px;
+  color: #000000;
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-reference .blueprint-card--one {
+  top: 78px;
+  right: -16px;
+}
+
+.home-reference .blueprint-card--two {
+  left: -22px;
+  bottom: 126px;
+}
+
+.home-reference .blueprint-card--three {
+  right: 24px;
+  bottom: 48px;
+}
+
+.home-reference .blueprint-logos,
+.home-reference .blueprint-pillars,
+.home-reference .blueprint-proof,
+.home-reference .blueprint-process,
+.home-reference .blueprint-why,
+.home-reference .blueprint-plans,
+.home-reference .blueprint-founder {
+  padding: 78px 0;
+  border-top: 1px solid var(--ref-border);
+}
+
+.home-reference .blueprint-logos__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ref-muted);
+  margin-bottom: 20px;
+}
+
+.home-reference .blueprint-logo-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-reference .blueprint-logo-row span {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 104px;
+  padding: 22px 16px;
+  border: 1px solid var(--ref-border);
+  border-radius: 12px;
+  background: var(--ref-soft);
+  color: #000000;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.home-reference .blueprint-logo-row span::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ref-accent);
+  border-radius: 12px 12px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.home-reference .blueprint-logo-row span:hover {
+  border-color: var(--ref-accent);
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(99, 244, 76, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+}
+
+.home-reference .blueprint-logo-row span:hover::before {
+  transform: scaleX(1);
+}
+
+.home-reference .blueprint-logo-row__icon {
+  opacity: 0.4;
+  transition: opacity 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.home-reference .blueprint-logo-row span:hover .blueprint-logo-row__icon {
+  opacity: 1;
+  color: var(--ref-accent);
+}
+
+.home-reference .blueprint-heading {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.home-reference .blueprint-heading h2,
+.home-reference .blueprint-proof h2,
+.home-reference .blueprint-founder h2 {
+  max-width: 13ch;
+  font-size: clamp(2.6rem, 5vw, 5.2rem);
+  line-height: 0.94;
+  font-weight: 900;
+}
+
+.home-reference .blueprint-pillars__grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.home-reference .blueprint-pillar-map {
+  position: sticky;
+  top: 86px;
+  display: grid;
+  gap: 12px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background: #000000;
+  box-shadow: 14px 14px 0 var(--ref-accent);
+  padding: 28px;
+}
+
+.home-reference .blueprint-pillar-map span {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  border: 1px solid rgba(99, 244, 76, 0.42);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  padding: 0 18px;
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-reference .blueprint-pillar-list,
+.home-reference .blueprint-steps,
+.home-reference .blueprint-why__grid,
+.home-reference .blueprint-plan-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.home-reference .blueprint-pillar-list article,
+.home-reference .blueprint-steps article,
+.home-reference .blueprint-why__grid article,
+.home-reference .blueprint-plan-grid article {
+  border: 1px solid var(--ref-border);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.home-reference .blueprint-pillar-list article {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 0.74fr) minmax(240px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.home-reference .blueprint-pillar-list article span,
+.home-reference .blueprint-steps article span {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: var(--ref-accent);
+  color: #000000;
+  font-weight: 900;
+}
+
+.home-reference .blueprint-pillar-list h3,
+.home-reference .blueprint-steps h3,
+.home-reference .blueprint-why__grid h3,
+.home-reference .blueprint-plan-grid h3 {
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.home-reference .blueprint-pillar-list p,
+.home-reference .blueprint-steps p,
+.home-reference .blueprint-why__grid p,
+.home-reference .blueprint-plan-grid p,
+.home-reference .blueprint-proof__copy p,
+.home-reference .blueprint-founder p {
+  color: var(--ref-muted);
+  line-height: 1.72;
+}
+
+.home-reference .blueprint-proof {
+  background: #000000;
+  color: #ffffff;
+}
+
+.home-reference .blueprint-proof h2 {
+  color: #ffffff;
+}
+
+.home-reference .blueprint-proof__grid,
+.home-reference .blueprint-founder__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.72fr);
+  gap: clamp(28px, 5vw, 70px);
+  align-items: center;
+}
+
+.home-reference .blueprint-proof__copy {
+  display: grid;
+  gap: 18px;
+}
+
+.home-reference .blueprint-proof__copy p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.08rem;
+}
+
+.home-reference .blueprint-steps {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.home-reference .blueprint-steps article {
+  min-height: 260px;
+}
+
+.home-reference .blueprint-why__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-reference .blueprint-plan-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-reference .blueprint-plan-grid article {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  min-height: 360px;
+  border-color: #000000;
+}
+
+.home-reference .blueprint-plan-grid article:nth-child(2) {
+  background: #000000;
+  color: #ffffff;
+  box-shadow: 12px 12px 0 var(--ref-accent);
+}
+
+.home-reference .blueprint-plan-grid article:nth-child(2) h3,
+.home-reference .blueprint-plan-grid article:nth-child(2) p {
+  color: #ffffff;
+}
+
+.home-reference .blueprint-plan-grid a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: end;
+  min-height: 46px;
+  border: 1px solid #000000;
+  border-radius: 999px;
+  background: var(--ref-accent);
+  color: #000000;
+  padding: 0 16px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-reference .blueprint-founder {
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.032) 1px, transparent 1px),
+    #ffffff;
+  background-size: 72px 72px;
+}
+
+.home-reference .blueprint-founder .cta-links {
+  margin-top: 24px;
+}
+
+@media (max-width: 1080px) {
+  .home-reference .blueprint-hero__inner,
+  .home-reference .blueprint-pillars__grid,
+  .home-reference .blueprint-proof__grid,
+  .home-reference .blueprint-founder__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference .blueprint-hero__visual,
+  .home-reference .blueprint-window {
+    min-height: 430px;
+  }
+
+  .home-reference .blueprint-pillar-map {
+    position: relative;
+    top: auto;
+  }
+
+  .home-reference .blueprint-logo-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-reference .blueprint-steps,
+  .home-reference .blueprint-why__grid,
+  .home-reference .blueprint-plan-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .home-reference .blueprint-hero {
+    min-height: auto;
+    padding: 104px 0 58px;
+  }
+
+  .home-reference .blueprint-hero h1 {
+    max-width: 11ch;
+    font-size: clamp(2.65rem, 13vw, 4.35rem);
+    line-height: 0.96;
+  }
+
+  .home-reference .blueprint-hero__visual {
+    min-height: 390px;
+  }
+
+  .home-reference .blueprint-window {
+    min-height: 360px;
+    padding: 22px;
+    box-shadow: 9px 9px 0 var(--ref-accent);
+  }
+
+  .home-reference .blueprint-window strong {
+    margin-top: 70px;
+  }
+
+  .home-reference .blueprint-window p {
+    font-size: clamp(2.3rem, 12vw, 3.6rem);
+  }
+
+  .home-reference .blueprint-card {
+    position: static;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .home-reference .blueprint-logo-row,
+  .home-reference .blueprint-steps,
+  .home-reference .blueprint-why__grid,
+  .home-reference .blueprint-plan-grid,
+  .home-reference .blueprint-pillar-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference .blueprint-heading h2,
+  .home-reference .blueprint-proof h2,
+  .home-reference .blueprint-founder h2 {
+    max-width: 12ch;
+    font-size: clamp(2.3rem, 11vw, 3.8rem);
   }
 }
