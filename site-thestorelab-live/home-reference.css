@@ -2193,33 +2193,135 @@
 }
 
 @media (max-width: 720px) {
+  /* Hero */
   .home-reference .blueprint-hero {
     min-height: auto;
-    padding: 104px 0 58px;
+    padding: 88px 0 48px;
   }
 
   .home-reference .blueprint-hero h1 {
-    max-width: 11ch;
-    font-size: clamp(2.65rem, 13vw, 4.35rem);
-    line-height: 0.96;
+    max-width: none;
+    font-size: clamp(1.9rem, 8.5vw, 2.8rem);
+    line-height: 1.1;
   }
 
+  .home-reference .blueprint-lead {
+    font-size: 0.98rem;
+    margin-top: 16px;
+  }
+
+  .home-reference .blueprint-primary {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Section paddings */
+  .home-reference .blueprint-logos,
+  .home-reference .blueprint-pillars,
+  .home-reference .blueprint-proof,
+  .home-reference .blueprint-process,
+  .home-reference .blueprint-why,
+  .home-reference .blueprint-plans,
+  .home-reference .blueprint-founder {
+    padding: 48px 0;
+  }
+
+  .home-reference .blueprint-heading {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  /* Headings */
+  .home-reference .blueprint-heading h2,
+  .home-reference .blueprint-proof h2,
+  .home-reference .blueprint-founder h2 {
+    max-width: none;
+    font-size: clamp(1.65rem, 7vw, 2.4rem);
+    line-height: 1.1;
+  }
+
+  /* Specialty cards: 2×3 grid */
+  .home-reference .blueprint-logo-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .home-reference .blueprint-logo-row span {
+    min-height: 80px;
+    padding: 16px 12px;
+    gap: 8px;
+    font-size: 0.72rem;
+  }
+
+  /* Hide decorative pillar map on mobile */
+  .home-reference .blueprint-pillar-map {
+    display: none;
+  }
+
+  /* Pillar list: number + title inline, description full-width below */
+  .home-reference .blueprint-pillar-list article {
+    grid-template-columns: 40px 1fr;
+    gap: 8px 14px;
+  }
+
+  .home-reference .blueprint-pillar-list article p {
+    grid-column: 1 / -1;
+  }
+
+  /* Steps: 1 col, remove fixed height */
+  .home-reference .blueprint-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference .blueprint-steps article {
+    min-height: auto;
+  }
+
+  /* Why + Plans: 1 col */
+  .home-reference .blueprint-why__grid,
+  .home-reference .blueprint-plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference .blueprint-plan-grid article {
+    min-height: auto;
+  }
+
+  /* Proof + Founder grids */
+  .home-reference .blueprint-proof__grid,
+  .home-reference .blueprint-founder__grid {
+    gap: 28px;
+  }
+
+  /* CTA links: stack vertically */
+  .home-reference .cta-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .home-reference .cta-links a {
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Visual window */
   .home-reference .blueprint-hero__visual {
-    min-height: 390px;
+    min-height: 360px;
   }
 
   .home-reference .blueprint-window {
-    min-height: 360px;
-    padding: 22px;
-    box-shadow: 9px 9px 0 var(--ref-accent);
+    min-height: 320px;
+    padding: 20px;
+    box-shadow: 8px 8px 0 var(--ref-accent);
   }
 
   .home-reference .blueprint-window strong {
-    margin-top: 70px;
+    margin-top: 60px;
   }
 
   .home-reference .blueprint-window p {
-    font-size: clamp(2.3rem, 12vw, 3.6rem);
+    font-size: clamp(2rem, 11vw, 3.2rem);
   }
 
   .home-reference .blueprint-card {
@@ -2227,19 +2329,48 @@
     margin-top: 10px;
     width: 100%;
   }
+}
 
-  .home-reference .blueprint-logo-row,
-  .home-reference .blueprint-steps,
-  .home-reference .blueprint-why__grid,
-  .home-reference .blueprint-plan-grid,
-  .home-reference .blueprint-pillar-list article {
-    grid-template-columns: 1fr;
+@media (max-width: 480px) {
+  .home-reference .container {
+    padding: 0 16px;
   }
 
-  .home-reference .blueprint-heading h2,
-  .home-reference .blueprint-proof h2,
-  .home-reference .blueprint-founder h2 {
-    max-width: 12ch;
-    font-size: clamp(2.3rem, 11vw, 3.8rem);
+  .home-reference .blueprint-hero {
+    padding: 76px 0 40px;
+  }
+
+  .home-reference .blueprint-hero h1 {
+    font-size: clamp(1.75rem, 8vw, 2.2rem);
+  }
+
+  .home-reference .blueprint-lead {
+    font-size: 0.94rem;
+  }
+
+  .home-reference .blueprint-kicker,
+  .home-reference .blueprint-heading p,
+  .home-reference .blueprint-plans article > span {
+    font-size: 0.68rem;
+    padding: 5px 10px;
+  }
+
+  .home-reference .blueprint-logos,
+  .home-reference .blueprint-pillars,
+  .home-reference .blueprint-proof,
+  .home-reference .blueprint-process,
+  .home-reference .blueprint-why,
+  .home-reference .blueprint-plans,
+  .home-reference .blueprint-founder {
+    padding: 40px 0;
+  }
+
+  .home-reference .blueprint-logo-row span {
+    min-height: 72px;
+    font-size: 0.68rem;
+  }
+
+  .home-reference .blueprint-plan-grid article:nth-child(2) {
+    box-shadow: 8px 8px 0 var(--ref-accent);
   }
 }
