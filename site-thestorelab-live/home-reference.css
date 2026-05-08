@@ -2239,7 +2239,6 @@
   display: grid;
   gap: 16px;
   align-content: start;
-  min-height: 360px;
   border-color: #000000;
 }
 
@@ -2254,18 +2253,24 @@
   color: #ffffff;
 }
 
+.home-reference .blueprint-plan-grid h3 {
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  line-height: 1.18;
+  font-weight: 800;
+}
+
 .home-reference .blueprint-plan-grid a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   align-self: end;
-  min-height: 46px;
+  min-height: 44px;
   border: 1px solid #000000;
   border-radius: 999px;
   background: var(--ref-accent);
   color: #000000;
   padding: 0 16px;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 900;
   text-transform: uppercase;
 }
