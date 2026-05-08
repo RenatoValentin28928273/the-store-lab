@@ -2112,10 +2112,66 @@
 
 .home-reference .blueprint-steps {
   grid-template-columns: repeat(5, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: stretch;
 }
 
 .home-reference .blueprint-steps article {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 20px;
+  border-radius: 12px;
   min-height: auto;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.home-reference .blueprint-steps article::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ref-accent);
+  border-radius: 12px 12px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s ease;
+}
+
+.home-reference .blueprint-steps article:hover {
+  border-color: var(--ref-accent);
+  box-shadow: 0 6px 24px rgba(99, 244, 76, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-3px);
+}
+
+.home-reference .blueprint-steps article:hover::before {
+  transform: scaleX(1);
+}
+
+.home-reference .blueprint-steps article span {
+  width: 32px;
+  height: 32px;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.home-reference .blueprint-steps h3 {
+  font-size: 0.98rem;
+  line-height: 1.25;
+  font-weight: 700;
+  margin: 0;
+}
+
+.home-reference .blueprint-steps p {
+  font-size: 0.85rem;
+  line-height: 1.68;
+  margin: 0;
+  flex: 1;
 }
 
 .home-reference .blueprint-why__grid {
