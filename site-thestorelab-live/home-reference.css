@@ -2284,6 +2284,7 @@
 }
 
 .home-reference .blueprint-founder h2 {
+  margin-top: 12px;
   font-size: clamp(1.5rem, 2.6vw, 2.4rem);
   line-height: 1.14;
   font-weight: 700;
