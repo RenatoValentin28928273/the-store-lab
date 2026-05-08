@@ -2055,10 +2055,15 @@
 }
 
 .home-reference .blueprint-pillar-list h3,
-.home-reference .blueprint-steps h3,
 .home-reference .blueprint-why__grid h3,
 .home-reference .blueprint-plan-grid h3 {
   font-size: clamp(1.25rem, 2.2vw, 2rem);
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.home-reference .blueprint-steps h3 {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
   line-height: 1.08;
   font-weight: 900;
 }
@@ -2106,11 +2111,11 @@
 }
 
 .home-reference .blueprint-steps {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(140px, 1fr));
 }
 
 .home-reference .blueprint-steps article {
-  min-height: 260px;
+  min-height: auto;
 }
 
 .home-reference .blueprint-why__grid {
