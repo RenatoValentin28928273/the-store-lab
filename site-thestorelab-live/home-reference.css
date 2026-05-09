@@ -2069,7 +2069,12 @@
   font-weight: 900;
 }
 
-.home-reference .blueprint-pillar-list h3,
+.home-reference .blueprint-pillar-list h3 {
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  line-height: 1.22;
+  font-weight: 700;
+}
+
 .home-reference .blueprint-why__grid h3,
 .home-reference .blueprint-plan-grid h3 {
   font-size: clamp(1.25rem, 2.2vw, 2rem);
