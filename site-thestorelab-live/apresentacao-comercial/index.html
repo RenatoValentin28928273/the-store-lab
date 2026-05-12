@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Store Lab - Apresentação Comercial</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+  <link rel="canonical" href="https://www.thestorelab.com.br/apresentacao-comercial/" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --g: #63f44c;
+      --gd: rgba(99, 244, 76, 0.12);
+      --gb: rgba(99, 244, 76, 0.22);
+      --bk: #080808;
+      --bk2: #0f0f0f;
+      --bk3: #181818;
+      --wh: #f4f4f0;
+      --wh2: #c8c8c2;
+      --mu: #8c8c85;
+      --mu2: #2e2e2a;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background: var(--bk);
+      color: var(--wh);
+      font-family: "Inter", sans-serif;
+      overflow: hidden;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(99, 244, 76, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 244, 76, 0.025) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+
+    #deck {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 80px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .slide.exit-up {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+
+    .slide.exit-down {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: var(--g);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 20px;
+      height: 1px;
+      background: var(--g);
+    }
+
+    .headline {
+      margin-bottom: 16px;
+      color: var(--wh);
+      font-size: clamp(38px, 5vw, 72px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .headline .acc {
+      color: var(--g);
+    }
+
+    .sub {
+      max-width: 600px;
+      color: var(--mu);
+      font-size: clamp(14px, 1.4vw, 18px);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    #s1 {
+      align-items: flex-start;
+      justify-content: center;
+      background: var(--bk);
+    }
+
+    #s1 .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 56px;
+    }
+
+    #s1 .logo-ico,
+    .wm-ico {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--gb);
+      border-radius: 50%;
+      background: var(--gd);
+    }
+
+    #s1 .logo-ico {
+      width: 40px;
+      height: 40px;
+    }
+
+    #s1 .logo-ico svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #s1 .logo-t {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+    }
+
+    #s1 .logo-lab,
+    .wm-lab {
+      border-radius: 3px;
+      background: var(--g);
+      color: var(--bk);
+      font-weight: 800;
+      letter-spacing: 0.15em;
+    }
+
+    #s1 .logo-lab {
+      padding: 3px 8px;
+      font-size: 11px;
+    }
+
+    #s1 .headline {
+      max-width: 840px;
+      font-size: clamp(44px, 6.5vw, 96px);
+    }
+
+    #s1 .tagline {
+      max-width: 560px;
+      margin-top: 24px;
+      color: var(--mu);
+      font-size: clamp(14px, 1.3vw, 17px);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .glow-hero {
+      position: absolute;
+      right: -180px;
+      bottom: -180px;
+      width: 700px;
+      height: 700px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(99, 244, 76, 0.07) 0%, transparent 65%);
+    }
+
+    #s2 .cards,
+    #s7 .svcs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .pain-card,
+    .svc-card {
+      border: 1px solid var(--mu2);
+      border-radius: 8px;
+      background: var(--bk3);
+    }
+
+    .pain-card {
+      padding: 28px 24px;
+    }
+
+    .pain-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 14px;
+      border: 1px solid var(--gb);
+      border-radius: 50%;
+      color: var(--g);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .pain-card h3 {
+      margin-bottom: 8px;
+      color: var(--wh);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .pain-card p {
+      color: var(--mu);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    #s3 .diag-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    #s3 .diag-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .diag-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      border: 1px solid var(--mu2);
+      border-radius: 6px;
+      background: var(--bk3);
+    }
+
+    .diag-item .di-num {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--g);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+
+    .diag-item .di-text {
+      color: var(--wh2);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    #s3 .diag-right {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .diag-stat {
+      padding: 12px 20px;
+      border-left: 2px solid var(--g);
+    }
+
+    .diag-stat .ds-num {
+      color: var(--g);
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .diag-stat .ds-txt {
+      margin-top: 4px;
+      color: var(--mu);
+      font-size: 12px;
+      font-weight: 300;
+    }
+
+    #s4 .system {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 48px;
+      border-radius: 8px;
+      background: var(--mu2);
+    }
+
+    .sys-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 28px 20px;
+      background: var(--bk2);
+    }
+
+    .sys-num {
+      color: var(--g);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .sys-name {
+      color: var(--wh);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .sys-desc {
+      color: var(--mu);
+      font-size: 11px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    #s4 .s4-intro {
+      max-width: 640px;
+    }
+
+    #s5 .steps {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-top: 56px;
+    }
+
+    #s5 .steps::before {
+      content: "";
+      position: absolute;
+      top: 26px;
+      right: 5%;
+      left: 5%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gb), transparent);
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .step-circle {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 20px;
+      border: 1px solid var(--gb);
+      border-radius: 50%;
+      background: var(--bk3);
+      color: var(--g);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .step-t {
+      margin-bottom: 6px;
+      color: var(--wh);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .step-d {
+      color: var(--mu);
+      font-size: 11px;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    #s6 .results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 48px;
+      border-radius: 8px;
+      background: var(--mu2);
+    }
+
+    .result-card {
+      padding: 36px 28px;
+      background: var(--bk2);
+    }
+
+    .result-tag {
+      margin-bottom: 16px;
+      color: var(--g);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .result-num {
+      margin-bottom: 8px;
+      color: var(--g);
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .result-name {
+      margin-bottom: 8px;
+      color: var(--wh);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .result-desc {
+      color: var(--mu);
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .svc-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 28px 24px;
+    }
+
+    .svc-tag {
+      align-self: flex-start;
+      border-radius: 2px;
+      background: var(--g);
+      color: var(--bk);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      padding: 3px 8px;
+      text-transform: uppercase;
+    }
+
+    .svc-name {
+      color: var(--wh);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .svc-desc {
+      flex: 1;
+      color: var(--mu);
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .svc-price {
+      color: var(--g);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    #s8 {
+      align-items: center;
+      text-align: center;
+    }
+
+    #s8 .headline {
+      max-width: 760px;
+      text-align: center;
+      font-size: clamp(36px, 5.5vw, 80px);
+    }
+
+    #s8 .sub {
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .btn-g {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      background: var(--g);
+      color: var(--bk);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 18px 36px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .btn-g:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .cta-contact {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .cta-contact a {
+      color: var(--mu);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .cta-contact a:hover {
+      color: var(--g);
+    }
+
+    #s8 .glow-cta {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 700px;
+      height: 400px;
+      pointer-events: none;
+      background: radial-gradient(ellipse, rgba(99, 244, 76, 0.07) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+    }
+
+    #progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 50;
+      height: 2px;
+      background: var(--g);
+      transition: width 0.4s ease;
+    }
+
+    #nav {
+      position: fixed;
+      right: 40px;
+      bottom: 28px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--mu2);
+      border-radius: 50%;
+      background: var(--bk2);
+      cursor: pointer;
+      transition: border-color 0.2s, opacity 0.2s;
+    }
+
+    .nav-btn:hover {
+      border-color: var(--g);
+    }
+
+    .nav-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.35;
+    }
+
+    .nav-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--wh2);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    #slide-counter {
+      min-width: 42px;
+      color: var(--mu);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+
+    #dots {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      z-index: 50;
+      display: flex;
+      gap: 6px;
+      transform: translateX(-50%);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--mu2);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .dot.active {
+      background: var(--g);
+      transform: scale(1.3);
+    }
+
+    .pdf-button {
+      position: fixed;
+      top: 28px;
+      right: 40px;
+      z-index: 60;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      border: 1px solid var(--mu2);
+      border-radius: 999px;
+      background: var(--bk2);
+      color: var(--wh2);
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 0 16px;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .pdf-button:hover {
+      border-color: var(--g);
+      color: var(--g);
+    }
+
+    .custom-field {
+      max-width: min(760px, 100%);
+      margin-top: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--mu2);
+      border-radius: 8px;
+      background: var(--bk3);
+      color: var(--wh2);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .custom-field-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    @media print {
+      @page {
+        size: 16in 9in;
+        margin: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        background: var(--bk);
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .grid-bg,
+      #progress,
+      #dots,
+      #nav,
+      .wm,
+      .pdf-button {
+        display: none !important;
+      }
+
+      #deck {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .slide {
+        position: relative !important;
+        inset: auto !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        page-break-after: always;
+        break-after: page;
+        overflow: hidden !important;
+      }
+
+      .slide:last-of-type {
+        page-break-after: auto;
+        break-after: auto;
+      }
+    }
+
+    .wm {
+      position: fixed;
+      top: 24px;
+      left: 40px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    body.is-cover .wm {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .wm-ico {
+      width: 28px;
+      height: 28px;
+    }
+
+    .wm-ico svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .wm-t {
+      color: var(--wh);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .wm-lab {
+      padding: 2px 6px;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide.active .eyebrow {
+      animation: fadeUp 0.5s 0.05s ease both;
+    }
+
+    .slide.active .headline {
+      animation: fadeUp 0.5s 0.15s ease both;
+    }
+
+    .slide.active .sub {
+      animation: fadeUp 0.5s 0.25s ease both;
+    }
+
+    .slide.active .cards,
+    .slide.active .diag-wrap,
+    .slide.active .system,
+    .slide.active .steps,
+    .slide.active .results,
+    .slide.active .svcs {
+      animation: fadeUp 0.55s 0.3s ease both;
+    }
+
+    .slide.active .tagline {
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
+
+    .slide.active .logo-row {
+      animation: fadeUp 0.5s 0s ease both;
+    }
+
+    @media (max-width: 1024px) {
+      .slide {
+        padding: 56px 44px;
+      }
+
+      #s2 .cards,
+      #s7 .svcs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #s4 .system,
+      #s5 .steps {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      #s5 .steps::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow: hidden;
+      }
+
+      .slide {
+        overflow-y: auto;
+        justify-content: flex-start;
+        padding: 88px 24px 104px;
+      }
+
+      #s1 {
+        justify-content: center;
+        padding-top: 48px;
+      }
+
+      #s1 .logo-row {
+        margin-bottom: 36px;
+      }
+
+      #s1 .headline {
+        font-size: clamp(38px, 13vw, 56px);
+      }
+
+      .headline {
+        font-size: clamp(34px, 10vw, 48px);
+      }
+
+      .sub,
+      #s1 .tagline {
+        font-size: 15px;
+      }
+
+      #s2 .cards,
+      #s6 .results,
+      #s7 .svcs,
+      #s3 .diag-wrap {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      #s2 .cards,
+      #s6 .results,
+      #s7 .svcs,
+      #s3 .diag-wrap,
+      #s4 .system,
+      #s5 .steps {
+        margin-top: 32px;
+      }
+
+      #s4 .system,
+      #s5 .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .pain-card,
+      .svc-card,
+      .result-card,
+      .sys-col {
+        padding: 22px 20px;
+      }
+
+      .wm {
+        top: 16px;
+        left: 20px;
+      }
+
+      #dots {
+        bottom: 20px;
+      }
+
+      #nav {
+        right: 16px;
+        bottom: 12px;
+        gap: 8px;
+      }
+
+      .nav-btn {
+        width: 36px;
+        height: 36px;
+      }
+
+      #slide-counter {
+        display: none;
+      }
+
+      .pdf-button {
+        display: none;
+      }
+
+      .cta-contact {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .btn-g {
+        width: min(100%, 360px);
+        justify-content: center;
+        padding: 16px 22px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .slide {
+        padding-right: 18px;
+        padding-left: 18px;
+      }
+
+      .eyebrow {
+        font-size: 9px;
+      }
+
+      #s1 .logo-t,
+      .wm-t {
+        letter-spacing: 0.14em;
+      }
+    }
+  </style>
+</head>
+<body class="is-cover">
+  <div class="grid-bg"></div>
+
+  <div class="wm" aria-hidden="true">
+    <div class="wm-ico">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#63F44C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3v7L4 19a2 2 0 0 0 1.8 2.5h12.4A2 2 0 0 0 20 19l-5-9V3" />
+        <path d="M7 3h10" />
+        <circle cx="10" cy="15" r="1" fill="#63F44C" stroke="none" />
+      </svg>
+    </div>
+    <span class="wm-t">THE STORE</span>
+    <span class="wm-lab">LAB</span>
+  </div>
+
+  <main id="deck" aria-live="polite">
+    <section class="slide active" id="s1" aria-label="Slide 1 de 8">
+      <div class="logo-row">
+        <div class="logo-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#63F44C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3v7L4 19a2 2 0 0 0 1.8 2.5h12.4A2 2 0 0 0 20 19l-5-9V3" />
+            <path d="M7 3h10" />
+            <circle cx="10" cy="15" r="1" fill="#63F44C" stroke="none" />
+          </svg>
+        </div>
+        <span class="logo-t">THE STORE</span>
+        <span class="logo-lab">LAB</span>
+      </div>
+      <h1 class="headline">Sua loja Shopify<br />está <span class="acc">vazando</span><br />receita.</h1>
+      <p class="tagline">A maioria dos e-commerces perde conversão não por falta de tráfego, mas por problemas técnicos que ninguém olhou direito.</p>
+      <div class="glow-hero"></div>
+    </section>
+
+    <section class="slide" id="s2" aria-label="Slide 2 de 8">
+      <div class="eyebrow">O diagnóstico</div>
+      <h2 class="headline">Reconhece<br /><span class="acc">algum desses?</span></h2>
+      <div class="cards">
+        <article class="pain-card">
+          <span class="pain-icon">01</span>
+          <h3>Google Merchant bloqueado</h3>
+          <p>Produtos reprovados por atributos errados, políticas violadas ou feed mal configurado. Dinheiro parado.</p>
+        </article>
+        <article class="pain-card">
+          <span class="pain-icon">02</span>
+          <h3>Loja lenta no mobile</h3>
+          <p>Core Web Vitals ruins encarecem o CPC e derrubam conversão. Cada segundo extra pesa na receita.</p>
+        </article>
+        <article class="pain-card">
+          <span class="pain-icon">03</span>
+          <h3>SEO sem resultado real</h3>
+          <p>Conteúdo publicado, indexação travada, schema errado e nenhum produto ranqueando onde importa.</p>
+        </article>
+        <article class="pain-card">
+          <span class="pain-icon">04</span>
+          <h3>Tema engessado</h3>
+          <p>Cada mudança de layout depende de dev, vira bug ou quebra seção. Customização virou pesadelo.</p>
+        </article>
+        <article class="pain-card">
+          <span class="pain-icon">05</span>
+          <h3>Retrabalho constante</h3>
+          <p>Correções pontuais que voltam ao mesmo problema. Sem sistema, o improviso nunca termina.</p>
+        </article>
+        <article class="pain-card">
+          <span class="pain-icon">06</span>
+          <h3>CRO baseado em achismo</h3>
+          <p>Sem dados, sem backlog priorizado e sem hipóteses claras. Cada teste nasce sem direção.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" id="s3" aria-label="Slide 3 de 8">
+      <div class="eyebrow">Por que isso acontece</div>
+      <h2 class="headline">A base <span class="acc">nunca foi<br />construída direito.</span></h2>
+      <div class="diag-wrap">
+        <div class="diag-list">
+          <div class="diag-item"><span class="di-num">-&gt;</span><span class="di-text">Shopify configurado às pressas, sem pensar em escalabilidade</span></div>
+          <div class="diag-item"><span class="di-num">-&gt;</span><span class="di-text">Google Merchant Center nunca auditado de verdade</span></div>
+          <div class="diag-item"><span class="di-num">-&gt;</span><span class="di-text">Tema escolhido por aparência, não por performance</span></div>
+          <div class="diag-item"><span class="di-num">-&gt;</span><span class="di-text">SEO técnico terceirizado para quem entende pouco de e-commerce</span></div>
+          <div class="diag-item"><span class="di-num">-&gt;</span><span class="di-text">Operação sem documentação, sem backlog, sem rotina de evolução</span></div>
+        </div>
+        <div class="diag-right">
+          <div class="diag-stat"><div class="ds-num">68%</div><div class="ds-txt">das lojas têm produtos reprovados no Google sem saber</div></div>
+          <div class="diag-stat"><div class="ds-num">-30%</div><div class="ds-txt">de conversão perdida só por lentidão no mobile</div></div>
+          <div class="diag-stat"><div class="ds-num">5x</div><div class="ds-txt">mais caro adquirir cliente sem base técnica estruturada</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s4" aria-label="Slide 4 de 8">
+      <div class="eyebrow">A solução</div>
+      <div class="s4-intro">
+        <h2 class="headline">Um <span class="acc">sistema,</span><br />não um serviço avulso.</h2>
+        <p class="sub">Organizamos sua loja em 5 pilares que trabalham juntos, do tema ao catálogo, do SEO à conversão.</p>
+      </div>
+      <div class="system">
+        <div class="sys-col"><span class="sys-num">01</span><span class="sys-name">Storefront</span><span class="sys-desc">Oferta, página e produto contando a mesma história. Layout editável, CTA claro.</span></div>
+        <div class="sys-col"><span class="sys-num">02</span><span class="sys-name">Catalog</span><span class="sys-desc">Merchant Center, feeds, variantes e atributos como base de aquisição, não como problema.</span></div>
+        <div class="sys-col"><span class="sys-num">03</span><span class="sys-name">Speed</span><span class="sys-desc">Tema rápido, Core Web Vitals no verde, mobile otimizado para converter.</span></div>
+        <div class="sys-col"><span class="sys-num">04</span><span class="sys-name">Search</span><span class="sys-desc">Arquitetura, indexação, schema e conteúdo conectados ao funil de compra.</span></div>
+        <div class="sys-col"><span class="sys-num">05</span><span class="sys-name">Conversion</span><span class="sys-desc">Backlog, priorização e documentação. Operação que cresce sem depender de improviso.</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s5" aria-label="Slide 5 de 8">
+      <div class="eyebrow">Como trabalhamos</div>
+      <h2 class="headline">Da auditoria ao <span class="acc">crescimento contínuo.</span></h2>
+      <div class="steps">
+        <div class="step"><div class="step-circle">01</div><div class="step-t">Acesso & Diagnóstico</div><div class="step-d">Lemos tema, apps, velocidade, Merchant, indexação e experiência de compra.</div></div>
+        <div class="step"><div class="step-circle">02</div><div class="step-t">Plano de Crescimento</div><div class="step-d">Trilha clara: o que corrigir agora, o que testar e o que vira rotina.</div></div>
+        <div class="step"><div class="step-circle">03</div><div class="step-t">Implementação Técnica</div><div class="step-d">Corrigimos Shopify, catálogo, SEO técnico, páginas e performance.</div></div>
+        <div class="step"><div class="step-circle">04</div><div class="step-t">Docs & Handoff</div><div class="step-d">Entregamos contexto para a operação continuar evoluindo sem dependência.</div></div>
+        <div class="step"><div class="step-circle">05</div><div class="step-t">Acompanhamento</div><div class="step-d">Rotina mensal de priorização, execução e revisão quando faz sentido.</div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s6" aria-label="Slide 6 de 8">
+      <div class="eyebrow">Resultados</div>
+      <h2 class="headline">O que acontece quando<br />a <span class="acc">base funciona.</span></h2>
+      <div class="results">
+        <article class="result-card"><div class="result-tag">Google Merchant</div><div class="result-num">100%</div><div class="result-name">Produtos aprovados</div><div class="result-desc">Feed reestruturado, atributos corrigidos e políticas alinhadas, base para campanhas Performance Max.</div></article>
+        <article class="result-card"><div class="result-tag">Performance</div><div class="result-num">+40%</div><div class="result-name">Velocidade no mobile</div><div class="result-desc">LCP, CLS e INP no verde. Tema limpo, menos apps pesando e experiência de compra fluida.</div></article>
+        <article class="result-card"><div class="result-tag">SEO Técnico</div><div class="result-num">3x</div><div class="result-name">Mais páginas indexadas</div><div class="result-desc">Arquitetura correta, schema de produto implementado e páginas de categoria ranqueando.</div></article>
+      </div>
+    </section>
+
+    <section class="slide" id="s7" aria-label="Slide 7 de 8">
+      <div class="eyebrow">Por onde começar</div>
+      <h2 class="headline">Escolha o ponto de <span class="acc">entrada certo.</span></h2>
+      <div class="svcs">
+        <article class="svc-card"><span class="svc-tag">Diagnóstico</span><div class="svc-name">Auditoria Técnica</div><p class="svc-desc">Análise completa de Shopify, performance, SEO, Merchant Center e experiência de compra. Entregamos um plano de ação priorizado.</p><span class="svc-price">Ponto de partida recomendado</span></article>
+        <article class="svc-card"><span class="svc-tag">Google</span><div class="svc-name">Merchant Center Next</div><p class="svc-desc">Aprovação de produtos, reestruturação de feed, configuração de políticas e base para campanhas de Shopping e PMax.</p><span class="svc-price">Para quem investe em mídia paga</span></article>
+        <article class="svc-card"><span class="svc-tag">Scale</span><div class="svc-name">Evolução Contínua Shopify</div><p class="svc-desc">Frente mensal para implementar melhorias, corrigir gargalos técnicos e preparar a loja para escalar sem retrabalho.</p><span class="svc-price">Para quem quer crescer com consistência</span></article>
+      </div>
+    </section>
+
+    <section class="slide" id="s8" aria-label="Slide 8 de 8">
+      <div class="glow-cta"></div>
+      <div class="eyebrow">Próximo passo</div>
+      <h2 class="headline">Diagnóstico grátis.<br /><span class="acc">Sem enrolação.</span></h2>
+      <p class="sub">30 minutos para entender os maiores gargalos da sua loja e sair com um plano claro do que fazer primeiro.</p>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20gratuito%20da%20minha%20loja." class="btn-g" target="_blank" rel="noopener">
+        Agendar diagnóstico grátis
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+      </a>
+      <div class="cta-contact">
+        <a href="https://wa.me/5542999655157" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:contato@thestorelab.com.br">contato@thestorelab.com.br</a>
+        <a href="https://www.thestorelab.com.br" target="_blank" rel="noopener">thestorelab.com.br</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="progress"></div>
+  <div id="dots" aria-label="Navegação dos slides"></div>
+  <button class="pdf-button" id="pdfButton" type="button">Baixar PDF</button>
+
+  <div id="nav">
+    <button class="nav-btn" id="prev" type="button" aria-label="Anterior">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" /></svg>
+    </button>
+    <span id="slide-counter">1 / 8</span>
+    <button class="nav-btn" id="next" type="button" aria-label="Próximo">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" /></svg>
+    </button>
+  </div>
+
+  <script>
+    let slides = Array.from(document.querySelectorAll(".slide"));
+    const dots = document.getElementById("dots");
+    const progress = document.getElementById("progress");
+    const counter = document.getElementById("slide-counter");
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const fixedPdfButton = document.getElementById("pdfButton");
+    let total = slides.length;
+    let cur = 0;
+    let animating = false;
+
+    function refreshSlides() {
+      slides = Array.from(document.querySelectorAll(".slide"));
+      total = slides.length;
+      if (cur >= total) cur = Math.max(total - 1, 0);
+    }
+
+    function rebuildDots() {
+      dots.innerHTML = "";
+      slides.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "dot" + (i === cur ? " active" : "");
+        dot.setAttribute("aria-label", "Ir para o slide " + (i + 1));
+        dot.addEventListener("click", () => goTo(i));
+        dots.appendChild(dot);
+      });
+    }
+
+    function updateUI() {
+      refreshSlides();
+      if (dots.children.length !== total) rebuildDots();
+      document.querySelectorAll(".dot").forEach((dot, i) => {
+        dot.classList.toggle("active", i === cur);
+      });
+      document.body.classList.toggle("is-cover", cur === 0);
+      progress.style.width = ((cur + 1) / total * 100) + "%";
+      counter.textContent = (cur + 1) + " / " + total;
+      prev.disabled = cur === 0;
+      next.disabled = cur === total - 1;
+      slides.forEach((slide, i) => {
+        slide.setAttribute("aria-hidden", i === cur ? "false" : "true");
+      });
+    }
+
+    function goTo(target) {
+      if (animating || target === cur || target < 0 || target >= total) return;
+      animating = true;
+      const direction = target > cur ? "up" : "down";
+      const previous = cur;
+      slides[cur].classList.remove("active");
+      slides[cur].classList.add("exit-" + direction);
+      window.setTimeout(() => slides[previous].classList.remove("exit-up", "exit-down"), 500);
+      cur = target;
+      slides[cur].classList.add("active");
+      updateUI();
+      window.setTimeout(() => {
+        animating = false;
+      }, 550);
+    }
+
+    function downloadPdf() {
+      window.setTimeout(() => window.print(), 120);
+    }
+
+    next.addEventListener("click", () => goTo(cur + 1));
+    prev.addEventListener("click", () => goTo(cur - 1));
+    fixedPdfButton.addEventListener("click", downloadPdf);
+
+    if (new URLSearchParams(window.location.search).get("print") === "1") {
+      window.setTimeout(downloadPdf, 600);
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "ArrowDown" || event.key === " ") {
+        event.preventDefault();
+        goTo(cur + 1);
+      }
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        event.preventDefault();
+        goTo(cur - 1);
+      }
+    });
+
+    let touchX = 0;
+    let touchY = 0;
+    document.addEventListener("touchstart", (event) => {
+      touchX = event.touches[0].clientX;
+      touchY = event.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener("touchend", (event) => {
+      const dx = event.changedTouches[0].clientX - touchX;
+      const dy = event.changedTouches[0].clientY - touchY;
+      if (Math.abs(dx) < Math.abs(dy)) {
+        if (dy < -40) goTo(cur + 1);
+        if (dy > 40) goTo(cur - 1);
+      } else {
+        if (dx < -40) goTo(cur + 1);
+        if (dx > 40) goTo(cur - 1);
+      }
+    }, { passive: true });
+
+    updateUI();
+  </script>
+</body>
+</html>
