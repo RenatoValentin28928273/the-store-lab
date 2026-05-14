@@ -126,10 +126,54 @@
     }
     .skip-link:focus { transform: translateY(0); }
 
+    /* ── Announcement bar ── */
+    .ann-bar {
+      position: fixed;
+      top: 0; right: 0; left: 0;
+      z-index: 101;
+      height: 36px;
+      background: var(--green);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ann-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+
+    .ann-track:hover { animation-play-state: paused; }
+
+    .ann-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      padding-right: 64px;
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .ann-dot {
+      width: 5px; height: 5px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--black);
+      opacity: 0.4;
+    }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     /* ── Nav ── */
     .diag-nav {
       position: fixed;
-      top: 0; right: 0; left: 0;
+      top: 36px; right: 0; left: 0;
       z-index: 100;
       border-bottom: 1px solid rgba(99, 244, 76, 0.08);
       background: rgba(8, 8, 8, 0.85);
@@ -224,7 +268,7 @@
       flex-direction: column;
       justify-content: center;
       position: relative;
-      padding: 140px 0 100px;
+      padding: 176px 0 100px;
       text-align: center;
     }
 
@@ -1131,6 +1175,20 @@
 <body>
   <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
 
+  <div class="ann-bar" aria-hidden="true">
+    <div class="ann-track">
+      <!-- duplicado para loop sem corte -->
+      <span class="ann-item"><span class="ann-dot"></span>Você recebe um relatório com os principais gargalos da sua loja em até 48h — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Diagnóstico gratuito para lojas Shopify — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Você recebe um relatório com os principais gargalos da sua loja em até 48h — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Diagnóstico gratuito para lojas Shopify — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Você recebe um relatório com os principais gargalos da sua loja em até 48h — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Diagnóstico gratuito para lojas Shopify — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Você recebe um relatório com os principais gargalos da sua loja em até 48h — sem compromisso.</span>
+      <span class="ann-item"><span class="ann-dot"></span>Diagnóstico gratuito para lojas Shopify — sem compromisso.</span>
+    </div>
+  </div>
+
   <nav class="diag-nav" aria-label="Navegação principal">
     <div class="nav-inner">
       <a href="/" class="logo">
@@ -1161,8 +1219,7 @@
         <div class="hero-eyebrow">Shopify Partners · Commerce System</div>
         <h1 class="hero-headline">Diagnóstico Gratuito <span class="hero-keep">para Lojas Shopify</span></h1>
         <p class="hero-sub">Organizamos Shopify, catálogo, performance, Merchant Center e SEO técnico para e-commerces que querem crescer com menos retrabalho.</p>
-        <p class="hero-delivery">Você recebe um relatório com os principais gargalos da sua loja em até 48h — sem compromisso.</p>
-        <p class="hero-urgency"><span class="hero-urgency-dot"></span>Agenda aberta — vagas limitadas por semana</p>
+<p class="hero-urgency"><span class="hero-urgency-dot"></span>Agenda aberta — vagas limitadas por semana</p>
         <div class="hero-actions">
           <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20da%20minha%20loja." class="btn-primary" target="_blank" rel="noopener">
             Começar diagnóstico
