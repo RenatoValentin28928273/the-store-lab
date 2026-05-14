@@ -24,7 +24,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" /></noscript>
 
   <script type="application/ld+json">
   {
@@ -197,6 +198,25 @@
     }
     .nav-cta:hover { opacity: 0.85; }
 
+    .nav-partner {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(150, 191, 72, 0.35);
+      border-radius: 3px;
+      background: rgba(150, 191, 72, 0.08);
+      color: #96bf48;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .nav-partner svg { width: 13px; height: 13px; flex: 0 0 auto; }
+
+    @media (max-width: 640px) { .nav-partner { display: none; } }
+
     /* ── Hero ── */
     .hero {
       min-height: 100vh;
@@ -289,6 +309,31 @@
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
+    }
+
+    .hero-urgency {
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.43s ease forwards;
+    }
+    .hero-urgency-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-right: 6px;
+      animation: pulse 2s infinite;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
     }
 
     .hero-actions {
@@ -1100,6 +1145,10 @@
         <span class="logo-text">THE STORE</span>
         <span class="logo-lab">LAB</span>
       </a>
+      <span class="nav-partner" aria-label="Shopify Partners">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#96bf48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 7.28L19.16 5H4.84L3.5 7.28 12 21l8.5-13.72z"/></svg>
+        Shopify Partners
+      </span>
       <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20da%20minha%20loja." class="nav-cta" target="_blank" rel="noopener">Diagnóstico grátis</a>
     </div>
   </nav>
@@ -1113,6 +1162,7 @@
         <h1 class="hero-headline">Diagnóstico Gratuito <span class="hero-keep">para Lojas Shopify</span></h1>
         <p class="hero-sub">Organizamos Shopify, catálogo, performance, Merchant Center e SEO técnico para e-commerces que querem crescer com menos retrabalho.</p>
         <p class="hero-delivery">Você recebe um relatório com os principais gargalos da sua loja em até 48h — sem compromisso.</p>
+        <p class="hero-urgency"><span class="hero-urgency-dot"></span>Agenda aberta — vagas limitadas por semana</p>
         <div class="hero-actions">
           <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20da%20minha%20loja." class="btn-primary" target="_blank" rel="noopener">
             Começar diagnóstico
@@ -1165,7 +1215,7 @@
             <span class="service-tag">Scale</span>
             <div class="service-name">Evolução Shopify</div>
             <p class="service-desc">Frente contínua para implementar melhorias, corrigir gargalos técnicos e preparar a loja para escalar sem retrabalho.</p>
-            <a href="/servicos/" class="service-btn service-btn-secondary">Ver serviços</a>
+            <a href="/servicos/" class="service-btn service-btn-secondary">Conhecer serviço</a>
           </div>
         </div>
       </div>
@@ -1385,7 +1435,7 @@
               </span>
             </button>
             <div class="faq-answer" hidden>
-              <div class="faq-answer-inner">Em até 48 horas úteis após o acesso à loja. Você recebe o relatório diretamente no WhatsApp, com um resumo em áudio e o documento completo para compartilhar com o seu time.</div>
+              <div class="faq-answer-inner">Em até 48 horas úteis após o acesso à loja. Você recebe o relatório diretamente no WhatsApp, com os principais gargalos identificados e um plano de ação priorizado para compartilhar com o seu time.</div>
             </div>
           </div>
 
@@ -1466,7 +1516,7 @@
           <span class="logo-text">THE STORE</span>
           <span class="logo-lab">LAB</span>
         </a>
-        <span class="footer-copy">© 2026 The Store Lab</span>
+        <span class="footer-copy">© 2026 The Store Lab &nbsp;·&nbsp; <a href="tel:+5542999655157" style="color:inherit;text-decoration:none;">(42) 9 9965-5157</a></span>
         <div class="footer-links">
           <a href="/servicos/">Serviços</a>
           <a href="/blog/">Blog</a>
