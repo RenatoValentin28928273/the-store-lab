@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico Shopify para E-commerces | The Store Lab</title>
+  <meta name="description" content="Diagnóstico técnico para e-commerces Shopify: tema, catálogo, performance, Merchant Center, SEO técnico e experiência de compra com plano de ação priorizado." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.thestorelab.com.br/diagnostico/" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.thestorelab.com.br/diagnostico/" />
+  <meta property="og:title" content="Diagnóstico Shopify para E-commerces | The Store Lab" />
+  <meta property="og:description" content="Organizamos Shopify, catálogo, performance, Merchant Center e SEO técnico para e-commerces que querem crescer com menos retrabalho." />
+  <meta property="og:image" content="https://www.thestorelab.com.br/og-image.png" />
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://www.thestorelab.com.br/diagnostico/" />
+  <meta property="twitter:title" content="Diagnóstico Shopify para E-commerces | The Store Lab" />
+  <meta property="twitter:description" content="Diagnóstico técnico para lojas Shopify com foco em base, catálogo, velocidade, SEO e conversão." />
+  <meta property="twitter:image" content="https://www.thestorelab.com.br/og-image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.thestorelab.com.br/#organization",
+        "name": "The Store Lab",
+        "url": "https://www.thestorelab.com.br/",
+        "logo": "https://www.thestorelab.com.br/favicon.png"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.thestorelab.com.br/diagnostico/#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.thestorelab.com.br/" },
+          { "@type": "ListItem", "position": 2, "name": "Diagnóstico", "item": "https://www.thestorelab.com.br/diagnostico/" }
+        ]
+      },
+      {
+        "@type": "Service",
+        "@id": "https://www.thestorelab.com.br/diagnostico/#service",
+        "name": "Diagnóstico técnico Shopify",
+        "serviceType": "Auditoria técnica para e-commerce Shopify",
+        "provider": { "@id": "https://www.thestorelab.com.br/#organization" },
+        "areaServed": "BR",
+        "description": "Diagnóstico técnico de Shopify, catálogo, performance, Google Merchant Center, SEO técnico e experiência de compra para e-commerces."
+      }
+    ]
+  }
+  </script>
+
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+
+  <style>
+    :root {
+      --green: #63f44c;
+      --green-dim: rgba(99, 244, 76, 0.12);
+      --green-border: rgba(99, 244, 76, 0.25);
+      --black: #080808;
+      --black2: #0f0f0f;
+      --black3: #161616;
+      --white: #f4f4f0;
+      --white2: #e8e8e2;
+      --muted: #8d8d86;
+      --muted2: #3a3a36;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      overflow-x: hidden;
+      background: var(--black);
+      color: var(--white);
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(99, 244, 76, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 244, 76, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 200;
+      transform: translateY(-140%);
+      border: 1px solid var(--green);
+      border-radius: 3px;
+      background: var(--black);
+      color: var(--green);
+      padding: 10px 14px;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .diag-nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(99, 244, 76, 0.08);
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(20px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-flask {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border: 1px solid var(--green-border);
+      border-radius: 50%;
+      background: var(--green-dim);
+    }
+
+    .logo-flask svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .logo-text {
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      white-space: nowrap;
+    }
+
+    .logo-lab {
+      border-radius: 3px;
+      background: var(--green);
+      color: var(--black);
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+    }
+
+    .nav-cta {
+      border-radius: 3px;
+      background: var(--green);
+      color: var(--black);
+      padding: 12px 24px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.85;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      padding: 140px 0 100px;
+      text-align: center;
+    }
+
+    .hero .container {
+      width: 100%;
+      max-width: 1500px;
+      padding-right: clamp(20px, 6vw, 96px);
+      padding-left: clamp(20px, 6vw, 96px);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      color: var(--green);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s ease forwards;
+    }
+
+    .hero-eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--green);
+    }
+
+    .hero-headline {
+      max-width: 1180px;
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: 32px;
+      color: var(--white);
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s ease forwards;
+    }
+
+    .hero-keep {
+      white-space: nowrap;
+    }
+
+    .accent {
+      color: var(--green);
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      margin-right: auto;
+      margin-bottom: 48px;
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s ease forwards;
+    }
+
+    .hero-actions,
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero-actions {
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.45s ease forwards;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 3px;
+      padding: 0 32px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.09em;
+      transition: transform 0.2s, opacity 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--muted2);
+      color: var(--white2);
+      font-weight: 600;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .hero-badges {
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 72px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s ease forwards;
+    }
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .hero-glow {
+      position: absolute;
+      right: -200px;
+      bottom: -200px;
+      width: 700px;
+      height: 700px;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(99, 244, 76, 0.06) 0%, transparent 65%);
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: var(--green);
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 20px;
+      height: 1px;
+      background: var(--green);
+    }
+
+    .section-title {
+      margin-bottom: 20px;
+      color: var(--white);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .problem,
+    .pillars,
+    .process,
+    .services,
+    .differentials {
+      border-top: 1px solid var(--muted2);
+      padding: 120px 0;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .problem-desc,
+    .pillars-desc,
+    .service-desc,
+    .diff-desc,
+    .step-desc {
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .problem-desc {
+      margin-bottom: 32px;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .problem-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .problem-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: var(--white2);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .problem-list li::before {
+      content: "×";
+      flex: 0 0 auto;
+      margin-top: 1px;
+      color: #ff4444;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .problem-visual {
+      border: 1px solid var(--muted2);
+      border-radius: 8px;
+      background: var(--black3);
+      padding: 40px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .stat-block {
+      position: relative;
+      background: var(--black2);
+      padding: 28px 24px;
+    }
+
+    .stat-block:first-child { border-radius: 6px 0 0 0; }
+    .stat-block:nth-child(2) { border-radius: 0 6px 0 0; }
+    .stat-block:nth-child(3) { border-radius: 0 0 0 6px; }
+    .stat-block:last-child { border-radius: 0 0 6px 0; }
+
+    .stat-num {
+      margin-bottom: 6px;
+      color: var(--green);
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+
+    .pillars-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 940px);
+      justify-content: center;
+      justify-items: center;
+      gap: 18px;
+      margin-bottom: 72px;
+      text-align: center;
+    }
+
+    .pillars-intro .section-label {
+      justify-content: center;
+    }
+
+    .pillars-desc {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--muted2);
+    }
+
+    .pillar-card,
+    .service-card {
+      background: var(--black2);
+      transition: background 0.25s;
+    }
+
+    .pillar-card {
+      padding: 32px 24px;
+    }
+
+    .pillar-card:hover,
+    .service-card:hover {
+      background: var(--black3);
+    }
+
+    .pillar-num {
+      display: block;
+      margin-bottom: 16px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+
+    .pillar-name {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .pillar-desc {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      position: relative;
+      margin-top: 64px;
+    }
+
+    .process > .container > .reveal:first-child {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .process > .container > .reveal:first-child .section-label {
+      justify-content: center;
+    }
+
+    .process > .container > .reveal:first-child .section-title {
+      max-width: 100%;
+      white-space: nowrap;
+    }
+
+    .process-steps::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      right: 5%;
+      left: 5%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-border), transparent);
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 12px;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+      border: 1px solid var(--green-border);
+      border-radius: 50%;
+      background: var(--black3);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .step-title {
+      margin-bottom: 8px;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 64px;
+      border-radius: 8px;
+      background: var(--muted2);
+    }
+
+    .services > .container > .reveal:first-child {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .services > .container > .reveal:first-child .section-label {
+      justify-content: center;
+    }
+
+    .services > .container > .reveal:first-child .section-title {
+      max-width: 980px;
+      white-space: normal;
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 40px 36px;
+    }
+
+    .service-tag {
+      align-self: flex-start;
+      display: inline-block;
+      border-radius: 2px;
+      background: var(--green);
+      color: var(--black);
+      padding: 4px 10px;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+    }
+
+    .service-name {
+      color: var(--white);
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .service-desc {
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      transition: gap 0.2s;
+    }
+
+    .service-link:hover {
+      gap: 10px;
+    }
+
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 64px;
+    }
+
+    .differentials > .container > .reveal:first-child {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .differentials > .container > .reveal:first-child .section-label {
+      justify-content: center;
+    }
+
+    .differentials > .container > .reveal:first-child .section-title {
+      max-width: 1120px;
+    }
+
+    .diff-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 1px solid var(--green-border);
+      border-radius: 6px;
+      background: var(--green-dim);
+    }
+
+    .diff-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--green);
+    }
+
+    .diff-title {
+      margin-bottom: 10px;
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .diff-desc {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .cta-final {
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid var(--muted2);
+      padding: 140px 0;
+      text-align: center;
+    }
+
+    .cta-final::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 800px;
+      height: 400px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      background: radial-gradient(ellipse, rgba(99, 244, 76, 0.07) 0%, transparent 70%);
+    }
+
+    .cta-final .section-label {
+      justify-content: center;
+    }
+
+    .cta-final .section-label::before {
+      display: none;
+    }
+
+    .cta-pre {
+      max-width: 520px;
+      margin: 0 auto 48px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .cta-actions {
+      justify-content: center;
+    }
+
+    .cta-contact {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 64px;
+    }
+
+    .cta-contact a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .cta-contact a:hover {
+      color: var(--green);
+    }
+
+    .diag-footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--muted2);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--green);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .pillars-grid,
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-steps::before {
+        display: none;
+      }
+
+      .services-grid,
+      .diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      .nav-inner {
+        padding: 16px 20px;
+        gap: 12px;
+      }
+
+      .logo-text {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+      }
+
+      .nav-cta {
+        padding: 10px 14px;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 124px 0 76px;
+      }
+
+      .hero .container {
+        padding-right: 20px;
+        padding-left: 20px;
+      }
+
+      .hero-headline {
+        max-width: 640px;
+        font-size: clamp(38px, 12vw, 54px);
+        letter-spacing: -0.02em;
+      }
+
+      .hero-sub {
+        max-width: 34rem;
+        font-size: 16px;
+      }
+
+      .hero-keep {
+        white-space: normal;
+      }
+
+      .hero-actions,
+      .cta-actions {
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: min(100%, 360px);
+        padding-right: 18px;
+        padding-left: 18px;
+      }
+
+      .hero-badges {
+        justify-content: center;
+        gap: 12px 16px;
+        margin-top: 52px;
+      }
+
+      .problem,
+      .pillars,
+      .process,
+      .services,
+      .differentials,
+      .cta-final {
+        padding: 76px 0;
+      }
+
+      .section-label {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: clamp(32px, 10vw, 46px);
+        line-height: 1.08;
+        text-align: center;
+      }
+
+      .process > .container > .reveal:first-child .section-title,
+      .services > .container > .reveal:first-child .section-title {
+        max-width: 34rem;
+        white-space: normal;
+      }
+
+      .problem-grid,
+      .pillars-intro {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .problem-grid {
+        text-align: center;
+      }
+
+      .problem-list {
+        text-align: left;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .problem-visual {
+        padding: 18px;
+      }
+
+      .pillars-grid,
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .process-steps {
+        gap: 32px;
+        margin-top: 48px;
+      }
+
+      .process-step {
+        max-width: 28rem;
+        margin: 0 auto;
+      }
+
+      .step-num {
+        margin-bottom: 18px;
+      }
+
+      .step-title {
+        margin-bottom: 12px;
+      }
+
+      .step-desc {
+        max-width: 25rem;
+        margin: 0 auto;
+        line-height: 1.72;
+      }
+
+      .pillar-card,
+      .service-card {
+        padding: 28px 24px;
+      }
+
+      .services-grid,
+      .diff-grid {
+        margin-top: 44px;
+      }
+
+      .diff-item {
+        display: grid;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .cta-contact {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-inner {
+        padding: 14px 16px;
+      }
+
+      .logo-flask {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo-text {
+        max-width: 82px;
+        overflow: hidden;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+      }
+
+      .logo-lab {
+        padding: 3px 7px;
+        font-size: 10px;
+      }
+
+      .nav-cta {
+        padding: 9px 10px;
+        font-size: 9px;
+      }
+
+      .container,
+      .hero .container {
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+
+      .hero {
+        padding: 112px 0 68px;
+      }
+
+      .hero-eyebrow {
+        justify-content: center;
+        font-size: 10px;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-headline {
+        font-size: clamp(34px, 12vw, 46px);
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-block,
+      .stat-block:first-child,
+      .stat-block:nth-child(2),
+      .stat-block:nth-child(3),
+      .stat-block:last-child {
+        border-radius: 6px;
+      }
+
+      .process-step {
+        padding: 0;
+      }
+
+      .process-steps {
+        gap: 36px;
+      }
+
+      .step-num {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 16px;
+      }
+
+      .cta-final .section-title {
+        font-size: clamp(32px, 10vw, 44px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
+
+  <nav class="diag-nav" aria-label="Navegação principal">
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <div class="logo-flask" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#63F44C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 3v7L4 19a2 2 0 001.8 2.5h12.4A2 2 0 0020 19l-5-9V3"/>
+            <path d="M7 3h10"/>
+            <circle cx="10" cy="15" r="1" fill="#63F44C" stroke="none"/>
+            <circle cx="13.5" cy="17.5" r="0.6" fill="#63F44C" stroke="none" opacity="0.7"/>
+          </svg>
+        </div>
+        <span class="logo-text">THE STORE</span>
+        <span class="logo-lab">LAB</span>
+      </a>
+      <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20da%20minha%20loja." class="nav-cta" target="_blank" rel="noopener">Diagnóstico grátis</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-eyebrow">Shopify Partners · Commerce System</div>
+        <h1 class="hero-headline">Diagnóstico Gratuito <span class="hero-keep">para Lojas Shopify</span></h1>
+        <p class="hero-sub">Organizamos Shopify, catálogo, performance, Merchant Center e SEO técnico para e-commerces que querem crescer com menos retrabalho.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20da%20minha%20loja." class="btn-primary" target="_blank" rel="noopener">
+            Começar diagnóstico
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/servicos/" class="btn-secondary">Ver serviços</a>
+        </div>
+        <div class="hero-badges" aria-label="Especialidades avaliadas no diagnóstico">
+          <span class="hero-badge"><span class="hero-badge-dot"></span>Shopify Partners</span>
+          <span class="hero-badge"><span class="hero-badge-dot"></span>Google Merchant Center</span>
+          <span class="hero-badge"><span class="hero-badge-dot"></span>SEO Técnico</span>
+          <span class="hero-badge"><span class="hero-badge-dot"></span>Core Web Vitals</span>
+          <span class="hero-badge"><span class="hero-badge-dot"></span>Performance Max</span>
+        </div>
+      </div>
+      <div class="hero-glow" aria-hidden="true"></div>
+    </section>
+
+    <section class="problem">
+      <div class="container">
+        <div class="problem-grid">
+          <div class="reveal">
+            <div class="section-label">O problema</div>
+            <h2 class="section-title">Quando a base não funciona, tudo vira custo.</h2>
+            <p class="problem-desc">Quando Shopify, catálogo e SEO técnico não conversam, tráfego pago fica caro, produtos reprovam e toda melhoria vira retrabalho.</p>
+            <ul class="problem-list">
+              <li>Produtos reprovados no Google Merchant Center</li>
+              <li>Tema lento com Core Web Vitals travados</li>
+              <li>SEO sem arquitetura conectada ao funil</li>
+              <li>Operação que depende de improviso a cada campanha</li>
+              <li>Melhorias pontuais que não se sustentam</li>
+            </ul>
+          </div>
+          <div class="reveal" style="transition-delay: 0.15s">
+            <div class="problem-visual">
+              <div class="stat-grid">
+                <div class="stat-block">
+                  <div class="stat-num">5×</div>
+                  <div class="stat-label">mais caro adquirir cliente sem base técnica sólida</div>
+                </div>
+                <div class="stat-block">
+                  <div class="stat-num">-30%</div>
+                  <div class="stat-label">conversão perdida por lentidão no mobile</div>
+                </div>
+                <div class="stat-block">
+                  <div class="stat-num">68%</div>
+                  <div class="stat-label">das lojas têm produtos reprovados sem saber</div>
+                </div>
+                <div class="stat-block">
+                  <div class="stat-num">0</div>
+                  <div class="stat-label">crescimento sustentável sem rotina de evolução</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pillars">
+      <div class="container">
+        <div class="pillars-intro">
+          <div class="reveal">
+            <div class="section-label">O sistema</div>
+            <h2 class="section-title">5 pilares para uma loja crescer <span class="accent">sem virar remendo.</span></h2>
+          </div>
+          <p class="pillars-desc reveal" style="transition-delay: 0.15s">Cada pilar resolve uma camada do problema. Juntos, formam a base operacional que sustenta crescimento sem depender de improviso.</p>
+        </div>
+        <div class="pillars-grid reveal" style="transition-delay: 0.2s">
+          <div class="pillar-card">
+            <span class="pillar-num">01</span>
+            <span class="pillar-name">Storefront</span>
+            <span class="pillar-desc">Oferta, página e produto no mesmo eixo. Coleção, preço, conteúdo e CTA contando a mesma história.</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-num">02</span>
+            <span class="pillar-name">Catalog</span>
+            <span class="pillar-desc">Merchant Center, feeds, variantes e atributos tratados como base de aquisição, não como problema isolado.</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-num">03</span>
+            <span class="pillar-name">Speed</span>
+            <span class="pillar-desc">Tema rápido e editável. Mobile otimizado, seções prontas para evoluir sem quebrar a loja.</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-num">04</span>
+            <span class="pillar-name">Search</span>
+            <span class="pillar-desc">Arquitetura, indexação, schema e conteúdo conectados ao funil de compra. SEO que sustenta tráfego qualificado.</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-num">05</span>
+            <span class="pillar-name">Conversion</span>
+            <span class="pillar-desc">Backlog, priorização e documentação. A operação não depende de improviso a cada nova campanha.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">Como funciona</div>
+          <h2 class="section-title">Da auditoria ao <span class="accent">crescimento contínuo.</span></h2>
+        </div>
+        <div class="process-steps reveal" style="transition-delay: 0.2s">
+          <div class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-title">Acesso & Diagnóstico</div>
+            <div class="step-desc">Lemos tema, apps, velocidade, Merchant Center, indexação, mobile e experiência de compra.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">02</div>
+            <div class="step-title">Plano de crescimento</div>
+            <div class="step-desc">Trilha clara do que corrigir agora, o que testar e o que virar rotina.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">03</div>
+            <div class="step-title">Impl. técnica</div>
+            <div class="step-desc">Correções em Shopify, catálogo, SEO técnico, páginas, seções e performance.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">04</div>
+            <div class="step-title">Docs & Handoff</div>
+            <div class="step-desc">Entregamos contexto para a operação continuar evoluindo sem depender de ajustes invisíveis.</div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">05</div>
+            <div class="step-title">Acompanhamento</div>
+            <div class="step-desc">Rotina mensal de priorização, execução e revisão quando faz sentido.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">Serviços</div>
+          <h2 class="section-title">Comece pelo ponto que <span class="accent">mais trava sua loja.</span></h2>
+        </div>
+        <div class="services-grid reveal" style="transition-delay: 0.2s">
+          <div class="service-card">
+            <span class="service-tag">Diagnóstico</span>
+            <div class="service-name">Auditoria técnica</div>
+            <p class="service-desc">Para entender gargalos de Shopify, performance, SEO, catálogo e experiência de compra. Você recebe um plano de ação claro e priorizado.</p>
+            <a href="https://wa.me/5542999655157?text=Quero%20uma%20auditoria%20t%C3%A9cnica." class="service-link" target="_blank" rel="noopener">Solicitar →</a>
+          </div>
+          <div class="service-card">
+            <span class="service-tag">Google</span>
+            <div class="service-name">Merchant Center Next</div>
+            <p class="service-desc">Gestão e consultoria para produtos reprovados, feed, políticas, dados estruturados e base de campanhas Performance Max.</p>
+            <a href="/servicos/google-merchant-center-next/" class="service-link">Ver serviço →</a>
+          </div>
+          <div class="service-card">
+            <span class="service-tag">Scale</span>
+            <div class="service-name">Evolução Shopify</div>
+            <p class="service-desc">Frente contínua para implementar melhorias, corrigir gargalos técnicos e preparar a loja para escalar sem retrabalho.</p>
+            <a href="/servicos/" class="service-link">Ver serviços →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="differentials">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-label">Por que The Store Lab</div>
+          <h2 class="section-title">Feito para e-commerce que precisa <span class="accent">vender,</span> não só parecer bonito.</h2>
+        </div>
+        <div class="diff-grid">
+          <div class="diff-item reveal" style="transition-delay: 0.05s">
+            <div class="diff-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="diff-title">Shopify com critério</div>
+            <p class="diff-desc">Tema, código, seção, PDP, carrinho e UX pensados para operação real, não para portfólio.</p>
+          </div>
+          <div class="diff-item reveal" style="transition-delay: 0.1s">
+            <div class="diff-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
+            </div>
+            <div class="diff-title">Google como parte do produto</div>
+            <p class="diff-desc">Merchant Center e feed deixam de ser problema isolado e entram na rotina da loja.</p>
+          </div>
+          <div class="diff-item reveal" style="transition-delay: 0.15s">
+            <div class="diff-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="diff-title">Performance mensurável</div>
+            <p class="diff-desc">Velocidade, mobile e Core Web Vitals tratados como impacto direto em mídia e conversão.</p>
+          </div>
+          <div class="diff-item reveal" style="transition-delay: 0.2s">
+            <div class="diff-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div class="diff-title">SEO técnico sem enrolação</div>
+            <p class="diff-desc">Arquitetura, schema, indexação e páginas com foco no que sustenta tráfego qualificado.</p>
+          </div>
+          <div class="diff-item reveal" style="transition-delay: 0.25s">
+            <div class="diff-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="diff-title">Backlog priorizado</div>
+            <p class="diff-desc">Você sabe o que fazer primeiro e o que pode esperar, sem lista infinita de achismos.</p>
+          </div>
+          <div class="diff-item reveal" style="transition-delay: 0.3s">
+            <div class="diff-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <div class="diff-title">Execução + consultoria juntas</div>
+            <p class="diff-desc">Não entregamos só recomendação. Entramos na camada técnica quando ela precisa mudar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-final">
+      <div class="container">
+        <div class="section-label reveal">Próximo passo</div>
+        <h2 class="section-title reveal" style="transition-delay: 0.1s">Vamos construir uma base técnica que <span class="accent">sustenta crescimento.</span></h2>
+        <p class="cta-pre reveal" style="transition-delay: 0.2s">Se sua loja depende de Shopify, Google e aquisição paga/orgânica, a base técnica precisa parar de ser um gargalo.</p>
+        <div class="cta-actions reveal" style="transition-delay: 0.3s">
+          <a href="https://wa.me/5542999655157?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20da%20minha%20loja%20com%20a%20The%20Store%20Lab." class="btn-primary" target="_blank" rel="noopener">
+            Começar diagnóstico
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/servicos/" class="btn-secondary">Explorar serviços</a>
+        </div>
+        <div class="cta-contact reveal" style="transition-delay: 0.4s">
+          <a href="mailto:contato@thestorelab.com.br">contato@thestorelab.com.br</a>
+          <a href="https://www.linkedin.com/company/thestorelab/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://wa.me/5542999655157" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="diag-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="/" class="logo">
+          <div class="logo-flask" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#63F44C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3v7L4 19a2 2 0 001.8 2.5h12.4A2 2 0 0020 19l-5-9V3"/>
+              <path d="M7 3h10"/>
+              <circle cx="10" cy="15" r="1" fill="#63F44C" stroke="none"/>
+            </svg>
+          </div>
+          <span class="logo-text">THE STORE</span>
+          <span class="logo-lab">LAB</span>
+        </a>
+        <span class="footer-copy">© 2026 The Store Lab</span>
+        <div class="footer-links">
+          <a href="/servicos/">Serviços</a>
+          <a href="/blog/">Blog</a>
+          <a href="https://wa.me/5542999655157" target="_blank" rel="noopener">Contato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+
+      reveals.forEach((element) => observer.observe(element));
+    } else {
+      reveals.forEach((element) => element.classList.add("visible"));
+    }
+  </script>
+</body>
+</html>
+
