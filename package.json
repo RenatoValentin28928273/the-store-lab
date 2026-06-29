@@ -6,7 +6,7 @@
     "dev": "node scripts/build.js --watch",
     "build": "node scripts/build.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "markdown-it": "^14.1.0",
     "gray-matter": "^4.0.3",
     "fs-extra": "^11.2.0",
